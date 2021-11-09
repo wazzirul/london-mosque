@@ -15,6 +15,7 @@ class CreateMosqueTable extends Migration
     {
         Schema::create('mosque', function (Blueprint $table) {
             $table->increments('id_mosque');
+            $table->string('id_mosque_google_place')->unique();
             $table->integer('id_borough')->unsigned();
             $table->foreign('id_borough')->references('id_borough')->on('borough');
             $table->integer('id_district')->unsigned();
