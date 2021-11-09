@@ -20,7 +20,9 @@ class CreateSuggestMosqueTable extends Migration
             $table->smallInteger('status_suggest_mosque');
             $table->integer('id_mosque')->unsigned();
             $table->foreign('id_mosque')->references('id_mosque')->on('mosque');
-            $table->integer('id_district')->unsigned();
+            $table->integer('id_borough')->unsigned()->nullable();
+            $table->foreign('id_borough')->references('id_borough')->on('borough');
+            $table->integer('id_district')->unsigned()->nullable();
             $table->foreign('id_district')->references('id_district')->on('districts');
             $table->string('name_mosque');
             $table->string('address');
