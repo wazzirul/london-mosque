@@ -10,4 +10,13 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+     /**
+     * @SWG\Swagger(
+     *   basePath="/api",
+     *   @SWG\Info(
+     *     title="London Mosque APIs",
+     *     version="1.0"
+     *   )
+     * )
+     */   
 }
