@@ -11,4 +11,5 @@ class Admin extends Model
         'username','password','email','role'
     ];
 
+    protected $primaryKey = 'id_admin';
 }

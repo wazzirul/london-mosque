@@ -56,6 +56,953 @@
                     }
                 }
             }
+        },
+        "/admin/update": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Mengedit data admin response",
+                "description": "Mengedit data admin response",
+                "operationId": "updateAdmin",
+                "parameters": [
+                    {
+                        "name": "id_admin",
+                        "in": "formData",
+                        "description": "ID Admin ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "username",
+                        "in": "formData",
+                        "description": "Username (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "in": "formData",
+                        "description": "Password (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "description": "Email (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "role",
+                        "in": "formData",
+                        "description": "Role Admin (1 = Superadmin, 2 = Normal Admin) (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/admin/delete": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Menghapus data admin response",
+                "description": "Menghapus data admin response",
+                "operationId": "deleteAdmin",
+                "parameters": [
+                    {
+                        "name": "id_admin",
+                        "in": "formData",
+                        "description": "ID Admin ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/admin/login": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Login data admin response",
+                "description": "Login data admin response",
+                "operationId": "loginAdmin",
+                "parameters": [
+                    {
+                        "name": "username",
+                        "in": "formData",
+                        "description": "Username / Email ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "in": "formData",
+                        "description": "Password ...",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/admin/show": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Show all data admin response",
+                "description": "Show all data admin response",
+                "operationId": "showAdmin",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/admin/showById": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Show data admin by ID admin response",
+                "description": "Show data admin by ID admin response",
+                "operationId": "showByIdAdmin",
+                "parameters": [
+                    {
+                        "name": "id_admin",
+                        "in": "formData",
+                        "description": "ID Admin ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/borough/store": {
+            "post": {
+                "tags": [
+                    "Borough"
+                ],
+                "summary": "Menambah data borough response",
+                "description": "Menambah data borough response",
+                "operationId": "storeBorough",
+                "parameters": [
+                    {
+                        "name": "name_borough",
+                        "in": "formData",
+                        "description": "Name Borough ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "latitude",
+                        "in": "formData",
+                        "description": "Latitude ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "longitude",
+                        "in": "formData",
+                        "description": "Longitude ...",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/borough/update": {
+            "post": {
+                "tags": [
+                    "Borough"
+                ],
+                "summary": "Mengedit data borough response",
+                "description": "Mengedit data borough response",
+                "operationId": "updateBorough",
+                "parameters": [
+                    {
+                        "name": "id_borough",
+                        "in": "formData",
+                        "description": "ID Borough ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "name_borough",
+                        "in": "formData",
+                        "description": "Name Borough (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "latitude",
+                        "in": "formData",
+                        "description": "Latitude (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "longitude",
+                        "in": "formData",
+                        "description": "Longitude (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/borough/delete": {
+            "post": {
+                "tags": [
+                    "Borough"
+                ],
+                "summary": "Menghapus data borough response",
+                "description": "Menghapus data borough response",
+                "operationId": "deleteBorough",
+                "parameters": [
+                    {
+                        "name": "id_borough",
+                        "in": "formData",
+                        "description": "ID Faclities ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/borough/show": {
+            "get": {
+                "tags": [
+                    "Borough"
+                ],
+                "summary": "Show all data borough response",
+                "description": "Show all data borough response",
+                "operationId": "showBorough",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/borough/showById": {
+            "post": {
+                "tags": [
+                    "Borough"
+                ],
+                "summary": "Show data borough by ID borough response",
+                "description": "Show data borough by ID borough response",
+                "operationId": "showByIdBorough",
+                "parameters": [
+                    {
+                        "name": "id_borough",
+                        "in": "formData",
+                        "description": "ID Borough ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/districts/store": {
+            "post": {
+                "tags": [
+                    "Districts"
+                ],
+                "summary": "Menambah data districts response",
+                "description": "Menambah data districts response",
+                "operationId": "storeDistricts",
+                "parameters": [
+                    {
+                        "name": "id_borough",
+                        "in": "formData",
+                        "description": "ID Borough ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "name_district",
+                        "in": "formData",
+                        "description": "Name District ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "latitude",
+                        "in": "formData",
+                        "description": "Latitude ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "longitude",
+                        "in": "formData",
+                        "description": "Longitude ...",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/districts/update": {
+            "post": {
+                "tags": [
+                    "Districts"
+                ],
+                "summary": "Mengedit data districts response",
+                "description": "Mengedit data districts response",
+                "operationId": "updateDistricts",
+                "parameters": [
+                    {
+                        "name": "id_district",
+                        "in": "formData",
+                        "description": "ID District ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_borough",
+                        "in": "formData",
+                        "description": "ID Borough (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "name_district",
+                        "in": "formData",
+                        "description": "Name District (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "latitude",
+                        "in": "formData",
+                        "description": "Latitude (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "longitude",
+                        "in": "formData",
+                        "description": "Longitude (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/districts/delete": {
+            "post": {
+                "tags": [
+                    "Districts"
+                ],
+                "summary": "Menghapus data districts response",
+                "description": "Menghapus data districts response",
+                "operationId": "deleteDistricts",
+                "parameters": [
+                    {
+                        "name": "id_district",
+                        "in": "formData",
+                        "description": "ID District ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/districts/show": {
+            "get": {
+                "tags": [
+                    "Districts"
+                ],
+                "summary": "Show all data districts response",
+                "description": "Show all data districts response",
+                "operationId": "showDistricts",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/districts/showById": {
+            "post": {
+                "tags": [
+                    "Districts"
+                ],
+                "summary": "Show data district by ID district response",
+                "description": "Show data district by ID district response",
+                "operationId": "showByIdDistricts",
+                "parameters": [
+                    {
+                        "name": "id_district",
+                        "in": "formData",
+                        "description": "ID District ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/districts/showByIdBorough": {
+            "post": {
+                "tags": [
+                    "Districts"
+                ],
+                "summary": "Show data district by ID district response",
+                "description": "Show data district by ID district response",
+                "operationId": "showByIdBoroughDistricts",
+                "parameters": [
+                    {
+                        "name": "id_borough",
+                        "in": "formData",
+                        "description": "ID Borough ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/facilities/store": {
+            "post": {
+                "tags": [
+                    "Facilities"
+                ],
+                "summary": "Menambah data facilities response",
+                "description": "Menambah data facilities response",
+                "operationId": "storeFacilities",
+                "parameters": [
+                    {
+                        "name": "name_facilities",
+                        "in": "formData",
+                        "description": "Name Facilities ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "icon_facilities",
+                        "in": "formData",
+                        "description": "Icon Facilities ...",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/facilities/update": {
+            "post": {
+                "tags": [
+                    "Facilities"
+                ],
+                "summary": "Mengedit data facilities response",
+                "description": "Mengedit data facilities response",
+                "operationId": "updateFacilities",
+                "parameters": [
+                    {
+                        "name": "id_facilities",
+                        "in": "formData",
+                        "description": "ID Facilities...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "name_facilities",
+                        "in": "formData",
+                        "description": "Name Facilities (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "icon_facilities",
+                        "in": "formData",
+                        "description": "Icon Facilities (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/facilities/delete": {
+            "post": {
+                "tags": [
+                    "Facilities"
+                ],
+                "summary": "Menghapus data facilities response",
+                "description": "Menghapus data facilities response",
+                "operationId": "deleteFacilities",
+                "parameters": [
+                    {
+                        "name": "id_facilities",
+                        "in": "formData",
+                        "description": "ID Faclities ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/facilities/show": {
+            "get": {
+                "tags": [
+                    "Facilities"
+                ],
+                "summary": "Show all data facilities response",
+                "description": "Show all data facilities response",
+                "operationId": "showFacilities",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/facilities/showById": {
+            "post": {
+                "tags": [
+                    "Facilities"
+                ],
+                "summary": "Show data facilities by ID facilities response",
+                "description": "Show data facilities by ID facilities response",
+                "operationId": "showByIdFacilities",
+                "parameters": [
+                    {
+                        "name": "id_facilities",
+                        "in": "formData",
+                        "description": "ID Facilities ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/users/store": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Menambah data users response",
+                "description": "Menambah data users response",
+                "operationId": "storeUsers",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "description": "Email ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "username",
+                        "in": "formData",
+                        "description": "Username ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "in": "formData",
+                        "description": "Password ...",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/users/update": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Mengedit data users response",
+                "description": "Mengedit data users response",
+                "operationId": "updateUsers",
+                "parameters": [
+                    {
+                        "name": "id_user",
+                        "in": "formData",
+                        "description": "ID User...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "username",
+                        "in": "formData",
+                        "description": "Username (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "in": "formData",
+                        "description": "Password (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "description": "Email (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/users/delete": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Menghapus data users response",
+                "description": "Menghapus data users response",
+                "operationId": "deleteUsers",
+                "parameters": [
+                    {
+                        "name": "id_user",
+                        "in": "formData",
+                        "description": "ID User ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/users/login": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Login data users response",
+                "description": "Login data users response",
+                "operationId": "loginUsers",
+                "parameters": [
+                    {
+                        "name": "username",
+                        "in": "formData",
+                        "description": "Username / Email ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "in": "formData",
+                        "description": "Password ...",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/users/show": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Show all data users response",
+                "description": "Show all data users response",
+                "operationId": "showUsers",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/users/showById": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Show data users by ID users response",
+                "description": "Show data users by ID users response",
+                "operationId": "showByIdUsers",
+                "parameters": [
+                    {
+                        "name": "id_user",
+                        "in": "formData",
+                        "description": "ID User ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
         }
     },
     "definitions": {}

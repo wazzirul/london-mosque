@@ -19,4 +19,54 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
+///////////////////////////////////////////////////////////////////////////////////////////
+// ADMIN
+///////////////////////////////////////////////////////////////////////////////////////////
 Route::post('admin/store', 'AdminController@store');
+Route::post('admin/update', 'AdminController@update');
+Route::post('admin/delete', 'AdminController@delete');
+Route::post('admin/login', 'AdminController@login');
+Route::post('admin/showById', 'AdminController@showById');
+Route::get('admin/show', 'AdminController@show');
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+// USERS
+///////////////////////////////////////////////////////////////////////////////////////////
+Route::post('users/store', 'UsersController@store');
+Route::post('users/update', 'UsersController@update');
+Route::post('users/delete', 'UsersController@delete');
+Route::post('users/login', 'UsersController@login');
+Route::post('users/showById', 'UsersController@showById');
+Route::get('users/show', 'UsersController@show');
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+// FACILITIES
+///////////////////////////////////////////////////////////////////////////////////////////
+Route::post('facilities/store', 'FacilitiesController@store');
+Route::post('facilities/update', 'FacilitiesController@update');
+Route::post('facilities/delete', 'FacilitiesController@delete');
+Route::post('facilities/showById', 'FacilitiesController@showById');
+Route::get('facilities/show', 'FacilitiesController@show');
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+// BOROUGH
+///////////////////////////////////////////////////////////////////////////////////////////
+Route::post('borough/store', 'BoroughController@store');
+Route::post('borough/update', 'BoroughController@update');
+Route::post('borough/delete', 'BoroughController@delete');
+Route::post('borough/showById', 'BoroughController@showById');
+Route::get('borough/show', 'BoroughController@show');
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+// DISTRICTS
+///////////////////////////////////////////////////////////////////////////////////////////
+Route::post('districts/store', 'DistrictsController@store');
+Route::post('districts/update', 'DistrictsController@update');
+Route::post('districts/delete', 'DistrictsController@delete');
+Route::post('districts/showById', 'DistrictsController@showById');
+Route::post('districts/showByIdBorough', 'DistrictsController@showByIdBorough');
+Route::get('districts/show', 'DistrictsController@show');
