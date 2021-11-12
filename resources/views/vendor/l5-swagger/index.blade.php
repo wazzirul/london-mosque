@@ -76,6 +76,9 @@ window.onload = function() {
     dom_id: '#swagger-ui',
 
     url: "{!! $urlToDocs !!}",
+    docExpansion:"none",
+    displayRequestDuration:"true",
+    filter:"true",
     operationsSorter: {!! isset($operationsSorter) ? '"' . $operationsSorter . '"' : 'null' !!},
     configUrl: {!! isset($configUrl) ? '"' . $configUrl . '"' : 'null' !!},
     validatorUrl: {!! isset($validatorUrl) ? '"' . $validatorUrl . '"' : 'null' !!},

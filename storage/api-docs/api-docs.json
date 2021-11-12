@@ -6,6 +6,64 @@
     },
     "basePath": "/api",
     "paths": {
+        "/AboutUs/update": {
+            "post": {
+                "tags": [
+                    "About Us"
+                ],
+                "summary": "Mengedit data About Us response",
+                "description": "Mengedit data About Us response",
+                "operationId": "updateAboutUs",
+                "parameters": [
+                    {
+                        "name": "id_about_us",
+                        "in": "formData",
+                        "description": "ID About Us",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "about_us",
+                        "in": "formData",
+                        "description": "About Us ...",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/AboutUs/show": {
+            "get": {
+                "tags": [
+                    "About Us"
+                ],
+                "summary": "Mengedit data About Us response",
+                "description": "Mengedit data About Us response",
+                "operationId": "showAboutUs",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
         "/admin/store": {
             "post": {
                 "tags": [

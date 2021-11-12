@@ -70,3 +70,10 @@ Route::post('districts/delete', 'DistrictsController@delete');
 Route::post('districts/showById', 'DistrictsController@showById');
 Route::post('districts/showByIdBorough', 'DistrictsController@showByIdBorough');
 Route::get('districts/show', 'DistrictsController@show');
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+// About Us About Us About Us
+///////////////////////////////////////////////////////////////////////////////////////////
+Route::post('AboutUs/update', 'AboutUsController@update');
+Route::get('AboutUs/show', 'AboutUsController@show');
