@@ -77,3 +77,15 @@ Route::get('districts/show', 'DistrictsController@show');
 ///////////////////////////////////////////////////////////////////////////////////////////
 Route::post('AboutUs/update', 'AboutUsController@update');
 Route::get('AboutUs/show', 'AboutUsController@show');
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+// Mosque
+///////////////////////////////////////////////////////////////////////////////////////////
+Route::post('mosque/store', 'Mosque\MosqueController@store');
+Route::post('mosque/update', 'Mosque\MosqueController@update');
+Route::post('mosque/delete', 'Mosque\MosqueController@delete');
+Route::post('mosque/undelete', 'Mosque\MosqueController@undelete');
+Route::post('mosque/showById', 'Mosque\MosqueController@showById');
+Route::post('mosque/showByFilter', 'Mosque\MosqueController@showByFilter');
+Route::get('mosque/show', 'Mosque\MosqueController@show');

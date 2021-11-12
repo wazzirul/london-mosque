@@ -849,6 +849,347 @@
                 }
             }
         },
+        "/mosque/store": {
+            "post": {
+                "tags": [
+                    "Mosque"
+                ],
+                "summary": "Menambah data Mosque response",
+                "description": "Menambah data Mosque response",
+                "operationId": "storeMosque",
+                "parameters": [
+                    {
+                        "name": "id_mosque_google_place",
+                        "in": "formData",
+                        "description": "ID Mosque Google Place (Google Place / Maps ID) ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id_borough",
+                        "in": "formData",
+                        "description": "ID Borough ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_district",
+                        "in": "formData",
+                        "description": "ID District ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "name_mosque",
+                        "in": "formData",
+                        "description": "Name Mosque ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "address",
+                        "in": "formData",
+                        "description": "Address Mosque ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "latitude",
+                        "in": "formData",
+                        "description": "Latitude ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "longitude",
+                        "in": "formData",
+                        "description": "Longitude ...",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque/update": {
+            "post": {
+                "tags": [
+                    "Mosque"
+                ],
+                "summary": "Mengupdate data Mosque response",
+                "description": "Mengupdate data Mosque response",
+                "operationId": "updateMosque",
+                "parameters": [
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_mosque_google_place",
+                        "in": "formData",
+                        "description": "ID Mosque Google Place (Google Place / Maps ID) (Kosongi jika tidak ingin merubah data) ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id_borough",
+                        "in": "formData",
+                        "description": "ID Borough (Kosongi jika tidak ingin merubah data) ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_district",
+                        "in": "formData",
+                        "description": "ID District (Kosongi jika tidak ingin merubah data) ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "name_mosque",
+                        "in": "formData",
+                        "description": "Name Mosque (Kosongi jika tidak ingin merubah data) ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "address",
+                        "in": "formData",
+                        "description": "Address Mosque (Kosongi jika tidak ingin merubah data) ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "latitude",
+                        "in": "formData",
+                        "description": "Latitude (Kosongi jika tidak ingin merubah data) ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "longitude",
+                        "in": "formData",
+                        "description": "Longitude (Kosongi jika tidak ingin merubah data) ...",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque/delete": {
+            "post": {
+                "tags": [
+                    "Mosque"
+                ],
+                "summary": "Menghapus data Mosque response",
+                "description": "Menghapus data Mosque response",
+                "operationId": "deleteMosque",
+                "parameters": [
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque/undelete": {
+            "post": {
+                "tags": [
+                    "Mosque"
+                ],
+                "summary": "Mengembalikan data Mosque yang terhapus response",
+                "description": "Mengembalikan data Mosque yang terhapus response",
+                "operationId": "undeleteMosque",
+                "parameters": [
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque/show": {
+            "get": {
+                "tags": [
+                    "Mosque"
+                ],
+                "summary": "Show all data mosque response",
+                "description": "Show all data mosque response",
+                "operationId": "showMosques",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque/showById": {
+            "post": {
+                "tags": [
+                    "Mosque"
+                ],
+                "summary": "Show all data mosque response",
+                "description": "Show all data mosque response",
+                "operationId": "showByIdMosques",
+                "parameters": [
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque/showByFilter": {
+            "post": {
+                "tags": [
+                    "Mosque"
+                ],
+                "summary": "Show all data mosque response",
+                "description": "Show all data mosque response",
+                "operationId": "showByFilterMosques",
+                "parameters": [
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_borough",
+                        "in": "formData",
+                        "description": "ID Borough ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_district",
+                        "in": "formData",
+                        "description": "ID District ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "name_mosque",
+                        "in": "formData",
+                        "description": "Name Mosque (%like) ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "soft_delete",
+                        "in": "formData",
+                        "description": "Soft Delete Data (Default=0 / Not Deleted) [0 = Not Deleted  ||  1 = Deleted / Archived]",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "skip",
+                        "in": "formData",
+                        "description": "Skip Berapa Data (Default=0)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "take",
+                        "in": "formData",
+                        "description": "Take Berapa Data (Default=100)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "order",
+                        "in": "formData",
+                        "description": "ASC / DESC (default DESC)",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
         "/users/store": {
             "post": {
                 "tags": [
