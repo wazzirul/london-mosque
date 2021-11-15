@@ -10,6 +10,7 @@ use App\Model\Districts;
 
 use App\Model\Mosque\Mosque;
 use App\Model\Mosque\MosqueSalahTime;
+use App\Model\Mosque\MosqueFacilities;
 
 use Validator;
 use Carbon\Carbon;
@@ -330,8 +331,8 @@ class MosqueSalahTimesController extends Controller
      * @SWG\Post(
      *   path="/mosque-salah-times/undelete",
      *     tags={"Mosque Salah Times"},
-     *     summary="Deleting data Mosque Salah Times response",
-     *     description="Deleting data Mosque Salah Times response",
+     *     summary="Restoring / undelete data Mosque Salah Times response",
+     *     description="Restoring / undelete data Mosque Salah Times response",
      *     operationId="undeleteMosque",
      * 
      *  @SWG\Parameter(
@@ -372,7 +373,7 @@ class MosqueSalahTimesController extends Controller
         if($data){
             $res['status_code'] = 200;
             $res['success'] = true;
-            $res['message'] = 'Success deleting Mosque Salah Times data';
+            $res['message'] = 'Success Restoring / undelete Mosque Salah Times data';
             $res['data'] = $data;
 
             return response($res, 200);
