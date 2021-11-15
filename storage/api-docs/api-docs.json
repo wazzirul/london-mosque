@@ -997,6 +997,228 @@
                 }
             }
         },
+        "/donations/showByIdUsersDonation": {
+            "post": {
+                "tags": [
+                    "Donations"
+                ],
+                "summary": "Show data donations by ID donations response",
+                "description": "Show data donations by ID donations response",
+                "operationId": "showByIdUsersDonationDonations",
+                "parameters": [
+                    {
+                        "name": "id_user_donation",
+                        "in": "formData",
+                        "description": "ID User Donation ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/facilities/store": {
+            "post": {
+                "tags": [
+                    "Facilities"
+                ],
+                "summary": "Menambah data facilities response",
+                "description": "Menambah data facilities response",
+                "operationId": "storeFacilities",
+                "parameters": [
+                    {
+                        "name": "name_facilities",
+                        "in": "formData",
+                        "description": "Name Facilities ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "icon_facilities",
+                        "in": "formData",
+                        "description": "Icon Facilities ...",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/facilities/update": {
+            "post": {
+                "tags": [
+                    "Facilities"
+                ],
+                "summary": "Mengedit data facilities response",
+                "description": "Mengedit data facilities response",
+                "operationId": "updateFacilities",
+                "parameters": [
+                    {
+                        "name": "id_facilities",
+                        "in": "formData",
+                        "description": "ID Facilities...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "name_facilities",
+                        "in": "formData",
+                        "description": "Name Facilities (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "icon_facilities",
+                        "in": "formData",
+                        "description": "Icon Facilities (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/facilities/delete": {
+            "post": {
+                "tags": [
+                    "Facilities"
+                ],
+                "summary": "Menghapus data facilities response",
+                "description": "Menghapus data facilities response",
+                "operationId": "deleteFacilities",
+                "parameters": [
+                    {
+                        "name": "id_facilities",
+                        "in": "formData",
+                        "description": "ID Facilities ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/facilities/unDelete": {
+            "post": {
+                "tags": [
+                    "Facilities"
+                ],
+                "summary": "Mengembalikan data terhapus data facilities response",
+                "description": "Mengembalikan data terhapus data facilities response",
+                "operationId": "unDeleteFacilities",
+                "parameters": [
+                    {
+                        "name": "id_facilities",
+                        "in": "formData",
+                        "description": "ID Facilities ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/facilities/show": {
+            "get": {
+                "tags": [
+                    "Facilities"
+                ],
+                "summary": "Show all data facilities response",
+                "description": "Show all data facilities response",
+                "operationId": "showFacilities",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/facilities/showById": {
+            "post": {
+                "tags": [
+                    "Facilities"
+                ],
+                "summary": "Show data facilities by ID facilities response",
+                "description": "Show data facilities by ID facilities response",
+                "operationId": "showByIdFacilities",
+                "parameters": [
+                    {
+                        "name": "id_facilities",
+                        "in": "formData",
+                        "description": "ID Facilities ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
         "/mosque/store": {
             "post": {
                 "tags": [
@@ -1622,228 +1844,6 @@
                         "description": "ASC / DESC (default DESC)",
                         "required": false,
                         "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation"
-                    },
-                    "406": {
-                        "description": "not acceptable"
-                    },
-                    "500": {
-                        "description": "internal server error"
-                    }
-                }
-            }
-        },
-        "/users/store": {
-            "post": {
-                "tags": [
-                    "Donations"
-                ],
-                "summary": "Show data donations by ID donations response",
-                "description": "Show data donations by ID donations response",
-                "operationId": "showByIdUsersDonationDonations",
-                "parameters": [
-                    {
-                        "name": "id_user_donation",
-                        "in": "formData",
-                        "description": "ID User Donation ...",
-                        "required": true,
-                        "type": "integer"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation"
-                    },
-                    "406": {
-                        "description": "not acceptable"
-                    },
-                    "500": {
-                        "description": "internal server error"
-                    }
-                }
-            }
-        },
-        "/facilities/store": {
-            "post": {
-                "tags": [
-                    "Facilities"
-                ],
-                "summary": "Menambah data facilities response",
-                "description": "Menambah data facilities response",
-                "operationId": "storeFacilities",
-                "parameters": [
-                    {
-                        "name": "name_facilities",
-                        "in": "formData",
-                        "description": "Name Facilities ...",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "icon_facilities",
-                        "in": "formData",
-                        "description": "Icon Facilities ...",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation"
-                    },
-                    "406": {
-                        "description": "not acceptable"
-                    },
-                    "500": {
-                        "description": "internal server error"
-                    }
-                }
-            }
-        },
-        "/facilities/update": {
-            "post": {
-                "tags": [
-                    "Facilities"
-                ],
-                "summary": "Mengedit data facilities response",
-                "description": "Mengedit data facilities response",
-                "operationId": "updateFacilities",
-                "parameters": [
-                    {
-                        "name": "id_facilities",
-                        "in": "formData",
-                        "description": "ID Facilities...",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "name_facilities",
-                        "in": "formData",
-                        "description": "Name Facilities (Kosongi jika tidak ingin merubah data)...",
-                        "required": false,
-                        "type": "string"
-                    },
-                    {
-                        "name": "icon_facilities",
-                        "in": "formData",
-                        "description": "Icon Facilities (Kosongi jika tidak ingin merubah data)...",
-                        "required": false,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation"
-                    },
-                    "406": {
-                        "description": "not acceptable"
-                    },
-                    "500": {
-                        "description": "internal server error"
-                    }
-                }
-            }
-        },
-        "/facilities/delete": {
-            "post": {
-                "tags": [
-                    "Facilities"
-                ],
-                "summary": "Menghapus data facilities response",
-                "description": "Menghapus data facilities response",
-                "operationId": "deleteFacilities",
-                "parameters": [
-                    {
-                        "name": "id_facilities",
-                        "in": "formData",
-                        "description": "ID Facilities ...",
-                        "required": true,
-                        "type": "integer"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation"
-                    },
-                    "406": {
-                        "description": "not acceptable"
-                    },
-                    "500": {
-                        "description": "internal server error"
-                    }
-                }
-            }
-        },
-        "/facilities/unDelete": {
-            "post": {
-                "tags": [
-                    "Facilities"
-                ],
-                "summary": "Mengembalikan data terhapus data facilities response",
-                "description": "Mengembalikan data terhapus data facilities response",
-                "operationId": "unDeleteFacilities",
-                "parameters": [
-                    {
-                        "name": "id_facilities",
-                        "in": "formData",
-                        "description": "ID Facilities ...",
-                        "required": true,
-                        "type": "integer"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation"
-                    },
-                    "406": {
-                        "description": "not acceptable"
-                    },
-                    "500": {
-                        "description": "internal server error"
-                    }
-                }
-            }
-        },
-        "/facilities/show": {
-            "get": {
-                "tags": [
-                    "Facilities"
-                ],
-                "summary": "Show all data facilities response",
-                "description": "Show all data facilities response",
-                "operationId": "showFacilities",
-                "responses": {
-                    "200": {
-                        "description": "successful operation"
-                    },
-                    "406": {
-                        "description": "not acceptable"
-                    },
-                    "500": {
-                        "description": "internal server error"
-                    }
-                }
-            }
-        },
-        "/facilities/showById": {
-            "post": {
-                "tags": [
-                    "Facilities"
-                ],
-                "summary": "Show data facilities by ID facilities response",
-                "description": "Show data facilities by ID facilities response",
-                "operationId": "showByIdFacilities",
-                "parameters": [
-                    {
-                        "name": "id_facilities",
-                        "in": "formData",
-                        "description": "ID Facilities ...",
-                        "required": true,
-                        "type": "integer"
                     }
                 ],
                 "responses": {
