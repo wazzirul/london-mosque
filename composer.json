@@ -16,6 +16,7 @@
         "guzzlehttp/guzzle": "^6.3.1|^7.0.1",
         "laravel/framework": "^7.29",
         "laravel/tinker": "^2.5",
+        "phpmailer/phpmailer": "^6.5",
         "zircote/swagger-php": "2.*"
     },
     "require-dev": {

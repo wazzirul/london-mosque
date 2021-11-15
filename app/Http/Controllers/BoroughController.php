@@ -181,7 +181,7 @@ class BoroughController extends Controller
      *   @SWG\Parameter(
      *     name="id_borough",
      *     in="formData",
-     *     description="ID Faclities ...",
+     *     description="ID Borough ...",
      *     required=true,
      *     type="integer"
      *   ),
@@ -209,6 +209,69 @@ class BoroughController extends Controller
         }
 
         $borough->soft_delete = 1;
+
+        $data = $borough->save();
+
+        if($data){
+            $res['status_code'] = 200;
+            $res['success'] = true;
+            $res['data'] = $borough;
+
+            return response($res, 200);
+        }
+    }
+
+
+
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // UNDELETE
+    //////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @SWG\Post(
+     *   path="/borough/unDelete",
+     *     tags={"Borough"},
+     *     summary="Mengembalikan data terhapus data borough response",
+     *     description="Mengembalikan data terhapus data borough response",
+     *     operationId="unDeleteBorough",
+     * 
+     *   @SWG\Parameter(
+     *     name="id_borough",
+     *     in="formData",
+     *     description="ID Borough ...",
+     *     required=true,
+     *     type="integer"
+     *   ),
+     * 
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function unDelete(Request $request){
+        $this->validate($request,[
+            'id_borough'=>'required|numeric',
+        ]);  
+
+        $id_borough = $request->input('id_borough');
+        $borough = Borough::where('id_borough', $id_borough)
+            ->first();
+
+        if($borough === null){
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['detail'] = "Data Borough for that ID not found.";
+
+            return response($res, 200);
+        }else if($borough->soft_delete === 0){
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['detail'] = "Data Borough is active.";
+
+            return response($res, 200);
+        }
+
+        $borough->soft_delete = 0;
 
         $data = $borough->save();
 

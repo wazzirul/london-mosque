@@ -158,7 +158,7 @@ class FacilitiesController extends Controller
      *   @SWG\Parameter(
      *     name="id_facilities",
      *     in="formData",
-     *     description="ID Faclities ...",
+     *     description="ID Facilities ...",
      *     required=true,
      *     type="integer"
      *   ),
@@ -186,6 +186,69 @@ class FacilitiesController extends Controller
         }
 
         $facility->soft_delete = 1;
+
+        $data = $facility->save();
+
+        if($data){
+            $res['status_code'] = 200;
+            $res['success'] = true;
+            $res['data'] = $facility;
+
+            return response($res, 200);
+        }
+    }
+
+
+
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // UNDELETE
+    //////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @SWG\Post(
+     *   path="/facilities/unDelete",
+     *     tags={"Facilities"},
+     *     summary="Mengembalikan data terhapus data facilities response",
+     *     description="Mengembalikan data terhapus data facilities response",
+     *     operationId="unDeleteFacilities",
+     * 
+     *   @SWG\Parameter(
+     *     name="id_facilities",
+     *     in="formData",
+     *     description="ID Facilities ...",
+     *     required=true,
+     *     type="integer"
+     *   ),
+     * 
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function unDelete(Request $request){
+        $this->validate($request,[
+            'id_facilities'=>'required|numeric',
+        ]);  
+
+        $id_facilities = $request->input('id_facilities');
+        $facility = Facilities::where('id_facilities', $id_facilities)
+            ->first();
+
+        if($facility === null){
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['detail'] = "Data Facility for that ID not found.";
+
+            return response($res, 200);
+        }else if($facility->soft_delete === 0){
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['detail'] = "Data Facility is active.";
+
+            return response($res, 200);
+        }
+
+        $facility->soft_delete = 0;
 
         $data = $facility->save();
 

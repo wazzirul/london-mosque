@@ -283,6 +283,69 @@ class DistrictsController extends Controller
 
 
     //////////////////////////////////////////////////////////////////////////////////////
+    // DELETE
+    //////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @SWG\Post(
+     *   path="/districts/unDelete",
+     *     tags={"Districts"},
+     *     summary="Mengembalikan data terhapus data districts response",
+     *     description="Mengembalikan data terhapus data districts response",
+     *     operationId="unDeleteDistricts",
+     * 
+     *   @SWG\Parameter(
+     *     name="id_district",
+     *     in="formData",
+     *     description="ID District ...",
+     *     required=true,
+     *     type="integer"
+     *   ),
+     * 
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function unDelete(Request $request){
+        $this->validate($request,[
+            'id_district'=>'required|numeric',
+        ]);  
+
+        $id_district = $request->input('id_district');
+        $district = Districts::where('id_district', $id_district)
+            ->first();
+
+        if($district === null){
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['detail'] = "Data District for that ID not found.";
+
+            return response($res, 200);
+        }else if($district->soft_delete === 0){
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['detail'] = "Data District is active.";
+
+            return response($res, 200);
+        }
+
+        $district->soft_delete = 0;
+
+        $data = $district->save();
+
+        if($data){
+            $res['status_code'] = 200;
+            $res['success'] = true;
+            $res['data'] = $district;
+
+            return response($res, 200);
+        }
+    }
+
+
+
+
+    //////////////////////////////////////////////////////////////////////////////////////
     // SHOW
     //////////////////////////////////////////////////////////////////////////////////////
     /**

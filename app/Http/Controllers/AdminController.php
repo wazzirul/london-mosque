@@ -244,6 +244,68 @@ class AdminController extends Controller
 
 
     //////////////////////////////////////////////////////////////////////////////////////
+    // UNDELETE
+    //////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @SWG\Post(
+     *   path="/admin/unDelete",
+     *     tags={"Admin"},
+     *     summary="Mengembalikan data terhapus data admin response",
+     *     description="Mengembalikan data terhapus data admin response",
+     *     operationId="unDeleteAdmin",
+     * 
+     *   @SWG\Parameter(
+     *     name="id_admin",
+     *     in="formData",
+     *     description="ID Admin ...",
+     *     required=true,
+     *     type="integer"
+     *   ),
+     * 
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function unDelete(Request $request){
+        $this->validate($request,[
+            'id_admin'=>'required|numeric',
+        ]);  
+
+        $id_admin = $request->input('id_admin');
+        $admin = Admin::where('id_admin', $id_admin)
+            ->first();
+
+        if($admin === null){
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['detail'] = "Data Admin for that ID not found.";
+
+            return response($res, 200);
+        }else if($admin->soft_delete === 0){
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['detail'] = "Data Admin is active.";
+
+            return response($res, 200);
+        }
+
+        $admin->soft_delete = 0;
+
+        $data = $admin->save();
+
+        if($data){
+            $res['status_code'] = 200;
+            $res['success'] = true;
+            $res['data'] = $admin;
+
+            return response($res, 200);
+        }
+    }
+
+
+
+    //////////////////////////////////////////////////////////////////////////////////////
     // LOGIN
     //////////////////////////////////////////////////////////////////////////////////////
     /**

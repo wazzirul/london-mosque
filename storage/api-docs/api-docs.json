@@ -203,6 +203,36 @@
                 }
             }
         },
+        "/admin/unDelete": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Mengembalikan data terhapus data admin response",
+                "description": "Mengembalikan data terhapus data admin response",
+                "operationId": "unDeleteAdmin",
+                "parameters": [
+                    {
+                        "name": "id_admin",
+                        "in": "formData",
+                        "description": "ID Admin ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
         "/admin/login": {
             "post": {
                 "tags": [
@@ -398,7 +428,37 @@
                     {
                         "name": "id_borough",
                         "in": "formData",
-                        "description": "ID Faclities ...",
+                        "description": "ID Borough ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/borough/unDelete": {
+            "post": {
+                "tags": [
+                    "Borough"
+                ],
+                "summary": "Mengembalikan data terhapus data borough response",
+                "description": "Mengembalikan data terhapus data borough response",
+                "operationId": "unDeleteBorough",
+                "parameters": [
+                    {
+                        "name": "id_borough",
+                        "in": "formData",
+                        "description": "ID Borough ...",
                         "required": true,
                         "type": "integer"
                     }
@@ -606,6 +666,36 @@
                 }
             }
         },
+        "/districts/unDelete": {
+            "post": {
+                "tags": [
+                    "Districts"
+                ],
+                "summary": "Mengembalikan data terhapus data districts response",
+                "description": "Mengembalikan data terhapus data districts response",
+                "operationId": "unDeleteDistricts",
+                "parameters": [
+                    {
+                        "name": "id_district",
+                        "in": "formData",
+                        "description": "ID District ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
         "/districts/show": {
             "get": {
                 "tags": [
@@ -670,6 +760,256 @@
                         "name": "id_borough",
                         "in": "formData",
                         "description": "ID Borough ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/donations/store": {
+            "post": {
+                "tags": [
+                    "Donations"
+                ],
+                "summary": "Menambah data donations response",
+                "description": "Menambah data donations response",
+                "operationId": "storeDonations",
+                "parameters": [
+                    {
+                        "name": "id_user_donation",
+                        "in": "formData",
+                        "description": "ID User Donation ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "amount_donation",
+                        "in": "formData",
+                        "description": "Amount Donation ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "date_donation",
+                        "in": "formData",
+                        "description": "Date Donation ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "time_donation",
+                        "in": "formData",
+                        "description": "Time Donation ...",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/donations/update": {
+            "post": {
+                "tags": [
+                    "Donations"
+                ],
+                "summary": "Mengedit data donations response",
+                "description": "Mengedit data donations response",
+                "operationId": "updateDonations",
+                "parameters": [
+                    {
+                        "name": "id_donation",
+                        "in": "formData",
+                        "description": "ID Donation...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_user_donation",
+                        "in": "formData",
+                        "description": "ID User Donation (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "amount_donation",
+                        "in": "formData",
+                        "description": "Amount Donation (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "date_donation",
+                        "in": "formData",
+                        "description": "Date Donation (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "time_donation",
+                        "in": "formData",
+                        "description": "Time Donation (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/donations/delete": {
+            "post": {
+                "tags": [
+                    "Donations"
+                ],
+                "summary": "Menghapus data donations response",
+                "description": "Menghapus data donations response",
+                "operationId": "deleteDonations",
+                "parameters": [
+                    {
+                        "name": "id_donation",
+                        "in": "formData",
+                        "description": "ID Donation ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/donations/unDelete": {
+            "post": {
+                "tags": [
+                    "Donations"
+                ],
+                "summary": "Mengembalikan data terhapus data donations response",
+                "description": "Mengembalikan data terhapus data donations response",
+                "operationId": "unDeleteDonations",
+                "parameters": [
+                    {
+                        "name": "id_donation",
+                        "in": "formData",
+                        "description": "ID Donation ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/donations/show": {
+            "get": {
+                "tags": [
+                    "Donations"
+                ],
+                "summary": "Show all data donations response",
+                "description": "Show all data donations response",
+                "operationId": "showDonations",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/donations/showById": {
+            "post": {
+                "tags": [
+                    "Donations"
+                ],
+                "summary": "Show data donations by ID donations response",
+                "description": "Show data donations by ID donations response",
+                "operationId": "showByIdDonations",
+                "parameters": [
+                    {
+                        "name": "id_donation",
+                        "in": "formData",
+                        "description": "ID Donation ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/donations/showByIdUsersDonation": {
+            "post": {
+                "tags": [
+                    "Donations"
+                ],
+                "summary": "Show data donations by ID donations response",
+                "description": "Show data donations by ID donations response",
+                "operationId": "showByIdUsersDonationDonations",
+                "parameters": [
+                    {
+                        "name": "id_user_donation",
+                        "in": "formData",
+                        "description": "ID User Donation ...",
                         "required": true,
                         "type": "integer"
                     }
@@ -780,7 +1120,37 @@
                     {
                         "name": "id_facilities",
                         "in": "formData",
-                        "description": "ID Faclities ...",
+                        "description": "ID Facilities ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/facilities/unDelete": {
+            "post": {
+                "tags": [
+                    "Facilities"
+                ],
+                "summary": "Mengembalikan data terhapus data facilities response",
+                "description": "Mengembalikan data terhapus data facilities response",
+                "operationId": "unDeleteFacilities",
+                "parameters": [
+                    {
+                        "name": "id_facilities",
+                        "in": "formData",
+                        "description": "ID Facilities ...",
                         "required": true,
                         "type": "integer"
                     }
@@ -832,6 +1202,342 @@
                         "name": "id_facilities",
                         "in": "formData",
                         "description": "ID Facilities ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/store": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque"
+                ],
+                "summary": "Menambah data suggest mosque response",
+                "description": "Menambah data suggest mosque response",
+                "operationId": "storeSuggestMosque",
+                "parameters": [
+                    {
+                        "name": "id_user",
+                        "in": "formData",
+                        "description": "ID User ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id_borough",
+                        "in": "formData",
+                        "description": "ID Borough ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_district",
+                        "in": "formData",
+                        "description": "ID District ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "name_mosque",
+                        "in": "formData",
+                        "description": "Name Mosque ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "address",
+                        "in": "formData",
+                        "description": "Address Mosque ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "latitude",
+                        "in": "formData",
+                        "description": "Latitude Mosque ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "longitude",
+                        "in": "formData",
+                        "description": "Longitude Mosque ...",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/update": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque"
+                ],
+                "summary": "Mengedit data suggest mosque response",
+                "description": "Mengedit data suggest mosque response",
+                "operationId": "updateSuggestMosque",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id_user",
+                        "in": "formData",
+                        "description": "ID User (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id_borough",
+                        "in": "formData",
+                        "description": "ID Borough (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_district",
+                        "in": "formData",
+                        "description": "ID District (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "name_mosque",
+                        "in": "formData",
+                        "description": "Name Mosque (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "address",
+                        "in": "formData",
+                        "description": "Address Mosque (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "latitude",
+                        "in": "formData",
+                        "description": "Latitude Mosque (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "longitude",
+                        "in": "formData",
+                        "description": "Longitude Mosque (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/delete": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque"
+                ],
+                "summary": "Menghapus data suggest mosque response",
+                "description": "Menghapus data suggest mosque response",
+                "operationId": "deleteSuggestMosque",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/unDelete": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque"
+                ],
+                "summary": "Mengembalikan data terhapus data suggest mosque response",
+                "description": "Mengembalikan data terhapus data suggest mosque response",
+                "operationId": "unDeleteSuggestMosque",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/show": {
+            "get": {
+                "tags": [
+                    "Suggest Mosque"
+                ],
+                "summary": "Show all data suggest mosque response",
+                "description": "Show all data suggest mosque response",
+                "operationId": "showSuggestMosque",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/showById": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque"
+                ],
+                "summary": "Show data suggest mosque by ID suggest mosque response",
+                "description": "Show data suggest mosque by ID suggest mosque response",
+                "operationId": "showByIdSuggestMosque",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/showByIdUsers": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque"
+                ],
+                "summary": "Show data suggest mosque by ID suggest mosque response",
+                "description": "Show data suggest mosque by ID suggest mosque response",
+                "operationId": "showByIdUsersSuggestMosque",
+                "parameters": [
+                    {
+                        "name": "id_user",
+                        "in": "formData",
+                        "description": "ID User ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/showByIdMosque": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque"
+                ],
+                "summary": "Show data suggest mosque by ID suggest mosque response",
+                "description": "Show data suggest mosque by ID suggest mosque response",
+                "operationId": "showByIdMosqueSuggestMosque",
+                "parameters": [
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
                         "required": true,
                         "type": "integer"
                     }
@@ -974,6 +1680,36 @@
                 }
             }
         },
+        "/users/unDelete": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Mengembalikan data terhapus data users response",
+                "description": "Mengembalikan data terhapus data users response",
+                "operationId": "unDeleteUsers",
+                "parameters": [
+                    {
+                        "name": "id_user",
+                        "in": "formData",
+                        "description": "ID User ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
         "/users/login": {
             "post": {
                 "tags": [
@@ -996,6 +1732,36 @@
                         "description": "Password ...",
                         "required": true,
                         "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/users/logout": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Logout data users response",
+                "description": "Logout data users response",
+                "operationId": "logoutUsers",
+                "parameters": [
+                    {
+                        "name": "id_user",
+                        "in": "formData",
+                        "description": "ID User ...",
+                        "required": true,
+                        "type": "integer"
                     }
                 ],
                 "responses": {
@@ -1040,6 +1806,435 @@
                 "summary": "Show data users by ID users response",
                 "description": "Show data users by ID users response",
                 "operationId": "showByIdUsers",
+                "parameters": [
+                    {
+                        "name": "id_user",
+                        "in": "formData",
+                        "description": "ID User ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/users/resend-verif-account": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Resend verification code users by Email response",
+                "description": "Resend verification code users by Email response",
+                "operationId": "verifAccountUsers",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "description": "Email ...",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/users/verif-account": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Show data users by ID users response",
+                "description": "Show data users by ID users response",
+                "operationId": "verifAccountUsers",
+                "parameters": [
+                    {
+                        "name": "u",
+                        "in": "query",
+                        "description": "Email ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "c",
+                        "in": "query",
+                        "description": "Code Verification ...",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/users-donation/store": {
+            "post": {
+                "tags": [
+                    "Users Donation"
+                ],
+                "summary": "Menambah data users donation response",
+                "description": "Menambah data users donation response",
+                "operationId": "storeUsersDonation",
+                "parameters": [
+                    {
+                        "name": "id_user",
+                        "in": "formData",
+                        "description": "ID User ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "type_donation",
+                        "in": "formData",
+                        "description": "Type Donation (1 = VISA, 2 = PAYPAL) ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "repeated_donation",
+                        "in": "formData",
+                        "description": "Repeat Donation (0 = False, 1 = Week, 2 = Month, 3 = Year) ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "anonymous_donation",
+                        "in": "formData",
+                        "description": "Anonymous Donation (0 = False, 1 = True) ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "first_name",
+                        "in": "formData",
+                        "description": "First Name ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "last_name",
+                        "in": "formData",
+                        "description": "Last Name ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "email_address",
+                        "in": "formData",
+                        "description": "Email Address ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "mobile_number",
+                        "in": "formData",
+                        "description": "Mobile Number ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "card_name",
+                        "in": "formData",
+                        "description": "Card Name ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "cvc",
+                        "in": "formData",
+                        "description": "CVC ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "cardholder_name",
+                        "in": "formData",
+                        "description": "Cardholer Name ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "exp",
+                        "in": "formData",
+                        "description": "Expired Date ...",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/users-donation/update": {
+            "post": {
+                "tags": [
+                    "Users Donation"
+                ],
+                "summary": "Mengedit data users donation response",
+                "description": "Mengedit data users donation response",
+                "operationId": "updateUsersDonation",
+                "parameters": [
+                    {
+                        "name": "id_user_donation",
+                        "in": "formData",
+                        "description": "ID User Donation...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_user",
+                        "in": "formData",
+                        "description": "ID User (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "type_donation",
+                        "in": "formData",
+                        "description": "Type Donation (1 = VISA, 2 = PAYPAL) (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "repeated_donation",
+                        "in": "formData",
+                        "description": "Repeat Donation (0 = False, 1 = Week, 2 = Month, 3 = Year) (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "anonymous_donation",
+                        "in": "formData",
+                        "description": "Anonymous Donation (0 = False, 1 = True) (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "first_name",
+                        "in": "formData",
+                        "description": "First Name (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "last_name",
+                        "in": "formData",
+                        "description": "Last Name (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "email_address",
+                        "in": "formData",
+                        "description": "Email Address (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "mobile_number",
+                        "in": "formData",
+                        "description": "Mobile Number (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "card_name",
+                        "in": "formData",
+                        "description": "Card Name (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "cvc",
+                        "in": "formData",
+                        "description": "CVC (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "cardholder_name",
+                        "in": "formData",
+                        "description": "Cardholer Name (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "exp",
+                        "in": "formData",
+                        "description": "Expired Date (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/users-donation/delete": {
+            "post": {
+                "tags": [
+                    "Users Donation"
+                ],
+                "summary": "Menghapus data users donation response",
+                "description": "Menghapus data users donation response",
+                "operationId": "deleteUsersDonation",
+                "parameters": [
+                    {
+                        "name": "id_user_donation",
+                        "in": "formData",
+                        "description": "ID User Donation ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/users-donation/unDelete": {
+            "post": {
+                "tags": [
+                    "Users Donation"
+                ],
+                "summary": "Mengembalikan data terhapus data users donation response",
+                "description": "Mengembalikan data terhapus data users donation response",
+                "operationId": "unDeleteUsersDonation",
+                "parameters": [
+                    {
+                        "name": "id_user_donation",
+                        "in": "formData",
+                        "description": "ID User Donation ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/users-donation/show": {
+            "get": {
+                "tags": [
+                    "Users Donation"
+                ],
+                "summary": "Show all data users donation response",
+                "description": "Show all data users donation response",
+                "operationId": "showUsersDonation",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/users-donation/showById": {
+            "post": {
+                "tags": [
+                    "Users Donation"
+                ],
+                "summary": "Show data users donation by ID users donation response",
+                "description": "Show data users donation by ID users donation response",
+                "operationId": "showByIdUsersDonation",
+                "parameters": [
+                    {
+                        "name": "id_user_donation",
+                        "in": "formData",
+                        "description": "ID User Donation ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/users-donation/showByIdUser": {
+            "post": {
+                "tags": [
+                    "Users Donation"
+                ],
+                "summary": "Show data users donation by ID_user users donation response",
+                "description": "Show data users donation by ID_user users donation response",
+                "operationId": "showByIdUserUsersDonation",
                 "parameters": [
                     {
                         "name": "id_user",
