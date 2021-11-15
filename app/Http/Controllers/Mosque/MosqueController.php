@@ -173,7 +173,8 @@ class MosqueController extends Controller
      *   path="/mosque/update",
      *     tags={"Mosque"},
      *     summary="Mengupdate data Mosque response",
-     *     description="Mengupdate data Mosque response",
+     *     description="Mengupdate data Mosque response
+          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
      *     operationId="updateMosque",
      * 
      *  @SWG\Parameter(
@@ -186,49 +187,49 @@ class MosqueController extends Controller
      *  @SWG\Parameter(
      *     name="id_mosque_google_place",
      *     in="formData",
-     *     description="ID Mosque Google Place (Google Place / Maps ID) (Kosongi jika tidak ingin merubah data) ...",
+     *     description="ID Mosque Google Place (Google Place / Maps ID) ...",
      *     required=false,
      *     type="string"
      *   ), 
      *  @SWG\Parameter(
      *     name="id_borough",
      *     in="formData",
-     *     description="ID Borough (Kosongi jika tidak ingin merubah data) ...",
+     *     description="ID Borough ...",
      *     required=false,
      *     type="integer"
      *   ), 
      *  @SWG\Parameter(
      *     name="id_district",
      *     in="formData",
-     *     description="ID District (Kosongi jika tidak ingin merubah data) ...",
+     *     description="ID District ...",
      *     required=false,
      *     type="integer"
      *   ), 
      *  @SWG\Parameter(
      *     name="name_mosque",
      *     in="formData",
-     *     description="Name Mosque (Kosongi jika tidak ingin merubah data) ...",
+     *     description="Name Mosque ...",
      *     required=false,
      *     type="string"
      *   ),  
      *  @SWG\Parameter(
      *     name="address",
      *     in="formData",
-     *     description="Address Mosque (Kosongi jika tidak ingin merubah data) ...",
+     *     description="Address Mosque ...",
      *     required=false,
      *     type="string"
      *   ),  
      *  @SWG\Parameter(
      *     name="latitude",
      *     in="formData",
-     *     description="Latitude (Kosongi jika tidak ingin merubah data) ...",
+     *     description="Latitude ...",
      *     required=false,
      *     type="string"
      *   ),
      *  @SWG\Parameter(
      *     name="longitude",
      *     in="formData",
-     *     description="Longitude (Kosongi jika tidak ingin merubah data) ...",
+     *     description="Longitude ...",
      *     required=false,
      *     type="string"
      *   ),
@@ -391,6 +392,7 @@ class MosqueController extends Controller
         if($data){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['message'] = 'Success deleting Mosque data';
             $res['data'] = $data;
 
             return response($res, 200);
@@ -451,6 +453,7 @@ class MosqueController extends Controller
         if($data){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['message'] = 'Success restoring Mosque data';
             $res['data'] = $data;
 
             return response($res, 200);
@@ -499,6 +502,7 @@ class MosqueController extends Controller
             $res['status_code'] = 200;
             $res['success'] = true;
             $res['data'] = $mosque;
+            $res['message'] = 'Success return Mosque data';
 
             return response($res, 200);
         }else{
@@ -557,8 +561,7 @@ class MosqueController extends Controller
             return response($res, 200);
         }
 
-        $mosque = Mosque::where('soft_delete', 0)
-        ->orderBy('id_mosque', 'DESC')
+        $mosque = Mosque::where('id_mosque', $id_mosque)
         ->get();
 
         
@@ -578,6 +581,7 @@ class MosqueController extends Controller
         if(count($mosque) !== 0){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['message'] = 'Success return Mosque data';
             $res['data'] = $mosque;
 
             return response($res, 200);
@@ -732,6 +736,7 @@ class MosqueController extends Controller
         if(count($mosque) !== 0){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['message'] = 'Success return Mosque data';
             $res['data'] = $mosque;
 
             return response($res, 200);

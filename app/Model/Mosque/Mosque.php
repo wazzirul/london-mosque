@@ -21,4 +21,7 @@ class Mosque extends Model
     public function Districts(){
         return $this->belongsTo('App\Model\Districts','id_district','id_district');
     }
+    public function SalahTimes(){
+        return $this->hasMany('App\Model\Mosque\MosqueSalahTime','id_mosque','id_mosque');
+    }
 }
