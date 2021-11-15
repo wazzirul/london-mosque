@@ -8,7 +8,7 @@ return [
         |--------------------------------------------------------------------------
         */
 
-        'title' => 'L5 Swagger UI',
+        'title' => 'London Mosque Api Docs',
     ],
 
     'routes' => [

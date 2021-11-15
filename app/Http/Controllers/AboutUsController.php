@@ -62,6 +62,7 @@ class AboutUsController extends Controller
         if($data){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['message'] = 'Success updating About Us data';
             $res['data'] = $data;
 
             return response($res, 200);
@@ -99,6 +100,7 @@ class AboutUsController extends Controller
         }else{
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['message'] = 'Success Showing About Us data';
             $res['data'] = $data;
 
             return response($res, 200);
