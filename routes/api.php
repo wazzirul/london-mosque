@@ -158,3 +158,28 @@ Route::post('mosque-facilities/undelete', 'Mosque\MosqueFacilitiesController@und
 Route::post('mosque-facilities/showById', 'Mosque\MosqueFacilitiesController@showById');
 Route::post('mosque-facilities/showByFilter', 'Mosque\MosqueFacilitiesController@showByFilter');
 Route::get('mosque-facilities/show', 'Mosque\MosqueFacilitiesController@show');
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+// Mosque Facilities
+///////////////////////////////////////////////////////////////////////////////////////////
+Route::post('mosque-facilities/store', 'Mosque\MosqueFacilitiesController@store');
+Route::post('mosque-facilities/update', 'Mosque\MosqueFacilitiesController@update');
+Route::post('mosque-facilities/delete', 'Mosque\MosqueFacilitiesController@delete');
+Route::post('mosque-facilities/undelete', 'Mosque\MosqueFacilitiesController@undelete');
+Route::post('mosque-facilities/showById', 'Mosque\MosqueFacilitiesController@showById');
+Route::post('mosque-facilities/showByFilter', 'Mosque\MosqueFacilitiesController@showByFilter');
+Route::get('mosque-facilities/show', 'Mosque\MosqueFacilitiesController@show');
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+// Mosque Jummah Times
+///////////////////////////////////////////////////////////////////////////////////////////
+Route::post('mosque-jummah-times/store', 'Mosque\MosqueJummahTimeController@store');
+Route::post('mosque-jummah-times/update', 'Mosque\MosqueJummahTimeController@update');
+Route::post('mosque-jummah-times/delete', 'Mosque\MosqueJummahTimeController@delete');
+Route::post('mosque-jummah-times/undelete', 'Mosque\MosqueJummahTimeController@undelete');
+Route::post('mosque-jummah-times/showById', 'Mosque\MosqueJummahTimeController@showById');
+Route::post('mosque-jummah-times/showByFilter', 'Mosque\MosqueJummahTimeController@showByFilter');
+Route::get('mosque-jummah-times/show', 'Mosque\MosqueJummahTimeController@show');

@@ -10,6 +10,7 @@ use App\Model\Districts;
 
 use App\Model\Mosque\Mosque;
 use App\Model\Mosque\MosqueSalahTime;
+use App\Model\Mosque\MosqueJummahTime;
 use App\Model\Mosque\MosqueFacilities;
 
 use Validator;
@@ -474,7 +475,8 @@ class MosqueController extends Controller
      *     tags={"Mosque"},
      *     summary="Show all data mosque response",
      *     description="Show all data mosque response
-           <br>*Salah Times menggunakan date now agar tidak banyak data yang tereturn",
+           <br>*Salah Times using DATE NOW to save data from many return
+           <br>*Jummah Times using DATE YEAR AND MONTH NOW to save data from many return",
      *     operationId="showMosques",
      * 
      *   @SWG\Response(response=200, description="successful operation"),
@@ -488,6 +490,8 @@ class MosqueController extends Controller
         ->get();
 
         $now = Carbon::now()->format('Y-m-d');
+        $year = Carbon::today()->format('Y');
+        $mth = Carbon::today()->format('m');
         foreach($mosque as $index => $d){
             $borough = Borough::where('id_borough', $d->id_borough)
                 ->where('soft_delete', 0)
@@ -498,6 +502,10 @@ class MosqueController extends Controller
             $salah_times = MosqueSalahTime::where('id_mosque', $d->id_mosque)
                 ->where('date_salah_times',$now)
                 ->get();
+            $jummah_times = MosqueJummahTime::where('id_mosque', $d->id_mosque)
+                ->whereYear('mosque_jummah_times.date_jummah_times', '=', $year)
+                ->whereMonth('mosque_jummah_times.date_jummah_times', '=', $mth)
+                ->get();
             $facilities = MosqueFacilities::with('Facilities')
                 ->where('id_mosque', $d->id_mosque)
                 ->get();
@@ -505,9 +513,9 @@ class MosqueController extends Controller
             $mosque[$index]->borough = $borough;
             $mosque[$index]->district = $district;
             $mosque[$index]->salah_times = $salah_times;
+            $mosque[$index]->jummah_times = $jummah_times;
             $mosque[$index]->facilities = $facilities;
         }
-
 
         if(count($mosque) !== 0){
             $res['status_code'] = 200;
@@ -538,7 +546,9 @@ class MosqueController extends Controller
      *   path="/mosque/showById",
      *     tags={"Mosque"},
      *     summary="Show all data mosque response",
-     *     description="Show all data mosque response",
+     *     description="Show all data mosque response
+           <br>*Salah Times using DATE NOW to save data from many return
+           <br>*Jummah Times using DATE YEAR AND MONTH NOW to save data from many return",
      *     operationId="showByIdMosques",
      * 
      *   @SWG\Parameter(
@@ -575,8 +585,9 @@ class MosqueController extends Controller
         $mosque = Mosque::where('id_mosque', $id_mosque)
         ->get();
 
-        
         $now = Carbon::now()->format('Y-m-d');
+        $year = Carbon::today()->format('Y');
+        $mth = Carbon::today()->format('m');
         foreach($mosque as $index => $d){
             $borough = Borough::where('id_borough', $d->id_borough)
                 ->where('soft_delete', 0)
@@ -587,6 +598,10 @@ class MosqueController extends Controller
             $salah_times = MosqueSalahTime::where('id_mosque', $d->id_mosque)
                 ->where('date_salah_times',$now)
                 ->get();
+            $jummah_times = MosqueJummahTime::where('id_mosque', $d->id_mosque)
+                ->whereYear('mosque_jummah_times.date_jummah_times', '=', $year)
+                ->whereMonth('mosque_jummah_times.date_jummah_times', '=', $mth)
+                ->get();
             $facilities = MosqueFacilities::with('Facilities')
                 ->where('id_mosque', $d->id_mosque)
                 ->get();
@@ -594,9 +609,9 @@ class MosqueController extends Controller
             $mosque[$index]->borough = $borough;
             $mosque[$index]->district = $district;
             $mosque[$index]->salah_times = $salah_times;
+            $mosque[$index]->jummah_times = $jummah_times;
             $mosque[$index]->facilities = $facilities;
         }
-
 
         if(count($mosque) !== 0){
             $res['status_code'] = 200;
@@ -672,6 +687,27 @@ class MosqueController extends Controller
      *     required=false,
      *     type="string"
      *   ),
+     *  @SWG\Parameter(
+     *     name="id_facilities[]",
+     *     in="formData",
+     *     description="ID Facilities (Facilities in mosque, use comma / , to seperate)[example = 1,2,3,etc] ...",
+     *     required=false,
+     *     type="string"
+     *   ), 
+     *  @SWG\Parameter(
+     *     name="where_year_jummah_times",
+     *     in="formData",
+     *     description="where_year_jummah_times [default = this year] (Jummah Times) ...",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *  @SWG\Parameter(
+     *     name="where_month_jummah_times",
+     *     in="formData",
+     *     description="where_month_jummah_times (month : 1 - 12) [default = this month] (Jummah Times) ...",
+     *     required=false,
+     *     type="integer"
+     *   ),
      *   @SWG\Parameter(
      *     name="soft_delete",
      *     in="formData",
@@ -717,13 +753,21 @@ class MosqueController extends Controller
         $take = $request->input('take') ?? 100;
         $order = $request->input('order') ?? "DESC";
 
+        $id_facilities = $request->input('id_facilities');
         $date_salah_times_from = $request->input('date_salah_times_from') ?? Carbon::now()->format('Y-m-d');
         $date_salah_times_to = $request->input('date_salah_times_to') ?? Carbon::now()->format('Y-m-d');
+        
+        $year = $request->input('where_year_jummah_times') ?? Carbon::today()->format('Y');
+        $mth = $request->input('where_month_jummah_times') ?? Carbon::today()->format('m');
         
         $StartTimeDay = '00:00:01';
         $EndTimeDay = '23:59:59';
         
         $mosque = Mosque::query()
+        ->when($request->has('id_facilities'), function ($query) use ($id_facilities) {
+            $query->leftJoin('mosque_facilities','mosque_facilities.id_mosque','=','mosque.id_mosque');
+            $query->leftJoin('facilities','facilities.id_facilities','=','mosque_facilities.id_facilities');
+        })
         ->when($request->has('id_mosque'), function ($query) use ($id_mosque) {
             $query->where('mosque.id_mosque',$id_mosque);
         })
@@ -735,6 +779,9 @@ class MosqueController extends Controller
         })
         ->when($request->has('name_mosque'), function ($query) use ($name_mosque) {
             $query->where('mosque.name_mosque','like','%'.$name_mosque.'%');
+        })
+        ->when($request->has('id_facilities'), function ($query) use ($id_facilities) {
+            $query->whereIn('mosque_facilities.id_facilities',$id_facilities);
         })
         ->when($request->has('soft_delete'), function ($query) use ($soft_delete) {
             $query->where('mosque.soft_delete',$soft_delete);
@@ -768,6 +815,10 @@ class MosqueController extends Controller
             $salah_times = MosqueSalahTime::where('id_mosque', $d->id_mosque)
                 ->whereBetween('date_salah_times', [$date_salah_times_from, $date_salah_times_to])
                 ->get();
+            $jummah_times = MosqueJummahTime::where('id_mosque', $d->id_mosque)
+                ->whereYear('mosque_jummah_times.date_jummah_times', '=', $year)
+                ->whereMonth('mosque_jummah_times.date_jummah_times', '=', $mth)
+                ->get();
             $facilities = MosqueFacilities::with('Facilities')
                 ->where('id_mosque', $d->id_mosque)
                 ->get();
@@ -775,6 +826,7 @@ class MosqueController extends Controller
             $mosque[$index]->borough = $borough;
             $mosque[$index]->district = $district;
             $mosque[$index]->salah_times = $salah_times;
+            $mosque[$index]->jummah_times = $jummah_times;
             $mosque[$index]->facilities = $facilities;
         }
 
