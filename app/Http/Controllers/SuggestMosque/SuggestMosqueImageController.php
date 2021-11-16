@@ -515,6 +515,9 @@ class SuggestMosqueImageController extends Controller
         ->when($request->has('id_suggest_mosque'), function ($query) use ($id_suggest_mosque) {
             $query->where('suggest_mosque_image.id_suggest_mosque',$id_suggest_mosque);
         })
+        ->when($request->has('soft_delete'), function ($query) use ($soft_delete) {
+            $query->where('suggest_mosque_image.soft_delete',$soft_delete);
+        })
         ->skip($skip)
         ->take($take)
         ->orderByRaw('suggest_mosque_image.id_suggest_mosque_image '.$order)

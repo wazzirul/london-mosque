@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
+
 use App\Model\Facilities;
 
 class FacilitiesController extends Controller
@@ -29,7 +32,7 @@ class FacilitiesController extends Controller
      *  @SWG\Parameter(
      *     name="icon_facilities",
      *     in="formData",
-     *     description="Icon Facilities ...",
+     *     description="Icon Facilities (base64) ...",
      *     required=true,
      *     type="string"
      *   ),
@@ -46,20 +49,49 @@ class FacilitiesController extends Controller
         ]);  
 
         $name_facilities = $request->input('name_facilities');
-        $icon_facilities = $request->input('icon_facilities');
 
-        $data = Facilities::create([
-            'name_facilities' => $name_facilities,
-            'icon_facilities' => $icon_facilities,
-        ]);
+        $image = $request->icon_facilities; //base64 string from frontend  
+        $name = Str::random(25);
+        $firebase_storage_path = 'facilities-icon/';  
+        $localfolder = public_path('firebase-temp-uploads') .'/';  
+        if (!file_exists($localfolder)) {  
+            mkdir($localfolder, 0777, true);  
+        }  
+        $parts = explode(";base64,", $image);
+        $replace = substr($image, 0, strpos($image, ',')+1); 
+        $files = str_replace($replace, '', $image); 
+        $files = str_replace(' ', '+', $files); 
+        $extension = explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];   // .jpg .png .pdf
+        if (str_contains($extension, '+')) { 
+            $extension = explode('+', $extension)[0];
+        }
+        $file = $name.'.'.$extension;
+            
+        if (file_put_contents($localfolder . $file, base64_decode($files))) {  
+            $uploadedfile = fopen($localfolder . $file, 'r');  
+            app('firebase.storage')->getBucket()->upload(base64_decode($files), ['name' => $firebase_storage_path . $file]);  
+            //will remove from local laravel folder  
+            unlink($localfolder . $file); 
 
-        if($data){
+            $data = Facilities::create([
+                'name_facilities' => $name_facilities,
+                'icon_facilities' => $firebase_storage_path.$file,
+            ]);
+
+            if($data){
+                $res['status_code'] = 200;
+                $res['success'] = true;
+                $res['data'] = $data;
+
+                return response($res, 200);
+            }
+        } else {  
             $res['status_code'] = 200;
             $res['success'] = true;
-            $res['data'] = $data;
+            $res['detail'] = "Error upload file to cloud server.";
 
             return response($res, 200);
-        }
+        }  
     }
 
 
@@ -91,7 +123,7 @@ class FacilitiesController extends Controller
      *   @SWG\Parameter(
      *     name="icon_facilities",
      *     in="formData",
-     *     description="Icon Facilities (Kosongi jika tidak ingin merubah data)...",
+     *     description="Icon Facilities (base64) (Kosongi jika tidak ingin merubah data)...",
      *     required=false,
      *     type="string"
      *   ),
@@ -128,7 +160,39 @@ class FacilitiesController extends Controller
         }
 
         if($icon_facilities !== null){
-            $facility->icon_facilities = $icon_facilities;
+            $image = $request->icon_facilities; //base64 string from frontend  
+            $name = Str::random(25);
+            $firebase_storage_path = 'facilities-icon/';  
+            $localfolder = public_path('firebase-temp-uploads') .'/';  
+            if (!file_exists($localfolder)) {  
+                mkdir($localfolder, 0777, true);  
+            }  
+            $parts = explode(";base64,", $image);
+            $replace = substr($image, 0, strpos($image, ',')+1); 
+            $files = str_replace($replace, '', $image); 
+            $files = str_replace(' ', '+', $files); 
+            $extension = explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];   // .jpg .png .pdf
+            if (str_contains($extension, '+')) { 
+                $extension = explode('+', $extension)[0];
+            }
+            $file = $name.'.'.$extension;
+
+            if (file_put_contents($localfolder . $file, base64_decode($files))) {  
+                // Delete old image
+                $imageDeleted = app('firebase.storage')->getBucket()->object($facility->icon_facilities)->delete();
+
+                app('firebase.storage')->getBucket()->upload(base64_decode($files), ['name' => $firebase_storage_path . $file]);  
+                //will remove from local laravel folder  
+                unlink($localfolder . $file); 
+
+                $facility->icon_facilities = $firebase_storage_path.$file;
+            } else {  
+                $res['status_code'] = 200;
+                $res['success'] = true;
+                $res['detail'] = "Error upload file to cloud server.";
+
+                return response($res, 200);
+            }  
         }
 
         $data = $facility->save();
@@ -286,6 +350,17 @@ class FacilitiesController extends Controller
             ->get();
 
         if(count($facility) !== 0){
+            foreach($facility as $index => $f){
+                $expiresAt = Carbon::now()->addDays();  
+                $imageReference = app('firebase.storage')->getBucket()->object($f->icon_facilities);  
+                if($imageReference->exists()){
+                    $image = $imageReference->signedUrl($expiresAt);
+                    $facility[$index]->icon_facilities_firebase = $image;
+                }else{
+                    $facility[$index]->icon_facilities_firebase = null;
+                }
+            }
+
             $res['status_code'] = 200;
             $res['success'] = true;
             $res['data'] = $facility;
@@ -348,6 +423,13 @@ class FacilitiesController extends Controller
 
             return response($res, 200);
         }
+
+        $expiresAt = Carbon::now()->addDays();  
+        $imageReference = app('firebase.storage')->getBucket()->object($facility->icon_facilities);  
+        if($imageReference->exists()){
+            $image = $imageReference->signedUrl($expiresAt);
+            $facility->icon_facilities_firebase = $image;
+        } 
 
         $res['status_code'] = 200;
         $res['success'] = true;

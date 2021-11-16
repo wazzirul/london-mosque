@@ -1046,7 +1046,7 @@
                     {
                         "name": "icon_facilities",
                         "in": "formData",
-                        "description": "Icon Facilities ...",
+                        "description": "Icon Facilities (base64) ...",
                         "required": true,
                         "type": "string"
                     }
@@ -1090,7 +1090,7 @@
                     {
                         "name": "icon_facilities",
                         "in": "formData",
-                        "description": "Icon Facilities (Kosongi jika tidak ingin merubah data)...",
+                        "description": "Icon Facilities (base64) (Kosongi jika tidak ingin merubah data)...",
                         "required": false,
                         "type": "string"
                     }
@@ -3378,9 +3378,23 @@
                         "type": "integer"
                     },
                     {
-                        "name": "id_facilities",
+                        "name": "date_salah_times",
                         "in": "formData",
-                        "description": "ID Facilities ...",
+                        "description": "date_salah_times (YYYY-mm-dd ,ex : 2021-11-15) [default : now] ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "type_salah_times",
+                        "in": "formData",
+                        "description": "type_salah_times (1 = Fajr || 2 = Zuhr || 3 = Asr || 4 = Maghrib || 5 = Isha) ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "time_salah_times",
+                        "in": "formData",
+                        "description": "time_salah_times (hh:ii ,ex : 09:52) ...",
                         "required": true,
                         "type": "string"
                     }
@@ -3405,12 +3419,12 @@
                 ],
                 "summary": "Mengedit data suggest mosque salah times response",
                 "description": "Mengedit data suggest mosque salah times response",
-                "operationId": "updateSuggestMosqueFacilities",
+                "operationId": "updateSuggestMosqueSalahTimes",
                 "parameters": [
                     {
-                        "name": "id_suggest_mosque_facilities",
+                        "name": "id_suggest_mosque_salah_times",
                         "in": "formData",
-                        "description": "ID Suggest Mosque Facilities ...",
+                        "description": "ID Suggest Mosque Salah Times ...",
                         "required": true,
                         "type": "integer"
                     },
@@ -3422,11 +3436,25 @@
                         "type": "integer"
                     },
                     {
-                        "name": "id_facilities",
+                        "name": "date_salah_times",
                         "in": "formData",
-                        "description": "ID Facilities (Kosongi jika tidak ingin merubah data)...",
+                        "description": "date_salah_times (YYYY-mm-dd ,ex : 2021-11-15) [default : now] (Kosongi jika tidak ingin merubah data)...",
                         "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "type_salah_times",
+                        "in": "formData",
+                        "description": "type_salah_times (1 = Fajr || 2 = Zuhr || 3 = Asr || 4 = Maghrib || 5 = Isha) (Kosongi jika tidak ingin merubah data)...",
+                        "required": true,
                         "type": "integer"
+                    },
+                    {
+                        "name": "time_salah_times",
+                        "in": "formData",
+                        "description": "time_salah_times (hh:ii ,ex : 09:52) (Kosongi jika tidak ingin merubah data)...",
+                        "required": true,
+                        "type": "string"
                     }
                 ],
                 "responses": {
@@ -3449,12 +3477,12 @@
                 ],
                 "summary": "Menghapus data suggest mosque response",
                 "description": "Menghapus data suggest mosque response",
-                "operationId": "deleteSuggestMosqueFacilities",
+                "operationId": "deleteSuggestMosqueSalahTimes",
                 "parameters": [
                     {
-                        "name": "id_suggest_mosque_facilities",
+                        "name": "id_suggest_mosque_salah_times",
                         "in": "formData",
-                        "description": "ID Suggest Mosque Facilities ...",
+                        "description": "ID Suggest Mosque Salah Times ...",
                         "required": true,
                         "type": "integer"
                     }
@@ -3479,12 +3507,12 @@
                 ],
                 "summary": "Mengembalikan data terhapus data suggest mosque response",
                 "description": "Mengembalikan data terhapus data suggest mosque response",
-                "operationId": "unDeleteSuggestMosqueFacilities",
+                "operationId": "unDeleteSuggestMosqueSalahTimes",
                 "parameters": [
                     {
-                        "name": "id_suggest_mosque_facilities",
+                        "name": "id_suggest_mosque_salah_times",
                         "in": "formData",
-                        "description": "ID Suggest Mosque Facilities ...",
+                        "description": "ID Suggest Mosque Salah Times ...",
                         "required": true,
                         "type": "integer"
                     }
@@ -3509,7 +3537,7 @@
                 ],
                 "summary": "Show all data suggest mosque response",
                 "description": "Show all data suggest mosque response",
-                "operationId": "showSuggestMosqueFacilities",
+                "operationId": "showSuggestMosqueSalahTimes",
                 "responses": {
                     "200": {
                         "description": "successful operation"
@@ -3530,12 +3558,12 @@
                 ],
                 "summary": "Show data suggest mosque by ID suggest mosque response",
                 "description": "Show data suggest mosque by ID suggest mosque response",
-                "operationId": "showByIdSuggestMosqueFacilities",
+                "operationId": "showByIdSuggestMosqueSalahTimes",
                 "parameters": [
                     {
-                        "name": "id_suggest_mosque_facilities",
+                        "name": "id_suggest_mosque_salah_times",
                         "in": "formData",
-                        "description": "ID Suggest Mosque Facilities ...",
+                        "description": "ID Suggest Mosque Salah Times ...",
                         "required": true,
                         "type": "integer"
                     }
@@ -3558,9 +3586,9 @@
                 "tags": [
                     "Suggest Mosque Salah Times"
                 ],
-                "summary": "Show data by filter suggest mosque facilities response",
-                "description": "Show data by filter suggest mosque facilities response",
-                "operationId": "showByFilterSuggestMosqueFacilities",
+                "summary": "Show data by filter suggest mosque salah times response",
+                "description": "Show data by filter suggest mosque salah times response",
+                "operationId": "showByFilterSuggestMosqueSalahTimes",
                 "parameters": [
                     {
                         "name": "id_suggest_mosque",
@@ -3570,9 +3598,16 @@
                         "type": "integer"
                     },
                     {
-                        "name": "id_facilities",
+                        "name": "date_salah_times",
                         "in": "formData",
-                        "description": "ID Facilities ...",
+                        "description": "date_salah_times (YYYY-mm-dd ,ex : 2021-11-15) ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "type_salah_times",
+                        "in": "formData",
+                        "description": "type_salah_times (1 = Fajr || 2 = Zuhr || 3 = Asr || 4 = Maghrib || 5 = Isha) ...",
                         "required": false,
                         "type": "integer"
                     },
