@@ -1436,7 +1436,7 @@
                     "Mosque"
                 ],
                 "summary": "Show all data mosque response",
-                "description": "Show all data mosque response",
+                "description": "Show all data mosque response\r\n           <br>*Salah Times menggunakan date now agar tidak banyak data yang tereturn",
                 "operationId": "showMosques",
                 "responses": {
                     "200": {
@@ -1517,6 +1517,284 @@
                         "description": "Name Mosque (%like) ...",
                         "required": false,
                         "type": "string"
+                    },
+                    {
+                        "name": "date_salah_times_from",
+                        "in": "formData",
+                        "description": "Date Salah Times From (YYYY-mm-dd ,ex : 2021-11-15) ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "date_salah_times_to",
+                        "in": "formData",
+                        "description": "Date Salah Times To (YYYY-mm-dd ,ex : 2021-11-16) ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "soft_delete",
+                        "in": "formData",
+                        "description": "Soft Delete Data (Default=0 / Not Deleted) [0 = Not Deleted  ||  1 = Deleted / Archived]",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "skip",
+                        "in": "formData",
+                        "description": "Skip Berapa Data (Default=0)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "take",
+                        "in": "formData",
+                        "description": "Take Berapa Data (Default=100)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "order",
+                        "in": "formData",
+                        "description": "ASC / DESC (default DESC)",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-facilities/store": {
+            "post": {
+                "tags": [
+                    "Mosque Facilities"
+                ],
+                "summary": "Storing new data Mosque Facilities response",
+                "description": "Storing new data Mosque Facilities response",
+                "operationId": "storeMosqueFacilities",
+                "parameters": [
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_facilities",
+                        "in": "formData",
+                        "description": "ID Facilities ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-facilities/update": {
+            "post": {
+                "tags": [
+                    "Mosque Facilities"
+                ],
+                "summary": "Updating data Mosque Facilities response",
+                "description": "Updating data Mosque Facilities response\r\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
+                "operationId": "updateMosque",
+                "parameters": [
+                    {
+                        "name": "id_mosque_facilities",
+                        "in": "formData",
+                        "description": "ID Mosque Facilities ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_facilities",
+                        "in": "formData",
+                        "description": "ID Facilities ...",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-facilities/delete": {
+            "post": {
+                "tags": [
+                    "Mosque Facilities"
+                ],
+                "summary": "Deleting data Mosque Facilities response",
+                "description": "Deleting data Mosque Facilities response",
+                "operationId": "deleteMosque",
+                "parameters": [
+                    {
+                        "name": "id_mosque_facilities",
+                        "in": "formData",
+                        "description": "ID Mosque Facilities ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-facilities/undelete": {
+            "post": {
+                "tags": [
+                    "Mosque Facilities"
+                ],
+                "summary": "Restoring / undelete data Mosque Facilities response",
+                "description": "Restoring / undelete data Mosque Facilities response",
+                "operationId": "undeleteMosque",
+                "parameters": [
+                    {
+                        "name": "id_mosque_facilities",
+                        "in": "formData",
+                        "description": "ID Mosque Facilities ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-facilities/show": {
+            "get": {
+                "tags": [
+                    "Mosque Facilities"
+                ],
+                "summary": "Show all data mosque response",
+                "description": "Show all data mosque response",
+                "operationId": "showMosques",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-facilities/showById": {
+            "post": {
+                "tags": [
+                    "Mosque Facilities"
+                ],
+                "summary": "Show all data mosque Facilities response",
+                "description": "Show all data mosque Facilities response",
+                "operationId": "showByIdSalahTimes",
+                "parameters": [
+                    {
+                        "name": "id_mosque_facilities",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-facilities/showByFilter": {
+            "post": {
+                "tags": [
+                    "Mosque Facilities"
+                ],
+                "summary": "Show all data mosque Facilities response",
+                "description": "Show all data mosque Facilities response",
+                "operationId": "showByFilterSalahTimes",
+                "parameters": [
+                    {
+                        "name": "id_mosque_facilities",
+                        "in": "formData",
+                        "description": "ID Mosque Facilities ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_facilities",
+                        "in": "formData",
+                        "description": "ID Facilities ...",
+                        "required": false,
+                        "type": "integer"
                     },
                     {
                         "name": "soft_delete",
@@ -1704,8 +1982,8 @@
                 "tags": [
                     "Mosque Salah Times"
                 ],
-                "summary": "Deleting data Mosque Salah Times response",
-                "description": "Deleting data Mosque Salah Times response",
+                "summary": "Restoring / undelete data Mosque Salah Times response",
+                "description": "Restoring / undelete data Mosque Salah Times response",
                 "operationId": "undeleteMosque",
                 "parameters": [
                     {

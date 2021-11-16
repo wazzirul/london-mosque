@@ -136,10 +136,8 @@ Route::post('mosque/showByFilter', 'Mosque\MosqueController@showByFilter');
 Route::get('mosque/show', 'Mosque\MosqueController@show');
 
 
-
-
 ///////////////////////////////////////////////////////////////////////////////////////////
-// Mosque
+// Mosque Salah Times
 ///////////////////////////////////////////////////////////////////////////////////////////
 Route::post('mosque-salah-times/store', 'Mosque\MosqueSalahTimesController@store');
 Route::post('mosque-salah-times/update', 'Mosque\MosqueSalahTimesController@update');
@@ -148,3 +146,15 @@ Route::post('mosque-salah-times/undelete', 'Mosque\MosqueSalahTimesController@un
 Route::post('mosque-salah-times/showById', 'Mosque\MosqueSalahTimesController@showById');
 Route::post('mosque-salah-times/showByFilter', 'Mosque\MosqueSalahTimesController@showByFilter');
 Route::get('mosque-salah-times/show', 'Mosque\MosqueSalahTimesController@show');
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+// Mosque Facilities
+///////////////////////////////////////////////////////////////////////////////////////////
+Route::post('mosque-facilities/store', 'Mosque\MosqueFacilitiesController@store');
+Route::post('mosque-facilities/update', 'Mosque\MosqueFacilitiesController@update');
+Route::post('mosque-facilities/delete', 'Mosque\MosqueFacilitiesController@delete');
+Route::post('mosque-facilities/undelete', 'Mosque\MosqueFacilitiesController@undelete');
+Route::post('mosque-facilities/showById', 'Mosque\MosqueFacilitiesController@showById');
+Route::post('mosque-facilities/showByFilter', 'Mosque\MosqueFacilitiesController@showByFilter');
+Route::get('mosque-facilities/show', 'Mosque\MosqueFacilitiesController@show');

@@ -9,6 +9,8 @@ use App\Model\Borough;
 use App\Model\Districts;
 
 use App\Model\Mosque\Mosque;
+use App\Model\Mosque\MosqueSalahTime;
+use App\Model\Mosque\MosqueFacilities;
 
 use Validator;
 use Carbon\Carbon;
@@ -471,7 +473,8 @@ class MosqueController extends Controller
      *   path="/mosque/show",
      *     tags={"Mosque"},
      *     summary="Show all data mosque response",
-     *     description="Show all data mosque response",
+     *     description="Show all data mosque response
+           <br>*Salah Times menggunakan date now agar tidak banyak data yang tereturn",
      *     operationId="showMosques",
      * 
      *   @SWG\Response(response=200, description="successful operation"),
@@ -484,7 +487,7 @@ class MosqueController extends Controller
         ->orderBy('id_mosque', 'DESC')
         ->get();
 
-        
+        $now = Carbon::now()->format('Y-m-d');
         foreach($mosque as $index => $d){
             $borough = Borough::where('id_borough', $d->id_borough)
                 ->where('soft_delete', 0)
@@ -492,9 +495,17 @@ class MosqueController extends Controller
             $district = Districts::where('id_district', $d->id_district)
                 ->where('soft_delete', 0)
                 ->first();
+            $salah_times = MosqueSalahTime::where('id_mosque', $d->id_mosque)
+                ->where('date_salah_times',$now)
+                ->get();
+            $facilities = MosqueFacilities::with('Facilities')
+                ->where('id_mosque', $d->id_mosque)
+                ->get();
 
             $mosque[$index]->borough = $borough;
             $mosque[$index]->district = $district;
+            $mosque[$index]->salah_times = $salah_times;
+            $mosque[$index]->facilities = $facilities;
         }
 
 
@@ -565,6 +576,7 @@ class MosqueController extends Controller
         ->get();
 
         
+        $now = Carbon::now()->format('Y-m-d');
         foreach($mosque as $index => $d){
             $borough = Borough::where('id_borough', $d->id_borough)
                 ->where('soft_delete', 0)
@@ -572,9 +584,17 @@ class MosqueController extends Controller
             $district = Districts::where('id_district', $d->id_district)
                 ->where('soft_delete', 0)
                 ->first();
+            $salah_times = MosqueSalahTime::where('id_mosque', $d->id_mosque)
+                ->where('date_salah_times',$now)
+                ->get();
+            $facilities = MosqueFacilities::with('Facilities')
+                ->where('id_mosque', $d->id_mosque)
+                ->get();
 
             $mosque[$index]->borough = $borough;
             $mosque[$index]->district = $district;
+            $mosque[$index]->salah_times = $salah_times;
+            $mosque[$index]->facilities = $facilities;
         }
 
 
@@ -639,6 +659,20 @@ class MosqueController extends Controller
      *     type="string"
      *   ),
      *   @SWG\Parameter(
+     *     name="date_salah_times_from",
+     *     in="formData",
+     *     description="Date Salah Times From (YYYY-mm-dd ,ex : 2021-11-15) ...",
+     *     required=false,
+     *     type="string"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="date_salah_times_to",
+     *     in="formData",
+     *     description="Date Salah Times To (YYYY-mm-dd ,ex : 2021-11-16) ...",
+     *     required=false,
+     *     type="string"
+     *   ),
+     *   @SWG\Parameter(
      *     name="soft_delete",
      *     in="formData",
      *     description="Soft Delete Data (Default=0 / Not Deleted) [0 = Not Deleted  ||  1 = Deleted / Archived]",
@@ -683,7 +717,11 @@ class MosqueController extends Controller
         $take = $request->input('take') ?? 100;
         $order = $request->input('order') ?? "DESC";
 
+        $date_salah_times_from = $request->input('date_salah_times_from') ?? Carbon::now()->format('Y-m-d');
+        $date_salah_times_to = $request->input('date_salah_times_to') ?? Carbon::now()->format('Y-m-d');
         
+        $StartTimeDay = '00:00:01';
+        $EndTimeDay = '23:59:59';
         
         $mosque = Mosque::query()
         ->when($request->has('id_mosque'), function ($query) use ($id_mosque) {
@@ -718,8 +756,8 @@ class MosqueController extends Controller
             'mosque.created_at as created_at',
             'mosque.updated_at as updated_at'
         ]);
-
         
+
         foreach($mosque as $index => $d){
             $borough = Borough::where('id_borough', $d->id_borough)
                 ->where('soft_delete', 0)
@@ -727,9 +765,17 @@ class MosqueController extends Controller
             $district = Districts::where('id_district', $d->id_district)
                 ->where('soft_delete', 0)
                 ->first();
+            $salah_times = MosqueSalahTime::where('id_mosque', $d->id_mosque)
+                ->whereBetween('date_salah_times', [$date_salah_times_from, $date_salah_times_to])
+                ->get();
+            $facilities = MosqueFacilities::with('Facilities')
+                ->where('id_mosque', $d->id_mosque)
+                ->get();
 
             $mosque[$index]->borough = $borough;
             $mosque[$index]->district = $district;
+            $mosque[$index]->salah_times = $salah_times;
+            $mosque[$index]->facilities = $facilities;
         }
 
 
