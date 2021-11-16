@@ -3,8 +3,13 @@
 namespace App\Http\Controllers\SuggestMosque;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 use App\Model\SuggestMosque\SuggestMosque;
+use App\Model\Users;
+use App\Model\Mosque;
+use App\Model\Borough;
+use App\Model\Districts;
 
 class SuggestMosqueController extends Controller
 {
@@ -111,6 +116,7 @@ class SuggestMosqueController extends Controller
             'address' => $address,
             'latitude' => $latitude,
             'longitude' => $longitude,
+            'status_suggest_mosque' => 0
         ]);
 
         if($data){
@@ -534,113 +540,201 @@ class SuggestMosqueController extends Controller
 
 
     //////////////////////////////////////////////////////////////////////////////////////
-    // SHOW BY ID USERS
+    // SHOW by Filter
     //////////////////////////////////////////////////////////////////////////////////////
     /**
      * @SWG\Post(
-     *   path="/suggest-mosque/showByIdUsers",
+     *   path="/suggest-mosque/showByFilter",
      *     tags={"Suggest Mosque"},
-     *     summary="Show data suggest mosque by ID suggest mosque response",
-     *     description="Show data suggest mosque by ID suggest mosque response",
-     *     operationId="showByIdUsersSuggestMosque",
+     *     summary="Show data by filter suggest mosque response",
+     *     description="Show data by filter suggest mosque response",
+     *     operationId="showByFilterSuggestMosque",
      * 
      *   @SWG\Parameter(
      *     name="id_user",
      *     in="formData",
      *     description="ID User ...",
-     *     required=true,
+     *     required=false,
      *     type="integer"
      *   ),
-     * 
-     *   @SWG\Response(response=200, description="successful operation"),
-     *   @SWG\Response(response=406, description="not acceptable"),
-     *   @SWG\Response(response=500, description="internal server error")
-     * )
-     */
-    public function showByIdUsers(Request $request){
-        $this->validate($request,[
-            'id_user'=>'required|numeric',
-        ]);  
-
-        $id_user = $request->input('id_user');
-        $user = Users::find($id_user);
-        if($user === null){
-            $res['status_code'] = 406;
-            $res['success'] = false;
-            $res['detail'] = "Data Users for that ID not found.";
-
-            return response($res, 200);
-        }
-        
-        $suggestMosque = SuggestMosque::where('id_user', $id_user)
-            ->where('soft_delete', 0)
-            ->orderBy('id_suggest_mosque', 'DESC')
-            ->get();
-
-        if(count($suggestMosque) !== 0){
-            $res['status_code'] = 200;
-            $res['success'] = true;
-            $res['data'] = $suggestMosque;
-
-            return response($res, 200);
-        }else{
-            $res['status_code'] = 406;
-            $res['success'] = false;
-            $res['data'] = $suggestMosque;
-
-            return response($res, 200);
-        }
-    }
-
-
-
-    //////////////////////////////////////////////////////////////////////////////////////
-    // SHOW BY ID MOSQUE
-    //////////////////////////////////////////////////////////////////////////////////////
-    /**
-     * @SWG\Post(
-     *   path="/suggest-mosque/showByIdMosque",
-     *     tags={"Suggest Mosque"},
-     *     summary="Show data suggest mosque by ID suggest mosque response",
-     *     description="Show data suggest mosque by ID suggest mosque response",
-     *     operationId="showByIdMosqueSuggestMosque",
-     * 
+     *   @SWG\Parameter(
+     *     name="status_suggest_mosque",
+     *     in="formData",
+     *     description="Status Suggest Mosque (0 = Not yet approved / declined, 1 = approved, 2 = declined) ...",
+     *     required=false,
+     *     type="integer"
+     *   ),
      *   @SWG\Parameter(
      *     name="id_mosque",
      *     in="formData",
      *     description="ID Mosque ...",
-     *     required=true,
+     *     required=false,
      *     type="integer"
      *   ),
-     * 
+     *   @SWG\Parameter(
+     *     name="id_borough",
+     *     in="formData",
+     *     description="ID Borough ...",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="id_district",
+     *     in="formData",
+     *     description="ID District ...",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="name_mosque",
+     *     in="formData",
+     *     description="Name Mosque (%like) ...",
+     *     required=false,
+     *     type="string"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="address",
+     *     in="formData",
+     *     description="Address Mosque (%like) ...",
+     *     required=false,
+     *     type="string"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="latitude",
+     *     in="formData",
+     *     description="Latitude ...",
+     *     required=false,
+     *     type="string"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="longitude",
+     *     in="formData",
+     *     description="Longitude ...",
+     *     required=false,
+     *     type="string"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="soft_delete",
+     *     in="formData",
+     *     description="Soft Delete Data (Default=0 / Not Deleted) [0 = Not Deleted  ||  1 = Deleted / Archived]",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="skip",
+     *     in="formData",
+     *     description="Skip Berapa Data (Default=0)",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="take",
+     *     in="formData",
+     *     description="Take Berapa Data (Default=100)",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="order",
+     *     in="formData",
+     *     description="ASC / DESC (default DESC)",
+     *     required=false,
+     *     type="string"
+     *   ),
      *   @SWG\Response(response=200, description="successful operation"),
      *   @SWG\Response(response=406, description="not acceptable"),
      *   @SWG\Response(response=500, description="internal server error")
      * )
      */
-    public function showByIdMosque(Request $request){
-        $this->validate($request,[
-            'id_mosque'=>'required|numeric',
-        ]);  
-
-        $id_mosque = $request->input('id_mosque');
-        $mosque = Mosque::find($id_mosque);
-        if($mosque === null){
-            $res['status_code'] = 406;
-            $res['success'] = false;
-            $res['detail'] = "Data Mosque for that ID not found.";
-
-            return response($res, 200);
-        }
+    public function showByFilter(Request $request){ 
         
-        $suggestMosque = SuggestMosque::where('id_mosque', $id_mosque)
-            ->where('soft_delete', 0)
-            ->orderBy('id_suggest_mosque', 'DESC')
-            ->get();
+        $id_mosque = $request->input('id_mosque');
+        $status_suggest_mosque = $request->input('status_suggest_mosque');
+        $id_borough = $request->input('id_borough');
+        $id_district = $request->input('id_district');
+        $name_mosque = $request->input('name_mosque');
+        $address = $request->input('address');
+        $latitude = $request->input('latitude');
+        $longitude = $request->input('longitude');
+
+        $soft_delete = $request->input('soft_delete') ?? 0;
+        $skip = $request->input('skip') ?? 0;
+        $take = $request->input('take') ?? 100;
+        $order = $request->input('order') ?? "DESC";
+
+        $suggestMosque = SuggestMosque::query()
+        ->when($request->has('id_mosque'), function ($query) use ($id_mosque) {
+            $query->where('suggest_mosque.id_mosque',$id_mosque);
+        })
+        ->when($request->has('status_suggest_mosque'), function ($query) use ($status_suggest_mosque) {
+            $query->where('suggest_mosque.status_suggest_mosque',$status_suggest_mosque);
+        })
+        ->when($request->has('id_borough'), function ($query) use ($id_borough) {
+            $query->where('suggest_mosque.id_borough',$id_borough);
+        })
+        ->when($request->has('id_district'), function ($query) use ($id_district) {
+            $query->where('suggest_mosque.id_district',$id_district);
+        })
+        ->when($request->has('name_mosque'), function ($query) use ($name_mosque) {
+            $query->where('suggest_mosque.name_mosque','like','%'.$name_mosque.'%');
+        })
+        ->when($request->has('address'), function ($query) use ($address) {
+            $query->where('suggest_mosque.address','like','%'.$address.'%');
+        })
+        ->when($request->has('latitude'), function ($query) use ($latitude) {
+            $query->where('suggest_mosque.latitude',$latitude);
+        })
+        ->when($request->has('longitude'), function ($query) use ($longitude) {
+            $query->where('suggest_mosque.longitude',$longitude);
+        })
+        ->when($request->has('soft_delete'), function ($query) use ($soft_delete) {
+            $query->where('suggest_mosque.soft_delete',$soft_delete);
+        })
+        ->skip($skip)
+        ->take($take)
+        ->with(['Mosque', 'User'])
+        ->orderByRaw('suggest_mosque.id_suggest_mosque '.$order)
+        ->get([
+            'suggest_mosque.id_suggest_mosque',
+            'suggest_mosque.id_user',
+            'suggest_mosque.status_suggest_mosque',
+            'suggest_mosque.id_mosque',
+            'suggest_mosque.id_borough',
+            'suggest_mosque.id_district',
+            'suggest_mosque.name_mosque',
+            'suggest_mosque.address',
+            'suggest_mosque.latitude',
+            'suggest_mosque.longitude',
+            'suggest_mosque.soft_delete',
+            'suggest_mosque.created_at as created_at',
+            'suggest_mosque.updated_at as updated_at'
+        ]);
+        
+
+        foreach($suggestMosque as $index => $d){
+            $borough = Borough::where('id_borough', $d->id_borough)
+                ->where('soft_delete', 0)
+                ->first();
+
+            $district = Districts::where('id_district', $d->id_district)
+                ->where('soft_delete', 0)
+                ->first();
+                
+            $facilities = SuggestMosqueFacilities::with('Facilities')
+                ->where('id_suggest_mosque', $d->id_suggest_mosque)
+                ->get();
+
+            $suggestMosque[$index]->borough = $borough;
+            $suggestMosque[$index]->district = $district;
+            // $suggestMosque[$index]->salah_times = $salah_times;
+            $suggestMosque[$index]->facilities = $facilities;
+        }
+
 
         if(count($suggestMosque) !== 0){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['message'] = 'Success return Suggest Mosque data';
             $res['data'] = $suggestMosque;
 
             return response($res, 200);

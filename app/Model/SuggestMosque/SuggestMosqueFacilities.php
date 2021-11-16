@@ -12,4 +12,8 @@ class SuggestMosqueFacilities extends Model
     ];
 
     protected $primaryKey = 'id_suggest_mosque_facilities';
+
+    public function Facilities(){
+        return $this->belongsTo('App\Facilities','id_facilities','id_facilities');
+    }
 }

@@ -2413,19 +2413,214 @@
                 }
             }
         },
-        "/suggest-mosque/showByIdUsers": {
+        "/suggest-mosque/showByFilter": {
             "post": {
                 "tags": [
                     "Suggest Mosque"
                 ],
-                "summary": "Show data suggest mosque by ID suggest mosque response",
-                "description": "Show data suggest mosque by ID suggest mosque response",
-                "operationId": "showByIdUsersSuggestMosque",
+                "summary": "Show data by filter suggest mosque response",
+                "description": "Show data by filter suggest mosque response",
+                "operationId": "showByFilterSuggestMosque",
                 "parameters": [
                     {
                         "name": "id_user",
                         "in": "formData",
                         "description": "ID User ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "status_suggest_mosque",
+                        "in": "formData",
+                        "description": "Status Suggest Mosque (0 = Not yet approved / declined, 1 = approved, 2 = declined) ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_borough",
+                        "in": "formData",
+                        "description": "ID Borough ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_district",
+                        "in": "formData",
+                        "description": "ID District ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "name_mosque",
+                        "in": "formData",
+                        "description": "Name Mosque (%like) ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "address",
+                        "in": "formData",
+                        "description": "Address Mosque (%like) ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "latitude",
+                        "in": "formData",
+                        "description": "Latitude ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "longitude",
+                        "in": "formData",
+                        "description": "Longitude ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "soft_delete",
+                        "in": "formData",
+                        "description": "Soft Delete Data (Default=0 / Not Deleted) [0 = Not Deleted  ||  1 = Deleted / Archived]",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "skip",
+                        "in": "formData",
+                        "description": "Skip Berapa Data (Default=0)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "take",
+                        "in": "formData",
+                        "description": "Take Berapa Data (Default=100)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "order",
+                        "in": "formData",
+                        "description": "ASC / DESC (default DESC)",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/facilities/store": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque Facilities"
+                ],
+                "summary": "Menambah data suggest mosque facilities response",
+                "description": "Menambah data suggest mosque facilities response",
+                "operationId": "storeSuggestMosqueFacilities",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_facilities",
+                        "in": "formData",
+                        "description": "ID Facilities ...",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/facilities/update": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque Facilities"
+                ],
+                "summary": "Mengedit data suggest mosque facilities response",
+                "description": "Mengedit data suggest mosque facilities response",
+                "operationId": "updateSuggestMosqueFacilities",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque_facilities",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque Facilities ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_suggest_mosque",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_facilities",
+                        "in": "formData",
+                        "description": "ID Facilities (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/facilities/delete": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque Facilities"
+                ],
+                "summary": "Menghapus data suggest mosque facilities response",
+                "description": "Menghapus data suggest mosque facilities response",
+                "operationId": "deleteSuggestMosqueFacilities",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque_facilities",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque Facilities ...",
                         "required": true,
                         "type": "integer"
                     }
@@ -2443,21 +2638,644 @@
                 }
             }
         },
-        "/suggest-mosque/showByIdMosque": {
+        "/suggest-mosque/facilities/unDelete": {
             "post": {
                 "tags": [
-                    "Suggest Mosque"
+                    "Suggest Mosque Facilities"
+                ],
+                "summary": "Mengembalikan data terhapus data suggest mosque facilities response",
+                "description": "Mengembalikan data terhapus data suggest mosque facilities response",
+                "operationId": "unDeleteSuggestMosqueFacilities",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque_facilities",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque Facilities ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/facilities/show": {
+            "get": {
+                "tags": [
+                    "Suggest Mosque Facilities"
+                ],
+                "summary": "Show all data suggest mosque facilities response",
+                "description": "Show all data suggest mosque facilities response",
+                "operationId": "showSuggestMosqueFacilities",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/facilities/showById": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque Facilities"
+                ],
+                "summary": "Show data suggest mosque facilities by ID suggest mosque facilities response",
+                "description": "Show data suggest mosque facilities by ID suggest mosque facilities response",
+                "operationId": "showByIdSuggestMosqueFacilities",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque_facilities",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque Facilities ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/facilities/showByFilter": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque Facilities"
+                ],
+                "summary": "Show data by filter suggest mosque facilities response",
+                "description": "Show data by filter suggest mosque facilities response",
+                "operationId": "showByFilterSuggestMosqueFacilities",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_facilities",
+                        "in": "formData",
+                        "description": "ID Facilities ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "soft_delete",
+                        "in": "formData",
+                        "description": "Soft Delete Data (Default=0 / Not Deleted) [0 = Not Deleted  ||  1 = Deleted / Archived]",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "skip",
+                        "in": "formData",
+                        "description": "Skip Berapa Data (Default=0)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "take",
+                        "in": "formData",
+                        "description": "Take Berapa Data (Default=100)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "order",
+                        "in": "formData",
+                        "description": "ASC / DESC (default DESC)",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/image/store": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque Image"
+                ],
+                "summary": "Menambah data suggest mosque image response",
+                "description": "Menambah data suggest mosque image response",
+                "operationId": "storeSuggestMosqueImage",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "mosque_image_url",
+                        "in": "formData",
+                        "description": "Image Url (base64) ...",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/image/update": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque Image"
+                ],
+                "summary": "Mengedit data suggest mosque image response",
+                "description": "Mengedit data suggest mosque image response",
+                "operationId": "updateSuggestMosqueImage",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque_image",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque Image ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_suggest_mosque",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "mosque_image_url",
+                        "in": "formData",
+                        "description": "Mosque Image Url (base64) (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/image/delete": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque Image"
+                ],
+                "summary": "Menghapus data suggest mosque image response",
+                "description": "Menghapus data suggest mosque image response",
+                "operationId": "deleteSuggestMosqueImage",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque_image",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque Image ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/image/unDelete": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque Image"
+                ],
+                "summary": "Mengembalikan data terhapus data suggest mosque image response",
+                "description": "Mengembalikan data terhapus data suggest mosque image response",
+                "operationId": "unDeleteSuggestMosqueImage",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque_image",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque Image ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/image/show": {
+            "get": {
+                "tags": [
+                    "Suggest Mosque Image"
+                ],
+                "summary": "Show all data suggest mosque image response",
+                "description": "Show all data suggest mosque image response",
+                "operationId": "showSuggestMosqueImage",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/image/showById": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque Image"
+                ],
+                "summary": "Show data suggest mosque image by ID suggest mosque image response",
+                "description": "Show data suggest mosque image by ID suggest mosque image response",
+                "operationId": "showByIdSuggestMosqueImage",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque_image",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque Image ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/image/showByFilter": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque Image"
+                ],
+                "summary": "Show data by filter suggest mosque image response",
+                "description": "Show data by filter suggest mosque image response",
+                "operationId": "showByFilterSuggestMosqueImage",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "soft_delete",
+                        "in": "formData",
+                        "description": "Soft Delete Data (Default=0 / Not Deleted) [0 = Not Deleted  ||  1 = Deleted / Archived]",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "skip",
+                        "in": "formData",
+                        "description": "Skip Berapa Data (Default=0)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "take",
+                        "in": "formData",
+                        "description": "Take Berapa Data (Default=100)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "order",
+                        "in": "formData",
+                        "description": "ASC / DESC (default DESC)",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/salah-times/store": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque Salah Times"
+                ],
+                "summary": "Menambah data suggest mosque facilities response",
+                "description": "Menambah data suggest mosque facilities response",
+                "operationId": "storeSuggestMosqueFacilities",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_facilities",
+                        "in": "formData",
+                        "description": "ID Facilities ...",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/salah-times/update": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque Salah Times"
+                ],
+                "summary": "Mengedit data suggest mosque salah times response",
+                "description": "Mengedit data suggest mosque salah times response",
+                "operationId": "updateSuggestMosqueFacilities",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque_facilities",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque Facilities ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_suggest_mosque",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_facilities",
+                        "in": "formData",
+                        "description": "ID Facilities (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/salah-times/delete": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque Salah Times"
+                ],
+                "summary": "Menghapus data suggest mosque response",
+                "description": "Menghapus data suggest mosque response",
+                "operationId": "deleteSuggestMosqueFacilities",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque_facilities",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque Facilities ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/salah-times/unDelete": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque Salah Times"
+                ],
+                "summary": "Mengembalikan data terhapus data suggest mosque response",
+                "description": "Mengembalikan data terhapus data suggest mosque response",
+                "operationId": "unDeleteSuggestMosqueFacilities",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque_facilities",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque Facilities ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/salah-times/show": {
+            "get": {
+                "tags": [
+                    "Suggest Mosque Salah Times"
+                ],
+                "summary": "Show all data suggest mosque response",
+                "description": "Show all data suggest mosque response",
+                "operationId": "showSuggestMosqueFacilities",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/salah-times/showById": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque Salah Times"
                 ],
                 "summary": "Show data suggest mosque by ID suggest mosque response",
                 "description": "Show data suggest mosque by ID suggest mosque response",
-                "operationId": "showByIdMosqueSuggestMosque",
+                "operationId": "showByIdSuggestMosqueFacilities",
                 "parameters": [
                     {
-                        "name": "id_mosque",
+                        "name": "id_suggest_mosque_facilities",
                         "in": "formData",
-                        "description": "ID Mosque ...",
+                        "description": "ID Suggest Mosque Facilities ...",
                         "required": true,
                         "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/salah-times/showByFilter": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque Salah Times"
+                ],
+                "summary": "Show data by filter suggest mosque facilities response",
+                "description": "Show data by filter suggest mosque facilities response",
+                "operationId": "showByFilterSuggestMosqueFacilities",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_facilities",
+                        "in": "formData",
+                        "description": "ID Facilities ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "soft_delete",
+                        "in": "formData",
+                        "description": "Soft Delete Data (Default=0 / Not Deleted) [0 = Not Deleted  ||  1 = Deleted / Archived]",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "skip",
+                        "in": "formData",
+                        "description": "Skip Berapa Data (Default=0)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "take",
+                        "in": "formData",
+                        "description": "Take Berapa Data (Default=100)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "order",
+                        "in": "formData",
+                        "description": "ASC / DESC (default DESC)",
+                        "required": false,
+                        "type": "string"
                     }
                 ],
                 "responses": {

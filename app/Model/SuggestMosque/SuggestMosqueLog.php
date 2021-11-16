@@ -8,7 +8,7 @@ class SuggestMosqueLog extends Model
 {
     protected $table = 'suggest_mosque_log';
     protected $fillable = [
-        'id_suggest_mosque','id_admin','action','soft_delete'
+        'id_suggest_mosque','id_admin','action','date_log'
     ];
 
     protected $primaryKey = 'id_suggest_mosque_log';

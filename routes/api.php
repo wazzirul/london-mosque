@@ -107,14 +107,37 @@ Route::get('donations/show', 'DonationsController@show');
 ///////////////////////////////////////////////////////////////////////////////////////////
 // SUGGEST MOSQUE
 ///////////////////////////////////////////////////////////////////////////////////////////
-Route::post('suggest-mosque/store', 'SuggestMosque/SuggestMosqueController@store');
-Route::post('suggest-mosque/update', 'SuggestMosque/SuggestMosqueController@update');
-Route::post('suggest-mosque/delete', 'SuggestMosque/SuggestMosqueController@delete');
-Route::post('suggest-mosque/unDelete', 'SuggestMosque/SuggestMosqueController@unDelete');
-Route::post('suggest-mosque/showById', 'SuggestMosque/SuggestMosqueController@showById');
-Route::post('suggest-mosque/showByIdUsers', 'SuggestMosque/SuggestMosqueController@showByIdUsers');
-Route::post('suggest-mosque/showByIdMosque', 'SuggestMosque/SuggestMosqueController@showByIdMosque');
-Route::get('suggest-mosque/show', 'SuggestMosque/SuggestMosqueController@show');
+Route::post('suggest-mosque/store', 'SuggestMosque\SuggestMosqueController@store');
+Route::post('suggest-mosque/update', 'SuggestMosque\SuggestMosqueController@update');
+Route::post('suggest-mosque/delete', 'SuggestMosque\SuggestMosqueController@delete');
+Route::post('suggest-mosque/unDelete', 'SuggestMosque\SuggestMosqueController@unDelete');
+Route::post('suggest-mosque/showById', 'SuggestMosque\SuggestMosqueController@showById');
+Route::get('suggest-mosque/show', 'SuggestMosque\SuggestMosqueController@show');
+Route::post('suggest-mosque/showByFilter', 'SuggestMosque\SuggestMosqueController@showByFilter');
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+// SUGGEST MOSQUE FACILITIES
+///////////////////////////////////////////////////////////////////////////////////////////
+Route::post('suggest-mosque/facilities/store', 'SuggestMosque\SuggestMosqueFacilitiesController@store');
+Route::post('suggest-mosque/facilities/update', 'SuggestMosque\SuggestMosqueFacilitiesController@update');
+Route::post('suggest-mosque/facilities/delete', 'SuggestMosque\SuggestMosqueFacilitiesController@delete');
+Route::post('suggest-mosque/facilities/unDelete', 'SuggestMosque\SuggestMosqueFacilitiesController@unDelete');
+Route::post('suggest-mosque/facilities/showById', 'SuggestMosque\SuggestMosqueFacilitiesController@showById');
+Route::get('suggest-mosque/facilities/show', 'SuggestMosque\SuggestMosqueFacilitiesController@show');
+Route::post('suggest-mosque/facilities/showByFilter', 'SuggestMosque\SuggestMosqueFacilitiesController@showByFilter');
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+// SUGGEST MOSQUE IMAGE
+///////////////////////////////////////////////////////////////////////////////////////////
+Route::post('suggest-mosque/image/store', 'SuggestMosque\SuggestMosqueImageController@store');
+Route::post('suggest-mosque/image/update', 'SuggestMosque\SuggestMosqueImageController@update');
+Route::post('suggest-mosque/image/delete', 'SuggestMosque\SuggestMosqueImageController@delete');
+Route::post('suggest-mosque/image/unDelete', 'SuggestMosque\SuggestMosqueImageController@unDelete');
+Route::post('suggest-mosque/image/showById', 'SuggestMosque\SuggestMosqueImageController@showById');
+Route::get('suggest-mosque/image/show', 'SuggestMosque\SuggestMosqueImageController@show');
+Route::post('suggest-mosque/image/showByFilter', 'SuggestMosque\SuggestMosqueImageController@showByFilter');
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////

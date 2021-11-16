@@ -8,7 +8,8 @@ class SuggestMosque extends Model
 {
     protected $table = 'suggest_mosque';
     protected $fillable = [
-        'id_user','id_mosque','id_borough','id_district','name_mosque','address','latitude','longitude'
+        'id_user','status_suggest_mosque','id_mosque','id_borough','id_district','name_mosque',
+        'address','latitude','longitude'
     ];
 
     protected $primaryKey = 'id_suggest_mosque';
