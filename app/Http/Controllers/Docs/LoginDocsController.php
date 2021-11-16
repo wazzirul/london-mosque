@@ -16,8 +16,8 @@ class LoginDocsController extends Controller
     //
     
     public function login_proses(Request $request){
-        $username1 = "admin";
-        $password1 = "12345678";
+        $username1 = "londonmosqueapis";
+        $password1 = "1234londonmosqueapis5678";
         
         $username = $request->input('username');
         $password = $request->input('password');
