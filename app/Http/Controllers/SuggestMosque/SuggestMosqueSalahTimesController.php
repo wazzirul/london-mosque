@@ -499,6 +499,9 @@ class SuggestMosqueSalahTimesController extends Controller
         $order = $request->input('order') ?? "DESC";
 
         $suggestMosqueSalahTimes = SuggestMosqueSalahTimes::query()
+        ->when($request->has('id_suggest_mosque'), function ($query) use ($id_suggest_mosque) {
+            $query->where('suggest_mosque_salah_times.id_suggest_mosque',$id_suggest_mosque);
+        })
         ->when($request->has('date_salah_times'), function ($query) use ($date_salah_times) {
             $query->where('suggest_mosque_salah_times.date_salah_times',$date_salah_times);
         })

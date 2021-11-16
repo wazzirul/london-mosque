@@ -141,6 +141,30 @@ Route::post('suggest-mosque/image/showByFilter', 'SuggestMosque\SuggestMosqueIma
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
+// SUGGEST MOSQUE SALAH TIMES
+///////////////////////////////////////////////////////////////////////////////////////////
+Route::post('suggest-mosque/salah-times/store', 'SuggestMosque\SuggestMosqueSalahTimesController@store');
+Route::post('suggest-mosque/salah-times/update', 'SuggestMosque\SuggestMosqueSalahTimesController@update');
+Route::post('suggest-mosque/salah-times/delete', 'SuggestMosque\SuggestMosqueSalahTimesController@delete');
+Route::post('suggest-mosque/salah-times/unDelete', 'SuggestMosque\SuggestMosqueSalahTimesController@unDelete');
+Route::post('suggest-mosque/salah-times/showById', 'SuggestMosque\SuggestMosqueSalahTimesController@showById');
+Route::get('suggest-mosque/salah-times/show', 'SuggestMosque\SuggestMosqueSalahTimesController@show');
+Route::post('suggest-mosque/salah-times/showByFilter', 'SuggestMosque\SuggestMosqueSalahTimesController@showByFilter');
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+// SUGGEST MOSQUE JUMMAH TIMES
+///////////////////////////////////////////////////////////////////////////////////////////
+Route::post('suggest-mosque/jummah-times/store', 'SuggestMosque\SuggestMosqueJummahTimesController@store');
+Route::post('suggest-mosque/jummah-times/update', 'SuggestMosque\SuggestMosqueJummahTimesController@update');
+Route::post('suggest-mosque/jummah-times/delete', 'SuggestMosque\SuggestMosqueJummahTimesController@delete');
+Route::post('suggest-mosque/jummah-times/unDelete', 'SuggestMosque\SuggestMosqueJummahTimesController@unDelete');
+Route::post('suggest-mosque/jummah-times/showById', 'SuggestMosque\SuggestMosqueJummahTimesController@showById');
+Route::get('suggest-mosque/jummah-times/show', 'SuggestMosque\SuggestMosqueJummahTimesController@show');
+Route::post('suggest-mosque/jummah-times/showByFilter', 'SuggestMosque\SuggestMosqueJummahTimesController@showByFilter');
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
 // About Us About Us About Us
 ///////////////////////////////////////////////////////////////////////////////////////////
 Route::post('AboutUs/update', 'AboutUsController@update');
