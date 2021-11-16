@@ -12,6 +12,7 @@ use App\Model\Mosque\Mosque;
 use App\Model\Mosque\MosqueSalahTime;
 use App\Model\Mosque\MosqueJummahTime;
 use App\Model\Mosque\MosqueFacilities;
+use App\Model\Mosque\MosqueImage;
 
 use Validator;
 use Carbon\Carbon;
@@ -605,12 +606,28 @@ class MosqueController extends Controller
             $facilities = MosqueFacilities::with('Facilities')
                 ->where('id_mosque', $d->id_mosque)
                 ->get();
+            $images = MosqueImage::where('id_mosque', $d->id_mosque)
+                ->get();
+            
+            if(count($images) !== 0){
+                foreach($images as $index => $smi){
+                    $expiresAt = Carbon::now()->addDays();  
+                    $imageReference = app('firebase.storage')->getBucket()->object($smi->mosque_image_url);  
+                    if($imageReference->exists()){
+                        $image = $imageReference->signedUrl($expiresAt);
+                        $images[$index]->mosque_image_url_firebase = $image;
+                    }else{
+                        $images[$index]->mosque_image_url_firebase = null;
+                    }
+                }
+            }
 
             $mosque[$index]->borough = $borough;
             $mosque[$index]->district = $district;
             $mosque[$index]->salah_times = $salah_times;
             $mosque[$index]->jummah_times = $jummah_times;
             $mosque[$index]->facilities = $facilities;
+            $mosque[$index]->images = $images;
         }
 
         if(count($mosque) !== 0){
@@ -822,12 +839,28 @@ class MosqueController extends Controller
             $facilities = MosqueFacilities::with('Facilities')
                 ->where('id_mosque', $d->id_mosque)
                 ->get();
-
+            $images = MosqueImage::where('id_mosque', $d->id_mosque)
+                ->get();
+                
+            if(count($images) !== 0){
+                foreach($images as $index => $smi){
+                    $expiresAt = Carbon::now()->addDays();  
+                    $imageReference = app('firebase.storage')->getBucket()->object($smi->mosque_image_url);  
+                    if($imageReference->exists()){
+                        $image = $imageReference->signedUrl($expiresAt);
+                        $images[$index]->mosque_image_url_firebase = $image;
+                    }else{
+                        $images[$index]->mosque_image_url_firebase = null;
+                    }
+                }
+            }
+    
             $mosque[$index]->borough = $borough;
             $mosque[$index]->district = $district;
             $mosque[$index]->salah_times = $salah_times;
             $mosque[$index]->jummah_times = $jummah_times;
             $mosque[$index]->facilities = $facilities;
+            $mosque[$index]->images = $images;
         }
 
 

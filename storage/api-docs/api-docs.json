@@ -1859,6 +1859,256 @@
                 }
             }
         },
+        "/mosque-image/store": {
+            "post": {
+                "tags": [
+                    "Mosque Image"
+                ],
+                "summary": "Menambah data mosque image response",
+                "description": "Menambah data mosque image response",
+                "operationId": "storeMosqueImage",
+                "parameters": [
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "mosque_image_url",
+                        "in": "formData",
+                        "description": "Image Url (base64) ...",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-image/update": {
+            "post": {
+                "tags": [
+                    "Mosque Image"
+                ],
+                "summary": "Mengedit data mosque image response",
+                "description": "Mengedit data mosque image response",
+                "operationId": "updateMosqueImage",
+                "parameters": [
+                    {
+                        "name": "id_mosque_image",
+                        "in": "formData",
+                        "description": "ID Mosque Image ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "mosque_image_url",
+                        "in": "formData",
+                        "description": "Mosque Image Url (base64) (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-image/delete": {
+            "post": {
+                "tags": [
+                    "Mosque Image"
+                ],
+                "summary": "Menghapus data mosque image response",
+                "description": "Menghapus data mosque image response",
+                "operationId": "deleteMosqueImage",
+                "parameters": [
+                    {
+                        "name": "id_mosque_image",
+                        "in": "formData",
+                        "description": "ID Mosque Image ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-image/undelete": {
+            "post": {
+                "tags": [
+                    "Mosque Image"
+                ],
+                "summary": "Mengembalikan data terhapus data mosque image response",
+                "description": "Mengembalikan data terhapus data mosque image response",
+                "operationId": "unDeleteMosqueImage",
+                "parameters": [
+                    {
+                        "name": "id_mosque_image",
+                        "in": "formData",
+                        "description": "ID Mosque Image ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-image/show": {
+            "get": {
+                "tags": [
+                    "Mosque Image"
+                ],
+                "summary": "Show all data mosque image response",
+                "description": "Show all data mosque image response",
+                "operationId": "showMosqueImage",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-image/showById": {
+            "post": {
+                "tags": [
+                    "Mosque Image"
+                ],
+                "summary": "Show data mosque image by ID mosque image response",
+                "description": "Show data mosque image by ID mosque image response",
+                "operationId": "showByIdMosqueImage",
+                "parameters": [
+                    {
+                        "name": "id_mosque_image",
+                        "in": "formData",
+                        "description": "ID Mosque Image ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-image/showByFilter": {
+            "post": {
+                "tags": [
+                    "Mosque Image"
+                ],
+                "summary": "Show data by filter mosque image response",
+                "description": "Show data by filter mosque image response",
+                "operationId": "showByFilterMosqueImage",
+                "parameters": [
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "soft_delete",
+                        "in": "formData",
+                        "description": "Soft Delete Data (Default=0 / Not Deleted) [0 = Not Deleted  ||  1 = Deleted / Archived]",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "skip",
+                        "in": "formData",
+                        "description": "Skip Berapa Data (Default=0)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "take",
+                        "in": "formData",
+                        "description": "Take Berapa Data (Default=100)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "order",
+                        "in": "formData",
+                        "description": "ASC / DESC (default DESC)",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
         "/mosque-jummah-times/store": {
             "post": {
                 "tags": [
@@ -1916,7 +2166,7 @@
                     "Mosque Jummah Times"
                 ],
                 "summary": "Updating data Mosque Jummah Times response",
-                "description": "Updating data Mosque Jummah Times response\r\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
+                "description": "Updating data Mosque Jummah Times response\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
                 "operationId": "updateMosque",
                 "parameters": [
                     {
