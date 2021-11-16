@@ -70,7 +70,7 @@ class MosqueSalahTimesController extends Controller
     public function store(Request $request){
         $this->validate($request,[
             'id_mosque'=>'required|numeric',
-            'date_salah_times'=>'nullable|date|date_format:YYYY-mm-dd',
+            'date_salah_times'=>'nullable|date|date_format:Y-m-d',
             'type_salah_times'=>'required|numeric',
             'time_salah_times'=>'required|date_format:H:i',
         ]);  
@@ -176,7 +176,7 @@ class MosqueSalahTimesController extends Controller
         $this->validate($request,[
             'id_salah_times'=>'required|numeric',
             'id_mosque'=>'nullable|numeric',
-            'date_salah_times'=>'nullable|date|date_format:YYYY-mm-dd',
+            'date_salah_times'=>'nullable|date|date_format:Y-m-d',
             'type_salah_times'=>'nullable|numeric',
             'time_salah_times'=>'nullable|date_format:H:i',
         ]);  
