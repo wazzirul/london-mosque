@@ -42,10 +42,10 @@ return [
         |--------------------------------------------------------------------------
          */
         'middleware' => [
-            'api' => [],
-            'asset' => [],
-            'docs' => [],
-            'oauth2_callback' => [],
+            'api' => ['web','usersession'],
+            'asset' => ['web','usersession'],
+            'docs' => ['web','usersession'],
+            'oauth2_callback' => ['web','usersession'],
         ],
     ],
 

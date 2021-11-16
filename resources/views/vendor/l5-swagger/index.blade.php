@@ -25,6 +25,41 @@
       margin:0;
       background: #fafafa;
     }
+    .btn-logout{
+      position: absolute;
+      padding:10px 24px;
+      background:#d63031;
+      background-color:#d63031;
+      color:white;
+      right:0;
+      top:60px;
+      z-index:10;
+      text-decoration:none;
+    }
+    .info-case-sensitive{
+      position: absolute;
+      color: #6D8299;
+      left: 3%;
+      font-size: 15px;
+      top: 230px;
+      z-index: 10;
+      text-decoration: none;
+    }
+
+    .animate-fading{
+      animation:fading 2s ease-in-out;
+    }
+    @keyframes fading{
+      0%{
+        opacity:0
+      }
+      50%{
+        opacity:1
+      }
+      100%{
+        opacity:1
+      }
+    }
   </style>
 </head>
 
@@ -63,6 +98,9 @@
 
   </defs>
 </svg>
+
+<a href="/logout" class="btn-logout animate-fading">Logout</a>
+<small class="info-case-sensitive animate-fading">*Case Sensitive, Example : Berita, not <span style="text-decoration: line-through;">berita</span></small>
 
 <div id="swagger-ui"></div>
 
