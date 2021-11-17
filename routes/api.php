@@ -242,3 +242,13 @@ Route::post('mosque-image/undelete', 'Mosque\MosqueImageController@undelete');
 Route::post('mosque-image/showById', 'Mosque\MosqueImageController@showById');
 Route::post('mosque-image/showByFilter', 'Mosque\MosqueImageController@showByFilter');
 Route::get('mosque-image/show', 'Mosque\MosqueImageController@show');
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+// Mosque Image
+///////////////////////////////////////////////////////////////////////////////////////////
+Route::post('mosque-favorite/favorite', 'Mosque\MosqueFavoriteController@favorite');
+Route::post('mosque-favorite/unfavorite', 'Mosque\MosqueFavoriteController@unfavorite');
+Route::post('mosque-favorite/showByFilter', 'Mosque\MosqueFavoriteController@showByFilter');

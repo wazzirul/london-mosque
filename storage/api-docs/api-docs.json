@@ -1487,7 +1487,7 @@
                     "Mosque"
                 ],
                 "summary": "Show all data mosque response",
-                "description": "Show all data mosque response",
+                "description": "Show all data mosque response\r\n           <br>*id_user and status_mosque_favorite must use together to get favorite mosque the user have",
                 "operationId": "showByFilterMosques",
                 "parameters": [
                     {
@@ -1508,6 +1508,20 @@
                         "name": "id_district",
                         "in": "formData",
                         "description": "ID District ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_user",
+                        "in": "formData",
+                        "description": "ID User ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "status_mosque_favorite",
+                        "in": "formData",
+                        "description": "Status Mosque Favorite (Default=1 / Favorite) [0 = Not Favorite  ||  1 = Favorite]",
                         "required": false,
                         "type": "integer"
                     },
@@ -1814,6 +1828,152 @@
                         "name": "id_facilities",
                         "in": "formData",
                         "description": "ID Facilities ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "soft_delete",
+                        "in": "formData",
+                        "description": "Soft Delete Data (Default=0 / Not Deleted) [0 = Not Deleted  ||  1 = Deleted / Archived]",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "skip",
+                        "in": "formData",
+                        "description": "Skip Berapa Data (Default=0)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "take",
+                        "in": "formData",
+                        "description": "Take Berapa Data (Default=100)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "order",
+                        "in": "formData",
+                        "description": "ASC / DESC (default DESC)",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-favorite/favorite": {
+            "post": {
+                "tags": [
+                    "Mosque Favorite"
+                ],
+                "summary": "Adding new/ Update data mosque Favorite response",
+                "description": "Adding new/ Update data mosque Favorite response",
+                "operationId": "favoriteMosqueFavorite",
+                "parameters": [
+                    {
+                        "name": "id_user",
+                        "in": "formData",
+                        "description": "ID User ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-favorite/unfavorite": {
+            "post": {
+                "tags": [
+                    "Mosque Favorite"
+                ],
+                "summary": "Remove / Unfavorite data mosque Favorite response",
+                "description": "Remove / Unfavorite data mosque Favorite response",
+                "operationId": "unfavoriteMosqueFavorite",
+                "parameters": [
+                    {
+                        "name": "id_mosque_favorite",
+                        "in": "formData",
+                        "description": "ID Mosque Favorite ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-favorite/showByFilter": {
+            "post": {
+                "tags": [
+                    "Mosque Favorite"
+                ],
+                "summary": "Show all data Mosque Favorite response",
+                "description": "Show all data Mosque Favorite response",
+                "operationId": "showByFilterMosqueFavorite",
+                "parameters": [
+                    {
+                        "name": "id_mosque_favorite",
+                        "in": "formData",
+                        "description": "ID Mosque Favorite ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_user",
+                        "in": "formData",
+                        "description": "ID User ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "status_mosque_favorite",
+                        "in": "formData",
+                        "description": "Status Mosque Favorite (Default=1 / Favorite) [0 = Not Favorite  ||  1 = Favorite]",
                         "required": false,
                         "type": "integer"
                     },
@@ -3566,6 +3726,305 @@
                         "name": "id_suggest_mosque",
                         "in": "formData",
                         "description": "ID Suggest Mosque ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "soft_delete",
+                        "in": "formData",
+                        "description": "Soft Delete Data (Default=0 / Not Deleted) [0 = Not Deleted  ||  1 = Deleted / Archived]",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "skip",
+                        "in": "formData",
+                        "description": "Skip Berapa Data (Default=0)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "take",
+                        "in": "formData",
+                        "description": "Take Berapa Data (Default=100)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "order",
+                        "in": "formData",
+                        "description": "ASC / DESC (default DESC)",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/jummah-times/store": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque Jummah Times"
+                ],
+                "summary": "Menambah data suggest mosque jummah times response",
+                "description": "Menambah data suggest mosque jummah times response",
+                "operationId": "storeSuggestMosqueJummahTimes",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "date_jummah_times",
+                        "in": "formData",
+                        "description": "date_jummah_times (YYYY-mm-dd ,ex : 2021-11-15) [default : now] ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "order_jummah_times",
+                        "in": "formData",
+                        "description": "order_jummah_times (1st, 2nd, 3rd, 4th, 5th, etc.) ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "time_jummah_times",
+                        "in": "formData",
+                        "description": "time_jummah_times (hh:ii ,ex : 09:52) ...",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/jummah-times/update": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque Jummah Times"
+                ],
+                "summary": "Mengedit data suggest mosque jummah times response",
+                "description": "Mengedit data suggest mosque jummah times response",
+                "operationId": "updateSuggestMosqueJummahTimes",
+                "parameters": [
+                    {
+                        "name": "id_jummah_times",
+                        "in": "formData",
+                        "description": "ID Jummah Times ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_suggest_mosque",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "date_jummah_times",
+                        "in": "formData",
+                        "description": "date_jummah_times (YYYY-mm-dd ,ex : 2021-11-15) [default : now] (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "order_jummah_times",
+                        "in": "formData",
+                        "description": "order_jummah_times (1st, 2nd, 3rd, 4th, 5th, etc.) (Kosongi jika tidak ingin merubah data)...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "time_jummah_times",
+                        "in": "formData",
+                        "description": "time_jummah_times (hh:ii ,ex : 09:52) (Kosongi jika tidak ingin merubah data)...",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/jummah-times/delete": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque Jummah Times"
+                ],
+                "summary": "Menghapus data suggest mosque response",
+                "description": "Menghapus data suggest mosque response",
+                "operationId": "deleteSuggestMosqueJummahTimes",
+                "parameters": [
+                    {
+                        "name": "id_jummah_times",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque Jummah  Times ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/jummah-times/unDelete": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque Jummah Times"
+                ],
+                "summary": "Mengembalikan data terhapus data suggest mosque response",
+                "description": "Mengembalikan data terhapus data suggest mosque response",
+                "operationId": "unDeleteSuggestMosqueJummahTimes",
+                "parameters": [
+                    {
+                        "name": "id_jummah_times",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque Jummah Times ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/jummah-times/show": {
+            "get": {
+                "tags": [
+                    "Suggest Mosque Jummah Times"
+                ],
+                "summary": "Show all data suggest mosque response",
+                "description": "Show all data suggest mosque response",
+                "operationId": "showSuggestMosqueJummahTimes",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/jummah-times/showById": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque Jummah Times"
+                ],
+                "summary": "Show data suggest mosque by ID suggest mosque response",
+                "description": "Show data suggest mosque by ID suggest mosque response",
+                "operationId": "showByIdSuggestMosqueJummahTimes",
+                "parameters": [
+                    {
+                        "name": "id_jummah_times",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque Jummah Times ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/jummah-times/showByFilter": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque Jummah Times"
+                ],
+                "summary": "Show data by filter suggest mosque jummah times response",
+                "description": "Show data by filter suggest mosque jummah times response",
+                "operationId": "showByFilterSuggestMosqueJummahTimes",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "date_jummah_times",
+                        "in": "formData",
+                        "description": "date_jummah_times (YYYY-mm-dd ,ex : 2021-11-15) ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "where_year",
+                        "in": "formData",
+                        "description": "where_year [default = this year] ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "where_month",
+                        "in": "formData",
+                        "description": "where_month (month : 1 - 12) [default = this month] ...",
                         "required": false,
                         "type": "integer"
                     },

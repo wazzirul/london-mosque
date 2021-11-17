@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Mosque;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Model\Users;
 use App\Model\Borough;
 use App\Model\Districts;
 
@@ -12,6 +13,7 @@ use App\Model\Mosque\Mosque;
 use App\Model\Mosque\MosqueSalahTime;
 use App\Model\Mosque\MosqueJummahTime;
 use App\Model\Mosque\MosqueFacilities;
+use App\Model\Mosque\MosqueFavorite;
 use App\Model\Mosque\MosqueImage;
 
 use Validator;
@@ -659,7 +661,8 @@ class MosqueController extends Controller
      *   path="/mosque/showByFilter",
      *     tags={"Mosque"},
      *     summary="Show all data mosque response",
-     *     description="Show all data mosque response",
+     *     description="Show all data mosque response
+           <br>*id_user and status_mosque_favorite must use together to get favorite mosque the user have",
      *     operationId="showByFilterMosques",
      * 
      *   @SWG\Parameter(
@@ -680,6 +683,20 @@ class MosqueController extends Controller
      *     name="id_district",
      *     in="formData",
      *     description="ID District ...",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="id_user",
+     *     in="formData",
+     *     description="ID User ...",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="status_mosque_favorite",
+     *     in="formData",
+     *     description="Status Mosque Favorite (Default=1 / Favorite) [0 = Not Favorite  ||  1 = Favorite]",
      *     required=false,
      *     type="integer"
      *   ),
@@ -769,6 +786,9 @@ class MosqueController extends Controller
         $skip = $request->input('skip') ?? 0;
         $take = $request->input('take') ?? 100;
         $order = $request->input('order') ?? "DESC";
+        
+        $id_user = $request->input('id_user');
+        $status_mosque_favorite = $request->input('status_mosque_favorite') ?? 1;
 
         $id_facilities = $request->input('id_facilities');
         $date_salah_times_from = $request->input('date_salah_times_from') ?? Carbon::now()->format('Y-m-d');
@@ -784,6 +804,13 @@ class MosqueController extends Controller
         ->when($request->has('id_facilities'), function ($query) use ($id_facilities) {
             $query->leftJoin('mosque_facilities','mosque_facilities.id_mosque','=','mosque.id_mosque');
             $query->leftJoin('facilities','facilities.id_facilities','=','mosque_facilities.id_facilities');
+        })
+        ->when($request->has('id_user') && $request->has('status_mosque_favorite'), function ($query) use ($id_user, $status_mosque_favorite) {
+            $query->leftJoin('mosque_favorite','mosque_favorite.id_mosque','=','mosque.id_mosque');
+            $query->leftJoin('users','users.id_user','=','mosque_favorite.id_user');
+            ///////////////////////////////////////
+            $query->where('users.id_user',$id_user);
+            $query->where('mosque_favorite.status_mosque_favorite',$status_mosque_favorite);
         })
         ->when($request->has('id_mosque'), function ($query) use ($id_mosque) {
             $query->where('mosque.id_mosque',$id_mosque);
