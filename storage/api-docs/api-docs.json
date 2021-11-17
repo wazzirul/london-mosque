@@ -4445,6 +4445,27 @@
                 }
             }
         },
+        "/users/showDeleted": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Show all deleted data users response",
+                "description": "Show all deleted data users response",
+                "operationId": "showDeteledUsers",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
         "/users/showById": {
             "post": {
                 "tags": [

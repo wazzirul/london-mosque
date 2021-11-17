@@ -505,6 +505,44 @@ class UsersController extends Controller
 
 
     //////////////////////////////////////////////////////////////////////////////////////
+    // SHOW
+    //////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @SWG\Get(
+     *   path="/users/showDeleted",
+     *     tags={"Users"},
+     *     summary="Show all deleted data users response",
+     *     description="Show all deleted data users response",
+     *     operationId="showDeteledUsers",
+     * 
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function showDeleted(){
+        $user = Users::where('soft_delete', 1)
+            ->orderBy('id_user', 'DESC')
+            ->get();
+
+        if(count($user) !== 0){
+            $res['status_code'] = 200;
+            $res['success'] = true;
+            $res['data'] = $user;
+
+            return response($res, 200);
+        }else{
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['data'] = $user;
+
+            return response($res, 200);
+        }
+    }
+
+
+
+    //////////////////////////////////////////////////////////////////////////////////////
     // SHOW BY ID
     //////////////////////////////////////////////////////////////////////////////////////
     /**

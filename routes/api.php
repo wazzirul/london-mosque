@@ -44,6 +44,7 @@ Route::get('users/verif-account', 'UsersController@verifAccount');
 Route::post('users/logout', 'UsersController@logout');
 Route::post('users/showById', 'UsersController@showById');
 Route::get('users/show', 'UsersController@show');
+Route::get('users/showDeleted', 'UsersController@showDeleted');
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
