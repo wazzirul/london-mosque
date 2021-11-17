@@ -291,6 +291,27 @@
                 }
             }
         },
+        "/admin/showDeleted": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Show Deleted all data admin response",
+                "description": "Show Deleted all data admin response",
+                "operationId": "showDeletedAdmin",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
         "/admin/showById": {
             "post": {
                 "tags": [
@@ -484,6 +505,27 @@
                 "summary": "Show all data borough response",
                 "description": "Show all data borough response",
                 "operationId": "showBorough",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/borough/showDeleted": {
+            "get": {
+                "tags": [
+                    "Borough"
+                ],
+                "summary": "Show Deleted all data borough response",
+                "description": "Show Deleted all data borough response",
+                "operationId": "showDeletedBorough",
                 "responses": {
                     "200": {
                         "description": "successful operation"
@@ -1176,6 +1218,27 @@
                 "summary": "Show all data facilities response",
                 "description": "Show all data facilities response",
                 "operationId": "showFacilities",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/facilities/showDeleted": {
+            "get": {
+                "tags": [
+                    "Facilities"
+                ],
+                "summary": "Show Deleted all data facilities response",
+                "description": "Show Deleted all data facilities response",
+                "operationId": "showDeletedFacilities",
                 "responses": {
                     "200": {
                         "description": "successful operation"

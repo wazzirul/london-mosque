@@ -324,6 +324,43 @@ class BoroughController extends Controller
     }
 
 
+    //////////////////////////////////////////////////////////////////////////////////////
+    // SHOW DELETED
+    //////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @SWG\Get(
+     *   path="/borough/showDeleted",
+     *     tags={"Borough"},
+     *     summary="Show Deleted all data borough response",
+     *     description="Show Deleted all data borough response",
+     *     operationId="showDeletedBorough",
+     * 
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function showDeleted(){
+        $borough = Borough::where('soft_delete', 1)
+            ->orderBy('id_borough', 'DESC')
+            ->get();
+
+        if(count($borough) !== 0){
+            $res['status_code'] = 200;
+            $res['success'] = true;
+            $res['data'] = $borough;
+
+            return response($res, 200);
+        }else{
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['data'] = $borough;
+
+            return response($res, 200);
+        }
+    }
+
+
 
     //////////////////////////////////////////////////////////////////////////////////////
     // SHOW BY ID

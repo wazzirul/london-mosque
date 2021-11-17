@@ -376,6 +376,54 @@ class FacilitiesController extends Controller
     }
 
 
+     //////////////////////////////////////////////////////////////////////////////////////
+    // SHOW DELETED
+    //////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @SWG\Get(
+     *   path="/facilities/showDeleted",
+     *     tags={"Facilities"},
+     *     summary="Show Deleted all data facilities response",
+     *     description="Show Deleted all data facilities response",
+     *     operationId="showDeletedFacilities",
+     * 
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function showDeleted(){
+        $facility = Facilities::where('soft_delete', 1)
+            ->orderBy('id_facilities', 'DESC')
+            ->get();
+
+        if(count($facility) !== 0){
+            foreach($facility as $index => $f){
+                $expiresAt = Carbon::now()->addDays();  
+                $imageReference = app('firebase.storage')->getBucket()->object($f->icon_facilities);  
+                if($imageReference->exists()){
+                    $image = $imageReference->signedUrl($expiresAt);
+                    $facility[$index]->icon_facilities_firebase = $image;
+                }else{
+                    $facility[$index]->icon_facilities_firebase = null;
+                }
+            }
+
+            $res['status_code'] = 200;
+            $res['success'] = true;
+            $res['data'] = $facility;
+
+            return response($res, 200);
+        }else{
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['data'] = $facility;
+
+            return response($res, 200);
+        }
+    }
+
+
 
     //////////////////////////////////////////////////////////////////////////////////////
     // SHOW BY ID
