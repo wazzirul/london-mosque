@@ -1487,7 +1487,7 @@
                     "Mosque"
                 ],
                 "summary": "Show all data mosque response",
-                "description": "Show all data mosque response",
+                "description": "Show all data mosque response\r\n           <br>*id_user and status_mosque_favorite must use together to get favorite mosque the user have",
                 "operationId": "showByFilterMosques",
                 "parameters": [
                     {
@@ -1508,6 +1508,20 @@
                         "name": "id_district",
                         "in": "formData",
                         "description": "ID District ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_user",
+                        "in": "formData",
+                        "description": "ID User ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "status_mosque_favorite",
+                        "in": "formData",
+                        "description": "Status Mosque Favorite (Default=1 / Favorite) [0 = Not Favorite  ||  1 = Favorite]",
                         "required": false,
                         "type": "integer"
                     },
@@ -1814,6 +1828,152 @@
                         "name": "id_facilities",
                         "in": "formData",
                         "description": "ID Facilities ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "soft_delete",
+                        "in": "formData",
+                        "description": "Soft Delete Data (Default=0 / Not Deleted) [0 = Not Deleted  ||  1 = Deleted / Archived]",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "skip",
+                        "in": "formData",
+                        "description": "Skip Berapa Data (Default=0)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "take",
+                        "in": "formData",
+                        "description": "Take Berapa Data (Default=100)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "order",
+                        "in": "formData",
+                        "description": "ASC / DESC (default DESC)",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-favorite/favorite": {
+            "post": {
+                "tags": [
+                    "Mosque Favorite"
+                ],
+                "summary": "Adding new/ Update data mosque Favorite response",
+                "description": "Adding new/ Update data mosque Favorite response",
+                "operationId": "favoriteMosqueFavorite",
+                "parameters": [
+                    {
+                        "name": "id_user",
+                        "in": "formData",
+                        "description": "ID User ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-favorite/unfavorite": {
+            "post": {
+                "tags": [
+                    "Mosque Favorite"
+                ],
+                "summary": "Remove / Unfavorite data mosque Favorite response",
+                "description": "Remove / Unfavorite data mosque Favorite response",
+                "operationId": "unfavoriteMosqueFavorite",
+                "parameters": [
+                    {
+                        "name": "id_mosque_favorite",
+                        "in": "formData",
+                        "description": "ID Mosque Favorite ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-favorite/showByFilter": {
+            "post": {
+                "tags": [
+                    "Mosque Favorite"
+                ],
+                "summary": "Show all data Mosque Favorite response",
+                "description": "Show all data Mosque Favorite response",
+                "operationId": "showByFilterMosqueFavorite",
+                "parameters": [
+                    {
+                        "name": "id_mosque_favorite",
+                        "in": "formData",
+                        "description": "ID Mosque Favorite ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_user",
+                        "in": "formData",
+                        "description": "ID User ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "status_mosque_favorite",
+                        "in": "formData",
+                        "description": "Status Mosque Favorite (Default=1 / Favorite) [0 = Not Favorite  ||  1 = Favorite]",
                         "required": false,
                         "type": "integer"
                     },
