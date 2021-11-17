@@ -93,7 +93,7 @@ class MosqueController extends Controller
         $this->validate($request,[
             'id_mosque_google_place'=>'nullable',
             'id_borough'=>'required|numeric',
-            'id_district'=>'required|numeric',
+            'id_district'=>'nullable|numeric',
             'name_mosque'=>'required',
             'address'=>'required',
             'latitude'=>'required',
@@ -102,7 +102,7 @@ class MosqueController extends Controller
 
         $id_mosque_google_place = $request->input('id_mosque_google_place') ?? NULL;
         $id_borough = $request->input('id_borough');
-        $id_district = $request->input('id_district');
+        $id_district = $request->input('id_district') ?? null;
         $name_mosque = $request->input('name_mosque');
         $address = $request->input('address');
         $latitude = $request->input('latitude');
@@ -125,27 +125,27 @@ class MosqueController extends Controller
             return response($res, 200);
         }
 
-        $district = Districts::where('id_district', $id_district)
-            ->first();
+        // $district = Districts::where('id_district', $id_district)
+        //     ->first();
 
-        if($district === null){
-            $res['status_code'] = 406;
-            $res['success'] = false;
-            $res['detail'] = "Data District for that ID not found.";
+        // if($district === null){
+        //     $res['status_code'] = 406;
+        //     $res['success'] = false;
+        //     $res['detail'] = "Data District for that ID not found.";
 
-            return response($res, 200);
-        }else if($district->soft_delete === 1){
-            $res['status_code'] = 406;
-            $res['success'] = false;
-            $res['detail'] = "District was deleted. Please contact customer service.";
+        //     return response($res, 200);
+        // }else if($district->soft_delete === 1){
+        //     $res['status_code'] = 406;
+        //     $res['success'] = false;
+        //     $res['detail'] = "District was deleted. Please contact customer service.";
 
-            return response($res, 200);
-        }
+        //     return response($res, 200);
+        // }
 
         $data = Mosque::create([
             'id_mosque_google_place' => $id_mosque_google_place,
             'id_borough' => $id_borough,
-            'id_district' => $id_district,
+            // 'id_district' => $id_district,
             'name_mosque' => $name_mosque,
             'address' => $address,
             'latitude' => $latitude,
@@ -289,25 +289,25 @@ class MosqueController extends Controller
             $data->id_borough = $id_borough;
         }
 
-        if($id_district !== null){
-            $district = Districts::where('id_district', $id_district)
-                ->first();
+        // if($id_district !== null){
+        //     $district = Districts::where('id_district', $id_district)
+        //         ->first();
     
-            if($district === null){
-                $res['status_code'] = 406;
-                $res['success'] = false;
-                $res['detail'] = "Data District for that ID not found.";
+        //     if($district === null){
+        //         $res['status_code'] = 406;
+        //         $res['success'] = false;
+        //         $res['detail'] = "Data District for that ID not found.";
     
-                return response($res, 200);
-            }else if($district->soft_delete === 1){
-                $res['status_code'] = 406;
-                $res['success'] = false;
-                $res['detail'] = "District was deleted. Please contact customer service.";
+        //         return response($res, 200);
+        //     }else if($district->soft_delete === 1){
+        //         $res['status_code'] = 406;
+        //         $res['success'] = false;
+        //         $res['detail'] = "District was deleted. Please contact customer service.";
     
-                return response($res, 200);
-            }
-            $data->id_district = $id_district;
-        }
+        //         return response($res, 200);
+        //     }
+        //     $data->id_district = $id_district;
+        // }
 
         if($id_mosque_google_place !== null){
             $data->id_mosque_google_place = $id_mosque_google_place;
