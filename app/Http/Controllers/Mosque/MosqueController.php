@@ -15,6 +15,7 @@ use App\Model\Mosque\MosqueJummahTime;
 use App\Model\Mosque\MosqueFacilities;
 use App\Model\Mosque\MosqueFavorite;
 use App\Model\Mosque\MosqueImage;
+use App\Model\Mosque\MosqueReview;
 
 use Validator;
 use Carbon\Carbon;
@@ -488,7 +489,8 @@ class MosqueController extends Controller
      * )
      */
     public function show(){ 
-        $mosque = Mosque::where('soft_delete', 0)
+        $mosque = Mosque::with('AvgRating')
+        ->where('soft_delete', 0)
         ->orderBy('id_mosque', 'DESC')
         ->get();
 
@@ -585,7 +587,8 @@ class MosqueController extends Controller
             return response($res, 200);
         }
 
-        $mosque = Mosque::where('id_mosque', $id_mosque)
+        $mosque = Mosque::with('AvgRating')
+        ->where('id_mosque', $id_mosque)
         ->get();
 
         $now = Carbon::now()->format('Y-m-d');
@@ -832,6 +835,7 @@ class MosqueController extends Controller
         })
         ->skip($skip)
         ->take($take)
+        ->with('AvgRating')
         ->orderByRaw('mosque.id_mosque '.$order)
         ->distinct('mosque.id_mosque')
         ->get([

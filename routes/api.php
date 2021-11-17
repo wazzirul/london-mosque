@@ -244,11 +244,21 @@ Route::post('mosque-image/showByFilter', 'Mosque\MosqueImageController@showByFil
 Route::get('mosque-image/show', 'Mosque\MosqueImageController@show');
 
 
-
-
 ///////////////////////////////////////////////////////////////////////////////////////////
-// Mosque Image
+// Mosque Favorite
 ///////////////////////////////////////////////////////////////////////////////////////////
 Route::post('mosque-favorite/favorite', 'Mosque\MosqueFavoriteController@favorite');
 Route::post('mosque-favorite/unfavorite', 'Mosque\MosqueFavoriteController@unfavorite');
 Route::post('mosque-favorite/showByFilter', 'Mosque\MosqueFavoriteController@showByFilter');
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+// Mosque Review
+///////////////////////////////////////////////////////////////////////////////////////////
+Route::post('mosque-review/store', 'Mosque\MosqueReviewController@store');
+Route::post('mosque-review/update', 'Mosque\MosqueReviewController@update');
+Route::post('mosque-review/delete', 'Mosque\MosqueReviewController@delete');
+Route::post('mosque-review/undelete', 'Mosque\MosqueReviewController@undelete');
+Route::post('mosque-review/showById', 'Mosque\MosqueReviewController@showById');
+Route::post('mosque-review/showByFilter', 'Mosque\MosqueReviewController@showByFilter');
+Route::get('mosque-review/show', 'Mosque\MosqueReviewController@show');

@@ -2326,7 +2326,7 @@
                     "Mosque Jummah Times"
                 ],
                 "summary": "Updating data Mosque Jummah Times response",
-                "description": "Updating data Mosque Jummah Times response\r\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
+                "description": "Updating data Mosque Jummah Times response\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
                 "operationId": "updateMosque",
                 "parameters": [
                     {
@@ -2530,6 +2530,305 @@
                         "name": "where_month",
                         "in": "formData",
                         "description": "where_month (month : 1 - 12) [default = this month] ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "soft_delete",
+                        "in": "formData",
+                        "description": "Soft Delete Data (Default=0 / Not Deleted) [0 = Not Deleted  ||  1 = Deleted / Archived]",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "skip",
+                        "in": "formData",
+                        "description": "Skip Berapa Data (Default=0)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "take",
+                        "in": "formData",
+                        "description": "Take Berapa Data (Default=100)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "order",
+                        "in": "formData",
+                        "description": "ASC / DESC (default DESC)",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-review/store": {
+            "post": {
+                "tags": [
+                    "Mosque Review"
+                ],
+                "summary": "Storing new data Mosque Review response",
+                "description": "Storing new data Mosque Review response",
+                "operationId": "storeMosqueReview",
+                "parameters": [
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_user",
+                        "in": "formData",
+                        "description": "ID User ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "rating",
+                        "in": "formData",
+                        "description": "Rating (1, 2, 3, 4, 5) ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "review",
+                        "in": "formData",
+                        "description": "Review ...",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-review/update": {
+            "post": {
+                "tags": [
+                    "Mosque Review"
+                ],
+                "summary": "Updating data Mosque Review response",
+                "description": "Updating data Mosque Review response\r\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
+                "operationId": "updateMosque",
+                "parameters": [
+                    {
+                        "name": "id_mosque_review",
+                        "in": "formData",
+                        "description": "ID Review ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_user",
+                        "in": "formData",
+                        "description": "ID User ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "rating",
+                        "in": "formData",
+                        "description": "Rating (1, 2, 3, 4, 5) ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "review",
+                        "in": "formData",
+                        "description": "Review ...",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-review/delete": {
+            "post": {
+                "tags": [
+                    "Mosque Review"
+                ],
+                "summary": "Deleting data Mosque Review response",
+                "description": "Deleting data Mosque Review response",
+                "operationId": "deleteMosque",
+                "parameters": [
+                    {
+                        "name": "id_mosque_review",
+                        "in": "formData",
+                        "description": "ID Review ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-review/undelete": {
+            "post": {
+                "tags": [
+                    "Mosque Review"
+                ],
+                "summary": "Restoring / undelete data Mosque Review response",
+                "description": "Restoring / undelete data Mosque Review response",
+                "operationId": "undeleteMosque",
+                "parameters": [
+                    {
+                        "name": "id_mosque_review",
+                        "in": "formData",
+                        "description": "ID Review ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-review/show": {
+            "get": {
+                "tags": [
+                    "Mosque Review"
+                ],
+                "summary": "Show all data mosque response",
+                "description": "Show all data mosque response",
+                "operationId": "showMosques",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-review/showById": {
+            "post": {
+                "tags": [
+                    "Mosque Review"
+                ],
+                "summary": "Show all data mosque Review response",
+                "description": "Show all data mosque Review response",
+                "operationId": "showByIdSalahTimes",
+                "parameters": [
+                    {
+                        "name": "id_mosque_review",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-review/showByFilter": {
+            "post": {
+                "tags": [
+                    "Mosque Review"
+                ],
+                "summary": "Show all data mosque Review response",
+                "description": "Show all data mosque Review response",
+                "operationId": "showByFilterSalahTimes",
+                "parameters": [
+                    {
+                        "name": "id_mosque_review",
+                        "in": "formData",
+                        "description": "ID Review ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_user",
+                        "in": "formData",
+                        "description": "ID User ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "rating",
+                        "in": "formData",
+                        "description": "Rating (1, 2, 3, 4, 5) ...",
                         "required": false,
                         "type": "integer"
                     },

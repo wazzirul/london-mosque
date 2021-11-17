@@ -264,7 +264,6 @@ class MosqueFavoriteController extends Controller
         $id_mosque_favorite = $request->input('id_mosque_favorite');
         $id_mosque = $request->input('id_mosque');
         $id_user = $request->input('id_user');
-        $id_facilities = $request->input('id_facilities');
 
         $status_mosque_favorite = $request->input('status_mosque_favorite') ?? 1;
 

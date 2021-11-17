@@ -3,6 +3,7 @@
 namespace App\Model\Mosque;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Mosque extends Model
 {
@@ -23,5 +24,11 @@ class Mosque extends Model
     }
     public function SalahTimes(){
         return $this->hasMany('App\Model\Mosque\MosqueSalahTime','id_mosque','id_mosque');
+    }
+    public function Review(){
+        return $this->hasMany('App\Model\Mosque\MosqueReview','id_mosque','id_mosque');
+    }
+    public function AvgRating(){
+    return $this->Review()->select('id_mosque', DB::raw('ROUND(AVG(rating),1) AS avg_rating'))->groupBy('id_mosque');
     }
 }
