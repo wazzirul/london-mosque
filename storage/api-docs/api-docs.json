@@ -2326,7 +2326,7 @@
                     "Mosque Jummah Times"
                 ],
                 "summary": "Updating data Mosque Jummah Times response",
-                "description": "Updating data Mosque Jummah Times response\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
+                "description": "Updating data Mosque Jummah Times response\r\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
                 "operationId": "updateMosque",
                 "parameters": [
                     {

@@ -91,7 +91,7 @@ class SuggestMosqueController extends Controller
             'id_user'=>'required|numeric',
             'id_mosque'=>'required|numeric',
             'id_borough'=>'required|numeric',
-            'id_district'=>'required|numeric',
+            'id_district'=>'nullable|numeric',
             'name_mosque'=>'required',
             'address'=>'required',
             'latitude'=>'required',
@@ -101,17 +101,44 @@ class SuggestMosqueController extends Controller
         $id_user = $request->input('id_user');
         $id_mosque = $request->input('id_mosque');
         $id_borough = $request->input('id_borough');
-        $id_district = $request->input('id_district');
+        $id_district = $request->input('id_district') ?? null;
         $name_mosque = $request->input('name_mosque');
         $address = $request->input('address');
         $latitude = $request->input('latitude');
         $longitude = $request->input('longitude');
 
+        $user = Users::find($id_user);
+        if($user === null){
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['detail'] = "Data Users for that ID not found.";
+
+            return response($res, 200);
+        }
+
+        $mosque = Mosque::find($id_mosque);
+        if($mosque === null){
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['detail'] = "Data Mosque for that ID not found.";
+
+            return response($res, 200);
+        }
+
+        $borough = Borough::find($id_borough);
+        if($borough === null){
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['detail'] = "Data Borough for that ID not found.";
+
+            return response($res, 200);
+        }
+
         $data = SuggestMosque::create([
             'id_user' => $id_user,
             'id_mosque' => $id_mosque,
             'id_borough' => $id_borough,
-            'id_district' => $id_district,
+            // 'id_district' => $id_district,
             'name_mosque' => $name_mosque,
             'address' => $address,
             'latitude' => $latitude,
@@ -282,18 +309,18 @@ class SuggestMosqueController extends Controller
             $suggestMosque->id_borough = $id_borough;
         }
 
-        if($id_district !== null){
-            $districts = Districts::find($id_district);
-            if($districts === null){
-                $res['status_code'] = 406;
-                $res['success'] = false;
-                $res['detail'] = "Data Districts for that ID not found.";
+        // if($id_district !== null){
+        //     $districts = Districts::find($id_district);
+        //     if($districts === null){
+        //         $res['status_code'] = 406;
+        //         $res['success'] = false;
+        //         $res['detail'] = "Data Districts for that ID not found.";
 
-                return response($res, 200);
-            }
+        //         return response($res, 200);
+        //     }
             
-            $suggestMosque->id_district = $id_district;
-        }
+        //     $suggestMosque->id_district = $id_district;
+        // }
 
         if($name_mosque !== null){
             $suggestMosque->name_mosque = $name_mosque;
