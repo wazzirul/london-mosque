@@ -423,6 +423,44 @@ class AdminController extends Controller
 
 
     //////////////////////////////////////////////////////////////////////////////////////
+    // SHOW DELETED
+    //////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @SWG\Get(
+     *   path="/admin/showDeleted",
+     *     tags={"Admin"},
+     *     summary="Show Deleted all data admin response",
+     *     description="Show Deleted all data admin response",
+     *     operationId="showDeletedAdmin",
+     * 
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function showDeleted(){
+        $admin = Admin::where('soft_delete', 0)
+            ->orderBy('id_admin', 'DESC')
+            ->get();
+
+        if(count($admin) !== 0){
+            $res['status_code'] = 200;
+            $res['success'] = true;
+            $res['data'] = $admin;
+
+            return response($res, 200);
+        }else{
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['data'] = $admin;
+
+            return response($res, 200);
+        }
+    }
+
+
+
+    //////////////////////////////////////////////////////////////////////////////////////
     // SHOW BY ID
     //////////////////////////////////////////////////////////////////////////////////////
     /**

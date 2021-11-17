@@ -29,6 +29,7 @@ Route::post('admin/unDelete', 'AdminController@unDelete');
 Route::post('admin/login', 'AdminController@login');
 Route::post('admin/showById', 'AdminController@showById');
 Route::get('admin/show', 'AdminController@show');
+Route::get('admin/showDeleted', 'AdminController@showDeleted');
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -44,6 +45,7 @@ Route::get('users/verif-account', 'UsersController@verifAccount');
 Route::post('users/logout', 'UsersController@logout');
 Route::post('users/showById', 'UsersController@showById');
 Route::get('users/show', 'UsersController@show');
+Route::get('users/showDeleted', 'UsersController@showDeleted');
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -67,6 +69,7 @@ Route::post('facilities/delete', 'FacilitiesController@delete');
 Route::post('facilities/unDelete', 'FacilitiesController@unDelete');
 Route::post('facilities/showById', 'FacilitiesController@showById');
 Route::get('facilities/show', 'FacilitiesController@show');
+Route::get('facilities/showDeleted', 'FacilitiesController@showDeleted');
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -78,6 +81,7 @@ Route::post('borough/delete', 'BoroughController@delete');
 Route::post('borough/unDelete', 'BoroughController@unDelete');
 Route::post('borough/showById', 'BoroughController@showById');
 Route::get('borough/show', 'BoroughController@show');
+Route::get('borough/showDeleted', 'BoroughController@showDeleted');
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
