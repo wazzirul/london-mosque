@@ -439,7 +439,7 @@ class AdminController extends Controller
      * )
      */
     public function showDeleted(){
-        $admin = Admin::where('soft_delete', 0)
+        $admin = Admin::where('soft_delete', 1)
             ->orderBy('id_admin', 'DESC')
             ->get();
 
