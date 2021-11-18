@@ -44,7 +44,7 @@ cd $TEMP_DIRECTORY && sudo unzip $ZIP_FILE -d $DEPLOY_TEMP_DIRECTORY && sudo mkd
 sudo cp -R $DEPLOY_TEMP_DIRECTORY* $DEPLOY_DIRECTORY
 sudo chown -R nginx:nginx $DEPLOY_DIRECTORY/storage/
 sudo chown -R nginx:nginx $DEPLOY_DIRECTORY/public/
-sudo cp $CONFIG_FILE $DEPLOY_DIRECTORY
+yes | sudo cp $CONFIG_FILE $DEPLOY_DIRECTORY
 cd $DEPLOY_DIRECTORY && sudo $(which php) artisan migrate -q
 cd $TEMP_DIRECTORY && sudo rm -rf $ZIP_FILE $DEPLOY_TEMP_DIRECTORY"
 
