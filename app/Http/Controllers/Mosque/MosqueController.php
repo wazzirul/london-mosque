@@ -665,7 +665,7 @@ class MosqueController extends Controller
      *     tags={"Mosque"},
      *     summary="Show all data mosque response",
      *     description="Show all data mosque response
-           <br>*id_user and status_mosque_favorite must use together to get favorite mosque the user have",
+           <br>*id_user and status_mosque_favorite must use together to get favorite mosque the user have ",
      *     operationId="showByFilterMosques",
      * 
      *   @SWG\Parameter(
