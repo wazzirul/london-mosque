@@ -139,6 +139,7 @@ class AdminController extends Controller
             'username'=>'nullable|unique:admin',
             'email'=>'nullable|unique:admin',
             'role'=>'nullable|numeric',
+            'password'=>'nullable',
         ]);  
 
         $id_admin = $request->input('id_admin');
@@ -154,7 +155,7 @@ class AdminController extends Controller
         }
 
         $username = $request->input('username') ?? null;
-        $password = Hash::make($request->input('password')) ?? null;
+        $password = $request->input('password') ?? null;
         $email = $request->input('email') ?? null;
         $role = $request->input('role') ?? null;
 
@@ -163,7 +164,7 @@ class AdminController extends Controller
         }
 
         if($password !== null){
-            $admin->password = $password;
+            $admin->password = Hash::make($password);
         }
 
         if($email !== null){
