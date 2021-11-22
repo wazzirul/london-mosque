@@ -118,6 +118,9 @@ Route::post('suggest-mosque/unDelete', 'SuggestMosque\SuggestMosqueController@un
 Route::post('suggest-mosque/showById', 'SuggestMosque\SuggestMosqueController@showById');
 Route::get('suggest-mosque/show', 'SuggestMosque\SuggestMosqueController@show');
 Route::post('suggest-mosque/showByFilter', 'SuggestMosque\SuggestMosqueController@showByFilter');
+Route::post('suggest-mosque/approve', 'SuggestMosque\SuggestMosqueController@approve');
+Route::post('suggest-mosque/decline', 'SuggestMosque\SuggestMosqueController@decline');
+Route::post('suggest-mosque/log', 'SuggestMosque\SuggestMosqueController@log');
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////

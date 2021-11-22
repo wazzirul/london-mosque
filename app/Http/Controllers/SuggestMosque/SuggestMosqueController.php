@@ -4,10 +4,23 @@ namespace App\Http\Controllers\SuggestMosque;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 use App\Model\SuggestMosque\SuggestMosque;
+use App\Model\SuggestMosque\SuggestMosqueFacilities;
+use App\Model\SuggestMosque\SuggestMosqueImage;
+use App\Model\SuggestMosque\SuggestMosqueLog;
+use App\Model\SuggestMosque\SuggestMosqueSalahTimes;
+use App\Model\SuggestMosque\SuggestMosqueSpecialSalahTimes;
+
+use App\Model\Mosque\Mosque;
+use App\Model\Mosque\MosqueFacilities;
+use App\Model\Mosque\MosqueImage;
+use App\Model\Mosque\MosqueSalahTime;
+use App\Model\Mosque\MosqueSpecialSalahTime;
+
 use App\Model\Users;
-use App\Model\Mosque;
+use App\Model\Admin;
 use App\Model\Borough;
 use App\Model\Districts;
 
@@ -769,6 +782,344 @@ class SuggestMosqueController extends Controller
             $res['status_code'] = 406;
             $res['success'] = false;
             $res['data'] = $suggestMosque;
+
+            return response($res, 200);
+        }
+    }
+
+
+
+
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Approve Function
+    //////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @SWG\Post(
+     *   path="/suggest-mosque/approve",
+     *     tags={"Suggest Mosque"},
+     *     summary="Approve suggest mosque response",
+     *     description="Approve suggest mosque response",
+     *     operationId="approveSuggestMosque",
+     * 
+     *  @SWG\Parameter(
+     *     name="id_suggest_mosque",
+     *     in="formData",
+     *     description="ID Suggest Mosque ",
+     *     required=true,
+     *     type="integer"
+     *   ),
+     *  @SWG\Parameter(
+     *     name="id_admin",
+     *     in="formData",
+     *     description="ID Admin ",
+     *     required=true,
+     *     type="integer"
+     *   ),
+     * 
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function approve(Request $request){
+        $this->validate($request,[
+            'id_suggest_mosque'=>'required|numeric',
+            'id_admin'=>'required|numeric',
+        ]);  
+
+        $id_suggest_mosque = $request->input('id_suggest_mosque');
+        $id_admin = $request->input('id_admin');
+
+        $suggestMosque = SuggestMosque::find($id_suggest_mosque);
+        if($suggestMosque === null){
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['detail'] = "Data Suggest Mosque for that ID not found.";
+
+            return response($res, 200);
+        }
+
+        $admin = Admin::find($id_admin);
+        if($admin === null){
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['detail'] = "Data Admin for that ID not found.";
+
+            return response($res, 200);
+        }
+
+        $id_mosque = $suggestMosque->id_mosque;
+
+        $mosque = Mosque::find($id_mosque);
+        if($mosque === null){
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['detail'] = "Data Mosque for that ID not found.";
+
+            return response($res, 200);
+        }
+
+        $suggestFacilities = SuggestMosqueFacilities::where('id_suggest_mosque', $id_suggest_mosque)
+            ->where('soft_delete', 0)
+            ->get();
+
+        $suggestImage = SuggestMosqueImage::where('id_suggest_mosque', $id_suggest_mosque)
+            ->where('soft_delete', 0)
+            ->get();
+
+        $suggestSalahTimes = SuggestMosqueSalahTimes::where('id_suggest_mosque', $id_suggest_mosque)
+            ->where('soft_delete', 0)
+            ->get();
+
+        $suggestSpecialSalahTimes = SuggestMosqueSpecialSalahTimes::where('id_suggest_mosque', $id_suggest_mosque)
+            ->where('soft_delete', 0)
+            ->get();
+
+
+        // Delete all image on firebase bucket
+        $mosqueImage = MosqueImage::where('id_mosque', $id_mosque)
+            ->get();
+
+        foreach ($mosqueImage as $key => $value) {
+            $imageDeleted = app('firebase.storage')->getBucket()->object($value->mosque_image_url)->delete();
+        }
+
+
+        // Change Data Mosque
+        $mosque->id_borough = $suggestMosque->id_borough;
+        $mosque->id_district = $suggestMosque->id_district;
+        $mosque->name_mosque = $suggestMosque->name_mosque;
+        $mosque->address = $suggestMosque->address;
+        $mosque->latitude = $suggestMosque->latitude;
+        $mosque->longitude = $suggestMosque->longitude;
+
+
+        MosqueFacilities::where('id_mosque', $id_mosque)
+            ->forceDelete();
+
+        MosqueImage::where('id_mosque', $id_mosque)
+            ->forceDelete();
+
+        MosqueSalahTime::where('id_mosque', $id_mosque)
+            ->forceDelete();
+
+        MosqueSpecialSalahTime::where('id_mosque', $id_mosque)
+            ->forceDelete();
+
+        foreach ($suggestFacilities as $key => $value) {
+            $newMosqueFacilities = new MosqueFacilities();
+            $newMosqueFacilities->id_mosque = $id_mosque;
+            $newMosqueFacilities->id_facilities = $value->id_facilities;
+            $newMosqueFacilities->save();
+        }
+
+        foreach ($suggestImage as $key => $value) {
+            $newMosqueImage = new MosqueImage();
+            $newMosqueImage->id_mosque = $id_mosque;
+            $newMosqueImage->mosque_image_url = $value->mosque_image_url;
+            $newMosqueImage->save();
+        }
+
+        foreach ($mosqueSalahTimes as $key => $value) {
+            $newMosqueSalahTime = new MosqueSalahTime();
+            $newMosqueSalahTime->id_mosque = $id_mosque;
+            $newMosqueSalahTime->date_salah_times = $value->date_salah_times;
+            $newMosqueSalahTime->type_salah_times = $value->type_salah_times;
+            $newMosqueSalahTime->time_salah_times = $value->time_salah_times;
+            $newMosqueSalahTime->save();
+        }
+
+        foreach ($variable as $key => $value) {
+            $newMosqueSpecialSalahTime = new MosqueSpecialSalahTime();
+            $newMosqueSpecialSalahTime->id_mosque = $id_mosque;
+            $newMosqueSpecialSalahTime->category_special_salah = $value->category_special_salah;
+            $newMosqueSpecialSalahTime->date_special_salah_times = $value->date_special_salah_times;
+            $newMosqueSpecialSalahTime->order_special_salah_times = $value->order_special_salah_times;
+            $newMosqueSpecialSalahTime->time_special_salah_times = $value->time_special_salah_times;
+            $newMosqueSpecialSalahTime->save();
+        }
+
+        $date_log = Carbon::now()->format('Y-m-d');
+        
+        $logSuggestMosque = new SuggestMosqueLog();
+        $logSuggestMosque->id_suggest_mosque = $id_suggest_mosque;
+        $logSuggestMosque->id_admin = $id_admin;
+        $logSuggestMosque->date_log = $date_log;
+        $logSuggestMosque->action = 1;
+        $logSuggestMosque->save();
+
+        $suggestMosque->status_suggest_mosque = 1;
+        $suggestMosque->save();
+        $mosque->save();
+
+        $res['status_code'] = 200;
+        $res['success'] = true;
+        $res['detail'] = "Suggest Mosque Approved.";
+
+        return response($res, 200);
+    }
+
+
+
+
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Decline Function
+    //////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @SWG\Post(
+     *   path="/suggest-mosque/decline",
+     *     tags={"Suggest Mosque"},
+     *     summary="Decline suggest mosque response",
+     *     description="Decline suggest mosque response",
+     *     operationId="declineSuggestMosque",
+     * 
+     *  @SWG\Parameter(
+     *     name="id_suggest_mosque",
+     *     in="formData",
+     *     description="ID Suggest Mosque ",
+     *     required=true,
+     *     type="integer"
+     *   ),
+     *  @SWG\Parameter(
+     *     name="id_admin",
+     *     in="formData",
+     *     description="ID Admin ",
+     *     required=true,
+     *     type="integer"
+     *   ),
+     * 
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function decline(Request $request){
+        $this->validate($request,[
+            'id_suggest_mosque'=>'required|numeric',
+            'id_admin'=>'required|numeric',
+        ]);  
+
+        $id_suggest_mosque = $request->input('id_suggest_mosque');
+        $id_admin = $request->input('id_admin');
+
+        $suggestMosque = SuggestMosque::find($id_suggest_mosque);
+        if($suggestMosque === null){
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['detail'] = "Data Suggest Mosque for that ID not found.";
+
+            return response($res, 200);
+        }
+
+        $admin = Admin::find($id_admin);
+        if($admin === null){
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['detail'] = "Data Admin for that ID not found.";
+
+            return response($res, 200);
+        }
+
+        $date_log = Carbon::now()->format('Y-m-d');
+
+        $logSuggestMosque = new SuggestMosqueLog();
+        $logSuggestMosque->id_suggest_mosque = $id_suggest_mosque;
+        $logSuggestMosque->id_admin = $id_admin;
+        $logSuggestMosque->date_log = $date_log;
+        $logSuggestMosque->action = 2;
+        $logSuggestMosque->save();
+
+        $suggestMosque->status_suggest_mosque = 2;
+        $suggestMosque->save();
+
+        $res['status_code'] = 200;
+        $res['success'] = true;
+        $res['detail'] = "Suggest Mosque Declined.";
+
+        return response($res, 200);
+    }
+
+
+
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Show Log
+    //////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @SWG\Post(
+     *   path="/suggest-mosque/log",
+     *     tags={"Suggest Mosque"},
+     *     summary="Show log suggest mosque response",
+     *     description="Show log suggest mosque response",
+     *     operationId="logSuggestMosque",
+     * 
+     *  @SWG\Parameter(
+     *     name="id_suggest_mosque",
+     *     in="formData",
+     *     description="ID Suggest Mosque ",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *  @SWG\Parameter(
+     *     name="action",
+     *     in="formData",
+     *     description="Action Suggest Mosque (0: Not yet declined / approved, 1: Approved, 2: Declined) ",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *  @SWG\Parameter(
+     *     name="id_admin",
+     *     in="formData",
+     *     description="ID Admin",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     * 
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function log(Request $request){
+        $id_suggest_mosque = $request->input('id_suggest_mosque') ?? null;
+        $action = $request->input('action') ?? null;
+        $id_admin = $request->input('id_admin') ?? null;
+
+        $suggestMosqueLog = SuggestMosqueLog::query()
+            ->when($request->has('id_suggest_mosque'), function ($query) use ($id_suggest_mosque) {
+                $query->where('suggest_mosque_log.id_suggest_mosque',$id_suggest_mosque);
+            })
+            ->when($request->has('id_admin'), function ($query) use ($id_admin) {
+                $query->where('suggest_mosque_log.id_admin',$id_admin);
+            })
+            ->when($request->has('action'), function ($query) use ($action) {
+                $query->where('suggest_mosque_log.action',$action);
+            })
+            ->orderByRaw('suggest_mosque_log.id_suggest_mosque_log DESC')
+            ->get([
+                'suggest_mosque_log.id_suggest_mosque_log',
+                'suggest_mosque_log.id_suggest_mosque',
+                'suggest_mosque_log.id_admin',
+                'suggest_mosque_log.action',
+                'suggest_mosque_log.date_log',
+                'suggest_mosque_log.soft_delete',
+                'suggest_mosque_log.created_at as created_at',
+                'suggest_mosque_log.updated_at as updated_at'
+            ]);
+
+        if(count($suggestMosqueLog) !== 0){
+            $res['status_code'] = 200;
+            $res['success'] = true;
+            $res['message'] = 'Success return Log Suggest Mosque data';
+            $res['data'] = $suggestMosqueLog;
+
+            return response($res, 200);
+        }else{
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['data'] = $suggestMosqueLog;
 
             return response($res, 200);
         }
