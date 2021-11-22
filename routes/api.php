@@ -225,15 +225,15 @@ Route::get('mosque-facilities/show', 'Mosque\MosqueFacilitiesController@show');
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
-// Mosque Jummah Times
+// Mosque Special Salah Times
 ///////////////////////////////////////////////////////////////////////////////////////////
-Route::post('mosque-jummah-times/store', 'Mosque\MosqueJummahTimeController@store');
-Route::post('mosque-jummah-times/update', 'Mosque\MosqueJummahTimeController@update');
-Route::post('mosque-jummah-times/delete', 'Mosque\MosqueJummahTimeController@delete');
-Route::post('mosque-jummah-times/undelete', 'Mosque\MosqueJummahTimeController@undelete');
-Route::post('mosque-jummah-times/showById', 'Mosque\MosqueJummahTimeController@showById');
-Route::post('mosque-jummah-times/showByFilter', 'Mosque\MosqueJummahTimeController@showByFilter');
-Route::get('mosque-jummah-times/show', 'Mosque\MosqueJummahTimeController@show');
+Route::post('mosque-specialsalah-times/store', 'Mosque\MosqueSpecialSalahTimesController@store');
+Route::post('mosque-specialsalah-times/update', 'Mosque\MosqueSpecialSalahTimesController@update');
+Route::post('mosque-specialsalah-times/delete', 'Mosque\MosqueSpecialSalahTimesController@delete');
+Route::post('mosque-specialsalah-times/undelete', 'Mosque\MosqueSpecialSalahTimesController@undelete');
+Route::post('mosque-specialsalah-times/showById', 'Mosque\MosqueSpecialSalahTimesController@showById');
+Route::post('mosque-specialsalah-times/showByFilter', 'Mosque\MosqueSpecialSalahTimesController@showByFilter');
+Route::get('mosque-specialsalah-times/show', 'Mosque\MosqueSpecialSalahTimesController@show');
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
