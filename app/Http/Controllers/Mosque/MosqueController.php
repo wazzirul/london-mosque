@@ -11,7 +11,7 @@ use App\Model\Districts;
 
 use App\Model\Mosque\Mosque;
 use App\Model\Mosque\MosqueSalahTime;
-use App\Model\Mosque\MosqueJummahTime;
+use App\Model\Mosque\MosqueSpecialSalahTime;
 use App\Model\Mosque\MosqueFacilities;
 use App\Model\Mosque\MosqueFavorite;
 use App\Model\Mosque\MosqueImage;
@@ -507,9 +507,10 @@ class MosqueController extends Controller
             $salah_times = MosqueSalahTime::where('id_mosque', $d->id_mosque)
                 ->where('date_salah_times',$now)
                 ->get();
-            $jummah_times = MosqueJummahTime::where('id_mosque', $d->id_mosque)
-                ->whereYear('mosque_jummah_times.date_jummah_times', '=', $year)
-                ->whereMonth('mosque_jummah_times.date_jummah_times', '=', $mth)
+            $jummah_times = MosqueSpecialSalahTime::where('id_mosque', $d->id_mosque)
+                ->where('mosque_special_salah_times.category_special_salah', 3) //category special salah = jummah
+                ->whereYear('mosque_special_salah_times.date_special_salah_times', '=', $year)
+                ->whereMonth('mosque_special_salah_times.date_special_salah_times', '=', $mth)
                 ->get();
             $facilities = MosqueFacilities::with('Facilities')
                 ->where('id_mosque', $d->id_mosque)
@@ -604,9 +605,10 @@ class MosqueController extends Controller
             $salah_times = MosqueSalahTime::where('id_mosque', $d->id_mosque)
                 ->where('date_salah_times',$now)
                 ->get();
-            $jummah_times = MosqueJummahTime::where('id_mosque', $d->id_mosque)
-                ->whereYear('mosque_jummah_times.date_jummah_times', '=', $year)
-                ->whereMonth('mosque_jummah_times.date_jummah_times', '=', $mth)
+            $jummah_times = MosqueSpecialSalahTime::where('id_mosque', $d->id_mosque)
+                ->where('mosque_special_salah_times.category_special_salah', 3) //category special salah = 3 / jummah
+                ->whereYear('mosque_special_salah_times.date_special_salah_times', '=', $year)
+                ->whereMonth('mosque_special_salah_times.date_special_salah_times', '=', $mth)
                 ->get();
             $facilities = MosqueFacilities::with('Facilities')
                 ->where('id_mosque', $d->id_mosque)
@@ -863,9 +865,10 @@ class MosqueController extends Controller
             $salah_times = MosqueSalahTime::where('id_mosque', $d->id_mosque)
                 ->whereBetween('date_salah_times', [$date_salah_times_from, $date_salah_times_to])
                 ->get();
-            $jummah_times = MosqueJummahTime::where('id_mosque', $d->id_mosque)
-                ->whereYear('mosque_jummah_times.date_jummah_times', '=', $year)
-                ->whereMonth('mosque_jummah_times.date_jummah_times', '=', $mth)
+            $jummah_times = MosqueSpecialSalahTime::where('id_mosque', $d->id_mosque)
+                ->where('mosque_special_salah_times.category_special_salah', 3) //category special salah = 3 / jummah
+                ->whereYear('mosque_special_salah_times.date_special_salah_times', '=', $year)
+                ->whereMonth('mosque_special_salah_times.date_special_salah_times', '=', $mth)
                 ->get();
             $facilities = MosqueFacilities::with('Facilities')
                 ->where('id_mosque', $d->id_mosque)

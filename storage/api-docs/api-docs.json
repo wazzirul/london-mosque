@@ -1550,7 +1550,7 @@
                     "Mosque"
                 ],
                 "summary": "Show all data mosque response",
-                "description": "Show all data mosque response\r\n           <br>*id_user and status_mosque_favorite must use together to get favorite mosque the user have",
+                "description": "Show all data mosque response\r\n           <br>*id_user and status_mosque_favorite must use together to get favorite mosque the user have ",
                 "operationId": "showByFilterMosques",
                 "parameters": [
                     {
@@ -2332,312 +2332,6 @@
                 }
             }
         },
-        "/mosque-jummah-times/store": {
-            "post": {
-                "tags": [
-                    "Mosque Jummah Times"
-                ],
-                "summary": "Storing new data Mosque Jummah Times response",
-                "description": "Storing new data Mosque Jummah Times response",
-                "operationId": "storeMosque",
-                "parameters": [
-                    {
-                        "name": "id_mosque",
-                        "in": "formData",
-                        "description": "ID Mosque ...",
-                        "required": true,
-                        "type": "integer"
-                    },
-                    {
-                        "name": "date_jummah_times",
-                        "in": "formData",
-                        "description": "date_jummah_times (YYYY-mm-dd ,ex : 2021-11-15) [default : now] ...",
-                        "required": false,
-                        "type": "string"
-                    },
-                    {
-                        "name": "order_jummah_times",
-                        "in": "formData",
-                        "description": "order_jummah_times (1st, 2nd, 3rd, 4th, 5th, etc.) ...",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "time_jummah_times",
-                        "in": "formData",
-                        "description": "time_jummah_times (hh:ii ,ex : 09:52) ...",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation"
-                    },
-                    "406": {
-                        "description": "not acceptable"
-                    },
-                    "500": {
-                        "description": "internal server error"
-                    }
-                }
-            }
-        },
-        "/mosque-jummah-times/update": {
-            "post": {
-                "tags": [
-                    "Mosque Jummah Times"
-                ],
-                "summary": "Updating data Mosque Jummah Times response",
-                "description": "Updating data Mosque Jummah Times response\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
-                "operationId": "updateMosque",
-                "parameters": [
-                    {
-                        "name": "id_jummah_times",
-                        "in": "formData",
-                        "description": "ID Jummah Times ...",
-                        "required": true,
-                        "type": "integer"
-                    },
-                    {
-                        "name": "id_mosque",
-                        "in": "formData",
-                        "description": "ID Mosque ...",
-                        "required": false,
-                        "type": "integer"
-                    },
-                    {
-                        "name": "date_jummah_times",
-                        "in": "formData",
-                        "description": "date_jummah_times (YYYY-mm-dd ,ex : 2021-11-15) ...",
-                        "required": false,
-                        "type": "string"
-                    },
-                    {
-                        "name": "order_jummah_times",
-                        "in": "formData",
-                        "description": "order_jummah_times (1st, 2nd, 3rd, 4th, 5th, etc.) ...",
-                        "required": false,
-                        "type": "string"
-                    },
-                    {
-                        "name": "time_jummah_times",
-                        "in": "formData",
-                        "description": "time_jummah_times (hh:ii ,ex : 09:52) ...",
-                        "required": false,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation"
-                    },
-                    "406": {
-                        "description": "not acceptable"
-                    },
-                    "500": {
-                        "description": "internal server error"
-                    }
-                }
-            }
-        },
-        "/mosque-jummah-times/delete": {
-            "post": {
-                "tags": [
-                    "Mosque Jummah Times"
-                ],
-                "summary": "Deleting data Mosque Jummah Times response",
-                "description": "Deleting data Mosque Jummah Times response",
-                "operationId": "deleteMosque",
-                "parameters": [
-                    {
-                        "name": "id_jummah_times",
-                        "in": "formData",
-                        "description": "ID Jummah Times ...",
-                        "required": true,
-                        "type": "integer"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation"
-                    },
-                    "406": {
-                        "description": "not acceptable"
-                    },
-                    "500": {
-                        "description": "internal server error"
-                    }
-                }
-            }
-        },
-        "/mosque-jummah-times/undelete": {
-            "post": {
-                "tags": [
-                    "Mosque Jummah Times"
-                ],
-                "summary": "Restoring / undelete data Mosque Jummah Times response",
-                "description": "Restoring / undelete data Mosque Jummah Times response",
-                "operationId": "undeleteMosque",
-                "parameters": [
-                    {
-                        "name": "id_jummah_times",
-                        "in": "formData",
-                        "description": "ID Jummah Times ...",
-                        "required": true,
-                        "type": "integer"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation"
-                    },
-                    "406": {
-                        "description": "not acceptable"
-                    },
-                    "500": {
-                        "description": "internal server error"
-                    }
-                }
-            }
-        },
-        "/mosque-jummah-times/show": {
-            "get": {
-                "tags": [
-                    "Mosque Jummah Times"
-                ],
-                "summary": "Show all data mosque response",
-                "description": "Show all data mosque response",
-                "operationId": "showMosques",
-                "responses": {
-                    "200": {
-                        "description": "successful operation"
-                    },
-                    "406": {
-                        "description": "not acceptable"
-                    },
-                    "500": {
-                        "description": "internal server error"
-                    }
-                }
-            }
-        },
-        "/mosque-jummah-times/showById": {
-            "post": {
-                "tags": [
-                    "Mosque Jummah Times"
-                ],
-                "summary": "Show all data mosque Jummah times response",
-                "description": "Show all data mosque Jummah times response",
-                "operationId": "showByIdSalahTimes",
-                "parameters": [
-                    {
-                        "name": "id_jummah_times",
-                        "in": "formData",
-                        "description": "ID Mosque ...",
-                        "required": true,
-                        "type": "integer"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation"
-                    },
-                    "406": {
-                        "description": "not acceptable"
-                    },
-                    "500": {
-                        "description": "internal server error"
-                    }
-                }
-            }
-        },
-        "/mosque-jummah-times/showByFilter": {
-            "post": {
-                "tags": [
-                    "Mosque Jummah Times"
-                ],
-                "summary": "Show all data mosque Jummah times response",
-                "description": "Show all data mosque Jummah times response",
-                "operationId": "showByFilterSalahTimes",
-                "parameters": [
-                    {
-                        "name": "id_jummah_times",
-                        "in": "formData",
-                        "description": "ID Jummah Times ...",
-                        "required": false,
-                        "type": "integer"
-                    },
-                    {
-                        "name": "id_mosque",
-                        "in": "formData",
-                        "description": "ID Mosque ...",
-                        "required": false,
-                        "type": "integer"
-                    },
-                    {
-                        "name": "date_jummah_times",
-                        "in": "formData",
-                        "description": "date_jummah_times (YYYY-mm-dd ,ex : 2021-11-15) ...",
-                        "required": false,
-                        "type": "string"
-                    },
-                    {
-                        "name": "where_year",
-                        "in": "formData",
-                        "description": "where_year [default = this year] ...",
-                        "required": false,
-                        "type": "integer"
-                    },
-                    {
-                        "name": "where_month",
-                        "in": "formData",
-                        "description": "where_month (month : 1 - 12) [default = this month] ...",
-                        "required": false,
-                        "type": "integer"
-                    },
-                    {
-                        "name": "soft_delete",
-                        "in": "formData",
-                        "description": "Soft Delete Data (Default=0 / Not Deleted) [0 = Not Deleted  ||  1 = Deleted / Archived]",
-                        "required": false,
-                        "type": "integer"
-                    },
-                    {
-                        "name": "skip",
-                        "in": "formData",
-                        "description": "Skip Berapa Data (Default=0)",
-                        "required": false,
-                        "type": "integer"
-                    },
-                    {
-                        "name": "take",
-                        "in": "formData",
-                        "description": "Take Berapa Data (Default=100)",
-                        "required": false,
-                        "type": "integer"
-                    },
-                    {
-                        "name": "order",
-                        "in": "formData",
-                        "description": "ASC / DESC (default DESC)",
-                        "required": false,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation"
-                    },
-                    "406": {
-                        "description": "not acceptable"
-                    },
-                    "500": {
-                        "description": "internal server error"
-                    }
-                }
-            }
-        },
         "/mosque-review/store": {
             "post": {
                 "tags": [
@@ -3191,6 +2885,333 @@
                         "name": "type_salah_times",
                         "in": "formData",
                         "description": "type_salah_times (1 = Fajr || 2 = Zuhr || 3 = Asr || 4 = Maghrib || 5 = Isha) ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "soft_delete",
+                        "in": "formData",
+                        "description": "Soft Delete Data (Default=0 / Not Deleted) [0 = Not Deleted  ||  1 = Deleted / Archived]",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "skip",
+                        "in": "formData",
+                        "description": "Skip Berapa Data (Default=0)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "take",
+                        "in": "formData",
+                        "description": "Take Berapa Data (Default=100)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "order",
+                        "in": "formData",
+                        "description": "ASC / DESC (default DESC)",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-specialsalah-times/store": {
+            "post": {
+                "tags": [
+                    "Mosque Special Salah Times"
+                ],
+                "summary": "Storing new data Mosque Special Salah Times response",
+                "description": "Storing new data Mosque Special Salah Times response",
+                "operationId": "storeMosque",
+                "parameters": [
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "category_special_salah",
+                        "in": "formData",
+                        "description": "category_special_salah ( 1 = Eid-ul Fitri || 2 = Eid-ul Adha || 3 = Jummah ) ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "date_special_salah_times",
+                        "in": "formData",
+                        "description": "date_special_salah_times (YYYY-mm-dd ,ex : 2021-11-15) [default : now] ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "order_special_salah_times",
+                        "in": "formData",
+                        "description": "order_special_salah_times (1st, 2nd, 3rd, 4th, 5th, etc.) ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "time_special_salah_times",
+                        "in": "formData",
+                        "description": "time_special_salah_times (hh:ii ,ex : 09:52) ...",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-specialsalah-times/update": {
+            "post": {
+                "tags": [
+                    "Mosque Special Salah Times"
+                ],
+                "summary": "Updating data Mosque Special Salah Times response",
+                "description": "Updating data Mosque Special Salah Times response\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
+                "operationId": "updateMosque",
+                "parameters": [
+                    {
+                        "name": "id_special_salah_times",
+                        "in": "formData",
+                        "description": "ID Special Salah Times ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "category_special_salah",
+                        "in": "formData",
+                        "description": "category_special_salah ( 1 = Eid-ul Fitri || 2 = Eid-ul Adha || 3 = Jummah ) ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "date_special_salah_times",
+                        "in": "formData",
+                        "description": "date_special_salah_times (YYYY-mm-dd ,ex : 2021-11-15) ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "order_special_salah_times",
+                        "in": "formData",
+                        "description": "order_special_salah_times (1st, 2nd, 3rd, 4th, 5th, etc.) ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "time_special_salah_times",
+                        "in": "formData",
+                        "description": "time_special_salah_times (hh:ii ,ex : 09:52) ...",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-specialsalah-times/delete": {
+            "post": {
+                "tags": [
+                    "Mosque Special Salah Times"
+                ],
+                "summary": "Deleting data Mosque Special Salah Times response",
+                "description": "Deleting data Mosque Special Salah Times response",
+                "operationId": "deleteMosque",
+                "parameters": [
+                    {
+                        "name": "id_special_salah_times",
+                        "in": "formData",
+                        "description": "ID Special Salah Times ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-specialsalah-times/undelete": {
+            "post": {
+                "tags": [
+                    "Mosque Special Salah Times"
+                ],
+                "summary": "Restoring / undelete data Mosque Special Salah Times response",
+                "description": "Restoring / undelete data Mosque Special Salah Times response",
+                "operationId": "undeleteMosque",
+                "parameters": [
+                    {
+                        "name": "id_special_salah_times",
+                        "in": "formData",
+                        "description": "ID Special Salah Times ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-specialsalah-times/show": {
+            "get": {
+                "tags": [
+                    "Mosque Special Salah Times"
+                ],
+                "summary": "Show all data mosque response",
+                "description": "Show all data mosque response",
+                "operationId": "showMosques",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-specialsalah-times/showById": {
+            "post": {
+                "tags": [
+                    "Mosque Special Salah Times"
+                ],
+                "summary": "Show all data mosque Special Salah times response",
+                "description": "Show all data mosque Special Salah times response",
+                "operationId": "showByIdSalahTimes",
+                "parameters": [
+                    {
+                        "name": "id_special_salah_times",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-specialsalah-times/showByFilter": {
+            "post": {
+                "tags": [
+                    "Mosque Special Salah Times"
+                ],
+                "summary": "Show all data mosque Special Salah times response",
+                "description": "Show all data mosque Special Salah times response",
+                "operationId": "showByFilterSalahTimes",
+                "parameters": [
+                    {
+                        "name": "id_special_salah_times",
+                        "in": "formData",
+                        "description": "ID Special Salah Times ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "category_special_salah",
+                        "in": "formData",
+                        "description": "category_special_salah ( 1 = Eid-ul Fitri || 2 = Eid-ul Adha || 3 = Jummah ) ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "date_special_salah_times",
+                        "in": "formData",
+                        "description": "date_special_salah_times (YYYY-mm-dd ,ex : 2021-11-15) ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "where_year",
+                        "in": "formData",
+                        "description": "where_year [default = this year (gregorian / masehi year)] ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "where_month",
+                        "in": "formData",
+                        "description": "where_month (month : 1 - 12) [default = this month (gregorian / masehi month)] ...",
                         "required": false,
                         "type": "integer"
                     },
