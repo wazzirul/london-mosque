@@ -157,15 +157,15 @@ Route::post('suggest-mosque/salah-times/showByFilter', 'SuggestMosque\SuggestMos
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
-// SUGGEST MOSQUE JUMMAH TIMES
+// SUGGEST MOSQUE SPECIAL SALAH TIMES
 ///////////////////////////////////////////////////////////////////////////////////////////
-Route::post('suggest-mosque/jummah-times/store', 'SuggestMosque\SuggestMosqueJummahTimesController@store');
-Route::post('suggest-mosque/jummah-times/update', 'SuggestMosque\SuggestMosqueJummahTimesController@update');
-Route::post('suggest-mosque/jummah-times/delete', 'SuggestMosque\SuggestMosqueJummahTimesController@delete');
-Route::post('suggest-mosque/jummah-times/unDelete', 'SuggestMosque\SuggestMosqueJummahTimesController@unDelete');
-Route::post('suggest-mosque/jummah-times/showById', 'SuggestMosque\SuggestMosqueJummahTimesController@showById');
-Route::get('suggest-mosque/jummah-times/show', 'SuggestMosque\SuggestMosqueJummahTimesController@show');
-Route::post('suggest-mosque/jummah-times/showByFilter', 'SuggestMosque\SuggestMosqueJummahTimesController@showByFilter');
+Route::post('suggest-mosque/special-salah-times/store', 'SuggestMosque\SuggestMosqueSpecialSalahTimesController@store');
+Route::post('suggest-mosque/special-salah-times/update', 'SuggestMosque\SuggestMosqueSpecialSalahTimesController@update');
+Route::post('suggest-mosque/special-salah-times/delete', 'SuggestMosque\SuggestMosqueSpecialSalahTimesController@delete');
+Route::post('suggest-mosque/special-salah-times/unDelete', 'SuggestMosque\SuggestMosqueSpecialSalahTimesController@unDelete');
+Route::post('suggest-mosque/special-salah-times/showById', 'SuggestMosque\SuggestMosqueSpecialSalahTimesController@showById');
+Route::get('suggest-mosque/special-salah-times/show', 'SuggestMosque\SuggestMosqueSpecialSalahTimesController@show');
+Route::post('suggest-mosque/special-salah-times/showByFilter', 'SuggestMosque\SuggestMosqueSpecialSalahTimesController@showByFilter');
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -266,3 +266,9 @@ Route::post('mosque-review/undelete', 'Mosque\MosqueReviewController@undelete');
 Route::post('mosque-review/showById', 'Mosque\MosqueReviewController@showById');
 Route::post('mosque-review/showByFilter', 'Mosque\MosqueReviewController@showByFilter');
 Route::get('mosque-review/show', 'Mosque\MosqueReviewController@show');
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+// RAMADHAN PRAYER
+///////////////////////////////////////////////////////////////////////////////////////////
+Route::post('ramadhan-prayer/date', 'RamadhanPrayerController@date');
