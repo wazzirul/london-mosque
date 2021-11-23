@@ -629,12 +629,12 @@ class MosqueController extends Controller
                 }
             }
 
-            $mosque[$index]->borough = $borough;
-            $mosque[$index]->district = $district;
-            $mosque[$index]->salah_times = $salah_times;
-            $mosque[$index]->jummah_times = $jummah_times;
-            $mosque[$index]->facilities = $facilities;
-            $mosque[$index]->images = $images;
+            $mosque[$index]->borough = $borough ?? null;
+            $mosque[$index]->district = $district  ?? null;
+            $mosque[$index]->salah_times = $salah_times ?? null;
+            $mosque[$index]->jummah_times = $jummah_times ?? null;
+            $mosque[$index]->facilities = $facilities ?? null;
+            $mosque[$index]->images = $images ?? null;
         }
 
         if(count($mosque) !== 0){

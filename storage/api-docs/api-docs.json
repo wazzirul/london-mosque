@@ -2994,7 +2994,7 @@
                     "Mosque Special Salah Times"
                 ],
                 "summary": "Updating data Mosque Special Salah Times response",
-                "description": "Updating data Mosque Special Salah Times response\r\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
+                "description": "Updating data Mosque Special Salah Times response\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
                 "operationId": "updateMosque",
                 "parameters": [
                     {
