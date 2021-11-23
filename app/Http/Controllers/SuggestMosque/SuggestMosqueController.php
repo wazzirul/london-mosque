@@ -555,6 +555,34 @@ class SuggestMosqueController extends Controller
         $suggestMosque = SuggestMosque::where('id_suggest_mosque', $id_suggest_mosque)
             ->with(['User', 'Mosque', 'Borough', 'District'])
             ->first();
+        
+        $suggestFacilities = SuggestMosqueFacilities::where('id_suggest_mosque', $suggestMosque->id_suggest_mosque)
+            ->get();
+
+        $suggestSalahTimes = SuggestMosqueSalahTimes::where('id_suggest_mosque', $suggestMosque->id_suggest_mosque)
+            ->get();
+
+        $suggestSpecialSalahTimes = SuggestMosqueSpecialSalahTimes::where('id_suggest_mosque', $suggestMosque->id_suggest_mosque)
+            ->get();
+
+        $suggestImage = SuggestMosqueImage::where('id_suggest_mosque', $suggestMosque->id_suggest_mosque)
+            ->get();
+
+        $expiresAt = Carbon::now()->addDays();  
+        foreach ($suggestImage as $key => $sim) {
+            $imageReference = app('firebase.storage')->getBucket()->object($sim->mosque_image_url);  
+            if($imageReference->exists()){
+                $image = $imageReference->signedUrl($expiresAt);
+                $suggestImage[$key]->mosque_image_url_firebase = $image;
+            }else{
+                $suggestImage[$key]->mosque_image_url_firebase = null;
+            }
+        }
+
+        $suggestMosque['suggest_mosque_facilities'] = $suggestFacilities;
+        $suggestMosque['suggest_mosque_salah_times'] = $suggestSalahTimes;
+        $suggestMosque['suggest_mosque_special_salah_times'] = $suggestSpecialSalahTimes;
+        $suggestMosque['suggest_mosque_image'] = $suggestImage;
 
         if($suggestMosque === null){
             $res['status_code'] = 406;
