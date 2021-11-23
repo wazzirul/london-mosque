@@ -520,18 +520,18 @@ class MosqueImageController extends Controller
 
         $MosqueImage = MosqueImage::query()
         ->when($request->has('id_mosque'), function ($query) use ($id_mosque) {
-            $query->where('suggest_mosque_image.id_mosque',$id_mosque);
+            $query->where('mosque_image.id_mosque',$id_mosque);
         })
         ->skip($skip)
         ->take($take)
-        ->orderByRaw('suggest_mosque_image.id_mosque_image '.$order)
+        ->orderByRaw('mosque_image.id_mosque_image '.$order)
         ->get([
-            'suggest_mosque_image.id_mosque_image',
-            'suggest_mosque_image.id_mosque',
-            'suggest_mosque_image.mosque_image_url',
-            'suggest_mosque_image.soft_delete',
-            'suggest_mosque_image.created_at as created_at',
-            'suggest_mosque_image.updated_at as updated_at'
+            'mosque_image.id_mosque_image',
+            'mosque_image.id_mosque',
+            'mosque_image.mosque_image_url',
+            'mosque_image.soft_delete',
+            'mosque_image.created_at as created_at',
+            'mosque_image.updated_at as updated_at'
         ]);
         
         if(count($MosqueImage) !== 0){

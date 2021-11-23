@@ -516,11 +516,12 @@ class MosqueController extends Controller
                 ->where('id_mosque', $d->id_mosque)
                 ->get();
 
-            $mosque[$index]->borough = $borough;
-            $mosque[$index]->district = $district;
-            $mosque[$index]->salah_times = $salah_times;
-            $mosque[$index]->jummah_times = $jummah_times;
-            $mosque[$index]->facilities = $facilities;
+            $mosque[$index]->borough = $borough ?? null;
+            $mosque[$index]->district = $district  ?? null;
+            $mosque[$index]->salah_times = $salah_times ?? null;
+            $mosque[$index]->jummah_times = $jummah_times ?? null;
+            $mosque[$index]->facilities = $facilities ?? null;
+            $mosque[$index]->images = $images ?? null;
         }
 
         if(count($mosque) !== 0){
@@ -616,6 +617,7 @@ class MosqueController extends Controller
             $images = MosqueImage::where('id_mosque', $d->id_mosque)
                 ->get();
             
+            
             if(count($images) !== 0){
                 foreach($images as $index => $smi){
                     $expiresAt = Carbon::now()->addDays();  
@@ -634,7 +636,7 @@ class MosqueController extends Controller
             $mosque[$index]->salah_times = $salah_times ?? null;
             $mosque[$index]->jummah_times = $jummah_times ?? null;
             $mosque[$index]->facilities = $facilities ?? null;
-            $mosque[$index]->images = $images ?? null;
+            // $mosque[$index]->images = $images ?? null;
         }
 
         if(count($mosque) !== 0){
@@ -889,12 +891,12 @@ class MosqueController extends Controller
                 }
             }
     
-            $mosque[$index]->borough = $borough;
-            $mosque[$index]->district = $district;
-            $mosque[$index]->salah_times = $salah_times;
-            $mosque[$index]->jummah_times = $jummah_times;
-            $mosque[$index]->facilities = $facilities;
-            $mosque[$index]->images = $images;
+            $mosque[$index]->borough = $borough ?? null;
+            $mosque[$index]->district = $district  ?? null;
+            $mosque[$index]->salah_times = $salah_times ?? null;
+            $mosque[$index]->jummah_times = $jummah_times ?? null;
+            $mosque[$index]->facilities = $facilities ?? null;
+            $mosque[$index]->images = $images ?? null;
         }
 
 
