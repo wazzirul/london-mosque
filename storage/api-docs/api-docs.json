@@ -1550,7 +1550,7 @@
                     "Mosque"
                 ],
                 "summary": "Show all data mosque response",
-                "description": "Show all data mosque response\r\n           <br>*id_user and status_mosque_favorite must use together to get favorite mosque the user have ",
+                "description": "Show all data mosque response\r\n           <br>*id_user and status_mosque_favorite must use together to get favorite mosque the user have\r\n           <br>*image limit 5, use show by id to show all image or in Mosque Images Tags ",
                 "operationId": "showByFilterMosques",
                 "parameters": [
                     {

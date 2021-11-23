@@ -497,6 +497,8 @@ class MosqueController extends Controller
         $now = Carbon::now()->format('Y-m-d');
         $year = Carbon::today()->format('Y');
         $mth = Carbon::today()->format('m');
+        $expiresAt = Carbon::now()->addDays();  
+
         foreach($mosque as $index => $d){
             $borough = Borough::where('id_borough', $d->id_borough)
                 ->where('soft_delete', 0)
@@ -512,14 +514,22 @@ class MosqueController extends Controller
                 ->whereYear('mosque_special_salah_times.date_special_salah_times', '=', $year)
                 ->whereMonth('mosque_special_salah_times.date_special_salah_times', '=', $mth)
                 ->get();
-            $facilities = MosqueFacilities::with('Facilities')
+            $facilities = MosqueFacilities::join('facilities','facilities.id_facilities','=','mosque_facilities.id_facilities')
                 ->where('id_mosque', $d->id_mosque)
                 ->get();
+            foreach ($facilities as $key => $sim) {
+                $imageReference = app('firebase.storage')->getBucket()->object($sim->icon_facilities);  
+                if($imageReference->exists()){
+                    $image = $imageReference->signedUrl($expiresAt);
+                    $facilities[$key]->icon_facilities_url_firebase = $image;
+                }else{
+                    $facilities[$key]->icon_facilities_url_firebase = null;
+                }
+            }
+
             $images = MosqueImage::where('id_mosque', $d->id_mosque)
                 ->take(5)
                 ->get();
-            
-            $expiresAt = Carbon::now()->addDays();  
             foreach ($images as $key => $sim) {
                 $imageReference = app('firebase.storage')->getBucket()->object($sim->mosque_image_url);  
                 if($imageReference->exists()){
@@ -610,6 +620,7 @@ class MosqueController extends Controller
         $now = Carbon::now()->format('Y-m-d');
         $year = Carbon::today()->format('Y');
         $mth = Carbon::today()->format('m');
+        $expiresAt = Carbon::now()->addDays();  
         foreach($mosque as $index => $d){
             $borough = Borough::where('id_borough', $d->id_borough)
                 ->where('soft_delete', 0)
@@ -625,13 +636,21 @@ class MosqueController extends Controller
                 ->whereYear('mosque_special_salah_times.date_special_salah_times', '=', $year)
                 ->whereMonth('mosque_special_salah_times.date_special_salah_times', '=', $mth)
                 ->get();
-            $facilities = MosqueFacilities::with('Facilities')
+            $facilities = MosqueFacilities::join('facilities','facilities.id_facilities','=','mosque_facilities.id_facilities')
                 ->where('id_mosque', $d->id_mosque)
                 ->get();
+            foreach ($facilities as $key => $sim) {
+                $imageReference = app('firebase.storage')->getBucket()->object($sim->icon_facilities);  
+                if($imageReference->exists()){
+                    $image = $imageReference->signedUrl($expiresAt);
+                    $facilities[$key]->icon_facilities_url_firebase = $image;
+                }else{
+                    $facilities[$key]->icon_facilities_url_firebase = null;
+                }
+            }
+
             $images = MosqueImage::where('id_mosque', $d->id_mosque)
                 ->get();
-            
-            $expiresAt = Carbon::now()->addDays();  
             foreach ($images as $key => $sim) {
                 $imageReference = app('firebase.storage')->getBucket()->object($sim->mosque_image_url);  
                 if($imageReference->exists()){
@@ -818,6 +837,7 @@ class MosqueController extends Controller
         
         $StartTimeDay = '00:00:01';
         $EndTimeDay = '23:59:59';
+        $expiresAt = Carbon::now()->addDays();  
         
         $mosque = Mosque::query()
         ->when($request->has('id_facilities'), function ($query) use ($id_facilities) {
@@ -884,14 +904,22 @@ class MosqueController extends Controller
                 ->whereYear('mosque_special_salah_times.date_special_salah_times', '=', $year)
                 ->whereMonth('mosque_special_salah_times.date_special_salah_times', '=', $mth)
                 ->get();
-            $facilities = MosqueFacilities::with('Facilities')
+            $facilities = MosqueFacilities::join('facilities','facilities.id_facilities','=','mosque_facilities.id_facilities')
                 ->where('id_mosque', $d->id_mosque)
                 ->get();
+            foreach ($facilities as $key => $sim) {
+                $imageReference = app('firebase.storage')->getBucket()->object($sim->icon_facilities);  
+                if($imageReference->exists()){
+                    $image = $imageReference->signedUrl($expiresAt);
+                    $facilities[$key]->icon_facilities_url_firebase = $image;
+                }else{
+                    $facilities[$key]->icon_facilities_url_firebase = null;
+                }
+            }
+
             $images = MosqueImage::where('id_mosque', $d->id_mosque)
                 ->take(5)
                 ->get();
-
-            $expiresAt = Carbon::now()->addDays();  
             foreach ($images as $key => $sim) {
                 $imageReference = app('firebase.storage')->getBucket()->object($sim->mosque_image_url);  
                 if($imageReference->exists()){
