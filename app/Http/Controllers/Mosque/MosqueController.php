@@ -515,6 +515,20 @@ class MosqueController extends Controller
             $facilities = MosqueFacilities::with('Facilities')
                 ->where('id_mosque', $d->id_mosque)
                 ->get();
+            $images = MosqueImage::where('id_mosque', $d->id_mosque)
+                ->take(5)
+                ->get();
+            
+            $expiresAt = Carbon::now()->addDays();  
+            foreach ($images as $key => $sim) {
+                $imageReference = app('firebase.storage')->getBucket()->object($sim->mosque_image_url);  
+                if($imageReference->exists()){
+                    $image = $imageReference->signedUrl($expiresAt);
+                    $images[$key]->mosque_image_url_firebase = $image;
+                }else{
+                    $images[$key]->mosque_image_url_firebase = null;
+                }
+            }
 
             $mosque[$index]->borough = $borough ?? null;
             $mosque[$index]->district = $district  ?? null;
@@ -617,17 +631,14 @@ class MosqueController extends Controller
             $images = MosqueImage::where('id_mosque', $d->id_mosque)
                 ->get();
             
-            
-            if(count($images) !== 0){
-                foreach($images as $index => $smi){
-                    $expiresAt = Carbon::now()->addDays();  
-                    $imageReference = app('firebase.storage')->getBucket()->object($smi->mosque_image_url);  
-                    if($imageReference->exists()){
-                        $image = $imageReference->signedUrl($expiresAt);
-                        $images[$index]->mosque_image_url_firebase = $image;
-                    }else{
-                        $images[$index]->mosque_image_url_firebase = null;
-                    }
+            $expiresAt = Carbon::now()->addDays();  
+            foreach ($images as $key => $sim) {
+                $imageReference = app('firebase.storage')->getBucket()->object($sim->mosque_image_url);  
+                if($imageReference->exists()){
+                    $image = $imageReference->signedUrl($expiresAt);
+                    $images[$key]->mosque_image_url_firebase = $image;
+                }else{
+                    $images[$key]->mosque_image_url_firebase = null;
                 }
             }
 
@@ -636,7 +647,7 @@ class MosqueController extends Controller
             $mosque[$index]->salah_times = $salah_times ?? null;
             $mosque[$index]->jummah_times = $jummah_times ?? null;
             $mosque[$index]->facilities = $facilities ?? null;
-            // $mosque[$index]->images = $images ?? null;
+            $mosque[$index]->images = $images ?? null;
         }
 
         if(count($mosque) !== 0){
@@ -669,7 +680,8 @@ class MosqueController extends Controller
      *     tags={"Mosque"},
      *     summary="Show all data mosque response",
      *     description="Show all data mosque response
-           <br>*id_user and status_mosque_favorite must use together to get favorite mosque the user have ",
+           <br>*id_user and status_mosque_favorite must use together to get favorite mosque the user have
+           <br>*image limit 5, use show by id to show all image or in Mosque Images Tags ",
      *     operationId="showByFilterMosques",
      * 
      *   @SWG\Parameter(
@@ -876,18 +888,17 @@ class MosqueController extends Controller
                 ->where('id_mosque', $d->id_mosque)
                 ->get();
             $images = MosqueImage::where('id_mosque', $d->id_mosque)
+                ->take(5)
                 ->get();
-                
-            if(count($images) !== 0){
-                foreach($images as $index => $smi){
-                    $expiresAt = Carbon::now()->addDays();  
-                    $imageReference = app('firebase.storage')->getBucket()->object($smi->mosque_image_url);  
-                    if($imageReference->exists()){
-                        $image = $imageReference->signedUrl($expiresAt);
-                        $images[$index]->mosque_image_url_firebase = $image;
-                    }else{
-                        $images[$index]->mosque_image_url_firebase = null;
-                    }
+
+            $expiresAt = Carbon::now()->addDays();  
+            foreach ($images as $key => $sim) {
+                $imageReference = app('firebase.storage')->getBucket()->object($sim->mosque_image_url);  
+                if($imageReference->exists()){
+                    $image = $imageReference->signedUrl($expiresAt);
+                    $images[$key]->mosque_image_url_firebase = $image;
+                }else{
+                    $images[$key]->mosque_image_url_firebase = null;
                 }
             }
     
