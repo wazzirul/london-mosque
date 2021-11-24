@@ -508,14 +508,17 @@ class MosqueController extends Controller
                 ->first();
             $salah_times = MosqueSalahTime::where('id_mosque', $d->id_mosque)
                 ->where('date_salah_times',$now)
+                ->where('soft_delete', 0)
                 ->get();
             $jummah_times = MosqueSpecialSalahTime::where('id_mosque', $d->id_mosque)
                 ->where('mosque_special_salah_times.category_special_salah', 3) //category special salah = jummah
                 ->whereYear('mosque_special_salah_times.date_special_salah_times', '=', $year)
                 ->whereMonth('mosque_special_salah_times.date_special_salah_times', '=', $mth)
+                ->where('soft_delete', 0)
                 ->get();
             $facilities = MosqueFacilities::join('facilities','facilities.id_facilities','=','mosque_facilities.id_facilities')
                 ->where('id_mosque', $d->id_mosque)
+                ->where('mosque_facilities.soft_delete', 0)
                 ->get();
             foreach ($facilities as $key => $sim) {
                 $imageReference = app('firebase.storage')->getBucket()->object($sim->icon_facilities);  
@@ -528,6 +531,7 @@ class MosqueController extends Controller
             }
 
             $images = MosqueImage::where('id_mosque', $d->id_mosque)
+                ->where('soft_delete', 0)
                 ->take(5)
                 ->get();
             foreach ($images as $key => $sim) {
@@ -630,14 +634,17 @@ class MosqueController extends Controller
                 ->first();
             $salah_times = MosqueSalahTime::where('id_mosque', $d->id_mosque)
                 ->where('date_salah_times',$now)
+                ->where('soft_delete', 0)
                 ->get();
             $jummah_times = MosqueSpecialSalahTime::where('id_mosque', $d->id_mosque)
                 ->where('mosque_special_salah_times.category_special_salah', 3) //category special salah = 3 / jummah
                 ->whereYear('mosque_special_salah_times.date_special_salah_times', '=', $year)
                 ->whereMonth('mosque_special_salah_times.date_special_salah_times', '=', $mth)
+                ->where('soft_delete', 0)
                 ->get();
             $facilities = MosqueFacilities::join('facilities','facilities.id_facilities','=','mosque_facilities.id_facilities')
                 ->where('id_mosque', $d->id_mosque)
+                ->where('mosque_facilities.soft_delete', 0)
                 ->get();
             foreach ($facilities as $key => $sim) {
                 $imageReference = app('firebase.storage')->getBucket()->object($sim->icon_facilities);  
@@ -650,6 +657,7 @@ class MosqueController extends Controller
             }
 
             $images = MosqueImage::where('id_mosque', $d->id_mosque)
+                ->where('soft_delete', 0)
                 ->get();
             foreach ($images as $key => $sim) {
                 $imageReference = app('firebase.storage')->getBucket()->object($sim->mosque_image_url);  
@@ -898,14 +906,17 @@ class MosqueController extends Controller
                 ->first();
             $salah_times = MosqueSalahTime::where('id_mosque', $d->id_mosque)
                 ->whereBetween('date_salah_times', [$date_salah_times_from, $date_salah_times_to])
+                ->where('soft_delete', 0)
                 ->get();
             $jummah_times = MosqueSpecialSalahTime::where('id_mosque', $d->id_mosque)
                 ->where('mosque_special_salah_times.category_special_salah', 3) //category special salah = 3 / jummah
                 ->whereYear('mosque_special_salah_times.date_special_salah_times', '=', $year)
                 ->whereMonth('mosque_special_salah_times.date_special_salah_times', '=', $mth)
+                ->where('soft_delete', 0)
                 ->get();
             $facilities = MosqueFacilities::join('facilities','facilities.id_facilities','=','mosque_facilities.id_facilities')
                 ->where('id_mosque', $d->id_mosque)
+                ->where('mosque_facilities.soft_delete', 0)
                 ->get();
             foreach ($facilities as $key => $sim) {
                 $imageReference = app('firebase.storage')->getBucket()->object($sim->icon_facilities);  
@@ -918,6 +929,7 @@ class MosqueController extends Controller
             }
 
             $images = MosqueImage::where('id_mosque', $d->id_mosque)
+                ->where('soft_delete', 0)
                 ->take(5)
                 ->get();
             foreach ($images as $key => $sim) {

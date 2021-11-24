@@ -1904,14 +1904,14 @@
                     {
                         "name": "skip",
                         "in": "formData",
-                        "description": "Skip Berapa Data (Default=0)",
+                        "description": "Skip how many Data (Default=0)",
                         "required": false,
                         "type": "integer"
                     },
                     {
                         "name": "take",
                         "in": "formData",
-                        "description": "Take Berapa Data (Default=100)",
+                        "description": "Take how many Data (Default=100)",
                         "required": false,
                         "type": "integer"
                     },
@@ -2050,14 +2050,14 @@
                     {
                         "name": "skip",
                         "in": "formData",
-                        "description": "Skip Berapa Data (Default=0)",
+                        "description": "Skip how many Data (Default=0)",
                         "required": false,
                         "type": "integer"
                     },
                     {
                         "name": "take",
                         "in": "formData",
-                        "description": "Take Berapa Data (Default=100)",
+                        "description": "Take how many Data (Default=100)",
                         "required": false,
                         "type": "integer"
                     },
@@ -2087,8 +2087,8 @@
                 "tags": [
                     "Mosque Image"
                 ],
-                "summary": "Menambah data mosque image response",
-                "description": "Menambah data mosque image response",
+                "summary": "Storing new data mosque image response",
+                "description": "Storing new data mosque image response",
                 "operationId": "storeMosqueImage",
                 "parameters": [
                     {
@@ -2124,8 +2124,8 @@
                 "tags": [
                     "Mosque Image"
                 ],
-                "summary": "Mengedit data mosque image response",
-                "description": "Mengedit data mosque image response",
+                "summary": "Updating data mosque image response",
+                "description": "Updating data mosque image response\r\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
                 "operationId": "updateMosqueImage",
                 "parameters": [
                     {
@@ -2138,14 +2138,14 @@
                     {
                         "name": "id_mosque",
                         "in": "formData",
-                        "description": "ID Mosque (Kosongi jika tidak ingin merubah data)...",
+                        "description": "ID Mosque ...",
                         "required": false,
                         "type": "integer"
                     },
                     {
                         "name": "mosque_image_url",
                         "in": "formData",
-                        "description": "Mosque Image Url (base64) (Kosongi jika tidak ingin merubah data)...",
+                        "description": "Mosque Image Url (base64) ...",
                         "required": false,
                         "type": "string"
                     }
@@ -2168,8 +2168,8 @@
                 "tags": [
                     "Mosque Image"
                 ],
-                "summary": "Menghapus data mosque image response",
-                "description": "Menghapus data mosque image response",
+                "summary": "Deleting data mosque image response",
+                "description": "Deleting data mosque image response",
                 "operationId": "deleteMosqueImage",
                 "parameters": [
                     {
@@ -2198,8 +2198,8 @@
                 "tags": [
                     "Mosque Image"
                 ],
-                "summary": "Mengembalikan data terhapus data mosque image response",
-                "description": "Mengembalikan data terhapus data mosque image response",
+                "summary": "Restoring data terhapus data mosque image response",
+                "description": "Restoring data terhapus data mosque image response",
                 "operationId": "unDeleteMosqueImage",
                 "parameters": [
                     {
@@ -2300,14 +2300,14 @@
                     {
                         "name": "skip",
                         "in": "formData",
-                        "description": "Skip Berapa Data (Default=0)",
+                        "description": "Skip how many Data (Default=0)",
                         "required": false,
                         "type": "integer"
                     },
                     {
                         "name": "take",
                         "in": "formData",
-                        "description": "Take Berapa Data (Default=100)",
+                        "description": "Take how many Data (Default=100)",
                         "required": false,
                         "type": "integer"
                     },
@@ -2527,8 +2527,8 @@
                 "tags": [
                     "Mosque Review"
                 ],
-                "summary": "Show all data mosque Review response",
-                "description": "Show all data mosque Review response",
+                "summary": "Show by id data mosque Review response",
+                "description": "Show by id data mosque Review response",
                 "operationId": "showByIdSalahTimes",
                 "parameters": [
                     {
@@ -2557,8 +2557,8 @@
                 "tags": [
                     "Mosque Review"
                 ],
-                "summary": "Show all data mosque Review response",
-                "description": "Show all data mosque Review response",
+                "summary": "Show by filter data mosque Review response",
+                "description": "Show by filter data mosque Review response",
                 "operationId": "showByFilterSalahTimes",
                 "parameters": [
                     {
@@ -2599,14 +2599,14 @@
                     {
                         "name": "skip",
                         "in": "formData",
-                        "description": "Skip Berapa Data (Default=0)",
+                        "description": "Skip how many Data (Default=0)",
                         "required": false,
                         "type": "integer"
                     },
                     {
                         "name": "take",
                         "in": "formData",
-                        "description": "Take Berapa Data (Default=100)",
+                        "description": "Take how many Data (Default=100)",
                         "required": false,
                         "type": "integer"
                     },
@@ -2826,8 +2826,8 @@
                 "tags": [
                     "Mosque Salah Times"
                 ],
-                "summary": "Show all data mosque salah times response",
-                "description": "Show all data mosque salah times response",
+                "summary": "Show by id data mosque salah times response",
+                "description": "Show by id data mosque salah times response",
                 "operationId": "showByIdSalahTimes",
                 "parameters": [
                     {
@@ -2856,8 +2856,8 @@
                 "tags": [
                     "Mosque Salah Times"
                 ],
-                "summary": "Show all data mosque salah times response",
-                "description": "Show all data mosque salah times response",
+                "summary": "Show by filter data mosque salah times response",
+                "description": "Show by filter data mosque salah times response",
                 "operationId": "showByFilterSalahTimes",
                 "parameters": [
                     {
@@ -2898,14 +2898,14 @@
                     {
                         "name": "skip",
                         "in": "formData",
-                        "description": "Skip Berapa Data (Default=0)",
+                        "description": "Skip how many Data (Default=0)",
                         "required": false,
                         "type": "integer"
                     },
                     {
                         "name": "take",
                         "in": "formData",
-                        "description": "Take Berapa Data (Default=100)",
+                        "description": "Take how many Data (Default=100)",
                         "required": false,
                         "type": "integer"
                     },
@@ -3139,8 +3139,8 @@
                 "tags": [
                     "Mosque Special Salah Times"
                 ],
-                "summary": "Show all data mosque Special Salah times response",
-                "description": "Show all data mosque Special Salah times response",
+                "summary": "Show by id data mosque Special Salah times response",
+                "description": "Show by id data mosque Special Salah times response",
                 "operationId": "showByIdSalahTimes",
                 "parameters": [
                     {
@@ -3169,8 +3169,8 @@
                 "tags": [
                     "Mosque Special Salah Times"
                 ],
-                "summary": "Show all data mosque Special Salah times response",
-                "description": "Show all data mosque Special Salah times response",
+                "summary": "Show by filter data mosque Special Salah times response",
+                "description": "Show by filter data mosque Special Salah times response",
                 "operationId": "showByFilterSalahTimes",
                 "parameters": [
                     {
