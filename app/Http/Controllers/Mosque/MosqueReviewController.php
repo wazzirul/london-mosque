@@ -491,8 +491,8 @@ class MosqueReviewController extends Controller
      * @SWG\Post(
      *   path="/mosque-review/showById",
      *     tags={"Mosque Review"},
-     *     summary="Show all data mosque Review response",
-     *     description="Show all data mosque Review response",
+     *     summary="Show by id data mosque Review response",
+     *     description="Show by id data mosque Review response",
      *     operationId="showByIdSalahTimes",
      * 
      *   @SWG\Parameter(
@@ -569,8 +569,8 @@ class MosqueReviewController extends Controller
      * @SWG\Post(
      *   path="/mosque-review/showByFilter",
      *     tags={"Mosque Review"},
-     *     summary="Show all data mosque Review response",
-     *     description="Show all data mosque Review response",
+     *     summary="Show by filter data mosque Review response",
+     *     description="Show by filter data mosque Review response",
      *     operationId="showByFilterSalahTimes",
      * 
      *   @SWG\Parameter(
@@ -611,14 +611,14 @@ class MosqueReviewController extends Controller
      *   @SWG\Parameter(
      *     name="skip",
      *     in="formData",
-     *     description="Skip Berapa Data (Default=0)",
+     *     description="Skip how many Data (Default=0)",
      *     required=false,
      *     type="integer"
      *   ),
      *   @SWG\Parameter(
      *     name="take",
      *     in="formData",
-     *     description="Take Berapa Data (Default=100)",
+     *     description="Take how many Data (Default=100)",
      *     required=false,
      *     type="integer"
      *   ),

@@ -26,8 +26,8 @@ class MosqueImageController extends Controller
      * @SWG\Post(
      *   path="/mosque-image/store",
      *     tags={"Mosque Image"},
-     *     summary="Menambah data mosque image response",
-     *     description="Menambah data mosque image response",
+     *     summary="Storing new data mosque image response",
+     *     description="Storing new data mosque image response",
      *     operationId="storeMosqueImage",
      * 
      *  @SWG\Parameter(
@@ -95,6 +95,7 @@ class MosqueImageController extends Controller
             if($data){
                 $res['status_code'] = 200;
                 $res['success'] = true;
+                $res['detail'] = "Success Storing new Mosque Image.";
                 $res['data'] = $data;
 
                 return response($res, 200);
@@ -116,8 +117,9 @@ class MosqueImageController extends Controller
      * @SWG\Post(
      *   path="/mosque-image/update",
      *     tags={"Mosque Image"},
-     *     summary="Mengedit data mosque image response",
-     *     description="Mengedit data mosque image response",
+     *     summary="Updating data mosque image response",
+     *     description="Updating data mosque image response
+          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
      *     operationId="updateMosqueImage",
      * 
      *   @SWG\Parameter(
@@ -130,14 +132,14 @@ class MosqueImageController extends Controller
      *   @SWG\Parameter(
      *     name="id_mosque",
      *     in="formData",
-     *     description="ID Mosque (Kosongi jika tidak ingin merubah data)...",
+     *     description="ID Mosque ...",
      *     required=false,
      *     type="integer"
      *   ),  
      *  @SWG\Parameter(
      *     name="mosque_image_url",
      *     in="formData",
-     *     description="Mosque Image Url (base64) (Kosongi jika tidak ingin merubah data)...",
+     *     description="Mosque Image Url (base64) ...",
      *     required=false,
      *     type="string"
      *   ),
@@ -219,6 +221,7 @@ class MosqueImageController extends Controller
         if($data){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['detail'] = "Success Updating Mosque Image.";
             $res['data'] = $MosqueImage;
 
             return response($res, 200);
@@ -234,8 +237,8 @@ class MosqueImageController extends Controller
      * @SWG\Post(
      *   path="/mosque-image/delete",
      *     tags={"Mosque Image"},
-     *     summary="Menghapus data mosque image response",
-     *     description="Menghapus data mosque image response",
+     *     summary="Deleting data mosque image response",
+     *     description="Deleting data mosque image response",
      *     operationId="deleteMosqueImage",
      * 
      *   @SWG\Parameter(
@@ -274,6 +277,7 @@ class MosqueImageController extends Controller
         if($data){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['message'] = 'Success Deleting Mosque data';
             $res['data'] = $MosqueImage;
 
             return response($res, 200);
@@ -290,8 +294,8 @@ class MosqueImageController extends Controller
      * @SWG\Post(
      *   path="/mosque-image/undelete",
      *     tags={"Mosque Image"},
-     *     summary="Mengembalikan data terhapus data mosque image response",
-     *     description="Mengembalikan data terhapus data mosque image response",
+     *     summary="Restoring data terhapus data mosque image response",
+     *     description="Restoring data terhapus data mosque image response",
      *     operationId="unDeleteMosqueImage",
      * 
      *   @SWG\Parameter(
@@ -337,6 +341,7 @@ class MosqueImageController extends Controller
         if($data){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['message'] = 'Success Restoring Mosque data';
             $res['data'] = $MosqueImage;
 
             return response($res, 200);
@@ -487,14 +492,14 @@ class MosqueImageController extends Controller
      *   @SWG\Parameter(
      *     name="skip",
      *     in="formData",
-     *     description="Skip Berapa Data (Default=0)",
+     *     description="Skip how many Data (Default=0)",
      *     required=false,
      *     type="integer"
      *   ),
      *   @SWG\Parameter(
      *     name="take",
      *     in="formData",
-     *     description="Take Berapa Data (Default=100)",
+     *     description="Take how many Data (Default=100)",
      *     required=false,
      *     type="integer"
      *   ),

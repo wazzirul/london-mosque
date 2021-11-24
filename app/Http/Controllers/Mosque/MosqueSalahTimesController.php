@@ -439,8 +439,8 @@ class MosqueSalahTimesController extends Controller
      * @SWG\Post(
      *   path="/mosque-salah-times/showById",
      *     tags={"Mosque Salah Times"},
-     *     summary="Show all data mosque salah times response",
-     *     description="Show all data mosque salah times response",
+     *     summary="Show by id data mosque salah times response",
+     *     description="Show by id data mosque salah times response",
      *     operationId="showByIdSalahTimes",
      * 
      *   @SWG\Parameter(
@@ -516,8 +516,8 @@ class MosqueSalahTimesController extends Controller
      * @SWG\Post(
      *   path="/mosque-salah-times/showByFilter",
      *     tags={"Mosque Salah Times"},
-     *     summary="Show all data mosque salah times response",
-     *     description="Show all data mosque salah times response",
+     *     summary="Show by filter data mosque salah times response",
+     *     description="Show by filter data mosque salah times response",
      *     operationId="showByFilterSalahTimes",
      * 
      *   @SWG\Parameter(
@@ -558,14 +558,14 @@ class MosqueSalahTimesController extends Controller
      *   @SWG\Parameter(
      *     name="skip",
      *     in="formData",
-     *     description="Skip Berapa Data (Default=0)",
+     *     description="Skip how many Data (Default=0)",
      *     required=false,
      *     type="integer"
      *   ),
      *   @SWG\Parameter(
      *     name="take",
      *     in="formData",
-     *     description="Take Berapa Data (Default=100)",
+     *     description="Take how many Data (Default=100)",
      *     required=false,
      *     type="integer"
      *   ),

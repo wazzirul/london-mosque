@@ -463,8 +463,8 @@ class MosqueSpecialSalahTimesController extends Controller
      * @SWG\Post(
      *   path="/mosque-specialsalah-times/showById",
      *     tags={"Mosque Special Salah Times"},
-     *     summary="Show all data mosque Special Salah times response",
-     *     description="Show all data mosque Special Salah times response",
+     *     summary="Show by id data mosque Special Salah times response",
+     *     description="Show by id data mosque Special Salah times response",
      *     operationId="showByIdSalahTimes",
      * 
      *   @SWG\Parameter(
@@ -540,8 +540,8 @@ class MosqueSpecialSalahTimesController extends Controller
      * @SWG\Post(
      *   path="/mosque-specialsalah-times/showByFilter",
      *     tags={"Mosque Special Salah Times"},
-     *     summary="Show all data mosque Special Salah times response",
-     *     description="Show all data mosque Special Salah times response",
+     *     summary="Show by filter data mosque Special Salah times response",
+     *     description="Show by filter data mosque Special Salah times response",
      *     operationId="showByFilterSalahTimes",
      * 
      *   @SWG\Parameter(
