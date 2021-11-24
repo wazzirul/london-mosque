@@ -284,7 +284,7 @@ class MosqueFavoriteController extends Controller
         ->when($request->has('id_user'), function ($query) use ($id_user) {
             $query->where('mosque_favorite.id_user',$id_user);
         })
-        ->where('mosque_favorite.soft_delete',$soft_delete)
+        ->where('mosque_favorite.soft_delete',$soft_delete) 
         ->where('mosque_favorite.status_mosque_favorite',$status_mosque_favorite)
         ->skip($skip)
         ->take($take)

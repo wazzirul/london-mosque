@@ -874,9 +874,7 @@ class MosqueController extends Controller
         ->when($request->has('id_facilities'), function ($query) use ($id_facilities) {
             $query->whereIn('mosque_facilities.id_facilities',$id_facilities);
         })
-        ->when($request->has('soft_delete'), function ($query) use ($soft_delete) {
-            $query->where('mosque.soft_delete',$soft_delete);
-        })
+        ->where('mosque.soft_delete',$soft_delete)
         ->skip($skip)
         ->take($take)
         ->with('AvgRating')

@@ -653,9 +653,7 @@ class MosqueSpecialSalahTimesController extends Controller
         ->when($request->has('order_special_salah_times'), function ($query) use ($order_special_salah_times) {
             $query->where('mosque_special_salah_times.order_special_salah_times',$order_special_salah_times);
         })
-        ->when($request->has('soft_delete'), function ($query) use ($soft_delete) {
-            $query->where('mosque_special_salah_times.soft_delete',$soft_delete);
-        })
+        ->where('mosque_special_salah_times.soft_delete',$soft_delete)
         ->whereYear('mosque_special_salah_times.date_special_salah_times', '=', $year)
         ->whereMonth('mosque_special_salah_times.date_special_salah_times', '=', $mth)
         ->skip($skip)

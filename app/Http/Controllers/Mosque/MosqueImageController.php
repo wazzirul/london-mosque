@@ -527,6 +527,7 @@ class MosqueImageController extends Controller
         ->when($request->has('id_mosque'), function ($query) use ($id_mosque) {
             $query->where('mosque_image.id_mosque',$id_mosque);
         })
+        ->where('mosque_image.soft_delete',$soft_delete)
         ->skip($skip)
         ->take($take)
         ->orderByRaw('mosque_image.id_mosque_image '.$order)

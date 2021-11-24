@@ -608,9 +608,7 @@ class MosqueSalahTimesController extends Controller
         ->when($request->has('type_salah_times'), function ($query) use ($type_salah_times) {
             $query->where('salah_times.type_salah_times',$type_salah_times);
         })
-        ->when($request->has('soft_delete'), function ($query) use ($soft_delete) {
-            $query->where('salah_times.soft_delete',$soft_delete);
-        })
+        ->where('salah_times.soft_delete',$soft_delete)
         ->skip($skip)
         ->take($take)
         ->orderByRaw('salah_times.id_salah_times '.$order)

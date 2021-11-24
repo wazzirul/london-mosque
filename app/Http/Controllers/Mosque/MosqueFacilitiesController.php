@@ -606,9 +606,7 @@ class MosqueFacilitiesController extends Controller
         ->when($request->has('id_facilities'), function ($query) use ($id_facilities) {
             $query->where('mosque_facilities.id_facilities',$id_facilities);
         })
-        ->when($request->has('soft_delete'), function ($query) use ($soft_delete) {
-            $query->where('mosque_facilities.soft_delete',$soft_delete);
-        })
+        ->where('mosque_facilities.soft_delete',$soft_delete)
         ->skip($skip)
         ->take($take)
         ->orderByRaw('mosque_facilities.id_mosque_facilities '.$order)

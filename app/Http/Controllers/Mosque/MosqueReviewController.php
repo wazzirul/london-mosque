@@ -661,7 +661,7 @@ class MosqueReviewController extends Controller
         ->when($request->has('rating'), function ($query) use ($rating) {
             $query->where('mosque_review.rating',$rating);
         })
-        ->where('mosque_review.soft_delete',$soft_delete)
+        ->where('mosque_review.soft_delete',$soft_delete) 
         ->skip($skip)
         ->take($take)
         ->orderByRaw('mosque_review.id_mosque_review '.$order)
