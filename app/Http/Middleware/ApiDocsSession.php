@@ -17,7 +17,7 @@ class ApiDocsSession
     {
         if (!$request->session()->exists('login')) {
             // user value cannot be found in session
-            return redirect('/login')->with('alert','Kamu harus login dulu');
+            return redirect('/login')->with('alert','You need to login first');
         }
         return $next($request);
     }

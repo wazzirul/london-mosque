@@ -33,8 +33,8 @@ class MosqueController extends Controller
      * @SWG\Post(
      *   path="/mosque/store",
      *     tags={"Mosque"},
-     *     summary="Menambah data Mosque response",
-     *     description="Menambah data Mosque response",
+     *     summary="Storing new data Mosque response",
+     *     description="Storing new data Mosque response",
      *     operationId="storeMosque",
      * 
      *  @SWG\Parameter(
@@ -179,8 +179,8 @@ class MosqueController extends Controller
      * @SWG\Post(
      *   path="/mosque/update",
      *     tags={"Mosque"},
-     *     summary="Mengupdate data Mosque response",
-     *     description="Mengupdate data Mosque response
+     *     summary="Updating data Mosque response",
+     *     description="Updating data Mosque response
           <br>#Leave it <strong>blank</strong> if you don't want to change the data",
      *     operationId="updateMosque",
      * 
@@ -357,8 +357,8 @@ class MosqueController extends Controller
      * @SWG\Post(
      *   path="/mosque/delete",
      *     tags={"Mosque"},
-     *     summary="Menghapus data Mosque response",
-     *     description="Menghapus data Mosque response",
+     *     summary="Deleting data Mosque response",
+     *     description="Deleting data Mosque response",
      *     operationId="deleteMosque",
      * 
      *   @SWG\Parameter(
@@ -418,8 +418,8 @@ class MosqueController extends Controller
      * @SWG\Post(
      *   path="/mosque/undelete",
      *     tags={"Mosque"},
-     *     summary="Mengembalikan data Mosque yang terhapus response",
-     *     description="Mengembalikan data Mosque yang terhapus response",
+     *     summary="Undelete / Restore data Mosque yang terhapus response",
+     *     description="Undelete / Restore data Mosque yang terhapus response",
      *     operationId="undeleteMosque",
      * 
      *   @SWG\Parameter(
@@ -790,14 +790,14 @@ class MosqueController extends Controller
      *   @SWG\Parameter(
      *     name="skip",
      *     in="formData",
-     *     description="Skip Berapa Data (Default=0)",
+     *     description="Skip how many Data (Default=0)",
      *     required=false,
      *     type="integer"
      *   ),
      *   @SWG\Parameter(
      *     name="take",
      *     in="formData",
-     *     description="Take Berapa Data (Default=100)",
+     *     description="Take how many Data (Default=100)",
      *     required=false,
      *     type="integer"
      *   ),

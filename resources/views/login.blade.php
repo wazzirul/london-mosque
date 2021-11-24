@@ -31,7 +31,7 @@
                 <img src="{{ asset('assets/img/LogoLondon-Mosque.png') }}" class="img-fluid">   
                 <h3 class="text-center">Login API Documentation</h3>
                 <div class="login-form">
-                    @if($message = Session::get('gagal'))
+                    @if($message = Session::get('failed'))
                     <div class="alert alert-danger alert-block">
                         <button class="close" type="button" data-dismiss="alert">x</button>
                         <strong>{{ $message }}</strong>

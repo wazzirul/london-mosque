@@ -27,9 +27,9 @@ class LoginDocsController extends Controller
             ->first();
 
             if($admin === null){
-                return redirect('/login')->with('gagal','Username dan Password Salah');
+                return redirect('/login')->with('failed','Wrong Username and Password');
             }else if($admin->soft_delete === 1){
-                return redirect('/login')->with('gagal','Username dan Password Salah');
+                return redirect('/login')->with('failed','Wrong Username and Password');
             }
 
             $checkPassword = Hash::check($request->password, $admin->password);
@@ -38,7 +38,7 @@ class LoginDocsController extends Controller
                 session()->put('login',TRUE);
                 return redirect('/api/documentation');
             }else{
-                return redirect('/login')->with('gagal','Username dan Password Salah');
+                return redirect('/login')->with('failed','Wrong Username and Password');
             }
         }elseif($username == $username1 && $password == $password1){
             session()->put('login',TRUE);
@@ -56,6 +56,6 @@ class LoginDocsController extends Controller
 
     public function logout(){
         session()->flush();
-        return redirect('/login')->with('alert','Kamu Berhasil Logout');
+        return redirect('/login')->with('alert','Logout Success');
     }
 }

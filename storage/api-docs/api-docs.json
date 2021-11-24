@@ -1287,8 +1287,8 @@
                 "tags": [
                     "Mosque"
                 ],
-                "summary": "Menambah data Mosque response",
-                "description": "Menambah data Mosque response",
+                "summary": "Storing new data Mosque response",
+                "description": "Storing new data Mosque response",
                 "operationId": "storeMosque",
                 "parameters": [
                     {
@@ -1359,8 +1359,8 @@
                 "tags": [
                     "Mosque"
                 ],
-                "summary": "Mengupdate data Mosque response",
-                "description": "Mengupdate data Mosque response\r\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
+                "summary": "Updating data Mosque response",
+                "description": "Updating data Mosque response\r\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
                 "operationId": "updateMosque",
                 "parameters": [
                     {
@@ -1438,8 +1438,8 @@
                 "tags": [
                     "Mosque"
                 ],
-                "summary": "Menghapus data Mosque response",
-                "description": "Menghapus data Mosque response",
+                "summary": "Deleting data Mosque response",
+                "description": "Deleting data Mosque response",
                 "operationId": "deleteMosque",
                 "parameters": [
                     {
@@ -1468,8 +1468,8 @@
                 "tags": [
                     "Mosque"
                 ],
-                "summary": "Mengembalikan data Mosque yang terhapus response",
-                "description": "Mengembalikan data Mosque yang terhapus response",
+                "summary": "Undelete / Restore data Mosque yang terhapus response",
+                "description": "Undelete / Restore data Mosque yang terhapus response",
                 "operationId": "undeleteMosque",
                 "parameters": [
                     {
@@ -1640,14 +1640,14 @@
                     {
                         "name": "skip",
                         "in": "formData",
-                        "description": "Skip Berapa Data (Default=0)",
+                        "description": "Skip how many Data (Default=0)",
                         "required": false,
                         "type": "integer"
                     },
                     {
                         "name": "take",
                         "in": "formData",
-                        "description": "Take Berapa Data (Default=100)",
+                        "description": "Take how many Data (Default=100)",
                         "required": false,
                         "type": "integer"
                     },
