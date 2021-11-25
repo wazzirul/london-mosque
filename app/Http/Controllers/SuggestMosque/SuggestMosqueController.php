@@ -921,7 +921,8 @@ class SuggestMosqueController extends Controller
             ->get();
 
         foreach ($mosqueImage as $key => $value) {
-            $imageDeleted = app('firebase.storage')->getBucket()->object($value->mosque_image_url)->delete();
+            $imageDeleted = app('firebase.storage')->getBucket()->object($value->mosque_image_url);
+            if($imageDeleted->exists()) $imageDeleted->delete();
         }
 
 
