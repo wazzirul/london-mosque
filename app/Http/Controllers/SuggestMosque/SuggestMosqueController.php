@@ -575,9 +575,9 @@ class SuggestMosqueController extends Controller
             $imageReference = app('firebase.storage')->getBucket()->object($sfa->facilities->icon_facilities);  
             if($imageReference->exists()){
                 $icon = $imageReference->signedUrl($expiresAt);
-                $suggestFacilities[$key]->icon_facilities_firebase = $icon;
+                $suggestFacilities[$key]['facilities']->icon_facilities_firebase = $icon;
             }else{
-                $suggestFacilities[$key]->icon_facilities_firebase = null;
+                $suggestFacilities[$key]['facilities']->icon_facilities_firebase = null;
             }
         }
         foreach ($suggestImage as $key => $sim) {
