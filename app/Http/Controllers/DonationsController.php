@@ -16,8 +16,8 @@ class DonationsController extends Controller
      * @SWG\Post(
      *   path="/donations/store",
      *     tags={"Donations"},
-     *     summary="Menambah data donations response",
-     *     description="Menambah data donations response",
+     *     summary="Storing New data donations response",
+     *     description="Storing New data donations response",
      *     operationId="storeDonations",
      * 
      *  @SWG\Parameter(
@@ -86,6 +86,7 @@ class DonationsController extends Controller
         if($data){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['detail'] = "Success Storing New Donation Data.";
             $res['data'] = $data;
 
             return response($res, 200);
@@ -100,8 +101,9 @@ class DonationsController extends Controller
      * @SWG\Post(
      *   path="/donations/update",
      *     tags={"Donations"},
-     *     summary="Mengedit data donations response",
-     *     description="Mengedit data donations response",
+     *     summary="Updating data donations response",
+     *     description="Updating data donations response
+           <br>#Leave it <strong>blank</strong> if you don't want to change the data",
      *     operationId="updateDonations",
      * 
      *   @SWG\Parameter(
@@ -114,28 +116,28 @@ class DonationsController extends Controller
      *   @SWG\Parameter(
      *     name="id_user_donation",
      *     in="formData",
-     *     description="ID User Donation (Kosongi jika tidak ingin merubah data)...",
+     *     description="ID User Donation ...",
      *     required=false,
      *     type="integer"
      *   ),
      *   @SWG\Parameter(
      *     name="amount_donation",
      *     in="formData",
-     *     description="Amount Donation (Kosongi jika tidak ingin merubah data)...",
+     *     description="Amount Donation ...",
      *     required=false,
      *     type="integer"
      *   ),
      *   @SWG\Parameter(
      *     name="date_donation",
      *     in="formData",
-     *     description="Date Donation (Kosongi jika tidak ingin merubah data)...",
+     *     description="Date Donation ...",
      *     required=false,
      *     type="string"
      *   ),
      *   @SWG\Parameter(
      *     name="time_donation",
      *     in="formData",
-     *     description="Time Donation (Kosongi jika tidak ingin merubah data)...",
+     *     description="Time Donation ...",
      *     required=false,
      *     type="string"
      *   ),
@@ -201,6 +203,7 @@ class DonationsController extends Controller
         if($data){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['detail'] = "Success Updating Donation Data.";
             $res['data'] = $donations;
 
             return response($res, 200);
@@ -216,8 +219,8 @@ class DonationsController extends Controller
      * @SWG\Post(
      *   path="/donations/delete",
      *     tags={"Donations"},
-     *     summary="Menghapus data donations response",
-     *     description="Menghapus data donations response",
+     *     summary="Deleting data donations response",
+     *     description="Deleting data donations response",
      *     operationId="deleteDonations",
      * 
      *   @SWG\Parameter(
@@ -257,6 +260,7 @@ class DonationsController extends Controller
         if($data){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['detail'] = "Success Deleting Donation Data.";
             $res['data'] = $donations;
 
             return response($res, 200);
@@ -273,8 +277,8 @@ class DonationsController extends Controller
      * @SWG\Post(
      *   path="/donations/unDelete",
      *     tags={"Donations"},
-     *     summary="Mengembalikan data terhapus data donations response",
-     *     description="Mengembalikan data terhapus data donations response",
+     *     summary="Restoring data in deleted sections donations response",
+     *     description="Restoring data in deleted sections donations response",
      *     operationId="unDeleteDonations",
      * 
      *   @SWG\Parameter(
@@ -320,6 +324,7 @@ class DonationsController extends Controller
         if($data){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['detail'] = "Success Restoring Donation Data.";
             $res['data'] = $donations;
 
             return response($res, 200);
@@ -353,6 +358,7 @@ class DonationsController extends Controller
         if(count($donations) !== 0){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['detail'] = "Success Returning Donation Data.";
             $res['data'] = $donations;
 
             return response($res, 200);
@@ -416,6 +422,7 @@ class DonationsController extends Controller
 
         $res['status_code'] = 200;
         $res['success'] = true;
+        $res['detail'] = "Success Returning Donation Data.";
         $res['data'] = $donations;
 
         return response($res, 200);
@@ -461,6 +468,7 @@ class DonationsController extends Controller
         if(count($donations) !== 0){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['detail'] = "Success Returning Donation Data.";
             $res['data'] = $donations;
 
             return response($res, 200);

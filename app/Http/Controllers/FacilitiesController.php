@@ -18,8 +18,8 @@ class FacilitiesController extends Controller
      * @SWG\Post(
      *   path="/facilities/store",
      *     tags={"Facilities"},
-     *     summary="Menambah data facilities response",
-     *     description="Menambah data facilities response",
+     *     summary="Storing New data facilities response",
+     *     description="Storing New data facilities response",
      *     operationId="storeFacilities",
      * 
      *  @SWG\Parameter(
@@ -81,6 +81,7 @@ class FacilitiesController extends Controller
             if($data){
                 $res['status_code'] = 200;
                 $res['success'] = true;
+                $res['detail'] = "Success Storing New Facilities Data.";
                 $res['data'] = $data;
 
                 return response($res, 200);
@@ -102,8 +103,9 @@ class FacilitiesController extends Controller
      * @SWG\Post(
      *   path="/facilities/update",
      *     tags={"Facilities"},
-     *     summary="Mengedit data facilities response",
-     *     description="Mengedit data facilities response",
+     *     summary="Updating data facilities response",
+     *     description="Updating data facilities response
+           <br>#Leave it <strong>blank</strong> if you don't want to change the data",
      *     operationId="updateFacilities",
      * 
      *   @SWG\Parameter(
@@ -116,14 +118,14 @@ class FacilitiesController extends Controller
      *   @SWG\Parameter(
      *     name="name_facilities",
      *     in="formData",
-     *     description="Name Facilities (Kosongi jika tidak ingin merubah data)...",
+     *     description="Name Facilities ...",
      *     required=false,
      *     type="string"
      *   ),
      *   @SWG\Parameter(
      *     name="icon_facilities",
      *     in="formData",
-     *     description="Icon Facilities (base64) (Kosongi jika tidak ingin merubah data)...",
+     *     description="Icon Facilities (base64) ...",
      *     required=false,
      *     type="string"
      *   ),
@@ -147,7 +149,7 @@ class FacilitiesController extends Controller
         if($facility === null){
             $res['status_code'] = 406;
             $res['success'] = false;
-            $res['detail'] = "Data Facility for that ID not found.";
+            $res['detail'] = "Data Facilities for that ID not found.";
 
             return response($res, 200);
         }
@@ -200,6 +202,7 @@ class FacilitiesController extends Controller
         if($data){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['detail'] = "Success Updating Facilities Data.";
             $res['data'] = $facility;
 
             return response($res, 200);
@@ -215,8 +218,8 @@ class FacilitiesController extends Controller
      * @SWG\Post(
      *   path="/facilities/delete",
      *     tags={"Facilities"},
-     *     summary="Menghapus data facilities response",
-     *     description="Menghapus data facilities response",
+     *     summary="Deleting data facilities response",
+     *     description="Deleting data facilities response",
      *     operationId="deleteFacilities",
      * 
      *   @SWG\Parameter(
@@ -256,6 +259,7 @@ class FacilitiesController extends Controller
         if($data){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['detail'] = "Success Deleting Facilities Data.";
             $res['data'] = $facility;
 
             return response($res, 200);
@@ -272,8 +276,8 @@ class FacilitiesController extends Controller
      * @SWG\Post(
      *   path="/facilities/unDelete",
      *     tags={"Facilities"},
-     *     summary="Mengembalikan data terhapus data facilities response",
-     *     description="Mengembalikan data terhapus data facilities response",
+     *     summary="Restoring data in deleted sections facilities response",
+     *     description="Restoring data in deleted sections facilities response",
      *     operationId="unDeleteFacilities",
      * 
      *   @SWG\Parameter(
@@ -319,6 +323,7 @@ class FacilitiesController extends Controller
         if($data){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['detail'] = "Success Restoring Facilities Data.";
             $res['data'] = $facility;
 
             return response($res, 200);
@@ -363,6 +368,7 @@ class FacilitiesController extends Controller
 
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['detail'] = "Success Returning Facilities Data.";
             $res['data'] = $facility;
 
             return response($res, 200);
@@ -411,6 +417,7 @@ class FacilitiesController extends Controller
 
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['detail'] = "Success Returning Facilities Data.";
             $res['data'] = $facility;
 
             return response($res, 200);
@@ -481,6 +488,7 @@ class FacilitiesController extends Controller
 
         $res['status_code'] = 200;
         $res['success'] = true;
+        $res['detail'] = "Success Returning Facilities Data.";
         $res['data'] = $facility;
 
         return response($res, 200);

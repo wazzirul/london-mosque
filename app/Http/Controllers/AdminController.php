@@ -15,8 +15,8 @@ class AdminController extends Controller
      * @SWG\Post(
      *   path="/admin/store",
      *     tags={"Admin"},
-     *     summary="Menambah data admin response",
-     *     description="Menambah data admin response",
+     *     summary="Store New data admin response",
+     *     description="Store New data admin response",
      *     operationId="storeAdmin",
      * 
      *   @SWG\Parameter(
@@ -75,6 +75,7 @@ class AdminController extends Controller
         if($data){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['detail'] = "Success Storing New Admin Data.";
             $res['data'] = $data;
 
             return response($res, 200);
@@ -89,8 +90,9 @@ class AdminController extends Controller
      * @SWG\Post(
      *   path="/admin/update",
      *     tags={"Admin"},
-     *     summary="Mengedit data admin response",
-     *     description="Mengedit data admin response",
+     *     summary="Updating data admin response",
+     *     description="Updating data admin response
+           <br>#Leave it <strong>blank</strong> if you don't want to change the data",
      *     operationId="updateAdmin",
      * 
      *   @SWG\Parameter(
@@ -103,28 +105,28 @@ class AdminController extends Controller
      *   @SWG\Parameter(
      *     name="username",
      *     in="formData",
-     *     description="Username (Kosongi jika tidak ingin merubah data)...",
+     *     description="Username ...",
      *     required=false,
      *     type="string"
      *   ),
      *   @SWG\Parameter(
      *     name="password",
      *     in="formData",
-     *     description="Password (Kosongi jika tidak ingin merubah data)...",
+     *     description="Password ...",
      *     required=false,
      *     type="string"
      *   ),
      *   @SWG\Parameter(
      *     name="email",
      *     in="formData",
-     *     description="Email (Kosongi jika tidak ingin merubah data)...",
+     *     description="Email ...",
      *     required=false,
      *     type="string"
      *   ),
      *   @SWG\Parameter(
      *     name="role",
      *     in="formData",
-     *     description="Role Admin (1 = Superadmin, 2 = Normal Admin) (Kosongi jika tidak ingin merubah data)...",
+     *     description="Role Admin (1 = Superadmin, 2 = Normal Admin) ...",
      *     required=false,
      *     type="integer"
      *   ),
@@ -180,6 +182,7 @@ class AdminController extends Controller
         if($data){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['detail'] = "Success Updating Admin Data.";
             $res['data'] = $admin;
 
             return response($res, 200);
@@ -195,8 +198,8 @@ class AdminController extends Controller
      * @SWG\Post(
      *   path="/admin/delete",
      *     tags={"Admin"},
-     *     summary="Menghapus data admin response",
-     *     description="Menghapus data admin response",
+     *     summary="Deleting data admin response",
+     *     description="Deleting data admin response",
      *     operationId="deleteAdmin",
      * 
      *   @SWG\Parameter(
@@ -236,6 +239,7 @@ class AdminController extends Controller
         if($data){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['detail'] = "Success Deleting Admin Data.";
             $res['data'] = $admin;
 
             return response($res, 200);
@@ -251,8 +255,8 @@ class AdminController extends Controller
      * @SWG\Post(
      *   path="/admin/unDelete",
      *     tags={"Admin"},
-     *     summary="Mengembalikan data terhapus data admin response",
-     *     description="Mengembalikan data terhapus data admin response",
+     *     summary="Restoring / Undelete data in deleted section admin response",
+     *     description="Restoring / Undelete data in deleted section admin response",
      *     operationId="unDeleteAdmin",
      * 
      *   @SWG\Parameter(
@@ -298,6 +302,7 @@ class AdminController extends Controller
         if($data){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['detail'] = "Success Restoring / Undelete Admin Data.";
             $res['data'] = $admin;
 
             return response($res, 200);
@@ -409,6 +414,7 @@ class AdminController extends Controller
         if(count($admin) !== 0){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['detail'] = "Success Return Admin Data.";
             $res['data'] = $admin;
 
             return response($res, 200);
@@ -447,6 +453,7 @@ class AdminController extends Controller
         if(count($admin) !== 0){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['detail'] = "Success Return Admin Data.";
             $res['data'] = $admin;
 
             return response($res, 200);
@@ -510,6 +517,7 @@ class AdminController extends Controller
 
         $res['status_code'] = 200;
         $res['success'] = true;
+        $res['detail'] = "Success Return Admin Data.";
         $res['data'] = $admin;
 
         return response($res, 200);

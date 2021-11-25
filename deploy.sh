@@ -20,7 +20,7 @@ ZIP_FILE="build.zip"
 TEMP_DIRECTORY=/tmp/
 DEPLOY_DIRECTORY=/var/www/london-mosques-api/
 DEPLOY_TEMP_DIRECTORY=/tmp/london-mosques-api/
-KEY_PAIR=C:\Users\Wazirul\.ssh\id_rsa
+KEY_PAIR=/c/Users/Wazirul/.ssh/id_rsa
 CONFIG_FILE=/var/local/environments/london-mosques-api/.env
 
 echo "Run composer install command..."

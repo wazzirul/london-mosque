@@ -16,8 +16,8 @@ class AboutUsController extends Controller
      * @SWG\Post(
      *   path="/AboutUs/update",
      *     tags={"About Us"},
-     *     summary="Mengedit data About Us response",
-     *     description="Mengedit data About Us response",
+     *     summary="Updating data About Us response",
+     *     description="Updating data About Us response",
      *     operationId="updateAboutUs",
      * 
      *   @SWG\Parameter(
@@ -51,7 +51,7 @@ class AboutUsController extends Controller
         if($data === null){
             $res['status_code'] = 406;
             $res['success'] = false;
-            $res['detail'] = "Data About Us belum dibuat.";
+            $res['detail'] = "Data About Us not created yet.";
 
             return response($res, 200);
         }
@@ -78,8 +78,8 @@ class AboutUsController extends Controller
      * @SWG\Get(
      *   path="/AboutUs/show",
      *     tags={"About Us"},
-     *     summary="Mengedit data About Us response",
-     *     description="Mengedit data About Us response",
+     *     summary="Returning / Show data About Us response",
+     *     description="Returning / Show data About Us response",
      *     operationId="showAboutUs",
      * 
      *   @SWG\Response(response=200, description="successful operation"),
@@ -94,7 +94,7 @@ class AboutUsController extends Controller
         if($data === null){
             $res['status_code'] = 406;
             $res['success'] = false;
-            $res['detail'] = "Data About Us belum dibuat.";
+            $res['detail'] = "Data About Us not created yet.";
 
             return response($res, 200);
         }else{

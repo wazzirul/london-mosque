@@ -16,8 +16,8 @@ class DistrictsController extends Controller
      * @SWG\Post(
      *   path="/districts/store",
      *     tags={"Districts"},
-     *     summary="Menambah data districts response",
-     *     description="Menambah data districts response",
+     *     summary="Storing new data districts response",
+     *     description="Storing new data districts response",
      *     operationId="storeDistricts",
      * 
      *  @SWG\Parameter(
@@ -94,6 +94,7 @@ class DistrictsController extends Controller
         if($data){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['detail'] = "Success Storing New Districts Data.";
             $res['data'] = $data;
 
             return response($res, 200);
@@ -108,8 +109,9 @@ class DistrictsController extends Controller
      * @SWG\Post(
      *   path="/districts/update",
      *     tags={"Districts"},
-     *     summary="Mengedit data districts response",
-     *     description="Mengedit data districts response",
+     *     summary="Updating data districts response",
+     *     description="Updating data districts response
+           <br>#Leave it <strong>blank</strong> if you don't want to change the data",
      *     operationId="updateDistricts",
      * 
      *   @SWG\Parameter(
@@ -122,28 +124,28 @@ class DistrictsController extends Controller
      *  @SWG\Parameter(
      *     name="id_borough",
      *     in="formData",
-     *     description="ID Borough (Kosongi jika tidak ingin merubah data)...",
+     *     description="ID Borough ...",
      *     required=false,
      *     type="integer"
      *   ),
      *   @SWG\Parameter(
      *     name="name_district",
      *     in="formData",
-     *     description="Name District (Kosongi jika tidak ingin merubah data)...",
+     *     description="Name District ...",
      *     required=false,
      *     type="string"
      *   ),
      *   @SWG\Parameter(
      *     name="latitude",
      *     in="formData",
-     *     description="Latitude (Kosongi jika tidak ingin merubah data)...",
+     *     description="Latitude ...",
      *     required=false,
      *     type="string"
      *   ),
      *  @SWG\Parameter(
      *     name="longitude",
      *     in="formData",
-     *     description="Longitude (Kosongi jika tidak ingin merubah data)...",
+     *     description="Longitude ...",
      *     required=false,
      *     type="string"
      *   ),
@@ -217,6 +219,7 @@ class DistrictsController extends Controller
         if($data){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['detail'] = "Success Updating Districts Data.";
             $res['data'] = $district;
 
             return response($res, 200);
@@ -232,8 +235,8 @@ class DistrictsController extends Controller
      * @SWG\Post(
      *   path="/districts/delete",
      *     tags={"Districts"},
-     *     summary="Menghapus data districts response",
-     *     description="Menghapus data districts response",
+     *     summary="Deleting data districts response",
+     *     description="Deleting data districts response",
      *     operationId="deleteDistricts",
      * 
      *   @SWG\Parameter(
@@ -273,6 +276,7 @@ class DistrictsController extends Controller
         if($data){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['detail'] = "Success Deleting Districts Data.";
             $res['data'] = $district;
 
             return response($res, 200);
@@ -289,8 +293,8 @@ class DistrictsController extends Controller
      * @SWG\Post(
      *   path="/districts/unDelete",
      *     tags={"Districts"},
-     *     summary="Mengembalikan data terhapus data districts response",
-     *     description="Mengembalikan data terhapus data districts response",
+     *     summary="Restoring data in deleted section districts response",
+     *     description="Restoring data in deleted section districts response",
      *     operationId="unDeleteDistricts",
      * 
      *   @SWG\Parameter(
@@ -336,6 +340,7 @@ class DistrictsController extends Controller
         if($data){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['detail'] = "Success Restoring / Undelete Districts Data.";
             $res['data'] = $district;
 
             return response($res, 200);
@@ -382,6 +387,7 @@ class DistrictsController extends Controller
         }else{
             $res['status_code'] = 406;
             $res['success'] = false;
+            $res['detail'] = "Success Returning Districts Data.";
             $res['data'] = $district;
 
             return response($res, 200);
@@ -444,6 +450,7 @@ class DistrictsController extends Controller
 
         $res['status_code'] = 200;
         $res['success'] = true;
+        $res['detail'] = "Success Returning Districts Data.";
         $res['data'] = $district;
 
         return response($res, 200);
@@ -507,6 +514,7 @@ class DistrictsController extends Controller
 
         $res['status_code'] = 200;
         $res['success'] = true;
+        $res['detail'] = "Success Returning Districts Data.";
         $res['data'] = $borough;
 
         return response($res, 200);
