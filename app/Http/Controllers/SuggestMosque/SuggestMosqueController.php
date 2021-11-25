@@ -558,6 +558,7 @@ class SuggestMosqueController extends Controller
             ->first();
         
         $suggestFacilities = SuggestMosqueFacilities::where('id_suggest_mosque', $suggestMosque->id_suggest_mosque)
+            ->with('Facilities')
             ->get();
 
         $suggestSalahTimes = SuggestMosqueSalahTimes::where('id_suggest_mosque', $suggestMosque->id_suggest_mosque)
@@ -570,6 +571,15 @@ class SuggestMosqueController extends Controller
             ->get();
 
         $expiresAt = Carbon::now()->addDays();  
+        foreach ($suggestFacilities as $key => $sfa) {
+            $imageReference = app('firebase.storage')->getBucket()->object($sfa->facilities->icon_facilities);  
+            if($imageReference->exists()){
+                $icon = $imageReference->signedUrl($expiresAt);
+                $suggestFacilities[$key]->icon_facilities_firebase = $icon;
+            }else{
+                $suggestFacilities[$key]->icon_facilities_firebase = null;
+            }
+        }
         foreach ($suggestImage as $key => $sim) {
             $imageReference = app('firebase.storage')->getBucket()->object($sim->mosque_image_url);  
             if($imageReference->exists()){
@@ -930,12 +940,6 @@ class SuggestMosqueController extends Controller
         MosqueImage::where('id_mosque', $id_mosque)
             ->forceDelete();
 
-        MosqueSalahTime::where('id_mosque', $id_mosque)
-            ->forceDelete();
-
-        // MosqueSpecialSalahTime::where('id_mosque', $id_mosque)
-        //     ->forceDelete();
-
         foreach ($suggestFacilities as $key => $value) {
             $newMosqueFacilities = new MosqueFacilities();
             $newMosqueFacilities->id_mosque = $id_mosque;
@@ -950,6 +954,11 @@ class SuggestMosqueController extends Controller
             $newMosqueImage->save();
         }
 
+        foreach ($mosqueSalahTimes as $key => $value) {
+            MosqueSalahTime::where('id_mosque', $id_mosque)
+                ->where('date_salah_times', $value->date_salah_times)
+                ->forceDelete();
+        }
         foreach ($mosqueSalahTimes as $key => $value) {
             $newMosqueSalahTime = new MosqueSalahTime();
             $newMosqueSalahTime->id_mosque = $id_mosque;

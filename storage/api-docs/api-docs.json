@@ -208,8 +208,8 @@
                 "tags": [
                     "Admin"
                 ],
-                "summary": "Restoring / Undelete data terhapus data admin response",
-                "description": "Restoring / Undelete data terhapus data admin response",
+                "summary": "Restoring / Undelete data in deleted section admin response",
+                "description": "Restoring / Undelete data in deleted section admin response",
                 "operationId": "unDeleteAdmin",
                 "parameters": [
                     {
@@ -472,8 +472,8 @@
                 "tags": [
                     "Borough"
                 ],
-                "summary": "Restoring data terhapus data borough response",
-                "description": "Restoring data terhapus data borough response",
+                "summary": "Restoring data in deleted section borough response",
+                "description": "Restoring data in deleted section borough response",
                 "operationId": "unDeleteBorough",
                 "parameters": [
                     {
@@ -574,8 +574,8 @@
                 "tags": [
                     "Districts"
                 ],
-                "summary": "Menambah data districts response",
-                "description": "Menambah data districts response",
+                "summary": "Storing new data districts response",
+                "description": "Storing new data districts response",
                 "operationId": "storeDistricts",
                 "parameters": [
                     {
@@ -625,8 +625,8 @@
                 "tags": [
                     "Districts"
                 ],
-                "summary": "Mengedit data districts response",
-                "description": "Mengedit data districts response",
+                "summary": "Updating data districts response",
+                "description": "Updating data districts response\r\n           <br>#Leave it <strong>blank</strong> if you don't want to change the data",
                 "operationId": "updateDistricts",
                 "parameters": [
                     {
@@ -639,28 +639,28 @@
                     {
                         "name": "id_borough",
                         "in": "formData",
-                        "description": "ID Borough (Kosongi jika tidak ingin merubah data)...",
+                        "description": "ID Borough ...",
                         "required": false,
                         "type": "integer"
                     },
                     {
                         "name": "name_district",
                         "in": "formData",
-                        "description": "Name District (Kosongi jika tidak ingin merubah data)...",
+                        "description": "Name District ...",
                         "required": false,
                         "type": "string"
                     },
                     {
                         "name": "latitude",
                         "in": "formData",
-                        "description": "Latitude (Kosongi jika tidak ingin merubah data)...",
+                        "description": "Latitude ...",
                         "required": false,
                         "type": "string"
                     },
                     {
                         "name": "longitude",
                         "in": "formData",
-                        "description": "Longitude (Kosongi jika tidak ingin merubah data)...",
+                        "description": "Longitude ...",
                         "required": false,
                         "type": "string"
                     }
@@ -683,8 +683,8 @@
                 "tags": [
                     "Districts"
                 ],
-                "summary": "Menghapus data districts response",
-                "description": "Menghapus data districts response",
+                "summary": "Deleting data districts response",
+                "description": "Deleting data districts response",
                 "operationId": "deleteDistricts",
                 "parameters": [
                     {
@@ -713,8 +713,8 @@
                 "tags": [
                     "Districts"
                 ],
-                "summary": "Mengembalikan data terhapus data districts response",
-                "description": "Mengembalikan data terhapus data districts response",
+                "summary": "Restoring data in deleted section districts response",
+                "description": "Restoring data in deleted section districts response",
                 "operationId": "unDeleteDistricts",
                 "parameters": [
                     {
@@ -824,8 +824,8 @@
                 "tags": [
                     "Donations"
                 ],
-                "summary": "Menambah data donations response",
-                "description": "Menambah data donations response",
+                "summary": "Storing New data donations response",
+                "description": "Storing New data donations response",
                 "operationId": "storeDonations",
                 "parameters": [
                     {
@@ -875,8 +875,8 @@
                 "tags": [
                     "Donations"
                 ],
-                "summary": "Mengedit data donations response",
-                "description": "Mengedit data donations response",
+                "summary": "Updating data donations response",
+                "description": "Updating data donations response\r\n           <br>#Leave it <strong>blank</strong> if you don't want to change the data",
                 "operationId": "updateDonations",
                 "parameters": [
                     {
@@ -889,28 +889,28 @@
                     {
                         "name": "id_user_donation",
                         "in": "formData",
-                        "description": "ID User Donation (Kosongi jika tidak ingin merubah data)...",
+                        "description": "ID User Donation ...",
                         "required": false,
                         "type": "integer"
                     },
                     {
                         "name": "amount_donation",
                         "in": "formData",
-                        "description": "Amount Donation (Kosongi jika tidak ingin merubah data)...",
+                        "description": "Amount Donation ...",
                         "required": false,
                         "type": "integer"
                     },
                     {
                         "name": "date_donation",
                         "in": "formData",
-                        "description": "Date Donation (Kosongi jika tidak ingin merubah data)...",
+                        "description": "Date Donation ...",
                         "required": false,
                         "type": "string"
                     },
                     {
                         "name": "time_donation",
                         "in": "formData",
-                        "description": "Time Donation (Kosongi jika tidak ingin merubah data)...",
+                        "description": "Time Donation ...",
                         "required": false,
                         "type": "string"
                     }
@@ -933,8 +933,8 @@
                 "tags": [
                     "Donations"
                 ],
-                "summary": "Menghapus data donations response",
-                "description": "Menghapus data donations response",
+                "summary": "Deleting data donations response",
+                "description": "Deleting data donations response",
                 "operationId": "deleteDonations",
                 "parameters": [
                     {
@@ -963,8 +963,8 @@
                 "tags": [
                     "Donations"
                 ],
-                "summary": "Mengembalikan data terhapus data donations response",
-                "description": "Mengembalikan data terhapus data donations response",
+                "summary": "Restoring data in deleted sections donations response",
+                "description": "Restoring data in deleted sections donations response",
                 "operationId": "unDeleteDonations",
                 "parameters": [
                     {
@@ -1074,8 +1074,8 @@
                 "tags": [
                     "Facilities"
                 ],
-                "summary": "Menambah data facilities response",
-                "description": "Menambah data facilities response",
+                "summary": "Storing New data facilities response",
+                "description": "Storing New data facilities response",
                 "operationId": "storeFacilities",
                 "parameters": [
                     {
@@ -1111,8 +1111,8 @@
                 "tags": [
                     "Facilities"
                 ],
-                "summary": "Mengedit data facilities response",
-                "description": "Mengedit data facilities response",
+                "summary": "Updating data facilities response",
+                "description": "Updating data facilities response\r\n           <br>#Leave it <strong>blank</strong> if you don't want to change the data",
                 "operationId": "updateFacilities",
                 "parameters": [
                     {
@@ -1125,14 +1125,14 @@
                     {
                         "name": "name_facilities",
                         "in": "formData",
-                        "description": "Name Facilities (Kosongi jika tidak ingin merubah data)...",
+                        "description": "Name Facilities ...",
                         "required": false,
                         "type": "string"
                     },
                     {
                         "name": "icon_facilities",
                         "in": "formData",
-                        "description": "Icon Facilities (base64) (Kosongi jika tidak ingin merubah data)...",
+                        "description": "Icon Facilities (base64) ...",
                         "required": false,
                         "type": "string"
                     }
@@ -1155,8 +1155,8 @@
                 "tags": [
                     "Facilities"
                 ],
-                "summary": "Menghapus data facilities response",
-                "description": "Menghapus data facilities response",
+                "summary": "Deleting data facilities response",
+                "description": "Deleting data facilities response",
                 "operationId": "deleteFacilities",
                 "parameters": [
                     {
@@ -1185,8 +1185,8 @@
                 "tags": [
                     "Facilities"
                 ],
-                "summary": "Mengembalikan data terhapus data facilities response",
-                "description": "Mengembalikan data terhapus data facilities response",
+                "summary": "Restoring data in deleted sections facilities response",
+                "description": "Restoring data in deleted sections facilities response",
                 "operationId": "unDeleteFacilities",
                 "parameters": [
                     {
@@ -2994,7 +2994,7 @@
                     "Mosque Special Salah Times"
                 ],
                 "summary": "Updating data Mosque Special Salah Times response",
-                "description": "Updating data Mosque Special Salah Times response\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
+                "description": "Updating data Mosque Special Salah Times response\r\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
                 "operationId": "updateMosque",
                 "parameters": [
                     {
@@ -3321,7 +3321,7 @@
                         "name": "id_district",
                         "in": "formData",
                         "description": "ID District ...",
-                        "required": true,
+                        "required": false,
                         "type": "integer"
                     },
                     {
