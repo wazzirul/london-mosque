@@ -62,7 +62,7 @@ class SuggestMosqueController extends Controller
      *     name="id_district",
      *     in="formData",
      *     description="ID District ...",
-     *     required=true,
+     *     required=false,
      *     type="integer"
      *   ),
      *  @SWG\Parameter(
@@ -719,7 +719,7 @@ class SuggestMosqueController extends Controller
         $id_mosque = $request->input('id_mosque');
         $status_suggest_mosque = $request->input('status_suggest_mosque');
         $id_borough = $request->input('id_borough');
-        $id_district = $request->input('id_district');
+        $id_district = $request->input('id_district') ?? null;
         $name_mosque = $request->input('name_mosque');
         $address = $request->input('address');
         $latitude = $request->input('latitude');
@@ -740,9 +740,9 @@ class SuggestMosqueController extends Controller
         ->when($request->has('id_borough'), function ($query) use ($id_borough) {
             $query->where('suggest_mosque.id_borough',$id_borough);
         })
-        ->when($request->has('id_district'), function ($query) use ($id_district) {
-            $query->where('suggest_mosque.id_district',$id_district);
-        })
+        // ->when($request->has('id_district'), function ($query) use ($id_district) {
+        //     $query->where('suggest_mosque.id_district',$id_district);
+        // })
         ->when($request->has('name_mosque'), function ($query) use ($name_mosque) {
             $query->where('suggest_mosque.name_mosque','like','%'.$name_mosque.'%');
         })
@@ -768,7 +768,7 @@ class SuggestMosqueController extends Controller
             'suggest_mosque.status_suggest_mosque',
             'suggest_mosque.id_mosque',
             'suggest_mosque.id_borough',
-            'suggest_mosque.id_district',
+            // 'suggest_mosque.id_district',
             'suggest_mosque.name_mosque',
             'suggest_mosque.address',
             'suggest_mosque.latitude',
@@ -784,9 +784,9 @@ class SuggestMosqueController extends Controller
                 ->where('soft_delete', 0)
                 ->first();
 
-            $district = Districts::where('id_district', $d->id_district)
-                ->where('soft_delete', 0)
-                ->first();
+            // $district = Districts::where('id_district', $d->id_district)
+            //     ->where('soft_delete', 0)
+            //     ->first();
                 
             $facilities = SuggestMosqueFacilities::with('Facilities')
                 ->where('id_suggest_mosque', $d->id_suggest_mosque)
@@ -916,7 +916,7 @@ class SuggestMosqueController extends Controller
 
         // Change Data Mosque
         $mosque->id_borough = $suggestMosque->id_borough;
-        $mosque->id_district = $suggestMosque->id_district;
+        // $mosque->id_district = $suggestMosque->id_district;
         $mosque->name_mosque = $suggestMosque->name_mosque;
         $mosque->address = $suggestMosque->address;
         $mosque->latitude = $suggestMosque->latitude;
