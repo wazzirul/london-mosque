@@ -900,9 +900,9 @@ class SuggestMosqueController extends Controller
             ->where('soft_delete', 0)
             ->get();
 
-        $suggestSpecialSalahTimes = SuggestMosqueSpecialSalahTimes::where('id_suggest_mosque', $id_suggest_mosque)
-            ->where('soft_delete', 0)
-            ->get();
+        // $suggestSpecialSalahTimes = SuggestMosqueSpecialSalahTimes::where('id_suggest_mosque', $id_suggest_mosque)
+        //     ->where('soft_delete', 0)
+        //     ->get();
 
 
         // Delete all image on firebase bucket
@@ -932,8 +932,8 @@ class SuggestMosqueController extends Controller
         MosqueSalahTime::where('id_mosque', $id_mosque)
             ->forceDelete();
 
-        MosqueSpecialSalahTime::where('id_mosque', $id_mosque)
-            ->forceDelete();
+        // MosqueSpecialSalahTime::where('id_mosque', $id_mosque)
+        //     ->forceDelete();
 
         foreach ($suggestFacilities as $key => $value) {
             $newMosqueFacilities = new MosqueFacilities();
@@ -958,15 +958,15 @@ class SuggestMosqueController extends Controller
             $newMosqueSalahTime->save();
         }
 
-        foreach ($variable as $key => $value) {
-            $newMosqueSpecialSalahTime = new MosqueSpecialSalahTime();
-            $newMosqueSpecialSalahTime->id_mosque = $id_mosque;
-            $newMosqueSpecialSalahTime->category_special_salah = $value->category_special_salah;
-            $newMosqueSpecialSalahTime->date_special_salah_times = $value->date_special_salah_times;
-            $newMosqueSpecialSalahTime->order_special_salah_times = $value->order_special_salah_times;
-            $newMosqueSpecialSalahTime->time_special_salah_times = $value->time_special_salah_times;
-            $newMosqueSpecialSalahTime->save();
-        }
+        // foreach ($suggestSpecialSalahTimes as $key => $value) {
+        //     $newMosqueSpecialSalahTime = new MosqueSpecialSalahTime();
+        //     $newMosqueSpecialSalahTime->id_mosque = $id_mosque;
+        //     $newMosqueSpecialSalahTime->category_special_salah = $value->category_special_salah;
+        //     $newMosqueSpecialSalahTime->date_special_salah_times = $value->date_special_salah_times;
+        //     $newMosqueSpecialSalahTime->order_special_salah_times = $value->order_special_salah_times;
+        //     $newMosqueSpecialSalahTime->time_special_salah_times = $value->time_special_salah_times;
+        //     $newMosqueSpecialSalahTime->save();
+        // }
 
         $date_log = Carbon::now()->format('Y-m-d');
         
