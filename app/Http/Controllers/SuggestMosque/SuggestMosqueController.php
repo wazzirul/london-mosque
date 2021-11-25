@@ -954,12 +954,12 @@ class SuggestMosqueController extends Controller
             $newMosqueImage->save();
         }
 
-        foreach ($mosqueSalahTimes as $key => $value) {
+        foreach ($suggestSalahTimes as $key => $value) {
             MosqueSalahTime::where('id_mosque', $id_mosque)
                 ->where('date_salah_times', $value->date_salah_times)
                 ->forceDelete();
         }
-        foreach ($mosqueSalahTimes as $key => $value) {
+        foreach ($suggestSalahTimes as $key => $value) {
             $newMosqueSalahTime = new MosqueSalahTime();
             $newMosqueSalahTime->id_mosque = $id_mosque;
             $newMosqueSalahTime->date_salah_times = $value->date_salah_times;
