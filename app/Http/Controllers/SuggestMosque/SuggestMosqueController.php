@@ -502,6 +502,7 @@ class SuggestMosqueController extends Controller
      */
     public function show(){
         $suggestMosque = SuggestMosque::where('soft_delete', 0)
+            ->with(['Mosque', 'User', 'Borough'])
             ->orderBy('id_suggest_mosque', 'DESC')
             ->get();
 
@@ -553,7 +554,7 @@ class SuggestMosqueController extends Controller
 
         $id_suggest_mosque = $request->input('id_suggest_mosque');
         $suggestMosque = SuggestMosque::where('id_suggest_mosque', $id_suggest_mosque)
-            ->with(['User', 'Mosque', 'Borough', 'District'])
+            ->with(['User', 'Mosque', 'Borough'])
             ->first();
         
         $suggestFacilities = SuggestMosqueFacilities::where('id_suggest_mosque', $suggestMosque->id_suggest_mosque)
@@ -760,7 +761,7 @@ class SuggestMosqueController extends Controller
         })
         ->skip($skip)
         ->take($take)
-        ->with(['Mosque', 'User'])
+        ->with(['Mosque', 'User', 'Borough'])
         ->orderByRaw('suggest_mosque.id_suggest_mosque '.$order)
         ->get([
             'suggest_mosque.id_suggest_mosque',
