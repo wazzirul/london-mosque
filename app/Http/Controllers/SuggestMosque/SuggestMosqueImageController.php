@@ -192,7 +192,8 @@ class SuggestMosqueImageController extends Controller
 
             if (file_put_contents($localfolder . $file, base64_decode($files))) {  
                 // Delete old image
-                $imageDeleted = app('firebase.storage')->getBucket()->object($suggestMosqueImage->mosque_image_url)->delete();
+                $imageDeleted = app('firebase.storage')->getBucket()->object($suggestMosqueImage->mosque_image_url);
+                if($imageDeleted->exists()) $imageDeleted->delete();
 
                 app('firebase.storage')->getBucket()->upload(base64_decode($files), ['name' => $firebase_storage_path . $file]);  
                 //will remove from local laravel folder  
