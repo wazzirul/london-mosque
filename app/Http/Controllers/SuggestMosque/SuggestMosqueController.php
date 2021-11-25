@@ -502,7 +502,7 @@ class SuggestMosqueController extends Controller
      */
     public function show(){
         $suggestMosque = SuggestMosque::where('soft_delete', 0)
-            ->with(['Mosque', 'User', 'Borough'])
+            ->with(['Mosque', 'User'])
             ->orderBy('id_suggest_mosque', 'DESC')
             ->get();
 
