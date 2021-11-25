@@ -12,4 +12,9 @@ class SuggestMosqueLog extends Model
     ];
 
     protected $primaryKey = 'id_suggest_mosque_log';
+
+    public function Admin(){
+        return $this->belongsTo('App\Model\Admin','id_admin','id_admin');
+    }
+
 }

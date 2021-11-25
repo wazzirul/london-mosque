@@ -1136,6 +1136,7 @@ class SuggestMosqueController extends Controller
             ->when($request->has('action'), function ($query) use ($action) {
                 $query->where('suggest_mosque_log.action',$action);
             })
+            ->with('Admin')
             ->orderByRaw('suggest_mosque_log.id_suggest_mosque_log DESC')
             ->get([
                 'suggest_mosque_log.id_suggest_mosque_log',
