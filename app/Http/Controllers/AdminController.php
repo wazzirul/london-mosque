@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
+
 use App\Model\Admin;
+use App\Model\AuthenticationToken;
 
 class AdminController extends Controller
 {
@@ -371,6 +375,25 @@ class AdminController extends Controller
 
         $password = Hash::check($request->password, $admin->password);
         if($password){
+            $str_token = Str::random(100);
+            $expired = Carbon::now()->endOfDay();
+            $find_token = AuthenticationToken::where('user_auth', 'admin_'.$admin->id_admin)
+                ->first();
+
+            if($find_token !== null){
+                $find_token->auth_token = $str_token;
+                $find_token->expired = $expired;
+                $find_token->save();
+            }else{
+                $auth_token = new AuthenticationToken();
+                $auth_token->user_auth = "admin_".$admin->id_admin;
+                $auth_token->auth_token = $str_token;
+                $auth_token->expired = $expired;
+                $auth_token->save();
+            }
+
+            $admin['auth_token'] = $str_token;
+
             $res['status_code'] = 200;
             $res['success'] = true;
             $res['login'] = "Granted";
