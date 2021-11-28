@@ -20,6 +20,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
+// Endpoints Without Using JWT Token
+///////////////////////////////////////////////////////////////////////////////////////////
+Route::post('admin/login', 'AdminController@login');
+Route::post('users/login', 'UsersController@login');
+
+///////////////////////////////////////////////////////////////////////////////////////////
+// End Of Endpoints Without Using JWT Token
+///////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
 // GROUP OF JWT TOKEN
 ///////////////////////////////////////////////////////////////////////////////////////////
 Route::group(['middleware' => 'jwt.auth'], function () {
@@ -31,7 +43,6 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post('admin/update', 'AdminController@update');
     Route::post('admin/delete', 'AdminController@delete');
     Route::post('admin/unDelete', 'AdminController@unDelete');
-    Route::post('admin/login', 'AdminController@login');
     Route::post('admin/showById', 'AdminController@showById');
     Route::get('admin/show', 'AdminController@show');
     Route::get('admin/showDeleted', 'AdminController@showDeleted');
@@ -44,7 +55,6 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post('users/update', 'UsersController@update');
     Route::post('users/delete', 'UsersController@delete');
     Route::post('users/unDelete', 'UsersController@unDelete');
-    Route::post('users/login', 'UsersController@login');
     Route::post('users/resend-verif-account', 'UsersController@resendVerifAccount');
     Route::get('users/verif-account', 'UsersController@verifAccount');
     Route::post('users/logout', 'UsersController@logout');
