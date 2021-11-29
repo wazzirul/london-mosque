@@ -2708,7 +2708,7 @@
                     {
                         "name": "date_salah_times",
                         "in": "formData",
-                        "description": "date_salah_times (YYYY-mm-dd ,ex : 2021-11-15) [default : now] ...",
+                        "description": "date_salah_times (YYYY-mm-dd ,ex : 2021-11-15) ...",
                         "required": false,
                         "type": "string"
                     },
@@ -2994,7 +2994,7 @@
                     "Mosque Special Salah Times"
                 ],
                 "summary": "Updating data Mosque Special Salah Times response",
-                "description": "Updating data Mosque Special Salah Times response\r\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
+                "description": "Updating data Mosque Special Salah Times response\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
                 "operationId": "updateMosque",
                 "parameters": [
                     {
@@ -3270,6 +3270,291 @@
                         "name": "date",
                         "in": "formData",
                         "description": "Date (nb: 31-12-2021 -> DD-MM-YYYY) [default: now]...",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/ramadhan-salah-times/store": {
+            "post": {
+                "tags": [
+                    "Ramadhan Salah Times"
+                ],
+                "summary": "Storing new data Ramadhan Salah Times response",
+                "description": "Storing new data Ramadhan Salah Times response",
+                "operationId": "storeRamadhanSalahTimes",
+                "parameters": [
+                    {
+                        "name": "date_ramadhan_salah_times",
+                        "in": "formData",
+                        "description": "date_ramadhan_salah_times (YYYY-mm-dd ,ex : 2021-11-15) [default : now] ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "type_ramadhan_salah_times",
+                        "in": "formData",
+                        "description": "type_ramadhan_salah_times (1 = Suhur || 2 = Zuhr || 3 = Asr || 4 = Iftar || 5 = Isha) ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "time_ramadhan_salah_times",
+                        "in": "formData",
+                        "description": "time_ramadhan_salah_times (hh:ii ,ex : 09:52) ...",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/ramadhan-salah-times/update": {
+            "post": {
+                "tags": [
+                    "Ramadhan Salah Times"
+                ],
+                "summary": "Updating data Ramadhan Salah Times response",
+                "description": "Updating data Ramadhan Salah Times response\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
+                "operationId": "updateRamadhanSalahTimes",
+                "parameters": [
+                    {
+                        "name": "id_ramadhan_salah_times",
+                        "in": "formData",
+                        "description": "ID Ramadhan Salah Times ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "date_ramadhan_salah_times",
+                        "in": "formData",
+                        "description": "date_ramadhan_salah_times (YYYY-mm-dd ,ex : 2021-11-15) ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "type_ramadhan_salah_times",
+                        "in": "formData",
+                        "description": "type_ramadhan_salah_times (1 = Suhur || 2 = Zuhr || 3 = Asr || 4 = Iftar || 5 = Isha) ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "time_ramadhan_salah_times",
+                        "in": "formData",
+                        "description": "time_ramadhan_salah_times (hh:ii ,ex : 09:52) ...",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/ramadhan-salah-times/delete": {
+            "post": {
+                "tags": [
+                    "Ramadhan Salah Times"
+                ],
+                "summary": "Deleting data Ramadhan Salah Times response",
+                "description": "Deleting data Ramadhan Salah Times response",
+                "operationId": "deleteRamadhanSalahTimes",
+                "parameters": [
+                    {
+                        "name": "id_ramadhan_salah_times",
+                        "in": "formData",
+                        "description": "ID Ramadhan Salah Times ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/ramadhan-salah-times/undelete": {
+            "post": {
+                "tags": [
+                    "Ramadhan Salah Times"
+                ],
+                "summary": "Restoring / undelete data Ramadhan Salah Times response",
+                "description": "Restoring / undelete data Ramadhan Salah Times response",
+                "operationId": "undeleteRamadhanSalahTimes",
+                "parameters": [
+                    {
+                        "name": "id_ramadhan_salah_times",
+                        "in": "formData",
+                        "description": "ID Ramadhan Salah Times ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/ramadhan-salah-times/show": {
+            "get": {
+                "tags": [
+                    "Ramadhan Salah Times"
+                ],
+                "summary": "Show all data Ramadhan Salah Times response",
+                "description": "Show all data Ramadhan Salah Times response",
+                "operationId": "showRamadhanSalahTimes",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/ramadhan-salah-times/showById": {
+            "post": {
+                "tags": [
+                    "Ramadhan Salah Times"
+                ],
+                "summary": "Show by id data Ramadhan salah times response",
+                "description": "Show by id data Ramadhan salah times response",
+                "operationId": "showByIdRamadhanSalahTimes",
+                "parameters": [
+                    {
+                        "name": "id_ramadhan_salah_times",
+                        "in": "formData",
+                        "description": "ID Ramadhan Salah Times ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/ramadhan-salah-times/showByFilter": {
+            "post": {
+                "tags": [
+                    "Ramadhan Salah Times"
+                ],
+                "summary": "Show by filter data Ramadhan salah times response",
+                "description": "Show by filter data Ramadhan salah times response",
+                "operationId": "showByFilterSalahTimes",
+                "parameters": [
+                    {
+                        "name": "id_ramadhan_salah_times",
+                        "in": "formData",
+                        "description": "ID Salah Times ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "date_ramadhan_salah_times",
+                        "in": "formData",
+                        "description": "date_ramadhan_salah_times (YYYY-mm-dd ,ex : 2021-11-15) ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "year_ramadhan_salah_times",
+                        "in": "formData",
+                        "description": "Year (YYYY ,ex : 2021) ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "type_ramadhan_salah_times",
+                        "in": "formData",
+                        "description": "type_ramadhan_salah_times (1 = Suhur || 2 = Zuhr || 3 = Asr || 4 = Iftar || 5 = Isha) ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "soft_delete",
+                        "in": "formData",
+                        "description": "Soft Delete Data (Default=0 / Not Deleted) [0 = Not Deleted  ||  1 = Deleted / Archived]",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "skip",
+                        "in": "formData",
+                        "description": "Skip how many Data (Default=0)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "take",
+                        "in": "formData",
+                        "description": "Take how many Data (Default=100)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "order",
+                        "in": "formData",
+                        "description": "ASC / DESC (default DESC)",
                         "required": false,
                         "type": "string"
                     }
@@ -4379,7 +4664,7 @@
                     {
                         "name": "date_salah_times",
                         "in": "formData",
-                        "description": "date_salah_times (YYYY-mm-dd ,ex : 2021-11-15) [default : now] (Kosongi jika tidak ingin merubah data)...",
+                        "description": "date_salah_times (YYYY-mm-dd ,ex : 2021-11-15) (Kosongi jika tidak ingin merubah data)...",
                         "required": false,
                         "type": "string"
                     },
