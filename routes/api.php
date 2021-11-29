@@ -187,25 +187,25 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     ///////////////////////////////////////////////////////////////////////////////////////////
     // APPROVE SUGGEST MOSQUE
     ///////////////////////////////////////////////////////////////////////////////////////////
-    Route::get('suggest-mosque/name/approve', 'SuggestMosque\SuggestMosqueApproveController@nameApprove');
-    Route::get('suggest-mosque/address/approve', 'SuggestMosque\SuggestMosqueApproveController@addressApprove');
-    Route::get('suggest-mosque/latitude/approve', 'SuggestMosque\SuggestMosqueApproveController@latitudeApprove');
-    Route::get('suggest-mosque/longitude/approve', 'SuggestMosque\SuggestMosqueApproveController@longitudeApprove');
-    Route::get('suggest-mosque/facilities/approve', 'SuggestMosque\SuggestMosqueApproveController@facilitiesApprove');
-    Route::get('suggest-mosque/images/approve', 'SuggestMosque\SuggestMosqueApproveController@imagesApprove');
-    Route::get('suggest-mosque/salah-times/approve', 'SuggestMosque\SuggestMosqueApproveController@salahTimesApprove');
+    Route::post('suggest-mosque/name/approve', 'SuggestMosque\SuggestMosqueApproveController@nameApprove');
+    Route::post('suggest-mosque/address/approve', 'SuggestMosque\SuggestMosqueApproveController@addressApprove');
+    Route::post('suggest-mosque/latitude/approve', 'SuggestMosque\SuggestMosqueApproveController@latitudeApprove');
+    Route::post('suggest-mosque/longitude/approve', 'SuggestMosque\SuggestMosqueApproveController@longitudeApprove');
+    Route::post('suggest-mosque/facilities/approve', 'SuggestMosque\SuggestMosqueApproveController@facilitiesApprove');
+    Route::post('suggest-mosque/images/approve', 'SuggestMosque\SuggestMosqueApproveController@imagesApprove');
+    Route::post('suggest-mosque/salah-times/approve', 'SuggestMosque\SuggestMosqueApproveController@salahTimesApprove');
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////
     // DECLINE SUGGEST MOSQUE
     ///////////////////////////////////////////////////////////////////////////////////////////
-    Route::get('suggest-mosque/name/decline', 'SuggestMosque\SuggestMosqueDeclineController@nameDecline');
-    Route::get('suggest-mosque/address/decline', 'SuggestMosque\SuggestMosqueDeclineController@addressDecline');
-    Route::get('suggest-mosque/latitude/decline', 'SuggestMosque\SuggestMosqueDeclineController@latitudeDecline');
-    Route::get('suggest-mosque/longitude/decline', 'SuggestMosque\SuggestMosqueDeclineController@longitudeDecline');
-    Route::get('suggest-mosque/facilities/decline', 'SuggestMosque\SuggestMosqueDeclineController@facilitiesDecline');
-    Route::get('suggest-mosque/images/decline', 'SuggestMosque\SuggestMosqueDeclineController@imagesDecline');
-    Route::get('suggest-mosque/salah-times/decline', 'SuggestMosque\SuggestMosqueDeclineController@salahTimesDecline');
+    Route::post('suggest-mosque/name/decline', 'SuggestMosque\SuggestMosqueDeclineController@nameDecline');
+    Route::post('suggest-mosque/address/decline', 'SuggestMosque\SuggestMosqueDeclineController@addressDecline');
+    Route::post('suggest-mosque/latitude/decline', 'SuggestMosque\SuggestMosqueDeclineController@latitudeDecline');
+    Route::post('suggest-mosque/longitude/decline', 'SuggestMosque\SuggestMosqueDeclineController@longitudeDecline');
+    Route::post('suggest-mosque/facilities/decline', 'SuggestMosque\SuggestMosqueDeclineController@facilitiesDecline');
+    Route::post('suggest-mosque/images/decline', 'SuggestMosque\SuggestMosqueDeclineController@imagesDecline');
+    Route::post('suggest-mosque/salah-times/decline', 'SuggestMosque\SuggestMosqueDeclineController@salahTimesDecline');
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////
