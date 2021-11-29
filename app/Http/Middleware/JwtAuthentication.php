@@ -11,10 +11,11 @@ class JwtAuthentication
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  Request  $request
+     * @param  Closure  $next
      * @return mixed
      */
+
     public function handle($request, Closure $next)
     {
         $auth_token = $request->header('auth_token') ?? null;

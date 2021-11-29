@@ -123,7 +123,7 @@ window.onload = function() {
 
     requestInterceptor: function(request) {
       request.headers['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
-      request.headers['auth_token'] = '{{ \Session::get("auth_token") }}'
+      request.headers['Auth-Token'] = '{{ \Session::get("auth_token") }}'
       return request;
     },
 

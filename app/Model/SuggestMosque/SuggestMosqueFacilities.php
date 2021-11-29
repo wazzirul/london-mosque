@@ -8,7 +8,7 @@ class SuggestMosqueFacilities extends Model
 {
     protected $table = 'suggest_mosque_facilities';
     protected $fillable = [
-        'id_suggest_mosque','id_facilities'
+        'id_suggest_mosque','id_facilities','mosque_facilities_approve_status'
     ];
 
     protected $primaryKey = 'id_suggest_mosque_facilities';
