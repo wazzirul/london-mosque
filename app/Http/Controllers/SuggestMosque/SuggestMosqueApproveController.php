@@ -686,7 +686,7 @@ class SuggestMosqueApproveController extends Controller
         $date_log = Carbon::now()->format('Y-m-d');
         
         $logSuggestMosque = new SuggestMosqueLog();
-        $logSuggestMosque->field_name_suggest_edit = "Images Mosque of ".$mosque->name_mosque;
+        $logSuggestMosque->field_name_suggest_edit = "Salah Time Mosque of ".$mosque->name_mosque;
         $logSuggestMosque->id_admin = $id_admin;
         $logSuggestMosque->date_log = $date_log;
         $logSuggestMosque->action = 1;
