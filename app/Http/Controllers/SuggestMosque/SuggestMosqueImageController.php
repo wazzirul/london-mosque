@@ -525,6 +525,7 @@ class SuggestMosqueImageController extends Controller
         ->get([
             'suggest_mosque_image.id_suggest_mosque_image',
             'suggest_mosque_image.id_suggest_mosque',
+            'suggest_mosque_image.mosque_image_approve_status',
             'suggest_mosque_image.mosque_image_url',
             'suggest_mosque_image.soft_delete',
             'suggest_mosque_image.created_at as created_at',

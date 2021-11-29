@@ -521,6 +521,7 @@ class SuggestMosqueSalahTimesController extends Controller
             'suggest_mosque_salah_times.date_salah_times',
             'suggest_mosque_salah_times.type_salah_times',
             'suggest_mosque_salah_times.time_salah_times',
+            'suggest_mosque_salah_times.salah_times_approve_status',
             'suggest_mosque_salah_times.soft_delete',
             'suggest_mosque_salah_times.created_at as created_at',
             'suggest_mosque_salah_times.updated_at as updated_at'
