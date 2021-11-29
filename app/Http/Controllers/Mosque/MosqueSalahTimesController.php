@@ -148,7 +148,7 @@ class MosqueSalahTimesController extends Controller
      *  @SWG\Parameter(
      *     name="date_salah_times",
      *     in="formData",
-     *     description="date_salah_times (YYYY-mm-dd ,ex : 2021-11-15) [default : now] ...",
+     *     description="date_salah_times (YYYY-mm-dd ,ex : 2021-11-15) ...",
      *     required=false,
      *     type="string"
      *   ), 
@@ -183,9 +183,9 @@ class MosqueSalahTimesController extends Controller
 
         $id_salah_times = $request->input('id_salah_times');
         $id_mosque = $request->input('id_mosque');
-        $date_salah_times = $request->input('date_salah_times') ?? Carbon::now()->format('Y-m-d');
+        $date_salah_times = $request->input('date_salah_times');
         $type_salah_times = $request->input('type_salah_times');
-        $time_salah_times = $request->input('time_salah_times').':00';
+        $time_salah_times = $request->input('time_salah_times');
 
         $data = MosqueSalahTime::find($id_salah_times);
 
@@ -237,7 +237,7 @@ class MosqueSalahTimesController extends Controller
         }
 
         if($time_salah_times !== null){
-            $data->time_salah_times = $time_salah_times;
+            $data->time_salah_times = $time_salah_times.':00';
         }
 
         $data = $data->save();

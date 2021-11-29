@@ -313,6 +313,20 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     ///////////////////////////////////////////////////////////////////////////////////////////
     Route::post('ramadhan-prayer/date', 'RamadhanPrayerController@date');
 
+    
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    // Ramadhan Salah Times
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    Route::post('ramadhan-salah-times/store', 'RamadhanSalahTimesController@store');
+    Route::post('ramadhan-salah-times/update', 'RamadhanSalahTimesController@update');
+    Route::post('ramadhan-salah-times/delete', 'RamadhanSalahTimesController@delete');
+    Route::post('ramadhan-salah-times/undelete', 'RamadhanSalahTimesController@undelete');
+    Route::get('ramadhan-salah-times/show', 'RamadhanSalahTimesController@show');
+    Route::post('ramadhan-salah-times/showById', 'RamadhanSalahTimesController@showById');
+    Route::post('ramadhan-salah-times/showByFilter', 'RamadhanSalahTimesController@showByFilter');
+
 });
 ///////////////////////////////////////////////////////////////////////////////////////////
 // END GROUP OF JTW TOKEN

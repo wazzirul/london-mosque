@@ -205,7 +205,7 @@ class MosqueSpecialSalahTimesController extends Controller
         $category_special_salah = $request->input('category_special_salah');
         $date_special_salah_times = $request->input('date_special_salah_times');
         $order_special_salah_times = $request->input('order_special_salah_times');
-        $time_special_salah_times = $request->input('time_special_salah_times').':00';
+        $time_special_salah_times = $request->input('time_special_salah_times');
 
         $data = MosqueSpecialSalahTime::find($id_special_salah_times);
 
@@ -261,7 +261,7 @@ class MosqueSpecialSalahTimesController extends Controller
         }
 
         if($time_special_salah_times !== null){
-            $data->time_special_salah_times = $time_special_salah_times;
+            $data->time_special_salah_times = $time_special_salah_times.':00';
         }
 
         $data = $data->save();

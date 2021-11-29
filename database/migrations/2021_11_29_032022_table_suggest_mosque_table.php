@@ -14,10 +14,13 @@ class TableSuggestMosqueTable extends Migration
     public function up()
     {
         //
-        Schema::table('suggest_mosque', function (Blueprint $table) {
-            $table->dropColumn('status_suggest_mosque');
-            //
-        });
+        if (Schema::hasColumn('suggest_mosque', 'status_suggest_mosque'))
+        {
+            Schema::table('suggest_mosque', function (Blueprint $table) {
+                $table->dropColumn('status_suggest_mosque');
+                //
+            });
+        }
     }
 
     /**

@@ -123,7 +123,7 @@ class SuggestMosqueSalahTimesController extends Controller
      *  @SWG\Parameter(
      *     name="date_salah_times",
      *     in="formData",
-     *     description="date_salah_times (YYYY-mm-dd ,ex : 2021-11-15) [default : now] (Kosongi jika tidak ingin merubah data)...",
+     *     description="date_salah_times (YYYY-mm-dd ,ex : 2021-11-15) (Kosongi jika tidak ingin merubah data)...",
      *     required=false,
      *     type="string"
      *   ), 
