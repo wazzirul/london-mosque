@@ -2994,7 +2994,7 @@
                     "Mosque Special Salah Times"
                 ],
                 "summary": "Updating data Mosque Special Salah Times response",
-                "description": "Updating data Mosque Special Salah Times response\r\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
+                "description": "Updating data Mosque Special Salah Times response\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
                 "operationId": "updateMosque",
                 "parameters": [
                     {
@@ -3337,7 +3337,7 @@
                     "Ramadhan Salah Times"
                 ],
                 "summary": "Updating data Ramadhan Salah Times response",
-                "description": "Updating data Ramadhan Salah Times response\r\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
+                "description": "Updating data Ramadhan Salah Times response\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
                 "operationId": "updateRamadhanSalahTimes",
                 "parameters": [
                     {
@@ -3557,6 +3557,36 @@
                         "description": "ASC / DESC (default DESC)",
                         "required": false,
                         "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/ramadhan-salah-times/import": {
+            "post": {
+                "tags": [
+                    "Ramadhan Salah Times"
+                ],
+                "summary": "Import new data Ramadhan Salah Times response",
+                "description": "Import new data Ramadhan Salah Times response",
+                "operationId": "importRamadhanSalahTimes",
+                "parameters": [
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "file (File Excel Ramadhan Salah/Prayer Times .xlsx) ...",
+                        "required": true,
+                        "type": "file"
                     }
                 ],
                 "responses": {

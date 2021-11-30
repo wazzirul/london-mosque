@@ -319,6 +319,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     ///////////////////////////////////////////////////////////////////////////////////////////
     // Ramadhan Salah Times
     ///////////////////////////////////////////////////////////////////////////////////////////
+    Route::post('ramadhan-salah-times/import', 'RamadhanSalahTimesController@import');
     Route::post('ramadhan-salah-times/store', 'RamadhanSalahTimesController@store');
     Route::post('ramadhan-salah-times/update', 'RamadhanSalahTimesController@update');
     Route::post('ramadhan-salah-times/delete', 'RamadhanSalahTimesController@delete');

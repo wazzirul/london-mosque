@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\DB;
 use StdClass;
 use Illuminate\Support\Facades\Hash;
 
+use App\Imports\RamadhanSalahTimesImport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class RamadhanSalahTimesController extends Controller
 {
     ////
@@ -553,5 +556,63 @@ class RamadhanSalahTimesController extends Controller
 
             return response($res, 200);
         }
+    }
+
+
+
+
+    
+    ////
+    //
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Import
+    //////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @SWG\Post(
+     *   path="/ramadhan-salah-times/import",
+     *     tags={"Ramadhan Salah Times"},
+     *     summary="Import new data Ramadhan Salah Times response",
+     *     description="Import new data Ramadhan Salah Times response",
+     *     operationId="importRamadhanSalahTimes",
+     * 
+     *  @SWG\Parameter(
+     *     name="file",
+     *     in="formData",
+     *     description="file (File Excel Ramadhan Salah/Prayer Times .xlsx) ...",
+     *     required=true,
+     *     type="file"
+     *   ), 
+     * 
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function import(Request $request){
+        $file = $request->file('file');
+        $validator = Validator::make(
+            [
+                'file'      => $file,
+                'extension' => strtolower($file->getClientOriginalExtension()),
+            ],
+            [
+                'file'          => 'required',
+                'extension'      => 'required|in:xlsx,xls',
+            ]
+          );
+          if ($validator->fails()){
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['message'] = 'Failed, File Not Uploaded or File Extension Not .xlsx / .xls';
+            return response($res, 200);
+          }
+
+        
+        Excel::import(new RamadhanSalahTimesImport(), $file);
+
+        $res['status_code'] = 200;
+        $res['success'] = true;
+        $res['message'] = 'Success Importing Ramadhan Salah Times data';
+        return response($res, 200);
     }
 }
