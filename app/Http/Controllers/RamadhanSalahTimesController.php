@@ -572,13 +572,14 @@ class RamadhanSalahTimesController extends Controller
      *   path="/ramadhan-salah-times/import",
      *     tags={"Ramadhan Salah Times"},
      *     summary="Import new data Ramadhan Salah Times response",
-     *     description="Import new data Ramadhan Salah Times response",
+     *     description="Import new data Ramadhan Salah Times <br>
+            <p>*File Excel Ramadhan Salah/Prayer Times extension must be .xlsx or .xls</p>",
      *     operationId="importRamadhanSalahTimes",
      * 
      *  @SWG\Parameter(
      *     name="file",
      *     in="formData",
-     *     description="file (File Excel Ramadhan Salah/Prayer Times .xlsx) ...",
+     *     description="file (File Excel Ramadhan Salah/Prayer Times .xlsx or .xls) ...",
      *     required=true,
      *     type="file"
      *   ), 
@@ -608,7 +609,8 @@ class RamadhanSalahTimesController extends Controller
           }
 
         
-        Excel::import(new RamadhanSalahTimesImport(), $file);
+        $import = new RamadhanSalahTimesImport();
+        Excel::import($import, $file);
 
         $res['status_code'] = 200;
         $res['success'] = true;

@@ -2930,6 +2930,36 @@
                 }
             }
         },
+        "/mosque-salah-times/import": {
+            "post": {
+                "tags": [
+                    "Mosque Salah Times"
+                ],
+                "summary": "Import new data Mosque Salah Times response",
+                "description": "Import new data Mosque Salah Times <br>\r\n            <p>*File Excel Mosque Salah/Prayer Times extension must be .xlsx or .xls</p>",
+                "operationId": "importMosqueSalahTimes",
+                "parameters": [
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "file (File Excel Mosque Salah/Prayer Times .xlsx or .xls) ...",
+                        "required": true,
+                        "type": "file"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
         "/mosque-specialsalah-times/store": {
             "post": {
                 "tags": [
@@ -3578,13 +3608,13 @@
                     "Ramadhan Salah Times"
                 ],
                 "summary": "Import new data Ramadhan Salah Times response",
-                "description": "Import new data Ramadhan Salah Times response",
+                "description": "Import new data Ramadhan Salah Times <br>\n            <p>*File Excel Ramadhan Salah/Prayer Times extension must be .xlsx or .xls</p>",
                 "operationId": "importRamadhanSalahTimes",
                 "parameters": [
                     {
                         "name": "file",
                         "in": "formData",
-                        "description": "file (File Excel Ramadhan Salah/Prayer Times .xlsx) ...",
+                        "description": "file (File Excel Ramadhan Salah/Prayer Times .xlsx or .xls) ...",
                         "required": true,
                         "type": "file"
                     }
