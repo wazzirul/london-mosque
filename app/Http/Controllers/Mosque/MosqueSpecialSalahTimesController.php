@@ -13,6 +13,11 @@ use App\Model\Mosque\MosqueSalahTime;
 use App\Model\Mosque\MosqueSpecialSalahTime;
 use App\Model\Mosque\MosqueFacilities;
 
+use App\Imports\MosqueSpecialSalahJummahTimesImport;
+use App\Imports\MosqueSpecialSalahEidulFitriTimesImport;
+use App\Imports\MosqueSpecialSalahEidulAdhaTimesImport;
+use Maatwebsite\Excel\Facades\Excel;
+
 use Validator;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -696,5 +701,191 @@ class MosqueSpecialSalahTimesController extends Controller
 
             return response($res, 200);
         }
+    }
+
+
+    
+
+
+
+
+    
+    ////
+    //
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Import
+    //////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @SWG\Post(
+     *   path="/mosque-specialsalah-times/importJummah",
+     *     tags={"Mosque Special Salah Times"},
+     *     summary="Import Salah Jummah data in Mosque Spesial Salah Times response",
+     *     description="Import Salah Jummah data in Mosque Spesial Salah Times <br>
+            <p>*File Excel Mosque Salah Jummah Times extension must be .xlsx or .xls</p>",
+     *     operationId="importJummahMosqueSpesialSalahTimes",
+     * 
+     *  @SWG\Parameter(
+     *     name="file",
+     *     in="formData",
+     *     description="file (File Excel Mosque Salah Jummah Times .xlsx or .xls) ...",
+     *     required=true,
+     *     type="file"
+     *   ), 
+     * 
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function importJummah(Request $request){
+        $file = $request->file('file');
+        $validator = Validator::make(
+            [
+                'file'      => $file,
+                'extension' => strtolower($file->getClientOriginalExtension()),
+            ],
+            [
+                'file'          => 'required',
+                'extension'      => 'required|in:xlsx,xls',
+            ]
+          );
+          if ($validator->fails()){
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['message'] = 'Failed, File Not Uploaded or File Extension Not .xlsx / .xls';
+            return response($res, 200);
+          }
+
+        $import = new MosqueSpecialSalahJummahTimesImport();
+        Excel::import($import, $file);
+
+        $res['status_code'] = 200;
+        $res['success'] = true;
+        $res['message'] = 'Success Importing Mosque Salah Jummah Times data';
+        return response($res, 200);
+    }
+
+
+    
+
+
+
+
+    
+    ////
+    //
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Import
+    //////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @SWG\Post(
+     *   path="/mosque-specialsalah-times/importEidulFitri",
+     *     tags={"Mosque Special Salah Times"},
+     *     summary="Import Salah Eid-ul Fitri data in Mosque Spesial Salah Times response",
+     *     description="Import Salah Eid-ul Fitri data in Mosque Spesial Salah Times <br>
+            <p>*File Excel Mosque Salah Eid-ul Fitri Times extension must be .xlsx or .xls</p>",
+     *     operationId="importEidulFitriMosqueSpesialSalahTimes",
+     * 
+     *  @SWG\Parameter(
+     *     name="file",
+     *     in="formData",
+     *     description="file (File Excel Mosque Salah Eid-ul Fitri Times .xlsx or .xls) ...",
+     *     required=true,
+     *     type="file"
+     *   ), 
+     * 
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function importEidulFitri(Request $request){
+        $file = $request->file('file');
+        $validator = Validator::make(
+            [
+                'file'      => $file,
+                'extension' => strtolower($file->getClientOriginalExtension()),
+            ],
+            [
+                'file'          => 'required',
+                'extension'      => 'required|in:xlsx,xls',
+            ]
+          );
+          if ($validator->fails()){
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['message'] = 'Failed, File Not Uploaded or File Extension Not .xlsx / .xls';
+            return response($res, 200);
+          }
+
+        $import = new MosqueSpecialSalahEidulFitriTimesImport();
+        Excel::import($import, $file);
+
+        $res['status_code'] = 200;
+        $res['success'] = true;
+        $res['message'] = 'Success Importing Mosque Salah Eid-ul Fitri Times data';
+        return response($res, 200);
+    }
+
+
+    
+
+
+
+
+    
+    ////
+    //
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Import
+    //////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @SWG\Post(
+     *   path="/mosque-specialsalah-times/importEidulAdha",
+     *     tags={"Mosque Special Salah Times"},
+     *     summary="Import Salah Eid-ul Adha data in Mosque Spesial Salah Times response",
+     *     description="Import Salah Eid-ul Adha data in Mosque Spesial Salah Times <br>
+            <p>*File Excel Mosque Salah Eid-ul Adha Times extension must be .xlsx or .xls</p>",
+     *     operationId="importEidulAdhaMosqueSpesialSalahTimes",
+     * 
+     *  @SWG\Parameter(
+     *     name="file",
+     *     in="formData",
+     *     description="file (File Excel Mosque Salah Eid-ul Adha Times .xlsx or .xls) ...",
+     *     required=true,
+     *     type="file"
+     *   ), 
+     * 
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function importEidulAdha(Request $request){
+        $file = $request->file('file');
+        $validator = Validator::make(
+            [
+                'file'      => $file,
+                'extension' => strtolower($file->getClientOriginalExtension()),
+            ],
+            [
+                'file'          => 'required',
+                'extension'      => 'required|in:xlsx,xls',
+            ]
+          );
+          if ($validator->fails()){
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['message'] = 'Failed, File Not Uploaded or File Extension Not .xlsx / .xls';
+            return response($res, 200);
+          }
+
+        $import = new MosqueSpecialSalahEidulAdhaTimesImport();
+        Excel::import($import, $file);
+
+        $res['status_code'] = 200;
+        $res['success'] = true;
+        $res['message'] = 'Success Importing Mosque Salah Eid-ul Adha Times data';
+        return response($res, 200);
     }
 }

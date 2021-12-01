@@ -3287,6 +3287,96 @@
                 }
             }
         },
+        "/mosque-specialsalah-times/importJummah": {
+            "post": {
+                "tags": [
+                    "Mosque Special Salah Times"
+                ],
+                "summary": "Import Salah Jummah data in Mosque Spesial Salah Times response",
+                "description": "Import Salah Jummah data in Mosque Spesial Salah Times <br>\n            <p>*File Excel Mosque Salah Jummah Times extension must be .xlsx or .xls</p>",
+                "operationId": "importJummahMosqueSpesialSalahTimes",
+                "parameters": [
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "file (File Excel Mosque Salah Jummah Times .xlsx or .xls) ...",
+                        "required": true,
+                        "type": "file"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-specialsalah-times/importEidulFitri": {
+            "post": {
+                "tags": [
+                    "Mosque Special Salah Times"
+                ],
+                "summary": "Import Salah Eid-ul Fitri data in Mosque Spesial Salah Times response",
+                "description": "Import Salah Eid-ul Fitri data in Mosque Spesial Salah Times <br>\n            <p>*File Excel Mosque Salah Eid-ul Fitri Times extension must be .xlsx or .xls</p>",
+                "operationId": "importEidulFitriMosqueSpesialSalahTimes",
+                "parameters": [
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "file (File Excel Mosque Salah Eid-ul Fitri Times .xlsx or .xls) ...",
+                        "required": true,
+                        "type": "file"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-specialsalah-times/importEidulAdha": {
+            "post": {
+                "tags": [
+                    "Mosque Special Salah Times"
+                ],
+                "summary": "Import Salah Eid-ul Adha data in Mosque Spesial Salah Times response",
+                "description": "Import Salah Eid-ul Adha data in Mosque Spesial Salah Times <br>\n            <p>*File Excel Mosque Salah Eid-ul Adha Times extension must be .xlsx or .xls</p>",
+                "operationId": "importEidulAdhaMosqueSpesialSalahTimes",
+                "parameters": [
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "file (File Excel Mosque Salah Eid-ul Adha Times .xlsx or .xls) ...",
+                        "required": true,
+                        "type": "file"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
         "/ramadhan-prayer/date": {
             "post": {
                 "tags": [

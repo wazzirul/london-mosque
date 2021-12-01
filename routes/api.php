@@ -268,6 +268,9 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     ///////////////////////////////////////////////////////////////////////////////////////////
     // Mosque Special Salah Times
     ///////////////////////////////////////////////////////////////////////////////////////////
+    Route::post('mosque-specialsalah-times/importEidulFitri', 'Mosque\MosqueSpecialSalahTimesController@importEidulFitri');
+    Route::post('mosque-specialsalah-times/importEidulAdha', 'Mosque\MosqueSpecialSalahTimesController@importEidulAdha');
+    Route::post('mosque-specialsalah-times/importJummah', 'Mosque\MosqueSpecialSalahTimesController@importJummah');
     Route::post('mosque-specialsalah-times/store', 'Mosque\MosqueSpecialSalahTimesController@store');
     Route::post('mosque-specialsalah-times/update', 'Mosque\MosqueSpecialSalahTimesController@update');
     Route::post('mosque-specialsalah-times/delete', 'Mosque\MosqueSpecialSalahTimesController@delete');

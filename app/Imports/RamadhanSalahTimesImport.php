@@ -22,7 +22,7 @@ class RamadhanSalahTimesImport implements ToModel, WithStartRow
     }
     public function model(array $row)
     {
-        // dd($row['type_salah']);
+        // dd($row['date_salah_times']);
         // Retrieve by name, or instantiate with the name, delayed, and arrival_time attributes...
         if($row[1] !== null){
             $data = RamadhanSalahTimes::firstOrNew(['date_ramadhan_salah_times' => $row[1],
