@@ -73,6 +73,8 @@ class LoginDocsController extends Controller
             Session::put('auth_token', $str_token);
 
             return redirect('/api/documentation');
+        }else{
+            return redirect('/login')->with('failed','Wrong Username and Password');
         }
     }
 
