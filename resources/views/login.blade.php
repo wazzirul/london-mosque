@@ -2,9 +2,9 @@
     <head>
         <title>{{config('l5-swagger.api.title')}}</title>
         <link rel="icon" type="image/png" href="{{ asset('assets/img/logo-londonmosque.png') }}"/>
-        <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="vendor/css/ready.min.pro.css">
-        <link rel="stylesheet" href="vendor/css/ready.css">
+        <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/vendor/css/ready.min.pro.css">
+        <link rel="stylesheet" href="/vendor/css/ready.css">
         <style>
             .img-fluid{
                 max-height: 150px;
@@ -71,8 +71,8 @@
         </div>
     </body>
     
-<script src="vendor/js/jquery-3.6.0.min.js"></script>
-<script src="vendor/js/jquery-ui.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.js"></script>
-<script src="vendor/js/ready-pro.js"></script>
+<script src="/vendor/js/jquery-3.6.0.min.js"></script>
+<script src="/vendor/js/jquery-ui.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/vendor/js/ready-pro.js"></script>
 </html>
