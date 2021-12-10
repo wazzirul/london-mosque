@@ -658,9 +658,15 @@ class MosqueSpecialSalahTimesController extends Controller
         ->when($request->has('order_special_salah_times'), function ($query) use ($order_special_salah_times) {
             $query->where('mosque_special_salah_times.order_special_salah_times',$order_special_salah_times);
         })
+        ->when($request->has('where_year'), function ($query) use ($year) {
+            $query->whereYear('mosque_special_salah_times.date_special_salah_times', '=', $year);
+        })
+        ->when($request->has('where_month'), function ($query) use ($mth) {
+            $query->whereMonth('mosque_special_salah_times.date_special_salah_times', '=', $mth);
+        })
         ->where('mosque_special_salah_times.soft_delete',$soft_delete)
-        ->whereYear('mosque_special_salah_times.date_special_salah_times', '=', $year)
-        ->whereMonth('mosque_special_salah_times.date_special_salah_times', '=', $mth)
+        // ->whereYear('mosque_special_salah_times.date_special_salah_times', '=', $year)
+        // ->whereMonth('mosque_special_salah_times.date_special_salah_times', '=', $mth)
         ->skip($skip)
         ->take($take)
         ->orderByRaw('mosque_special_salah_times.id_special_salah_times '.$order)
@@ -697,6 +703,7 @@ class MosqueSpecialSalahTimesController extends Controller
         }else{
             $res['status_code'] = 406;
             $res['success'] = false;
+            $res['message'] = 'Data not found';
             $res['data'] = $data;
 
             return response($res, 200);
