@@ -1309,8 +1309,15 @@
                         "name": "id_district",
                         "in": "formData",
                         "description": "ID District ...",
-                        "required": true,
+                        "required": false,
                         "type": "integer"
+                    },
+                    {
+                        "name": "slug_mosque",
+                        "in": "formData",
+                        "description": "Slug Mosque (Unique) ...",
+                        "required": true,
+                        "type": "string"
                     },
                     {
                         "name": "name_mosque",
@@ -1390,6 +1397,13 @@
                         "description": "ID District ...",
                         "required": false,
                         "type": "integer"
+                    },
+                    {
+                        "name": "slug_mosque",
+                        "in": "formData",
+                        "description": "Slug Mosque (Unique) ...",
+                        "required": true,
+                        "type": "string"
                     },
                     {
                         "name": "name_mosque",
@@ -1573,6 +1587,13 @@
                         "description": "ID District ...",
                         "required": false,
                         "type": "integer"
+                    },
+                    {
+                        "name": "slug_mosque",
+                        "in": "formData",
+                        "description": "Slug Mosque (Unique) ...",
+                        "required": false,
+                        "type": "string"
                     },
                     {
                         "name": "id_user",

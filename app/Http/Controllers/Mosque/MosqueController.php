@@ -55,8 +55,15 @@ class MosqueController extends Controller
      *     name="id_district",
      *     in="formData",
      *     description="ID District ...",
-     *     required=true,
+     *     required=false,
      *     type="integer"
+     *   ), 
+     *  @SWG\Parameter(
+     *     name="slug_mosque",
+     *     in="formData",
+     *     description="Slug Mosque (Unique) ...",
+     *     required=true,
+     *     type="string"
      *   ), 
      *  @SWG\Parameter(
      *     name="name_mosque",
@@ -97,6 +104,7 @@ class MosqueController extends Controller
             'id_mosque_google_place'=>'nullable',
             'id_borough'=>'required|numeric',
             'id_district'=>'nullable|numeric',
+            'slug_mosque'=>'required|unique:mosque',
             'name_mosque'=>'required',
             'address'=>'required',
             'latitude'=>'required',
@@ -106,6 +114,7 @@ class MosqueController extends Controller
         $id_mosque_google_place = $request->input('id_mosque_google_place') ?? NULL;
         $id_borough = $request->input('id_borough');
         $id_district = $request->input('id_district') ?? null;
+        $slug_mosque = $request->input('slug_mosque');
         $name_mosque = $request->input('name_mosque');
         $address = $request->input('address');
         $latitude = $request->input('latitude');
@@ -149,6 +158,7 @@ class MosqueController extends Controller
             'id_mosque_google_place' => $id_mosque_google_place,
             'id_borough' => $id_borough,
             // 'id_district' => $id_district,
+            'slug_mosque' => $slug_mosque,
             'name_mosque' => $name_mosque,
             'address' => $address,
             'latitude' => $latitude,
@@ -213,6 +223,13 @@ class MosqueController extends Controller
      *     type="integer"
      *   ), 
      *  @SWG\Parameter(
+     *     name="slug_mosque",
+     *     in="formData",
+     *     description="Slug Mosque (Unique) ...",
+     *     required=false,
+     *     type="string"
+     *   ), 
+     *  @SWG\Parameter(
      *     name="name_mosque",
      *     in="formData",
      *     description="Name Mosque ...",
@@ -252,12 +269,14 @@ class MosqueController extends Controller
             'id_mosque_google_place'=>'nullable',
             'id_borough'=>'numeric',
             'id_district'=>'numeric',
+            'slug_mosque'=>'required',
         ]);  
 
         $id_mosque = $request->input('id_mosque');
         $id_mosque_google_place = $request->input('id_mosque_google_place') ?? NULL;
         $id_borough = $request->input('id_borough');
         $id_district = $request->input('id_district');
+        $slug_mosque = $request->input('slug_mosque');
         $name_mosque = $request->input('name_mosque');
         $address = $request->input('address');
         $latitude = $request->input('latitude');
@@ -314,6 +333,21 @@ class MosqueController extends Controller
 
         if($id_mosque_google_place !== null){
             $data->id_mosque_google_place = $id_mosque_google_place;
+        }
+
+        if($slug_mosque !== null){
+            $dataSlugMosque = Mosque::where('slug_mosque', $slug_mosque)->first();
+            if($dataSlugMosque !== null){
+                if($data->id_mosque !== $dataSlugMosque->id_mosque && $data->slug_mosque !== $dataSlugMosque->slug_mosque){
+                    $res['status_code'] = 406;
+                    $res['success'] = false;
+                    $res['detail'] = "Slug Mosque already taken, Please use another slug mosque.";
+
+                    return response($res, 200);
+                }
+            }
+
+            $data->slug_mosque = $slug_mosque;
         }
 
         if($name_mosque !== null){
@@ -732,6 +766,13 @@ class MosqueController extends Controller
      *     required=false,
      *     type="integer"
      *   ),
+     *  @SWG\Parameter(
+     *     name="slug_mosque",
+     *     in="formData",
+     *     description="Slug Mosque (Unique) ...",
+     *     required=false,
+     *     type="string"
+     *   ), 
      *   @SWG\Parameter(
      *     name="id_user",
      *     in="formData",
@@ -826,6 +867,7 @@ class MosqueController extends Controller
         $id_mosque = $request->input('id_mosque');
         $id_borough = $request->input('id_borough');
         $id_district = $request->input('id_district');
+        $slug_mosque = $request->input('slug_mosque');
         $name_mosque = $request->input('name_mosque');
 
         $soft_delete = $request->input('soft_delete') ?? 0;
@@ -862,6 +904,9 @@ class MosqueController extends Controller
         ->when($request->has('id_mosque'), function ($query) use ($id_mosque) {
             $query->where('mosque.id_mosque',$id_mosque);
         })
+        ->when($request->has('slug_mosque'), function ($query) use ($slug_mosque) {
+            $query->where('mosque.slug_mosque',$slug_mosque);
+        })
         ->when($request->has('id_borough'), function ($query) use ($id_borough) {
             $query->where('mosque.id_borough',$id_borough);
         })
@@ -885,6 +930,7 @@ class MosqueController extends Controller
             'mosque.id_mosque_google_place',
             'mosque.id_borough',
             'mosque.id_district',
+            'mosque.slug_mosque',
             'mosque.name_mosque',
             'mosque.address',
             'mosque.latitude',
