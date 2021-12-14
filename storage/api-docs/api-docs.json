@@ -1402,7 +1402,7 @@
                         "name": "slug_mosque",
                         "in": "formData",
                         "description": "Slug Mosque (Unique) ...",
-                        "required": true,
+                        "required": false,
                         "type": "string"
                     },
                     {

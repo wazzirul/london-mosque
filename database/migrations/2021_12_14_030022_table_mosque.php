@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddSlugMosqueToMosque extends Migration
+class TableMosque extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,18 @@ class AddSlugMosqueToMosque extends Migration
      */
     public function up()
     {
+        //
+        
+        if (Schema::hasColumn('mosque', 'slug_mosque'))
+        {
+            Schema::table('mosque', function (Blueprint $table)
+            {
+                $table->dropColumn('slug_mosque');
+            });
+        }
         Schema::table('mosque', function (Blueprint $table) {
             //
-            $table->string('slug_mosque')->unique()->after('id_district');
+            $table->string('slug_mosque')->nullable()->unique()->after('id_district');
         });
     }
 
