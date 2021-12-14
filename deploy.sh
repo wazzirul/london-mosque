@@ -1,5 +1,5 @@
 # /bin/sh
-# Created by Reksa Rangga Wardhana
+# Created by Illiyin Team
 # 
 
 die () {
@@ -14,15 +14,19 @@ confirm () {
 }
 
 # Credential
-HOSTNAME="45.77.247.110"
-USERNAME="root"
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+DEPLOY_CONFIG="deploy/${CURRENT_BRANCH}.json"
+HOSTNAME=$(cat $DEPLOY_CONFIG | jq '.ssh.hostname' | tr -d '"')
+USERNAME=$(cat $DEPLOY_CONFIG | jq '.ssh.username' | tr -d '"')
 ZIP_FILE="build.zip"
-TEMP_DIRECTORY=/tmp/
-DEPLOY_DIRECTORY=/var/www/london-mosques-api/
-DEPLOY_TEMP_DIRECTORY=/tmp/london-mosques-api/
+TEMP_DIRECTORY=$(cat $DEPLOY_CONFIG | jq '.temp_directory' | tr -d '"')
+DEPLOY_DIRECTORY=$(cat $DEPLOY_CONFIG | jq '.deploy_directory' | tr -d '"')
+DEPLOY_TEMP_DIRECTORY=$(cat $DEPLOY_CONFIG | jq '.deploy_temp_directory' | tr -d '"')
 KEY_PAIR=/c/Users/Faisal/.ssh/id_rsa
-CONFIG_FILE=/var/local/environments/london-mosques-api/.env
-
+CONFIG_FILE=$(cat $DEPLOY_CONFIG | jq '.env_config' | tr -d '"')
+USER=$(cat $DEPLOY_CONFIG | jq '.permissions.user' | tr -d '"')
+GROUP=$(cat $DEPLOY_CONFIG | jq '.permissions.group' | tr -d '"')
+ 
 echo "Run composer install command..."
 $(which composer) install
 confirm
@@ -40,15 +44,14 @@ scp -r -i $KEY_PAIR $ZIP_FILE $USERNAME@$HOSTNAME:$TEMP_DIRECTORY
 
 echo "Deployment process..."
 ssh -t -i $KEY_PAIR $USERNAME@$HOSTNAME "
-cd $TEMP_DIRECTORY && sudo unzip $ZIP_FILE -d $DEPLOY_TEMP_DIRECTORY && sudo mkdir -p $DEPLOY_DIRECTORY
-sudo cp -R $DEPLOY_TEMP_DIRECTORY* $DEPLOY_DIRECTORY
-sudo chown -R nginx:nginx $DEPLOY_DIRECTORY/storage/
-sudo chown -R nginx:nginx $DEPLOY_DIRECTORY/public/
-yes | sudo cp $CONFIG_FILE $DEPLOY_DIRECTORY
-cd $DEPLOY_DIRECTORY && sudo $(which php) artisan migrate -q
-cd $TEMP_DIRECTORY && sudo rm -rf $ZIP_FILE $DEPLOY_TEMP_DIRECTORY"
+cd $TEMP_DIRECTORY && unzip $ZIP_FILE -d $DEPLOY_TEMP_DIRECTORY && mkdir -p $DEPLOY_DIRECTORY
+cp -R $DEPLOY_TEMP_DIRECTORY* $DEPLOY_DIRECTORY
+chown -R $USER:$GROUP $DEPLOY_DIRECTORY/storage/
+chown -R $USER:$GROUP $DEPLOY_DIRECTORY/public/
+yes | cp $CONFIG_FILE $DEPLOY_DIRECTORY
+cd $DEPLOY_DIRECTORY && $(which php) artisan migrate -q
+cd $TEMP_DIRECTORY && rm -rf $ZIP_FILE $DEPLOY_TEMP_DIRECTORY"
 
 rm -f $ZIP_FILE
 
 echo "Deploy succesfully."
-

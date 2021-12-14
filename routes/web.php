@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('ping', function() {
+    return 'PONGs';
+});
+
 Route::post('login-proses', 'Docs\LoginDocsController@login_proses'); //login proses
 Route::get('login','Docs\LoginDocsController@login')->name('login');
 Route::get('logout','Docs\LoginDocsController@logout')->name('logout');
