@@ -7,10 +7,9 @@
         <link rel="stylesheet" href="/vendor/css/ready.css">
         <style>
             .img-fluid{
-                max-height: 150px;
-                width:auto;
+                width:50%;
                 display: block;
-                margin: 0 auto;
+                margin: 0 auto 32px;
             }
             body{
                 background-color : #e8f6f0 !important;
