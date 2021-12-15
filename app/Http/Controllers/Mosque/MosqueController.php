@@ -523,10 +523,12 @@ class MosqueController extends Controller
      * )
      */
     public function show(){ 
+        ini_set('max_execution_time', '500');
+
         $mosque = Mosque::with('AvgRating')
-        ->where('soft_delete', 0)
-        ->orderBy('id_mosque', 'DESC')
-        ->get();
+            ->where('soft_delete', 0)
+            ->orderBy('id_mosque', 'DESC')
+            ->get();
 
         $now = Carbon::now()->format('Y-m-d');
         $year = Carbon::today()->format('Y');
@@ -565,9 +567,11 @@ class MosqueController extends Controller
             }
 
             $images = MosqueImage::where('id_mosque', $d->id_mosque)
+                ->orderByRaw('id_mosque_image DESC')
                 ->where('soft_delete', 0)
-                ->take(5)
+                ->take(1)
                 ->get();
+
             foreach ($images as $key => $sim) {
                 $imageReference = app('firebase.storage')->getBucket()->object($sim->mosque_image_url);  
                 if($imageReference->exists()){
