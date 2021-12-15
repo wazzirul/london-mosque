@@ -83,13 +83,13 @@ class MosqueImageController extends Controller
             
         if (file_put_contents($localfolder . $file, base64_decode($files))) {  
             $uploadedfile = fopen($localfolder . $file, 'r');  
-            app('firebase.storage')->getBucket()->upload(base64_decode($files), ['name' => $firebase_storage_path . $file]);  
+            $cloudinary = cloudinary()->upload($uploadedfile)->getSecurePath('londonmosques-image');
             //will remove from local laravel folder  
             unlink($localfolder . $file); 
 
             $data = MosqueImage::create([
                 'id_mosque' => $id_mosque,
-                'mosque_image_url' => $firebase_storage_path.$file,
+                'mosque_image_url' => $cloudinary,
             ]);
 
             if($data){
