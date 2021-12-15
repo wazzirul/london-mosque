@@ -1558,6 +1558,27 @@
                 }
             }
         },
+        "/mosque/showGroupByBorough": {
+            "get": {
+                "tags": [
+                    "Mosque"
+                ],
+                "summary": "show Group By Borough all data mosque response",
+                "description": "show Group By Borough all data mosque response\r\n           <br>*Salah Times using DATE NOW to save data from many return\r\n           <br>*Jummah Times using DATE YEAR AND MONTH NOW to save data from many return",
+                "operationId": "showGroupByBoroughMosques",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
         "/mosque/showByFilter": {
             "post": {
                 "tags": [

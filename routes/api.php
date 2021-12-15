@@ -223,6 +223,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post('mosque/delete', 'Mosque\MosqueController@delete');
     Route::post('mosque/undelete', 'Mosque\MosqueController@undelete');
     Route::post('mosque/showById', 'Mosque\MosqueController@showById');
+    Route::get('mosque/showGroupByBorough', 'Mosque\MosqueController@showGroupByBorough');
     Route::post('mosque/showByFilter', 'Mosque\MosqueController@showByFilter');
     Route::get('mosque/show', 'Mosque\MosqueController@show');
 

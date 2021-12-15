@@ -731,6 +731,100 @@ class MosqueController extends Controller
         }
     }
 
+
+
+    
+    //////////////////////////////////////////////////////////////////////////////////////
+    // SHOW
+    //////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @SWG\Get(
+     *   path="/mosque/showGroupByBorough",
+     *     tags={"Mosque"},
+     *     summary="show Group By Borough all data mosque response",
+     *     description="show Group By Borough all data mosque response
+           <br>*Salah Times using DATE NOW to save data from many return
+           <br>*Jummah Times using DATE YEAR AND MONTH NOW to save data from many return",
+     *     operationId="showGroupByBoroughMosques",
+     * 
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function showGroupByBorough(){ 
+        ini_set('max_execution_time', '500');
+
+        $borough = Borough::get();
+
+        $now = Carbon::now()->format('Y-m-d');
+        $year = Carbon::today()->format('Y');
+        $mth = Carbon::today()->format('m');
+        $expiresAt = Carbon::now()->addDays();  
+
+        if(!$borough->isEmpty()){
+            
+            foreach($borough as $borough){
+                $res['status_code'] = 200;
+                $res['success'] = true;
+                $res['message'] = 'Success return Mosque data';
+                $res['data']['Borough'][$borough->name_borough] = $borough;
+
+                $mosque = Mosque::with('AvgRating')
+                ->where('soft_delete', 0)
+                ->where('id_borough', $borough->id_borough)
+                ->orderBy('id_mosque', 'DESC')
+                ->get();
+    
+    
+                foreach($mosque as $index => $d){
+                    $facilities = MosqueFacilities::join('facilities','facilities.id_facilities','=','mosque_facilities.id_facilities')
+                        ->where('id_mosque', $d->id_mosque)
+                        ->where('mosque_facilities.soft_delete', 0)
+                        ->get();
+                    foreach ($facilities as $key => $sim) {
+                        $imageReference = app('firebase.storage')->getBucket()->object($sim->icon_facilities);  
+                        if($imageReference->exists()){
+                            $image = $imageReference->signedUrl($expiresAt);
+                            $facilities[$key]->icon_facilities_url_firebase = $image;
+                        }else{
+                            $facilities[$key]->icon_facilities_url_firebase = null;
+                        }
+                    }
+    
+                    $images = MosqueImage::where('id_mosque', $d->id_mosque)
+                        ->orderByRaw('id_mosque_image DESC')
+                        ->where('soft_delete', 0)
+                        ->take(1)
+                        ->get();
+    
+                    foreach ($images as $key => $sim) {
+                        $imageReference = app('firebase.storage')->getBucket()->object($sim->mosque_image_url);  
+                        if($imageReference->exists()){
+                            $image = $imageReference->signedUrl($expiresAt);
+                            $images[$key]->mosque_image_url_firebase = $image;
+                        }else{
+                            $images[$key]->mosque_image_url_firebase = null;
+                        }
+                    }
+                    
+                    $mosque[$index]->facilities = $facilities ?? null;
+                    $mosque[$index]->images = $images ?? null;
+                }
+                $res['data']['Borough'][$borough->name_borough]['DataMosque'] = $mosque;
+
+            }
+
+            return response($res, 200);
+        }else{
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['detail'] = "Borough / Mosque Data Not Found";
+
+            return response($res, 200);
+        }
+    }
+
     
 
 
