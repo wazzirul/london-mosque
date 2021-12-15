@@ -1,0 +1,14 @@
+{
+	"ssh": {
+		"hostname": "sheridan.dreamhost.com",
+		"username": "dh_jip72s"
+	},
+	"permissions": {
+        "user": "dh_jip72s",
+        "group": "pg487314"
+    },
+	"deploy_directory": "/home/dh_jip72s/api.londonmosques.org",
+    "deploy_temp_directory": "/home/dh_jip72s/staging/",
+    "temp_directory": "/tmp/",
+	"env_config": "/home/dh_jip72s/env.config"
+}
