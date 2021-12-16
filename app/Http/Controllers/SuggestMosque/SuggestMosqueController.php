@@ -4,10 +4,23 @@ namespace App\Http\Controllers\SuggestMosque;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 use App\Model\SuggestMosque\SuggestMosque;
+use App\Model\SuggestMosque\SuggestMosqueFacilities;
+use App\Model\SuggestMosque\SuggestMosqueImage;
+use App\Model\SuggestMosque\SuggestMosqueLog;
+use App\Model\SuggestMosque\SuggestMosqueSalahTimes;
+use App\Model\SuggestMosque\SuggestMosqueSpecialSalahTimes;
+
+use App\Model\Mosque\Mosque;
+use App\Model\Mosque\MosqueFacilities;
+use App\Model\Mosque\MosqueImage;
+use App\Model\Mosque\MosqueSalahTime;
+use App\Model\Mosque\MosqueSpecialSalahTime;
+
 use App\Model\Users;
-use App\Model\Mosque;
+use App\Model\Admin;
 use App\Model\Borough;
 use App\Model\Districts;
 
@@ -37,20 +50,6 @@ class SuggestMosqueController extends Controller
      *     description="ID Mosque ...",
      *     required=true,
      *     type="string"
-     *   ),
-     *  @SWG\Parameter(
-     *     name="id_borough",
-     *     in="formData",
-     *     description="ID Borough ...",
-     *     required=true,
-     *     type="integer"
-     *   ),
-     *  @SWG\Parameter(
-     *     name="id_district",
-     *     in="formData",
-     *     description="ID District ...",
-     *     required=true,
-     *     type="integer"
      *   ),
      *  @SWG\Parameter(
      *     name="name_mosque",
@@ -90,8 +89,6 @@ class SuggestMosqueController extends Controller
         $this->validate($request,[
             'id_user'=>'required|numeric',
             'id_mosque'=>'required|numeric',
-            'id_borough'=>'required|numeric',
-            'id_district'=>'required|numeric',
             'name_mosque'=>'required',
             'address'=>'required',
             'latitude'=>'required',
@@ -100,23 +97,36 @@ class SuggestMosqueController extends Controller
 
         $id_user = $request->input('id_user');
         $id_mosque = $request->input('id_mosque');
-        $id_borough = $request->input('id_borough');
-        $id_district = $request->input('id_district');
         $name_mosque = $request->input('name_mosque');
         $address = $request->input('address');
         $latitude = $request->input('latitude');
         $longitude = $request->input('longitude');
 
+        $user = Users::find($id_user);
+        if($user === null){
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['detail'] = "Data Users for that ID not found.";
+
+            return response($res, 200);
+        }
+
+        $mosque = Mosque::find($id_mosque);
+        if($mosque === null){
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['detail'] = "Data Mosque for that ID not found.";
+
+            return response($res, 200);
+        }
+
         $data = SuggestMosque::create([
             'id_user' => $id_user,
             'id_mosque' => $id_mosque,
-            'id_borough' => $id_borough,
-            'id_district' => $id_district,
             'name_mosque' => $name_mosque,
             'address' => $address,
             'latitude' => $latitude,
             'longitude' => $longitude,
-            'status_suggest_mosque' => 0
         ]);
 
         if($data){
@@ -162,20 +172,6 @@ class SuggestMosqueController extends Controller
      *     type="string"
      *   ),
      *  @SWG\Parameter(
-     *     name="id_borough",
-     *     in="formData",
-     *     description="ID Borough (Kosongi jika tidak ingin merubah data)...",
-     *     required=false,
-     *     type="integer"
-     *   ),
-     *  @SWG\Parameter(
-     *     name="id_district",
-     *     in="formData",
-     *     description="ID District (Kosongi jika tidak ingin merubah data)...",
-     *     required=false,
-     *     type="integer"
-     *   ),
-     *  @SWG\Parameter(
      *     name="name_mosque",
      *     in="formData",
      *     description="Name Mosque (Kosongi jika tidak ingin merubah data)...",
@@ -214,8 +210,6 @@ class SuggestMosqueController extends Controller
             'id_suggest_mosque'=>'required|numeric',
             'id_user'=>'nullable|numeric',
             'id_mosque'=>'nullable|numeric',
-            'id_borough'=>'nullable|numeric',
-            'id_district'=>'nullable|numeric',
             'name_mosque'=>'nullable',
             'address'=>'nullable',
             'latitude'=>'nullable',
@@ -236,8 +230,6 @@ class SuggestMosqueController extends Controller
 
         $id_user = $request->input('id_user') ?? null;
         $id_mosque = $request->input('id_mosque') ?? null;
-        $id_borough = $request->input('id_borough') ?? null;
-        $id_district = $request->input('id_district') ?? null;
         $name_mosque = $request->input('name_mosque') ?? null;
         $address = $request->input('address') ?? null;
         $latitude = $request->input('latitude') ?? null;
@@ -267,32 +259,6 @@ class SuggestMosqueController extends Controller
             }
             
             $suggestMosque->id_mosque = $id_mosque;
-        }
-
-        if($id_borough !== null){
-            $borough = Borough::find($id_borough);
-            if($borough === null){
-                $res['status_code'] = 406;
-                $res['success'] = false;
-                $res['detail'] = "Data Borough for that ID not found.";
-
-                return response($res, 200);
-            }
-            
-            $suggestMosque->id_borough = $id_borough;
-        }
-
-        if($id_district !== null){
-            $districts = Districts::find($id_district);
-            if($districts === null){
-                $res['status_code'] = 406;
-                $res['success'] = false;
-                $res['detail'] = "Data Districts for that ID not found.";
-
-                return response($res, 200);
-            }
-            
-            $suggestMosque->id_district = $id_district;
         }
 
         if($name_mosque !== null){
@@ -462,6 +428,7 @@ class SuggestMosqueController extends Controller
      */
     public function show(){
         $suggestMosque = SuggestMosque::where('soft_delete', 0)
+            ->with(['Mosque', 'User'])
             ->orderBy('id_suggest_mosque', 'DESC')
             ->get();
 
@@ -513,8 +480,46 @@ class SuggestMosqueController extends Controller
 
         $id_suggest_mosque = $request->input('id_suggest_mosque');
         $suggestMosque = SuggestMosque::where('id_suggest_mosque', $id_suggest_mosque)
-            ->with(['User', 'Mosque', 'Borough', 'District'])
+            ->with(['User', 'Mosque'])
             ->first();
+        
+        $suggestFacilities = SuggestMosqueFacilities::where('id_suggest_mosque', $suggestMosque->id_suggest_mosque)
+            ->with('Facilities')
+            ->get();
+
+        $suggestSalahTimes = SuggestMosqueSalahTimes::where('id_suggest_mosque', $suggestMosque->id_suggest_mosque)
+            ->get();
+
+        $suggestSpecialSalahTimes = SuggestMosqueSpecialSalahTimes::where('id_suggest_mosque', $suggestMosque->id_suggest_mosque)
+            ->get();
+
+        $suggestImage = SuggestMosqueImage::where('id_suggest_mosque', $suggestMosque->id_suggest_mosque)
+            ->get();
+
+        $expiresAt = Carbon::now()->addDays();  
+        foreach ($suggestFacilities as $key => $sfa) {
+            $imageReference = app('firebase.storage')->getBucket()->object($sfa->facilities->icon_facilities);  
+            if($imageReference->exists()){
+                $icon = $imageReference->signedUrl($expiresAt);
+                $suggestFacilities[$key]['facilities']->icon_facilities_firebase = $icon;
+            }else{
+                $suggestFacilities[$key]['facilities']->icon_facilities_firebase = null;
+            }
+        }
+        foreach ($suggestImage as $key => $sim) {
+            $imageReference = app('firebase.storage')->getBucket()->object($sim->mosque_image_url);  
+            if($imageReference->exists()){
+                $image = $imageReference->signedUrl($expiresAt);
+                $suggestImage[$key]->mosque_image_url_firebase = $image;
+            }else{
+                $suggestImage[$key]->mosque_image_url_firebase = null;
+            }
+        }
+
+        $suggestMosque['suggest_mosque_facilities'] = $suggestFacilities;
+        $suggestMosque['suggest_mosque_salah_times'] = $suggestSalahTimes;
+        $suggestMosque['suggest_mosque_special_salah_times'] = $suggestSpecialSalahTimes;
+        $suggestMosque['suggest_mosque_image'] = $suggestImage;
 
         if($suggestMosque === null){
             $res['status_code'] = 406;
@@ -568,20 +573,6 @@ class SuggestMosqueController extends Controller
      *     name="id_mosque",
      *     in="formData",
      *     description="ID Mosque ...",
-     *     required=false,
-     *     type="integer"
-     *   ),
-     *   @SWG\Parameter(
-     *     name="id_borough",
-     *     in="formData",
-     *     description="ID Borough ...",
-     *     required=false,
-     *     type="integer"
-     *   ),
-     *   @SWG\Parameter(
-     *     name="id_district",
-     *     in="formData",
-     *     description="ID District ...",
      *     required=false,
      *     type="integer"
      *   ),
@@ -650,8 +641,6 @@ class SuggestMosqueController extends Controller
         
         $id_mosque = $request->input('id_mosque');
         $status_suggest_mosque = $request->input('status_suggest_mosque');
-        $id_borough = $request->input('id_borough');
-        $id_district = $request->input('id_district');
         $name_mosque = $request->input('name_mosque');
         $address = $request->input('address');
         $latitude = $request->input('latitude');
@@ -668,12 +657,6 @@ class SuggestMosqueController extends Controller
         })
         ->when($request->has('status_suggest_mosque'), function ($query) use ($status_suggest_mosque) {
             $query->where('suggest_mosque.status_suggest_mosque',$status_suggest_mosque);
-        })
-        ->when($request->has('id_borough'), function ($query) use ($id_borough) {
-            $query->where('suggest_mosque.id_borough',$id_borough);
-        })
-        ->when($request->has('id_district'), function ($query) use ($id_district) {
-            $query->where('suggest_mosque.id_district',$id_district);
         })
         ->when($request->has('name_mosque'), function ($query) use ($name_mosque) {
             $query->where('suggest_mosque.name_mosque','like','%'.$name_mosque.'%');
@@ -692,15 +675,13 @@ class SuggestMosqueController extends Controller
         })
         ->skip($skip)
         ->take($take)
-        ->with(['Mosque', 'User'])
+        ->with(['Mosque', 'User', 'Borough'])
         ->orderByRaw('suggest_mosque.id_suggest_mosque '.$order)
         ->get([
             'suggest_mosque.id_suggest_mosque',
             'suggest_mosque.id_user',
             'suggest_mosque.status_suggest_mosque',
             'suggest_mosque.id_mosque',
-            'suggest_mosque.id_borough',
-            'suggest_mosque.id_district',
             'suggest_mosque.name_mosque',
             'suggest_mosque.address',
             'suggest_mosque.latitude',
@@ -709,27 +690,6 @@ class SuggestMosqueController extends Controller
             'suggest_mosque.created_at as created_at',
             'suggest_mosque.updated_at as updated_at'
         ]);
-        
-
-        foreach($suggestMosque as $index => $d){
-            $borough = Borough::where('id_borough', $d->id_borough)
-                ->where('soft_delete', 0)
-                ->first();
-
-            $district = Districts::where('id_district', $d->id_district)
-                ->where('soft_delete', 0)
-                ->first();
-                
-            $facilities = SuggestMosqueFacilities::with('Facilities')
-                ->where('id_suggest_mosque', $d->id_suggest_mosque)
-                ->get();
-
-            $suggestMosque[$index]->borough = $borough;
-            $suggestMosque[$index]->district = $district;
-            // $suggestMosque[$index]->salah_times = $salah_times;
-            $suggestMosque[$index]->facilities = $facilities;
-        }
-
 
         if(count($suggestMosque) !== 0){
             $res['status_code'] = 200;
@@ -742,6 +702,80 @@ class SuggestMosqueController extends Controller
             $res['status_code'] = 406;
             $res['success'] = false;
             $res['data'] = $suggestMosque;
+
+            return response($res, 200);
+        }
+    }
+
+
+
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Show Log
+    //////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @SWG\Post(
+     *   path="/suggest-mosque/log",
+     *     tags={"Suggest Mosque"},
+     *     summary="Show log suggest mosque response",
+     *     description="Show log suggest mosque response",
+     *     operationId="logSuggestMosque",
+     * 
+     *  @SWG\Parameter(
+     *     name="action",
+     *     in="formData",
+     *     description="Action Suggest Mosque (0: Not yet declined / approved, 1: Approved, 2: Declined) ",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *  @SWG\Parameter(
+     *     name="id_admin",
+     *     in="formData",
+     *     description="ID Admin",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     * 
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function log(Request $request){
+        $action = $request->input('action') ?? null;
+        $id_admin = $request->input('id_admin') ?? null;
+
+        $suggestMosqueLog = SuggestMosqueLog::query()
+            ->when($request->has('id_admin'), function ($query) use ($id_admin) {
+                $query->where('suggest_mosque_log.id_admin',$id_admin);
+            })
+            ->when($request->has('action'), function ($query) use ($action) {
+                $query->where('suggest_mosque_log.action',$action);
+            })
+            ->with('Admin')
+            ->orderByRaw('suggest_mosque_log.id_suggest_mosque_log DESC')
+            ->get([
+                'suggest_mosque_log.id_suggest_mosque_log',
+                'suggest_mosque_log.field_name_suggest_edit',
+                'suggest_mosque_log.id_admin',
+                'suggest_mosque_log.action',
+                'suggest_mosque_log.date_log',
+                'suggest_mosque_log.soft_delete',
+                'suggest_mosque_log.created_at as created_at',
+                'suggest_mosque_log.updated_at as updated_at'
+            ]);
+
+        if(count($suggestMosqueLog) !== 0){
+            $res['status_code'] = 200;
+            $res['success'] = true;
+            $res['message'] = 'Success return Log Suggest Mosque data';
+            $res['data'] = $suggestMosqueLog;
+
+            return response($res, 200);
+        }else{
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['data'] = $suggestMosqueLog;
 
             return response($res, 200);
         }

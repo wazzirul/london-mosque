@@ -16,8 +16,8 @@ class BoroughController extends Controller
      * @SWG\Post(
      *   path="/borough/store",
      *     tags={"Borough"},
-     *     summary="Menambah data borough response",
-     *     description="Menambah data borough response",
+     *     summary="Storing new data borough response",
+     *     description="Storing new data borough response",
      *     operationId="storeBorough",
      * 
      *  @SWG\Parameter(
@@ -67,6 +67,7 @@ class BoroughController extends Controller
         if($data){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['detail'] = "Success Storing New Borough Data.";
             $res['data'] = $data;
 
             return response($res, 200);
@@ -81,8 +82,9 @@ class BoroughController extends Controller
      * @SWG\Post(
      *   path="/borough/update",
      *     tags={"Borough"},
-     *     summary="Mengedit data borough response",
-     *     description="Mengedit data borough response",
+     *     summary="Updating data borough response",
+     *     description="Updating data borough response
+          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
      *     operationId="updateBorough",
      * 
      *   @SWG\Parameter(
@@ -95,21 +97,21 @@ class BoroughController extends Controller
      *   @SWG\Parameter(
      *     name="name_borough",
      *     in="formData",
-     *     description="Name Borough (Kosongi jika tidak ingin merubah data)...",
+     *     description="Name Borough ...",
      *     required=false,
      *     type="string"
      *   ),
      *   @SWG\Parameter(
      *     name="latitude",
      *     in="formData",
-     *     description="Latitude (Kosongi jika tidak ingin merubah data)...",
+     *     description="Latitude ...",
      *     required=false,
      *     type="string"
      *   ),
      *  @SWG\Parameter(
      *     name="longitude",
      *     in="formData",
-     *     description="Longitude (Kosongi jika tidak ingin merubah data)...",
+     *     description="Longitude ...",
      *     required=false,
      *     type="string"
      *   ),
@@ -159,6 +161,7 @@ class BoroughController extends Controller
         if($data){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['detail'] = "Success Updating Borough Data.";
             $res['data'] = $borough;
 
             return response($res, 200);
@@ -174,8 +177,8 @@ class BoroughController extends Controller
      * @SWG\Post(
      *   path="/borough/delete",
      *     tags={"Borough"},
-     *     summary="Menghapus data borough response",
-     *     description="Menghapus data borough response",
+     *     summary="Deleting data borough response",
+     *     description="Deleting data borough response",
      *     operationId="deleteBorough",
      * 
      *   @SWG\Parameter(
@@ -215,6 +218,7 @@ class BoroughController extends Controller
         if($data){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['detail'] = "Success Deleting Borough Data.";
             $res['data'] = $borough;
 
             return response($res, 200);
@@ -231,8 +235,8 @@ class BoroughController extends Controller
      * @SWG\Post(
      *   path="/borough/unDelete",
      *     tags={"Borough"},
-     *     summary="Mengembalikan data terhapus data borough response",
-     *     description="Mengembalikan data terhapus data borough response",
+     *     summary="Restoring data in deleted section borough response",
+     *     description="Restoring data in deleted section borough response",
      *     operationId="unDeleteBorough",
      * 
      *   @SWG\Parameter(
@@ -278,6 +282,7 @@ class BoroughController extends Controller
         if($data){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['detail'] = "Success Restoring / Undelete Borough Data.";
             $res['data'] = $borough;
 
             return response($res, 200);
@@ -311,6 +316,45 @@ class BoroughController extends Controller
         if(count($borough) !== 0){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['detail'] = "Success Returning Borough Data.";
+            $res['data'] = $borough;
+
+            return response($res, 200);
+        }else{
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['data'] = $borough;
+
+            return response($res, 200);
+        }
+    }
+
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // SHOW DELETED
+    //////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @SWG\Get(
+     *   path="/borough/showDeleted",
+     *     tags={"Borough"},
+     *     summary="Show Deleted all data borough response",
+     *     description="Show Deleted all data borough response",
+     *     operationId="showDeletedBorough",
+     * 
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function showDeleted(){
+        $borough = Borough::where('soft_delete', 1)
+            ->orderBy('id_borough', 'DESC')
+            ->get();
+
+        if(count($borough) !== 0){
+            $res['status_code'] = 200;
+            $res['success'] = true;
+            $res['detail'] = "Success Returning Borough Data.";
             $res['data'] = $borough;
 
             return response($res, 200);
@@ -380,6 +424,7 @@ class BoroughController extends Controller
 
         $res['status_code'] = 200;
         $res['success'] = true;
+        $res['detail'] = "Success Returning Borough Data.";
         $res['data'] = $borough;
 
         return response($res, 200);

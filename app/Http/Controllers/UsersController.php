@@ -10,6 +10,7 @@ use Carbon\Carbon;
 
 use App\Model\Users;
 use App\Model\UsersVerification;
+use App\Model\AuthenticationToken;
 
 class UsersController extends Controller
 {
@@ -171,7 +172,7 @@ class UsersController extends Controller
         }
 
         $username = $request->input('username') ?? null;
-        $password = Hash::make($request->input('password')) ?? null;
+        $password = $request->input('password') ?? null;
         $email = $request->input('email') ?? null;
 
         if($username !== null){
@@ -179,7 +180,7 @@ class UsersController extends Controller
         }
 
         if($password !== null){
-            $user->password = $password;
+            $user->password = Hash::make($password);
         }
 
         if($email !== null){
@@ -385,7 +386,26 @@ class UsersController extends Controller
         $password = Hash::check($request->password, $user->password);
         if($password){
             $user->status = 1;
+
+            $str_token = Str::random(100);
+            $expired = Carbon::now()->endOfDay();
+            $find_token = AuthenticationToken::where('user_auth', 'user_'.$user->id_user)
+                ->first();
+
+            if($find_token !== null){
+                $find_token->auth_token = $str_token;
+                $find_token->expired = $expired;
+                $find_token->save();
+            }else{
+                $auth_token = new AuthenticationToken();
+                $auth_token->user_auth = "user_".$user->id_user;
+                $auth_token->auth_token = $str_token;
+                $auth_token->expired = $expired;
+                $auth_token->save();
+            }
+
             $user->save();
+            $user['auth_token'] = $str_token;
 
             $res['status_code'] = 200;
             $res['success'] = true;
@@ -484,6 +504,44 @@ class UsersController extends Controller
      */
     public function show(){
         $user = Users::where('soft_delete', 0)
+            ->orderBy('id_user', 'DESC')
+            ->get();
+
+        if(count($user) !== 0){
+            $res['status_code'] = 200;
+            $res['success'] = true;
+            $res['data'] = $user;
+
+            return response($res, 200);
+        }else{
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['data'] = $user;
+
+            return response($res, 200);
+        }
+    }
+
+
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // SHOW DELETED
+    //////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @SWG\Get(
+     *   path="/users/showDeleted",
+     *     tags={"Users"},
+     *     summary="Show all deleted data users response",
+     *     description="Show all deleted data users response",
+     *     operationId="showDeteledUsers",
+     * 
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function showDeleted(){
+        $user = Users::where('soft_delete', 1)
             ->orderBy('id_user', 'DESC')
             ->get();
 

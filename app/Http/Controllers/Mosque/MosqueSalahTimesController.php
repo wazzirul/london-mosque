@@ -12,6 +12,9 @@ use App\Model\Mosque\Mosque;
 use App\Model\Mosque\MosqueSalahTime;
 use App\Model\Mosque\MosqueFacilities;
 
+use App\Imports\MosqueSalahTimesImport;
+use Maatwebsite\Excel\Facades\Excel;
+
 use Validator;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -148,7 +151,7 @@ class MosqueSalahTimesController extends Controller
      *  @SWG\Parameter(
      *     name="date_salah_times",
      *     in="formData",
-     *     description="date_salah_times (YYYY-mm-dd ,ex : 2021-11-15) [default : now] ...",
+     *     description="date_salah_times (YYYY-mm-dd ,ex : 2021-11-15) ...",
      *     required=false,
      *     type="string"
      *   ), 
@@ -183,9 +186,9 @@ class MosqueSalahTimesController extends Controller
 
         $id_salah_times = $request->input('id_salah_times');
         $id_mosque = $request->input('id_mosque');
-        $date_salah_times = $request->input('date_salah_times') ?? Carbon::now()->format('Y-m-d');
+        $date_salah_times = $request->input('date_salah_times');
         $type_salah_times = $request->input('type_salah_times');
-        $time_salah_times = $request->input('time_salah_times').':00';
+        $time_salah_times = $request->input('time_salah_times');
 
         $data = MosqueSalahTime::find($id_salah_times);
 
@@ -237,7 +240,7 @@ class MosqueSalahTimesController extends Controller
         }
 
         if($time_salah_times !== null){
-            $data->time_salah_times = $time_salah_times;
+            $data->time_salah_times = $time_salah_times.':00';
         }
 
         $data = $data->save();
@@ -439,8 +442,8 @@ class MosqueSalahTimesController extends Controller
      * @SWG\Post(
      *   path="/mosque-salah-times/showById",
      *     tags={"Mosque Salah Times"},
-     *     summary="Show all data mosque salah times response",
-     *     description="Show all data mosque salah times response",
+     *     summary="Show by id data mosque salah times response",
+     *     description="Show by id data mosque salah times response",
      *     operationId="showByIdSalahTimes",
      * 
      *   @SWG\Parameter(
@@ -516,8 +519,8 @@ class MosqueSalahTimesController extends Controller
      * @SWG\Post(
      *   path="/mosque-salah-times/showByFilter",
      *     tags={"Mosque Salah Times"},
-     *     summary="Show all data mosque salah times response",
-     *     description="Show all data mosque salah times response",
+     *     summary="Show by filter data mosque salah times response",
+     *     description="Show by filter data mosque salah times response",
      *     operationId="showByFilterSalahTimes",
      * 
      *   @SWG\Parameter(
@@ -558,14 +561,14 @@ class MosqueSalahTimesController extends Controller
      *   @SWG\Parameter(
      *     name="skip",
      *     in="formData",
-     *     description="Skip Berapa Data (Default=0)",
+     *     description="Skip how many Data (Default=0)",
      *     required=false,
      *     type="integer"
      *   ),
      *   @SWG\Parameter(
      *     name="take",
      *     in="formData",
-     *     description="Take Berapa Data (Default=100)",
+     *     description="Take how many Data (Default=100)",
      *     required=false,
      *     type="integer"
      *   ),
@@ -608,9 +611,7 @@ class MosqueSalahTimesController extends Controller
         ->when($request->has('type_salah_times'), function ($query) use ($type_salah_times) {
             $query->where('salah_times.type_salah_times',$type_salah_times);
         })
-        ->when($request->has('soft_delete'), function ($query) use ($soft_delete) {
-            $query->where('salah_times.soft_delete',$soft_delete);
-        })
+        ->where('salah_times.soft_delete',$soft_delete)
         ->skip($skip)
         ->take($take)
         ->orderByRaw('salah_times.id_salah_times '.$order)
@@ -650,5 +651,64 @@ class MosqueSalahTimesController extends Controller
 
             return response($res, 200);
         }
+    }
+
+
+
+
+    
+    ////
+    //
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Import
+    //////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @SWG\Post(
+     *   path="/mosque-salah-times/import",
+     *     tags={"Mosque Salah Times"},
+     *     summary="Import new data Mosque Salah Times response",
+     *     description="Import new data Mosque Salah Times <br>
+            <p>*File Excel Mosque Salah/Prayer Times extension must be .xlsx or .xls</p>",
+     *     operationId="importMosqueSalahTimes",
+     * 
+     *  @SWG\Parameter(
+     *     name="file",
+     *     in="formData",
+     *     description="file (File Excel Mosque Salah/Prayer Times .xlsx or .xls) ...",
+     *     required=true,
+     *     type="file"
+     *   ), 
+     * 
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function import(Request $request){
+        $file = $request->file('file');
+        $validator = Validator::make(
+            [
+                'file'      => $file,
+                'extension' => strtolower($file->getClientOriginalExtension()),
+            ],
+            [
+                'file'          => 'required',
+                'extension'      => 'required|in:xlsx,xls',
+            ]
+          );
+          if ($validator->fails()){
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['message'] = 'Failed, File Not Uploaded or File Extension Not .xlsx / .xls';
+            return response($res, 200);
+          }
+
+        $import = new MosqueSalahTimesImport();
+        Excel::import($import, $file);
+
+        $res['status_code'] = 200;
+        $res['success'] = true;
+        $res['message'] = 'Success Importing Mosque Salah Times data';
+        return response($res, 200);
     }
 }

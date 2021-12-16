@@ -26,8 +26,8 @@ class MosqueImageController extends Controller
      * @SWG\Post(
      *   path="/mosque-image/store",
      *     tags={"Mosque Image"},
-     *     summary="Menambah data mosque image response",
-     *     description="Menambah data mosque image response",
+     *     summary="Storing new data mosque image response",
+     *     description="Storing new data mosque image response",
      *     operationId="storeMosqueImage",
      * 
      *  @SWG\Parameter(
@@ -68,38 +68,24 @@ class MosqueImageController extends Controller
         }
 
         $image = $request->mosque_image_url; //base64 string from frontend  
-        $name = Str::random(25);
-        $firebase_storage_path = 'mosque-image/';  
-        $localfolder = public_path('firebase-temp-uploads') .'/';  
-        if (!file_exists($localfolder)) {  
-            mkdir($localfolder, 0777, true);  
-        }  
-        $parts = explode(";base64,", $image);
-        $replace = substr($image, 0, strpos($image, ',')+1); 
-        $files = str_replace($replace, '', $image); 
-        $files = str_replace(' ', '+', $files); 
-        $extension = explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];   // .jpg .png .pdf
-        $file = $name.'.'.$extension;
-            
-        if (file_put_contents($localfolder . $file, base64_decode($files))) {  
-            $uploadedfile = fopen($localfolder . $file, 'r');  
-            app('firebase.storage')->getBucket()->upload(base64_decode($files), ['name' => $firebase_storage_path . $file]);  
-            //will remove from local laravel folder  
-            unlink($localfolder . $file); 
+        $cloudinary = cloudinary()->upload($image, [
+            "folder" => "londonmosques-image/",
+        ]);
 
-            $data = MosqueImage::create([
-                'id_mosque' => $id_mosque,
-                'mosque_image_url' => $firebase_storage_path.$file,
-            ]);
+        $data = MosqueImage::create([
+            'id_mosque' => $id_mosque,
+            'public_id' => $cloudinary->getPublicId(),
+            'mosque_image_url' => $cloudinary->getSecurePath(),
+        ]);
 
-            if($data){
-                $res['status_code'] = 200;
-                $res['success'] = true;
-                $res['data'] = $data;
+        if($data){
+            $res['status_code'] = 200;
+            $res['success'] = true;
+            $res['detail'] = "Success Storing new Mosque Image.";
+            $res['data'] = $data;
 
-                return response($res, 200);
-            }
-        } else {  
+            return response($res, 200);
+        }else {  
             $res['status_code'] = 200;
             $res['success'] = true;
             $res['detail'] = "Error upload file to cloud server.";
@@ -116,8 +102,9 @@ class MosqueImageController extends Controller
      * @SWG\Post(
      *   path="/mosque-image/update",
      *     tags={"Mosque Image"},
-     *     summary="Mengedit data mosque image response",
-     *     description="Mengedit data mosque image response",
+     *     summary="Updating data mosque image response",
+     *     description="Updating data mosque image response
+          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
      *     operationId="updateMosqueImage",
      * 
      *   @SWG\Parameter(
@@ -130,14 +117,14 @@ class MosqueImageController extends Controller
      *   @SWG\Parameter(
      *     name="id_mosque",
      *     in="formData",
-     *     description="ID Mosque (Kosongi jika tidak ingin merubah data)...",
+     *     description="ID Mosque ...",
      *     required=false,
      *     type="integer"
      *   ),  
      *  @SWG\Parameter(
      *     name="mosque_image_url",
      *     in="formData",
-     *     description="Mosque Image Url (base64) (Kosongi jika tidak ingin merubah data)...",
+     *     description="Mosque Image Url (base64) ...",
      *     required=false,
      *     type="string"
      *   ),
@@ -182,36 +169,14 @@ class MosqueImageController extends Controller
         }
 
         if($image !== null){
-            $image = $request->mosque_image_url; //base64 string from frontend  
-            $name = Str::random(25);
-            $firebase_storage_path = 'mosque-image/';  
-            $localfolder = public_path('firebase-temp-uploads') .'/';  
-            if (!file_exists($localfolder)) {  
-                mkdir($localfolder, 0777, true);  
-            }  
-            $parts = explode(";base64,", $image);
-            $replace = substr($image, 0, strpos($image, ',')+1); 
-            $files = str_replace($replace, '', $image); 
-            $files = str_replace(' ', '+', $files); 
-            $extension = explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];   // .jpg .png .pdf
-            $file = $name.'.'.$extension;
+            cloudinary()->destroy($MosqueImage->public_id);
 
-            if (file_put_contents($localfolder . $file, base64_decode($files))) {  
-                // Delete old image
-                $imageDeleted = app('firebase.storage')->getBucket()->object($MosqueImage->mosque_image_url)->delete();
+            $cloudinary = cloudinary()->upload($image, [
+                "folder" => "londonmosques-image/",
+            ]);
 
-                app('firebase.storage')->getBucket()->upload(base64_decode($files), ['name' => $firebase_storage_path . $file]);  
-                //will remove from local laravel folder  
-                unlink($localfolder . $file); 
-
-                $MosqueImage->mosque_image_url = $firebase_storage_path.$file;
-            } else {  
-                $res['status_code'] = 200;
-                $res['success'] = true;
-                $res['detail'] = "Error upload file to cloud server.";
-
-                return response($res, 200);
-            }  
+            $MosqueImage->public_id = $cloudinary->getPublicId();
+            $MosqueImage->mosque_image_url = $cloudinary->getSecurePath();
         }
 
         $data = $MosqueImage->save();
@@ -219,6 +184,7 @@ class MosqueImageController extends Controller
         if($data){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['detail'] = "Success Updating Mosque Image.";
             $res['data'] = $MosqueImage;
 
             return response($res, 200);
@@ -234,8 +200,8 @@ class MosqueImageController extends Controller
      * @SWG\Post(
      *   path="/mosque-image/delete",
      *     tags={"Mosque Image"},
-     *     summary="Menghapus data mosque image response",
-     *     description="Menghapus data mosque image response",
+     *     summary="Deleting data mosque image response",
+     *     description="Deleting data mosque image response",
      *     operationId="deleteMosqueImage",
      * 
      *   @SWG\Parameter(
@@ -274,6 +240,7 @@ class MosqueImageController extends Controller
         if($data){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['message'] = 'Success Deleting Mosque data';
             $res['data'] = $MosqueImage;
 
             return response($res, 200);
@@ -290,8 +257,8 @@ class MosqueImageController extends Controller
      * @SWG\Post(
      *   path="/mosque-image/undelete",
      *     tags={"Mosque Image"},
-     *     summary="Mengembalikan data terhapus data mosque image response",
-     *     description="Mengembalikan data terhapus data mosque image response",
+     *     summary="Restoring data terhapus data mosque image response",
+     *     description="Restoring data terhapus data mosque image response",
      *     operationId="unDeleteMosqueImage",
      * 
      *   @SWG\Parameter(
@@ -337,6 +304,7 @@ class MosqueImageController extends Controller
         if($data){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['message'] = 'Success Restoring Mosque data';
             $res['data'] = $MosqueImage;
 
             return response($res, 200);
@@ -368,17 +336,6 @@ class MosqueImageController extends Controller
             ->get();
 
         if(count($MosqueImage) !== 0){
-            foreach($MosqueImage as $index => $smi){
-                $expiresAt = Carbon::now()->addDays();  
-                $imageReference = app('firebase.storage')->getBucket()->object($smi->mosque_image_url);  
-                if($imageReference->exists()){
-                    $image = $imageReference->signedUrl($expiresAt);
-                    $MosqueImage[$index]->mosque_image_url_firebase = $image;
-                }else{
-                    $MosqueImage[$index]->mosque_image_url_firebase = null;
-                }
-            }
-
             $res['status_code'] = 200;
             $res['success'] = true;
             $res['data'] = $MosqueImage;
@@ -443,13 +400,6 @@ class MosqueImageController extends Controller
             return response($res, 200);
         }
 
-        $expiresAt = Carbon::now()->addDays();  
-        $imageReference = app('firebase.storage')->getBucket()->object($MosqueImage->mosque_image_url);  
-        if($imageReference->exists()){
-            $image = $imageReference->signedUrl($expiresAt);
-            $MosqueImage->mosque_image_url_firebase = $image;
-        }  
-
         $res['status_code'] = 200;
         $res['success'] = true;
         $res['data'] = $MosqueImage;
@@ -487,14 +437,14 @@ class MosqueImageController extends Controller
      *   @SWG\Parameter(
      *     name="skip",
      *     in="formData",
-     *     description="Skip Berapa Data (Default=0)",
+     *     description="Skip how many Data (Default=0)",
      *     required=false,
      *     type="integer"
      *   ),
      *   @SWG\Parameter(
      *     name="take",
      *     in="formData",
-     *     description="Take Berapa Data (Default=100)",
+     *     description="Take how many Data (Default=100)",
      *     required=false,
      *     type="integer"
      *   ),
@@ -520,32 +470,22 @@ class MosqueImageController extends Controller
 
         $MosqueImage = MosqueImage::query()
         ->when($request->has('id_mosque'), function ($query) use ($id_mosque) {
-            $query->where('suggest_mosque_image.id_mosque',$id_mosque);
+            $query->where('mosque_image.id_mosque',$id_mosque);
         })
+        ->where('mosque_image.soft_delete',$soft_delete)
         ->skip($skip)
         ->take($take)
-        ->orderByRaw('suggest_mosque_image.id_mosque_image '.$order)
+        ->orderByRaw('mosque_image.id_mosque_image '.$order)
         ->get([
-            'suggest_mosque_image.id_mosque_image',
-            'suggest_mosque_image.id_mosque',
-            'suggest_mosque_image.mosque_image_url',
-            'suggest_mosque_image.soft_delete',
-            'suggest_mosque_image.created_at as created_at',
-            'suggest_mosque_image.updated_at as updated_at'
+            'mosque_image.id_mosque_image',
+            'mosque_image.id_mosque',
+            'mosque_image.mosque_image_url',
+            'mosque_image.soft_delete',
+            'mosque_image.created_at as created_at',
+            'mosque_image.updated_at as updated_at'
         ]);
         
         if(count($MosqueImage) !== 0){
-            foreach($MosqueImage as $index => $smi){
-                $expiresAt = Carbon::now()->addDays();  
-                $imageReference = app('firebase.storage')->getBucket()->object($smi->mosque_image_url);  
-                if($imageReference->exists()){
-                    $image = $imageReference->signedUrl($expiresAt);
-                    $MosqueImage[$index]->mosque_image_url_firebase = $image;
-                }else{
-                    $MosqueImage[$index]->mosque_image_url_firebase = null;
-                }
-            }
-
             $res['status_code'] = 200;
             $res['success'] = true;
             $res['message'] = 'Success return Mosque Image data';

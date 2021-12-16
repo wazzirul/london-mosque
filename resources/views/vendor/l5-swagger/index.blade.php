@@ -100,7 +100,7 @@
 </svg>
 
 <a href="/logout" class="btn-logout animate-fading">Logout</a>
-<small class="info-case-sensitive animate-fading">*Case Sensitive, Example : Berita, not <span style="text-decoration: line-through;">berita</span></small>
+<small class="info-case-sensitive animate-fading">*Case Sensitive, Example : Mosque, not <span style="text-decoration: line-through;">mosque</span></small>
 
 <div id="swagger-ui"></div>
 
@@ -123,6 +123,7 @@ window.onload = function() {
 
     requestInterceptor: function(request) {
       request.headers['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
+      request.headers['Auth-Token'] = '{{ \Session::get("auth_token") }}'
       return request;
     },
 

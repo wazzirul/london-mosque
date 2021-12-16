@@ -4,22 +4,23 @@ namespace App\Http\Controllers\SuggestMosque;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
-use App\Model\SuggestMosque\SuggestMosqueJummahTimes;
+use App\Model\SuggestMosque\SuggestMosqueSpecialSalahTimes;
 use App\Model\SuggestMosque\SuggestMosque;
 
-class SuggestMosqueJummahTimesController extends Controller
+class SuggestMosqueSpecialSalahTimesController extends Controller
 {
     //////////////////////////////////////////////////////////////////////////////////////
     // STORE
     //////////////////////////////////////////////////////////////////////////////////////
     /**
      * @SWG\Post(
-     *   path="/suggest-mosque/jummah-times/store",
-     *     tags={"Suggest Mosque Jummah Times"},
-     *     summary="Menambah data suggest mosque jummah times response",
-     *     description="Menambah data suggest mosque jummah times response",
-     *     operationId="storeSuggestMosqueJummahTimes",
+     *   path="/suggest-mosque/special-salah-times/store",
+     *     tags={"Suggest Mosque Special Salah Times"},
+     *     summary="Menambah data suggest mosque special salah times response",
+     *     description="Menambah data suggest mosque special salah times response",
+     *     operationId="storeSuggestMosqueSpecialSalahTimes",
      * 
      *  @SWG\Parameter(
      *     name="id_suggest_mosque",
@@ -29,23 +30,30 @@ class SuggestMosqueJummahTimesController extends Controller
      *     type="integer"
      *   ),  
      *  @SWG\Parameter(
-     *     name="date_jummah_times",
+     *     name="category_special_salah",
      *     in="formData",
-     *     description="date_jummah_times (YYYY-mm-dd ,ex : 2021-11-15) [default : now] ...",
-     *     required=false,
-     *     type="string"
-     *   ), 
-     *  @SWG\Parameter(
-     *     name="order_jummah_times",
-     *     in="formData",
-     *     description="order_jummah_times (1st, 2nd, 3rd, 4th, 5th, etc.) ...",
+     *     description="category_special_salah (1: Eid-ul Fitri, 2: Eid-ul Adha, 3: Jummah) ...",
      *     required=true,
      *     type="string"
      *   ), 
      *  @SWG\Parameter(
-     *     name="time_jummah_times",
+     *     name="date_special_salah_times",
      *     in="formData",
-     *     description="time_jummah_times (hh:ii ,ex : 09:52) ...",
+     *     description="date_special_salah_times (YYYY-mm-dd ,ex : 2021-11-15) [default : now] ...",
+     *     required=false,
+     *     type="string"
+     *   ), 
+     *  @SWG\Parameter(
+     *     name="order_special_salah_times",
+     *     in="formData",
+     *     description="order_special_salah_times (1st, 2nd, 3rd, 4th, 5th, etc.) ...",
+     *     required=true,
+     *     type="string"
+     *   ), 
+     *  @SWG\Parameter(
+     *     name="time_special_salah_times",
+     *     in="formData",
+     *     description="time_special_salah_times (hh:ii ,ex : 09:52) ...",
      *     required=true,
      *     type="string"
      *   ), 
@@ -58,15 +66,17 @@ class SuggestMosqueJummahTimesController extends Controller
     public function store(Request $request){
         $this->validate($request,[
             'id_suggest_mosque'=>'required|numeric',
-            'date_jummah_times'=>'nullable|date_format:Y-m-d',
-            'order_jummah_times'=>'required',
-            'time_jummah_times'=>'required|date_format:H:i',
+            'category_special_salah'=>'required',
+            'date_special_salah_times'=>'nullable|date_format:Y-m-d',
+            'order_special_salah_times'=>'required',
+            'time_special_salah_times'=>'required|date_format:H:i',
         ]);  
 
         $id_suggest_mosque = $request->input('id_suggest_mosque');
-        $date_jummah_times = $request->input('date_jummah_times') ?? Carbon::now()->format('Y-m-d');
-        $order_jummah_times = $request->input('order_jummah_times');
-        $time_jummah_times = $request->input('time_jummah_times').':00';
+        $category_special_salah = $request->input('category_special_salah');
+        $date_special_salah_times = $request->input('date_special_salah_times') ?? Carbon::now()->format('Y-m-d');
+        $order_special_salah_times = $request->input('order_special_salah_times');
+        $time_special_salah_times = $request->input('time_special_salah_times').':00';
 
         $suggestMosque = SuggestMosque::find($id_suggest_mosque);
         if($suggestMosque === null){
@@ -77,11 +87,12 @@ class SuggestMosqueJummahTimesController extends Controller
             return response($res, 200);
         }
 
-        $data = SuggestMosqueJummahTimes::create([
+        $data = SuggestMosqueSpecialSalahTimes::create([
             'id_suggest_mosque' => $id_suggest_mosque,
-            'date_jummah_times' => $date_jummah_times,
-            'order_jummah_times' => $order_jummah_times,
-            'time_jummah_times' => $time_jummah_times,
+            'category_special_salah' => $category_special_salah,
+            'date_special_salah_times' => $date_special_salah_times,
+            'order_special_salah_times' => $order_special_salah_times,
+            'time_special_salah_times' => $time_special_salah_times,
         ]);
 
         if($data){
@@ -99,16 +110,16 @@ class SuggestMosqueJummahTimesController extends Controller
     //////////////////////////////////////////////////////////////////////////////////////
     /**
      * @SWG\Post(
-     *   path="/suggest-mosque/jummah-times/update",
-     *     tags={"Suggest Mosque Jummah Times"},
-     *     summary="Mengedit data suggest mosque jummah times response",
-     *     description="Mengedit data suggest mosque jummah times response",
-     *     operationId="updateSuggestMosqueJummahTimes",
+     *   path="/suggest-mosque/special-salah-times/update",
+     *     tags={"Suggest Mosque Special Salah Times"},
+     *     summary="Mengedit data suggest mosque special salah times response",
+     *     description="Mengedit data suggest mosque special salah times response",
+     *     operationId="updateSuggestMosqueSpecialSalahTimes",
      * 
      *   @SWG\Parameter(
-     *     name="id_jummah_times",
+     *     name="id_special_salah_times",
      *     in="formData",
-     *     description="ID Jummah Times ...",
+     *     description="ID Special Salah Times ...",
      *     required=true,
      *     type="integer"
      *   ),
@@ -118,25 +129,32 @@ class SuggestMosqueJummahTimesController extends Controller
      *     description="ID Suggest Mosque (Kosongi jika tidak ingin merubah data)...",
      *     required=false,
      *     type="integer"
+     *   ), 
+     *  @SWG\Parameter(
+     *     name="category_special_salah",
+     *     in="formData",
+     *     description="category_special_salah (1: Eid-ul Fitri, 2: Eid-ul Adha, 3: Jummah) ...",
+     *     required=false,
+     *     type="string"
      *   ),  
      *   @SWG\Parameter(
-     *     name="date_jummah_times",
+     *     name="date_special_salah_times",
      *     in="formData",
-     *     description="date_jummah_times (YYYY-mm-dd ,ex : 2021-11-15) [default : now] (Kosongi jika tidak ingin merubah data)...",
+     *     description="date_special_salah_times (YYYY-mm-dd ,ex : 2021-11-15) [default : now] (Kosongi jika tidak ingin merubah data)...",
      *     required=false,
      *     type="string"
      *   ), 
      *  @SWG\Parameter(
-     *     name="order_jummah_times",
+     *     name="order_special_salah_times",
      *     in="formData",
-     *     description="order_jummah_times (1st, 2nd, 3rd, 4th, 5th, etc.) (Kosongi jika tidak ingin merubah data)...",
+     *     description="order_special_salah_times (1st, 2nd, 3rd, 4th, 5th, etc.) (Kosongi jika tidak ingin merubah data)...",
      *     required=true,
      *     type="string"
      *   ), 
      *  @SWG\Parameter(
-     *     name="time_jummah_times",
+     *     name="time_special_salah_times",
      *     in="formData",
-     *     description="time_jummah_times (hh:ii ,ex : 09:52) (Kosongi jika tidak ingin merubah data)...",
+     *     description="time_special_salah_times (hh:ii ,ex : 09:52) (Kosongi jika tidak ingin merubah data)...",
      *     required=true,
      *     type="string"
      *   ), 
@@ -148,28 +166,30 @@ class SuggestMosqueJummahTimesController extends Controller
      */
     public function update(Request $request){
         $this->validate($request,[
-            'id_jummah_times'=>'required|numeric',
+            'id_special_salah_times'=>'required|numeric',
             'id_suggest_mosque'=>'nullable|numeric',
-            'date_jummah_times'=>'nullable|date_format:Y-m-d',
-            'order_jummah_times'=>'nullable',
-            'time_jummah_times'=>'nullable|date_format:H:i',
+            'category_special_salah'=>'nullable',
+            'date_special_salah_times'=>'nullable|date_format:Y-m-d',
+            'order_special_salah_times'=>'nullable',
+            'time_special_salah_times'=>'nullable|date_format:H:i',
         ]);  
 
-        $id_jummah_times = $request->input('id_jummah_times');
-        $suggestMosqueJummahTimes = SuggestMosqueJummahTimes::find($id_jummah_times);
+        $id_special_salah_times = $request->input('id_special_salah_times');
+        $suggestMosqueSpecialSalahTimes = SuggestMosqueSpecialSalahTimes::find($id_special_salah_times);
 
-        if($suggestMosqueJummahTimes === null){
+        if($suggestMosqueSpecialSalahTimes === null){
             $res['status_code'] = 406;
             $res['success'] = false;
-            $res['detail'] = "Data Suggest Mosque Jummah Times for that ID not found.";
+            $res['detail'] = "Data Suggest Mosque Special Salah Times for that ID not found.";
 
             return response($res, 200);
         }
 
         $id_suggest_mosque = $request->input('id_suggest_mosque') ?? null;
-        $date_jummah_times = $request->input('date_jummah_times') ?? null;
-        $order_jummah_times = $request->input('order_jummah_times') ?? null;
-        $time_jummah_times = $request->input('time_jummah_times') ?? null;
+        $category_special_salah = $request->input('category_special_salah') ?? null;
+        $date_special_salah_times = $request->input('date_special_salah_times') ?? null;
+        $order_special_salah_times = $request->input('order_special_salah_times') ?? null;
+        $time_special_salah_times = $request->input('time_special_salah_times') ?? null;
 
         if($id_suggest_mosque !== null){
             $suggestMosque = SuggestMosque::find($id_suggest_mosque);
@@ -181,27 +201,31 @@ class SuggestMosqueJummahTimesController extends Controller
                 return response($res, 200);
             }
             
-            $suggestMosqueJummahTimes->id_suggest_mosque = $id_suggest_mosque;
+            $suggestMosqueSpecialSalahTimes->id_suggest_mosque = $id_suggest_mosque;
         }
 
-        if($date_jummah_times !== null){
-            $suggestMosqueJummahTimes->date_jummah_times = $date_jummah_times;
+        if($category_special_salah !== null){
+            $suggestMosqueSpecialSalahTimes->category_special_salah = $category_special_salah;
         }
 
-        if($order_jummah_times !== null){
-            $suggestMosqueJummahTimes->order_jummah_times = $order_jummah_times;
+        if($date_special_salah_times !== null){
+            $suggestMosqueSpecialSalahTimes->date_special_salah_times = $date_special_salah_times;
         }
 
-        if($time_jummah_times !== null){
-            $suggestMosqueJummahTimes->time_jummah_times = $time_jummah_times.":00";
+        if($order_special_salah_times !== null){
+            $suggestMosqueSpecialSalahTimes->order_special_salah_times = $order_special_salah_times;
         }
 
-        $data = $suggestMosqueJummahTimes->save();
+        if($time_special_salah_times !== null){
+            $suggestMosqueSpecialSalahTimes->time_special_salah_times = $time_special_salah_times.":00";
+        }
+
+        $data = $suggestMosqueSpecialSalahTimes->save();
 
         if($data){
             $res['status_code'] = 200;
             $res['success'] = true;
-            $res['data'] = $suggestMosqueJummahTimes;
+            $res['data'] = $suggestMosqueSpecialSalahTimes;
 
             return response($res, 200);
         }
@@ -214,16 +238,16 @@ class SuggestMosqueJummahTimesController extends Controller
     //////////////////////////////////////////////////////////////////////////////////////
     /**
      * @SWG\Post(
-     *   path="/suggest-mosque/jummah-times/delete",
-     *     tags={"Suggest Mosque Jummah Times"},
+     *   path="/suggest-mosque/special-salah-times/delete",
+     *     tags={"Suggest Mosque Special Salah Times"},
      *     summary="Menghapus data suggest mosque response",
      *     description="Menghapus data suggest mosque response",
-     *     operationId="deleteSuggestMosqueJummahTimes",
+     *     operationId="deleteSuggestMosqueSpecialSalahTimes",
      * 
      *   @SWG\Parameter(
-     *     name="id_jummah_times",
+     *     name="id_special_salah_times",
      *     in="formData",
-     *     description="ID Suggest Mosque Jummah  Times ...",
+     *     description="ID Suggest Mosque Special Salah Times ...",
      *     required=true,
      *     type="integer"
      *   ),
@@ -235,28 +259,28 @@ class SuggestMosqueJummahTimesController extends Controller
      */
     public function delete(Request $request){
         $this->validate($request,[
-            'id_jummah_times'=>'required|numeric',
+            'id_special_salah_times'=>'required|numeric',
         ]);  
 
-        $id_jummah_times = $request->input('id_jummah_times');
-        $suggestMosqueJummahTimes = SuggestMosqueJummahTimes::find($id_jummah_times);
+        $id_special_salah_times = $request->input('id_special_salah_times');
+        $suggestMosqueSpecialSalahTimes = SuggestMosqueSpecialSalahTimes::find($id_special_salah_times);
 
-        if($suggestMosqueJummahTimes === null){
+        if($suggestMosqueSpecialSalahTimes === null){
             $res['status_code'] = 406;
             $res['success'] = false;
-            $res['detail'] = "Data Suggest Mosque Jummah Times for that ID not found.";
+            $res['detail'] = "Data Suggest Mosque Special Salah Times for that ID not found.";
 
             return response($res, 200);
         }
 
-        $suggestMosqueJummahTimes->soft_delete = 1;
+        $suggestMosqueSpecialSalahTimes->soft_delete = 1;
 
-        $data = $suggestMosqueJummahTimes->save();
+        $data = $suggestMosqueSpecialSalahTimes->save();
 
         if($data){
             $res['status_code'] = 200;
             $res['success'] = true;
-            $res['data'] = $suggestMosqueJummahTimes;
+            $res['data'] = $suggestMosqueSpecialSalahTimes;
 
             return response($res, 200);
         }
@@ -270,16 +294,16 @@ class SuggestMosqueJummahTimesController extends Controller
     //////////////////////////////////////////////////////////////////////////////////////
     /**
      * @SWG\Post(
-     *   path="/suggest-mosque/jummah-times/unDelete",
-     *     tags={"Suggest Mosque Jummah Times"},
+     *   path="/suggest-mosque/special-salah-times/unDelete",
+     *     tags={"Suggest Mosque Special Salah Times"},
      *     summary="Mengembalikan data terhapus data suggest mosque response",
      *     description="Mengembalikan data terhapus data suggest mosque response",
-     *     operationId="unDeleteSuggestMosqueJummahTimes",
+     *     operationId="unDeleteSuggestMosqueSpecialSalahTimes",
      * 
      *   @SWG\Parameter(
-     *     name="id_jummah_times",
+     *     name="id_special_salah_times",
      *     in="formData",
-     *     description="ID Suggest Mosque Jummah Times ...",
+     *     description="ID Suggest Mosque Special Salah Times ...",
      *     required=true,
      *     type="integer"
      *   ),
@@ -291,35 +315,35 @@ class SuggestMosqueJummahTimesController extends Controller
      */
     public function unDelete(Request $request){
         $this->validate($request,[
-            'id_jummah_times'=>'required|numeric',
+            'id_special_salah_times'=>'required|numeric',
         ]);  
 
-        $id_jummah_times = $request->input('id_jummah_times');
-        $suggestMosqueJummahTimes = SuggestMosqueJummahTimes::where('id_jummah_times', $id_jummah_times)
+        $id_special_salah_times = $request->input('id_special_salah_times');
+        $suggestMosqueSpecialSalahTimes = SuggestMosqueSpecialSalahTimes::where('id_special_salah_times', $id_special_salah_times)
             ->first();
 
-        if($suggestMosqueJummahTimes === null){
+        if($suggestMosqueSpecialSalahTimes === null){
             $res['status_code'] = 406;
             $res['success'] = false;
-            $res['detail'] = "Data Suggest Mosque Jummah Times for that ID not found.";
+            $res['detail'] = "Data Suggest Mosque Special Salah Times for that ID not found.";
 
             return response($res, 200);
-        }else if($suggestMosqueJummahTimes->soft_delete === 0){
+        }else if($suggestMosqueSpecialSalahTimes->soft_delete === 0){
             $res['status_code'] = 406;
             $res['success'] = false;
-            $res['detail'] = "Data Suggest Mosque Jummah Times is active.";
+            $res['detail'] = "Data Suggest Mosque Special Salah Times is active.";
 
             return response($res, 200);
         }
 
-        $suggestMosqueJummahTimes->soft_delete = 0;
+        $suggestMosqueSpecialSalahTimes->soft_delete = 0;
 
-        $data = $suggestMosqueJummahTimes->save();
+        $data = $suggestMosqueSpecialSalahTimes->save();
 
         if($data){
             $res['status_code'] = 200;
             $res['success'] = true;
-            $res['data'] = $suggestMosqueJummahTimes;
+            $res['data'] = $suggestMosqueSpecialSalahTimes;
 
             return response($res, 200);
         }
@@ -333,11 +357,11 @@ class SuggestMosqueJummahTimesController extends Controller
     //////////////////////////////////////////////////////////////////////////////////////
     /**
      * @SWG\Get(
-     *   path="/suggest-mosque/jummah-times/show",
-     *     tags={"Suggest Mosque Jummah Times"},
+     *   path="/suggest-mosque/special-salah-times/show",
+     *     tags={"Suggest Mosque Special Salah Times"},
      *     summary="Show all data suggest mosque response",
      *     description="Show all data suggest mosque response",
-     *     operationId="showSuggestMosqueJummahTimes",
+     *     operationId="showSuggestMosqueSpecialSalahTimes",
      * 
      *   @SWG\Response(response=200, description="successful operation"),
      *   @SWG\Response(response=406, description="not acceptable"),
@@ -345,20 +369,20 @@ class SuggestMosqueJummahTimesController extends Controller
      * )
      */
     public function show(){
-        $suggestMosqueJummahTimes = SuggestMosqueJummahTimes::where('soft_delete', 0)
-            ->orderBy('id_jummah_times', 'DESC')
+        $suggestMosqueSpecialSalahTimes = SuggestMosqueSpecialSalahTimes::where('soft_delete', 0)
+            ->orderBy('id_special_salah_times', 'DESC')
             ->get();
 
-        if(count($suggestMosqueJummahTimes) !== 0){
+        if(count($suggestMosqueSpecialSalahTimes) !== 0){
             $res['status_code'] = 200;
             $res['success'] = true;
-            $res['data'] = $suggestMosqueJummahTimes;
+            $res['data'] = $suggestMosqueSpecialSalahTimes;
 
             return response($res, 200);
         }else{
             $res['status_code'] = 406;
             $res['success'] = false;
-            $res['data'] = $suggestMosqueJummahTimes;
+            $res['data'] = $suggestMosqueSpecialSalahTimes;
 
             return response($res, 200);
         }
@@ -371,16 +395,16 @@ class SuggestMosqueJummahTimesController extends Controller
     //////////////////////////////////////////////////////////////////////////////////////
     /**
      * @SWG\Post(
-     *   path="/suggest-mosque/jummah-times/showById",
-     *     tags={"Suggest Mosque Jummah Times"},
+     *   path="/suggest-mosque/special-salah-times/showById",
+     *     tags={"Suggest Mosque Special Salah Times"},
      *     summary="Show data suggest mosque by ID suggest mosque response",
      *     description="Show data suggest mosque by ID suggest mosque response",
-     *     operationId="showByIdSuggestMosqueJummahTimes",
+     *     operationId="showByIdSuggestMosqueSpecialSalahTimes",
      * 
      *   @SWG\Parameter(
-     *     name="id_jummah_times",
+     *     name="id_special_salah_times",
      *     in="formData",
-     *     description="ID Suggest Mosque Jummah Times ...",
+     *     description="ID Suggest Mosque Special Salah Times ...",
      *     required=true,
      *     type="integer"
      *   ),
@@ -392,20 +416,20 @@ class SuggestMosqueJummahTimesController extends Controller
      */
     public function showById(Request $request){
         $this->validate($request,[
-            'id_jummah_times'=>'required|numeric',
+            'id_special_salah_times'=>'required|numeric',
         ]);  
 
-        $id_jummah_times = $request->input('id_jummah_times');
-        $suggestMosqueJummahTimes = SuggestMosqueJummahTimes::where('id_jummah_times', $id_jummah_times)
+        $id_special_salah_times = $request->input('id_special_salah_times');
+        $suggestMosqueSpecialSalahTimes = SuggestMosqueSpecialSalahTimes::where('id_special_salah_times', $id_special_salah_times)
             ->first();
 
-        if($suggestMosqueJummahTimes === null){
+        if($suggestMosqueSpecialSalahTimes === null){
             $res['status_code'] = 406;
             $res['success'] = false;
             $res['detail'] = "Data Suggest Mosque for that ID not found.";
 
             return response($res, 200);
-        }else if($suggestMosqueJummahTimes->soft_delete === 1){
+        }else if($suggestMosqueSpecialSalahTimes->soft_delete === 1){
             $res['status_code'] = 406;
             $res['success'] = false;
             $res['detail'] = "Suggest Mosque was deleted. Please contact customer service.";
@@ -415,7 +439,7 @@ class SuggestMosqueJummahTimesController extends Controller
 
         $res['status_code'] = 200;
         $res['success'] = true;
-        $res['data'] = $suggestMosqueJummahTimes;
+        $res['data'] = $suggestMosqueSpecialSalahTimes;
 
         return response($res, 200);
     }
@@ -427,11 +451,11 @@ class SuggestMosqueJummahTimesController extends Controller
     //////////////////////////////////////////////////////////////////////////////////////
     /**
      * @SWG\Post(
-     *   path="/suggest-mosque/jummah-times/showByFilter",
-     *     tags={"Suggest Mosque Jummah Times"},
-     *     summary="Show data by filter suggest mosque jummah times response",
-     *     description="Show data by filter suggest mosque jummah times response",
-     *     operationId="showByFilterSuggestMosqueJummahTimes",
+     *   path="/suggest-mosque/special-salah-times/showByFilter",
+     *     tags={"Suggest Mosque Special Salah Times"},
+     *     summary="Show data by filter suggest mosque special salah times response",
+     *     description="Show data by filter suggest mosque special salah times response",
+     *     operationId="showByFilterSuggestMosqueSpecialSalahTimes",
      * 
      *   @SWG\Parameter(
      *     name="id_suggest_mosque",
@@ -441,9 +465,9 @@ class SuggestMosqueJummahTimesController extends Controller
      *     type="integer"
      *   ),
      *   @SWG\Parameter(
-     *     name="date_jummah_times",
+     *     name="date_special_salah_times",
      *     in="formData",
-     *     description="date_jummah_times (YYYY-mm-dd ,ex : 2021-11-15) ...",
+     *     description="date_special_salah_times (YYYY-mm-dd ,ex : 2021-11-15) ...",
      *     required=false,
      *     type="string"
      *   ),
@@ -497,8 +521,8 @@ class SuggestMosqueJummahTimesController extends Controller
      */
     public function showByFilter(Request $request){ 
         $id_suggest_mosque = $request->input('id_suggest_mosque');
-        $date_jummah_times = $request->input('date_jummah_times');
-        $order_jummah_times = $request->input('order_jummah_times');
+        $date_special_salah_times = $request->input('date_special_salah_times');
+        $order_special_salah_times = $request->input('order_special_salah_times');
 
         $year = $request->input('where_year') ?? Carbon::today()->format('Y');
         $mth = $request->input('where_month') ?? Carbon::today()->format('m');
@@ -508,44 +532,44 @@ class SuggestMosqueJummahTimesController extends Controller
         $take = $request->input('take') ?? 100;
         $order = $request->input('order') ?? "DESC";
 
-        $suggestMosqueJummahTimes = SuggestMosqueJummahTimes::query()
+        $suggestMosqueSpecialSalahTimes = SuggestMosqueSpecialSalahTimes::query()
         ->when($request->has('id_suggest_mosque'), function ($query) use ($id_suggest_mosque) {
-            $query->where('suggest_mosque_jummah_times.id_suggest_mosque',$id_suggest_mosque);
+            $query->where('suggest_mosque_special_salah_times.id_suggest_mosque',$id_suggest_mosque);
         })
-        ->when($request->has('date_jummah_times'), function ($query) use ($date_jummah_times) {
-            $query->where('suggest_mosque_jummah_times.date_jummah_times',$date_jummah_times);
+        ->when($request->has('date_special_salah_times'), function ($query) use ($date_special_salah_times) {
+            $query->where('suggest_mosque_special_salah_times.date_special_salah_times',$date_special_salah_times);
         })
-        ->when($request->has('order_jummah_times'), function ($query) use ($order_jummah_times) {
-            $query->where('suggest_mosque_jummah_times.order_jummah_times',$order_jummah_times);
+        ->when($request->has('order_special_salah_times'), function ($query) use ($order_special_salah_times) {
+            $query->where('suggest_mosque_special_salah_times.order_special_salah_times',$order_special_salah_times);
         })
         ->when($request->has('soft_delete'), function ($query) use ($soft_delete) {
-            $query->where('suggest_mosque_jummah_times.soft_delete',$soft_delete);
+            $query->where('suggest_mosque_special_salah_times.soft_delete',$soft_delete);
         })
         ->skip($skip)
         ->take($take)
-        ->orderByRaw('suggest_mosque_jummah_times.id_jummah_times '.$order)
+        ->orderByRaw('suggest_mosque_special_salah_times.id_special_salah_times '.$order)
         ->get([
-            'suggest_mosque_jummah_times.id_jummah_times',
-            'suggest_mosque_jummah_times.id_suggest_mosque',
-            'suggest_mosque_jummah_times.date_jummah_times',
-            'suggest_mosque_jummah_times.order_jummah_times',
-            'suggest_mosque_jummah_times.time_jummah_times',
-            'suggest_mosque_jummah_times.soft_delete',
-            'suggest_mosque_jummah_times.created_at as created_at',
-            'suggest_mosque_jummah_times.updated_at as updated_at'
+            'suggest_mosque_special_salah_times.id_special_salah_times',
+            'suggest_mosque_special_salah_times.id_suggest_mosque',
+            'suggest_mosque_special_salah_times.date_special_salah_times',
+            'suggest_mosque_special_salah_times.order_special_salah_times',
+            'suggest_mosque_special_salah_times.time_special_salah_times',
+            'suggest_mosque_special_salah_times.soft_delete',
+            'suggest_mosque_special_salah_times.created_at as created_at',
+            'suggest_mosque_special_salah_times.updated_at as updated_at'
         ]);
         
-        if(count($suggestMosqueJummahTimes) !== 0){
+        if(count($suggestMosqueSpecialSalahTimes) !== 0){
             $res['status_code'] = 200;
             $res['success'] = true;
-            $res['message'] = 'Success return Suggest Mosque Jummah Times data';
-            $res['data'] = $suggestMosqueJummahTimes;
+            $res['message'] = 'Success return Suggest Mosque Special Salah Times data';
+            $res['data'] = $suggestMosqueSpecialSalahTimes;
 
             return response($res, 200);
         }else{
             $res['status_code'] = 406;
             $res['success'] = false;
-            $res['data'] = $suggestMosqueJummahTimes;
+            $res['data'] = $suggestMosqueSpecialSalahTimes;
 
             return response($res, 200);
         }

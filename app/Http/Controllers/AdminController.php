@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
+
 use App\Model\Admin;
+use App\Model\AuthenticationToken;
 
 class AdminController extends Controller
 {
@@ -15,8 +19,8 @@ class AdminController extends Controller
      * @SWG\Post(
      *   path="/admin/store",
      *     tags={"Admin"},
-     *     summary="Menambah data admin response",
-     *     description="Menambah data admin response",
+     *     summary="Store New data admin response",
+     *     description="Store New data admin response",
      *     operationId="storeAdmin",
      * 
      *   @SWG\Parameter(
@@ -75,6 +79,7 @@ class AdminController extends Controller
         if($data){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['detail'] = "Success Storing New Admin Data.";
             $res['data'] = $data;
 
             return response($res, 200);
@@ -89,8 +94,9 @@ class AdminController extends Controller
      * @SWG\Post(
      *   path="/admin/update",
      *     tags={"Admin"},
-     *     summary="Mengedit data admin response",
-     *     description="Mengedit data admin response",
+     *     summary="Updating data admin response",
+     *     description="Updating data admin response
+           <br>#Leave it <strong>blank</strong> if you don't want to change the data",
      *     operationId="updateAdmin",
      * 
      *   @SWG\Parameter(
@@ -103,28 +109,28 @@ class AdminController extends Controller
      *   @SWG\Parameter(
      *     name="username",
      *     in="formData",
-     *     description="Username (Kosongi jika tidak ingin merubah data)...",
+     *     description="Username ...",
      *     required=false,
      *     type="string"
      *   ),
      *   @SWG\Parameter(
      *     name="password",
      *     in="formData",
-     *     description="Password (Kosongi jika tidak ingin merubah data)...",
+     *     description="Password ...",
      *     required=false,
      *     type="string"
      *   ),
      *   @SWG\Parameter(
      *     name="email",
      *     in="formData",
-     *     description="Email (Kosongi jika tidak ingin merubah data)...",
+     *     description="Email ...",
      *     required=false,
      *     type="string"
      *   ),
      *   @SWG\Parameter(
      *     name="role",
      *     in="formData",
-     *     description="Role Admin (1 = Superadmin, 2 = Normal Admin) (Kosongi jika tidak ingin merubah data)...",
+     *     description="Role Admin (1 = Superadmin, 2 = Normal Admin) ...",
      *     required=false,
      *     type="integer"
      *   ),
@@ -139,6 +145,7 @@ class AdminController extends Controller
             'username'=>'nullable|unique:admin',
             'email'=>'nullable|unique:admin',
             'role'=>'nullable|numeric',
+            'password'=>'nullable',
         ]);  
 
         $id_admin = $request->input('id_admin');
@@ -154,7 +161,7 @@ class AdminController extends Controller
         }
 
         $username = $request->input('username') ?? null;
-        $password = Hash::make($request->input('password')) ?? null;
+        $password = $request->input('password') ?? null;
         $email = $request->input('email') ?? null;
         $role = $request->input('role') ?? null;
 
@@ -163,7 +170,7 @@ class AdminController extends Controller
         }
 
         if($password !== null){
-            $admin->password = $password;
+            $admin->password = Hash::make($password);
         }
 
         if($email !== null){
@@ -179,6 +186,7 @@ class AdminController extends Controller
         if($data){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['detail'] = "Success Updating Admin Data.";
             $res['data'] = $admin;
 
             return response($res, 200);
@@ -194,8 +202,8 @@ class AdminController extends Controller
      * @SWG\Post(
      *   path="/admin/delete",
      *     tags={"Admin"},
-     *     summary="Menghapus data admin response",
-     *     description="Menghapus data admin response",
+     *     summary="Deleting data admin response",
+     *     description="Deleting data admin response",
      *     operationId="deleteAdmin",
      * 
      *   @SWG\Parameter(
@@ -235,6 +243,7 @@ class AdminController extends Controller
         if($data){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['detail'] = "Success Deleting Admin Data.";
             $res['data'] = $admin;
 
             return response($res, 200);
@@ -250,8 +259,8 @@ class AdminController extends Controller
      * @SWG\Post(
      *   path="/admin/unDelete",
      *     tags={"Admin"},
-     *     summary="Mengembalikan data terhapus data admin response",
-     *     description="Mengembalikan data terhapus data admin response",
+     *     summary="Restoring / Undelete data in deleted section admin response",
+     *     description="Restoring / Undelete data in deleted section admin response",
      *     operationId="unDeleteAdmin",
      * 
      *   @SWG\Parameter(
@@ -297,6 +306,7 @@ class AdminController extends Controller
         if($data){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['detail'] = "Success Restoring / Undelete Admin Data.";
             $res['data'] = $admin;
 
             return response($res, 200);
@@ -365,6 +375,25 @@ class AdminController extends Controller
 
         $password = Hash::check($request->password, $admin->password);
         if($password){
+            $str_token = Str::random(100);
+            $expired = Carbon::now()->endOfDay();
+            $find_token = AuthenticationToken::where('user_auth', 'admin_'.$admin->id_admin)
+                ->first();
+
+            if($find_token !== null){
+                $find_token->auth_token = $str_token;
+                $find_token->expired = $expired;
+                $find_token->save();
+            }else{
+                $auth_token = new AuthenticationToken();
+                $auth_token->user_auth = "admin_".$admin->id_admin;
+                $auth_token->auth_token = $str_token;
+                $auth_token->expired = $expired;
+                $auth_token->save();
+            }
+
+            $admin['auth_token'] = $str_token;
+
             $res['status_code'] = 200;
             $res['success'] = true;
             $res['login'] = "Granted";
@@ -408,6 +437,46 @@ class AdminController extends Controller
         if(count($admin) !== 0){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['detail'] = "Success Return Admin Data.";
+            $res['data'] = $admin;
+
+            return response($res, 200);
+        }else{
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['data'] = $admin;
+
+            return response($res, 200);
+        }
+    }
+
+
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // SHOW DELETED
+    //////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @SWG\Get(
+     *   path="/admin/showDeleted",
+     *     tags={"Admin"},
+     *     summary="Show Deleted all data admin response",
+     *     description="Show Deleted all data admin response",
+     *     operationId="showDeletedAdmin",
+     * 
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function showDeleted(){
+        $admin = Admin::where('soft_delete', 1)
+            ->orderBy('id_admin', 'DESC')
+            ->get();
+
+        if(count($admin) !== 0){
+            $res['status_code'] = 200;
+            $res['success'] = true;
+            $res['detail'] = "Success Return Admin Data.";
             $res['data'] = $admin;
 
             return response($res, 200);
@@ -471,6 +540,7 @@ class AdminController extends Controller
 
         $res['status_code'] = 200;
         $res['success'] = true;
+        $res['detail'] = "Success Return Admin Data.";
         $res['data'] = $admin;
 
         return response($res, 200);

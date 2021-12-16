@@ -62,38 +62,23 @@ class SuggestMosqueImageController extends Controller
         }
 
         $image = $request->mosque_image_url; //base64 string from frontend  
-        $name = Str::random(25);
-        $firebase_storage_path = 'mosque-image/';  
-        $localfolder = public_path('firebase-temp-uploads') .'/';  
-        if (!file_exists($localfolder)) {  
-            mkdir($localfolder, 0777, true);  
-        }  
-        $parts = explode(";base64,", $image);
-        $replace = substr($image, 0, strpos($image, ',')+1); 
-        $files = str_replace($replace, '', $image); 
-        $files = str_replace(' ', '+', $files); 
-        $extension = explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];   // .jpg .png .pdf
-        $file = $name.'.'.$extension;
-            
-        if (file_put_contents($localfolder . $file, base64_decode($files))) {  
-            $uploadedfile = fopen($localfolder . $file, 'r');  
-            app('firebase.storage')->getBucket()->upload(base64_decode($files), ['name' => $firebase_storage_path . $file]);  
-            //will remove from local laravel folder  
-            unlink($localfolder . $file); 
+        $cloudinary = cloudinary()->upload($image, [
+            "folder" => "londonmosques-image/",
+        ]);
 
-            $data = SuggestMosqueImage::create([
-                'id_suggest_mosque' => $id_suggest_mosque,
-                'mosque_image_url' => $firebase_storage_path.$file,
-            ]);
+        $data = SuggestMosqueImage::create([
+            'id_suggest_mosque' => $id_suggest_mosque,
+            'public_id' => $cloudinary->getPublicId(),
+            'mosque_image_url' => $cloudinary->getSecurePath(),
+        ]);
 
-            if($data){
-                $res['status_code'] = 200;
-                $res['success'] = true;
-                $res['data'] = $data;
+        if($data){
+            $res['status_code'] = 200;
+            $res['success'] = true;
+            $res['data'] = $data;
 
-                return response($res, 200);
-            }
-        } else {  
+            return response($res, 200);
+        }else {  
             $res['status_code'] = 200;
             $res['success'] = true;
             $res['detail'] = "Error upload file to cloud server.";
@@ -176,36 +161,14 @@ class SuggestMosqueImageController extends Controller
         }
 
         if($image !== null){
-            $image = $request->mosque_image_url; //base64 string from frontend  
-            $name = Str::random(25);
-            $firebase_storage_path = 'mosque-image/';  
-            $localfolder = public_path('firebase-temp-uploads') .'/';  
-            if (!file_exists($localfolder)) {  
-                mkdir($localfolder, 0777, true);  
-            }  
-            $parts = explode(";base64,", $image);
-            $replace = substr($image, 0, strpos($image, ',')+1); 
-            $files = str_replace($replace, '', $image); 
-            $files = str_replace(' ', '+', $files); 
-            $extension = explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];   // .jpg .png .pdf
-            $file = $name.'.'.$extension;
+            cloudinary()->destroy($suggestMosqueImage->public_id);
 
-            if (file_put_contents($localfolder . $file, base64_decode($files))) {  
-                // Delete old image
-                $imageDeleted = app('firebase.storage')->getBucket()->object($suggestMosqueImage->mosque_image_url)->delete();
+            $cloudinary = cloudinary()->upload($image, [
+                "folder" => "londonmosques-image/",
+            ]);
 
-                app('firebase.storage')->getBucket()->upload(base64_decode($files), ['name' => $firebase_storage_path . $file]);  
-                //will remove from local laravel folder  
-                unlink($localfolder . $file); 
-
-                $suggestMosqueImage->mosque_image_url = $firebase_storage_path.$file;
-            } else {  
-                $res['status_code'] = 200;
-                $res['success'] = true;
-                $res['detail'] = "Error upload file to cloud server.";
-
-                return response($res, 200);
-            }  
+            $suggestMosqueImage->public_id = $cloudinary->getPublicId();
+            $suggestMosqueImage->mosque_image_url = $cloudinary->getSecurePath();
         }
 
         $data = $suggestMosqueImage->save();
@@ -362,17 +325,6 @@ class SuggestMosqueImageController extends Controller
             ->get();
 
         if(count($suggestMosqueImage) !== 0){
-            foreach($suggestMosqueImage as $index => $smi){
-                $expiresAt = Carbon::now()->addDays();  
-                $imageReference = app('firebase.storage')->getBucket()->object($smi->mosque_image_url);  
-                if($imageReference->exists()){
-                    $image = $imageReference->signedUrl($expiresAt);
-                    $suggestMosqueImage[$index]->mosque_image_url_firebase = $image;
-                }else{
-                    $suggestMosqueImage[$index]->mosque_image_url_firebase = null;
-                }
-            }
-
             $res['status_code'] = 200;
             $res['success'] = true;
             $res['data'] = $suggestMosqueImage;
@@ -435,13 +387,6 @@ class SuggestMosqueImageController extends Controller
 
             return response($res, 200);
         }
-
-        $expiresAt = Carbon::now()->addDays();  
-        $imageReference = app('firebase.storage')->getBucket()->object($suggestMosqueImage->mosque_image_url);  
-        if($imageReference->exists()){
-            $image = $imageReference->signedUrl($expiresAt);
-            $suggestMosqueImage->mosque_image_url_firebase = $image;
-        }  
 
         $res['status_code'] = 200;
         $res['success'] = true;
@@ -524,6 +469,7 @@ class SuggestMosqueImageController extends Controller
         ->get([
             'suggest_mosque_image.id_suggest_mosque_image',
             'suggest_mosque_image.id_suggest_mosque',
+            'suggest_mosque_image.mosque_image_approve_status',
             'suggest_mosque_image.mosque_image_url',
             'suggest_mosque_image.soft_delete',
             'suggest_mosque_image.created_at as created_at',
@@ -531,17 +477,6 @@ class SuggestMosqueImageController extends Controller
         ]);
         
         if(count($suggestMosqueImage) !== 0){
-            foreach($suggestMosqueImage as $index => $smi){
-                $expiresAt = Carbon::now()->addDays();  
-                $imageReference = app('firebase.storage')->getBucket()->object($smi->mosque_image_url);  
-                if($imageReference->exists()){
-                    $image = $imageReference->signedUrl($expiresAt);
-                    $suggestMosqueImage[$index]->mosque_image_url_firebase = $image;
-                }else{
-                    $suggestMosqueImage[$index]->mosque_image_url_firebase = null;
-                }
-            }
-
             $res['status_code'] = 200;
             $res['success'] = true;
             $res['message'] = 'Success return Suggest Mosque Image data';

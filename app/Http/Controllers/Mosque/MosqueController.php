@@ -5,14 +5,17 @@ namespace App\Http\Controllers\Mosque;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Model\Users;
 use App\Model\Borough;
 use App\Model\Districts;
 
 use App\Model\Mosque\Mosque;
 use App\Model\Mosque\MosqueSalahTime;
-use App\Model\Mosque\MosqueJummahTime;
+use App\Model\Mosque\MosqueSpecialSalahTime;
 use App\Model\Mosque\MosqueFacilities;
+use App\Model\Mosque\MosqueFavorite;
 use App\Model\Mosque\MosqueImage;
+use App\Model\Mosque\MosqueReview;
 
 use Validator;
 use Carbon\Carbon;
@@ -30,8 +33,8 @@ class MosqueController extends Controller
      * @SWG\Post(
      *   path="/mosque/store",
      *     tags={"Mosque"},
-     *     summary="Menambah data Mosque response",
-     *     description="Menambah data Mosque response",
+     *     summary="Storing new data Mosque response",
+     *     description="Storing new data Mosque response",
      *     operationId="storeMosque",
      * 
      *  @SWG\Parameter(
@@ -52,8 +55,15 @@ class MosqueController extends Controller
      *     name="id_district",
      *     in="formData",
      *     description="ID District ...",
-     *     required=true,
+     *     required=false,
      *     type="integer"
+     *   ), 
+     *  @SWG\Parameter(
+     *     name="slug_mosque",
+     *     in="formData",
+     *     description="Slug Mosque (Unique) ...",
+     *     required=true,
+     *     type="string"
      *   ), 
      *  @SWG\Parameter(
      *     name="name_mosque",
@@ -93,7 +103,8 @@ class MosqueController extends Controller
         $this->validate($request,[
             'id_mosque_google_place'=>'nullable',
             'id_borough'=>'required|numeric',
-            'id_district'=>'required|numeric',
+            'id_district'=>'nullable|numeric',
+            'slug_mosque'=>'required|unique:mosque',
             'name_mosque'=>'required',
             'address'=>'required',
             'latitude'=>'required',
@@ -102,7 +113,8 @@ class MosqueController extends Controller
 
         $id_mosque_google_place = $request->input('id_mosque_google_place') ?? NULL;
         $id_borough = $request->input('id_borough');
-        $id_district = $request->input('id_district');
+        $id_district = $request->input('id_district') ?? null;
+        $slug_mosque = $request->input('slug_mosque');
         $name_mosque = $request->input('name_mosque');
         $address = $request->input('address');
         $latitude = $request->input('latitude');
@@ -125,27 +137,28 @@ class MosqueController extends Controller
             return response($res, 200);
         }
 
-        $district = Districts::where('id_district', $id_district)
-            ->first();
+        // $district = Districts::where('id_district', $id_district)
+        //     ->first();
 
-        if($district === null){
-            $res['status_code'] = 406;
-            $res['success'] = false;
-            $res['detail'] = "Data District for that ID not found.";
+        // if($district === null){
+        //     $res['status_code'] = 406;
+        //     $res['success'] = false;
+        //     $res['detail'] = "Data District for that ID not found.";
 
-            return response($res, 200);
-        }else if($district->soft_delete === 1){
-            $res['status_code'] = 406;
-            $res['success'] = false;
-            $res['detail'] = "District was deleted. Please contact customer service.";
+        //     return response($res, 200);
+        // }else if($district->soft_delete === 1){
+        //     $res['status_code'] = 406;
+        //     $res['success'] = false;
+        //     $res['detail'] = "District was deleted. Please contact customer service.";
 
-            return response($res, 200);
-        }
+        //     return response($res, 200);
+        // }
 
         $data = Mosque::create([
             'id_mosque_google_place' => $id_mosque_google_place,
             'id_borough' => $id_borough,
-            'id_district' => $id_district,
+            // 'id_district' => $id_district,
+            'slug_mosque' => $slug_mosque,
             'name_mosque' => $name_mosque,
             'address' => $address,
             'latitude' => $latitude,
@@ -176,8 +189,8 @@ class MosqueController extends Controller
      * @SWG\Post(
      *   path="/mosque/update",
      *     tags={"Mosque"},
-     *     summary="Mengupdate data Mosque response",
-     *     description="Mengupdate data Mosque response
+     *     summary="Updating data Mosque response",
+     *     description="Updating data Mosque response
           <br>#Leave it <strong>blank</strong> if you don't want to change the data",
      *     operationId="updateMosque",
      * 
@@ -208,6 +221,13 @@ class MosqueController extends Controller
      *     description="ID District ...",
      *     required=false,
      *     type="integer"
+     *   ), 
+     *  @SWG\Parameter(
+     *     name="slug_mosque",
+     *     in="formData",
+     *     description="Slug Mosque (Unique) ...",
+     *     required=false,
+     *     type="string"
      *   ), 
      *  @SWG\Parameter(
      *     name="name_mosque",
@@ -249,12 +269,14 @@ class MosqueController extends Controller
             'id_mosque_google_place'=>'nullable',
             'id_borough'=>'numeric',
             'id_district'=>'numeric',
+            'slug_mosque'=>'required',
         ]);  
 
         $id_mosque = $request->input('id_mosque');
         $id_mosque_google_place = $request->input('id_mosque_google_place') ?? NULL;
         $id_borough = $request->input('id_borough');
         $id_district = $request->input('id_district');
+        $slug_mosque = $request->input('slug_mosque');
         $name_mosque = $request->input('name_mosque');
         $address = $request->input('address');
         $latitude = $request->input('latitude');
@@ -289,28 +311,43 @@ class MosqueController extends Controller
             $data->id_borough = $id_borough;
         }
 
-        if($id_district !== null){
-            $district = Districts::where('id_district', $id_district)
-                ->first();
+        // if($id_district !== null){
+        //     $district = Districts::where('id_district', $id_district)
+        //         ->first();
     
-            if($district === null){
-                $res['status_code'] = 406;
-                $res['success'] = false;
-                $res['detail'] = "Data District for that ID not found.";
+        //     if($district === null){
+        //         $res['status_code'] = 406;
+        //         $res['success'] = false;
+        //         $res['detail'] = "Data District for that ID not found.";
     
-                return response($res, 200);
-            }else if($district->soft_delete === 1){
-                $res['status_code'] = 406;
-                $res['success'] = false;
-                $res['detail'] = "District was deleted. Please contact customer service.";
+        //         return response($res, 200);
+        //     }else if($district->soft_delete === 1){
+        //         $res['status_code'] = 406;
+        //         $res['success'] = false;
+        //         $res['detail'] = "District was deleted. Please contact customer service.";
     
-                return response($res, 200);
-            }
-            $data->id_district = $id_district;
-        }
+        //         return response($res, 200);
+        //     }
+        //     $data->id_district = $id_district;
+        // }
 
         if($id_mosque_google_place !== null){
             $data->id_mosque_google_place = $id_mosque_google_place;
+        }
+
+        if($slug_mosque !== null){
+            $dataSlugMosque = Mosque::where('slug_mosque', $slug_mosque)->first();
+            if($dataSlugMosque !== null){
+                if($data->id_mosque !== $dataSlugMosque->id_mosque && $data->slug_mosque !== $dataSlugMosque->slug_mosque){
+                    $res['status_code'] = 406;
+                    $res['success'] = false;
+                    $res['detail'] = "Slug Mosque already taken, Please use another slug mosque.";
+
+                    return response($res, 200);
+                }
+            }
+
+            $data->slug_mosque = $slug_mosque;
         }
 
         if($name_mosque !== null){
@@ -354,8 +391,8 @@ class MosqueController extends Controller
      * @SWG\Post(
      *   path="/mosque/delete",
      *     tags={"Mosque"},
-     *     summary="Menghapus data Mosque response",
-     *     description="Menghapus data Mosque response",
+     *     summary="Deleting data Mosque response",
+     *     description="Deleting data Mosque response",
      *     operationId="deleteMosque",
      * 
      *   @SWG\Parameter(
@@ -415,8 +452,8 @@ class MosqueController extends Controller
      * @SWG\Post(
      *   path="/mosque/undelete",
      *     tags={"Mosque"},
-     *     summary="Mengembalikan data Mosque yang terhapus response",
-     *     description="Mengembalikan data Mosque yang terhapus response",
+     *     summary="Undelete / Restore data Mosque yang terhapus response",
+     *     description="Undelete / Restore data Mosque yang terhapus response",
      *     operationId="undeleteMosque",
      * 
      *   @SWG\Parameter(
@@ -486,13 +523,18 @@ class MosqueController extends Controller
      * )
      */
     public function show(){ 
-        $mosque = Mosque::where('soft_delete', 0)
-        ->orderBy('id_mosque', 'DESC')
-        ->get();
+        ini_set('max_execution_time', '500');
+
+        $mosque = Mosque::with('AvgRating')
+            ->where('soft_delete', 0)
+            ->orderBy('id_mosque', 'DESC')
+            ->get();
 
         $now = Carbon::now()->format('Y-m-d');
         $year = Carbon::today()->format('Y');
         $mth = Carbon::today()->format('m');
+        $expiresAt = Carbon::now()->addDays();  
+
         foreach($mosque as $index => $d){
             $borough = Borough::where('id_borough', $d->id_borough)
                 ->where('soft_delete', 0)
@@ -502,20 +544,50 @@ class MosqueController extends Controller
                 ->first();
             $salah_times = MosqueSalahTime::where('id_mosque', $d->id_mosque)
                 ->where('date_salah_times',$now)
+                ->where('soft_delete', 0)
                 ->get();
-            $jummah_times = MosqueJummahTime::where('id_mosque', $d->id_mosque)
-                ->whereYear('mosque_jummah_times.date_jummah_times', '=', $year)
-                ->whereMonth('mosque_jummah_times.date_jummah_times', '=', $mth)
+            $jummah_times = MosqueSpecialSalahTime::where('id_mosque', $d->id_mosque)
+                ->where('mosque_special_salah_times.category_special_salah', 3) //category special salah = jummah
+                ->whereYear('mosque_special_salah_times.date_special_salah_times', '=', $year)
+                ->whereMonth('mosque_special_salah_times.date_special_salah_times', '=', $mth)
+                ->where('soft_delete', 0)
                 ->get();
-            $facilities = MosqueFacilities::with('Facilities')
+            $facilities = MosqueFacilities::join('facilities','facilities.id_facilities','=','mosque_facilities.id_facilities')
                 ->where('id_mosque', $d->id_mosque)
+                ->where('mosque_facilities.soft_delete', 0)
+                ->get();
+            foreach ($facilities as $key => $sim) {
+                $imageReference = app('firebase.storage')->getBucket()->object($sim->icon_facilities);  
+                if($imageReference->exists()){
+                    $image = $imageReference->signedUrl($expiresAt);
+                    $facilities[$key]->icon_facilities_url_firebase = $image;
+                }else{
+                    $facilities[$key]->icon_facilities_url_firebase = null;
+                }
+            }
+
+            $images = MosqueImage::where('id_mosque', $d->id_mosque)
+                ->orderByRaw('id_mosque_image DESC')
+                ->where('soft_delete', 0)
+                ->take(1)
                 ->get();
 
-            $mosque[$index]->borough = $borough;
-            $mosque[$index]->district = $district;
-            $mosque[$index]->salah_times = $salah_times;
-            $mosque[$index]->jummah_times = $jummah_times;
-            $mosque[$index]->facilities = $facilities;
+            foreach ($images as $key => $sim) {
+                $imageReference = app('firebase.storage')->getBucket()->object($sim->mosque_image_url);  
+                if($imageReference->exists()){
+                    $image = $imageReference->signedUrl($expiresAt);
+                    $images[$key]->mosque_image_url_firebase = $image;
+                }else{
+                    $images[$key]->mosque_image_url_firebase = null;
+                }
+            }
+
+            $mosque[$index]->borough = $borough ?? null;
+            $mosque[$index]->district = $district  ?? null;
+            $mosque[$index]->salah_times = $salah_times ?? null;
+            $mosque[$index]->jummah_times = $jummah_times ?? null;
+            $mosque[$index]->facilities = $facilities ?? null;
+            $mosque[$index]->images = $images ?? null;
         }
 
         if(count($mosque) !== 0){
@@ -583,12 +655,14 @@ class MosqueController extends Controller
             return response($res, 200);
         }
 
-        $mosque = Mosque::where('id_mosque', $id_mosque)
+        $mosque = Mosque::with('AvgRating')
+        ->where('id_mosque', $id_mosque)
         ->get();
 
         $now = Carbon::now()->format('Y-m-d');
         $year = Carbon::today()->format('Y');
         $mth = Carbon::today()->format('m');
+        $expiresAt = Carbon::now()->addDays();  
         foreach($mosque as $index => $d){
             $borough = Borough::where('id_borough', $d->id_borough)
                 ->where('soft_delete', 0)
@@ -598,36 +672,47 @@ class MosqueController extends Controller
                 ->first();
             $salah_times = MosqueSalahTime::where('id_mosque', $d->id_mosque)
                 ->where('date_salah_times',$now)
+                ->where('soft_delete', 0)
                 ->get();
-            $jummah_times = MosqueJummahTime::where('id_mosque', $d->id_mosque)
-                ->whereYear('mosque_jummah_times.date_jummah_times', '=', $year)
-                ->whereMonth('mosque_jummah_times.date_jummah_times', '=', $mth)
+            $jummah_times = MosqueSpecialSalahTime::where('id_mosque', $d->id_mosque)
+                ->where('mosque_special_salah_times.category_special_salah', 3) //category special salah = 3 / jummah
+                ->whereYear('mosque_special_salah_times.date_special_salah_times', '=', $year)
+                ->whereMonth('mosque_special_salah_times.date_special_salah_times', '=', $mth)
+                ->where('soft_delete', 0)
                 ->get();
-            $facilities = MosqueFacilities::with('Facilities')
+            $facilities = MosqueFacilities::join('facilities','facilities.id_facilities','=','mosque_facilities.id_facilities')
                 ->where('id_mosque', $d->id_mosque)
+                ->where('mosque_facilities.soft_delete', 0)
                 ->get();
-            $images = MosqueImage::where('id_mosque', $d->id_mosque)
-                ->get();
-            
-            if(count($images) !== 0){
-                foreach($images as $index => $smi){
-                    $expiresAt = Carbon::now()->addDays();  
-                    $imageReference = app('firebase.storage')->getBucket()->object($smi->mosque_image_url);  
-                    if($imageReference->exists()){
-                        $image = $imageReference->signedUrl($expiresAt);
-                        $images[$index]->mosque_image_url_firebase = $image;
-                    }else{
-                        $images[$index]->mosque_image_url_firebase = null;
-                    }
+            foreach ($facilities as $key => $sim) {
+                $imageReference = app('firebase.storage')->getBucket()->object($sim->icon_facilities);  
+                if($imageReference->exists()){
+                    $image = $imageReference->signedUrl($expiresAt);
+                    $facilities[$key]->icon_facilities_url_firebase = $image;
+                }else{
+                    $facilities[$key]->icon_facilities_url_firebase = null;
                 }
             }
 
-            $mosque[$index]->borough = $borough;
-            $mosque[$index]->district = $district;
-            $mosque[$index]->salah_times = $salah_times;
-            $mosque[$index]->jummah_times = $jummah_times;
-            $mosque[$index]->facilities = $facilities;
-            $mosque[$index]->images = $images;
+            $images = MosqueImage::where('id_mosque', $d->id_mosque)
+                ->where('soft_delete', 0)
+                ->get();
+            foreach ($images as $key => $sim) {
+                $imageReference = app('firebase.storage')->getBucket()->object($sim->mosque_image_url);  
+                if($imageReference->exists()){
+                    $image = $imageReference->signedUrl($expiresAt);
+                    $images[$key]->mosque_image_url_firebase = $image;
+                }else{
+                    $images[$key]->mosque_image_url_firebase = null;
+                }
+            }
+
+            $mosque[$index]->borough = $borough ?? null;
+            $mosque[$index]->district = $district  ?? null;
+            $mosque[$index]->salah_times = $salah_times ?? null;
+            $mosque[$index]->jummah_times = $jummah_times ?? null;
+            $mosque[$index]->facilities = $facilities ?? null;
+            $mosque[$index]->images = $images ?? null;
         }
 
         if(count($mosque) !== 0){
@@ -646,6 +731,100 @@ class MosqueController extends Controller
         }
     }
 
+
+
+    
+    //////////////////////////////////////////////////////////////////////////////////////
+    // SHOW
+    //////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @SWG\Get(
+     *   path="/mosque/showGroupByBorough",
+     *     tags={"Mosque"},
+     *     summary="show Group By Borough all data mosque response",
+     *     description="show Group By Borough all data mosque response
+           <br>*Salah Times using DATE NOW to save data from many return
+           <br>*Jummah Times using DATE YEAR AND MONTH NOW to save data from many return",
+     *     operationId="showGroupByBoroughMosques",
+     * 
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function showGroupByBorough(){ 
+        ini_set('max_execution_time', '500');
+
+        $borough = Borough::get();
+
+        $now = Carbon::now()->format('Y-m-d');
+        $year = Carbon::today()->format('Y');
+        $mth = Carbon::today()->format('m');
+        $expiresAt = Carbon::now()->addDays();  
+
+        if(!$borough->isEmpty()){
+            
+            foreach($borough as $borough){
+                $res['status_code'] = 200;
+                $res['success'] = true;
+                $res['message'] = 'Success return Mosque data';
+                $res['data']['Borough'][$borough->name_borough] = $borough;
+
+                $mosque = Mosque::with('AvgRating')
+                ->where('soft_delete', 0)
+                ->where('id_borough', $borough->id_borough)
+                ->orderBy('id_mosque', 'DESC')
+                ->get();
+    
+    
+                foreach($mosque as $index => $d){
+                    $facilities = MosqueFacilities::join('facilities','facilities.id_facilities','=','mosque_facilities.id_facilities')
+                        ->where('id_mosque', $d->id_mosque)
+                        ->where('mosque_facilities.soft_delete', 0)
+                        ->get();
+                    foreach ($facilities as $key => $sim) {
+                        $imageReference = app('firebase.storage')->getBucket()->object($sim->icon_facilities);  
+                        if($imageReference->exists()){
+                            $image = $imageReference->signedUrl($expiresAt);
+                            $facilities[$key]->icon_facilities_url_firebase = $image;
+                        }else{
+                            $facilities[$key]->icon_facilities_url_firebase = null;
+                        }
+                    }
+    
+                    $images = MosqueImage::where('id_mosque', $d->id_mosque)
+                        ->orderByRaw('id_mosque_image DESC')
+                        ->where('soft_delete', 0)
+                        ->take(1)
+                        ->get();
+    
+                    foreach ($images as $key => $sim) {
+                        $imageReference = app('firebase.storage')->getBucket()->object($sim->mosque_image_url);  
+                        if($imageReference->exists()){
+                            $image = $imageReference->signedUrl($expiresAt);
+                            $images[$key]->mosque_image_url_firebase = $image;
+                        }else{
+                            $images[$key]->mosque_image_url_firebase = null;
+                        }
+                    }
+                    
+                    $mosque[$index]->facilities = $facilities ?? null;
+                    $mosque[$index]->images = $images ?? null;
+                }
+                $res['data']['Borough'][$borough->name_borough]['DataMosque'] = $mosque;
+
+            }
+
+            return response($res, 200);
+        }else{
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['detail'] = "Borough / Mosque Data Not Found";
+
+            return response($res, 200);
+        }
+    }
+
     
 
 
@@ -659,7 +838,9 @@ class MosqueController extends Controller
      *   path="/mosque/showByFilter",
      *     tags={"Mosque"},
      *     summary="Show all data mosque response",
-     *     description="Show all data mosque response",
+     *     description="Show all data mosque response
+           <br>*id_user and status_mosque_favorite must use together to get favorite mosque the user have
+           <br>*image limit 5, use show by id to show all image or in Mosque Images Tags ",
      *     operationId="showByFilterMosques",
      * 
      *   @SWG\Parameter(
@@ -680,6 +861,27 @@ class MosqueController extends Controller
      *     name="id_district",
      *     in="formData",
      *     description="ID District ...",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *  @SWG\Parameter(
+     *     name="slug_mosque",
+     *     in="formData",
+     *     description="Slug Mosque (Unique) ...",
+     *     required=false,
+     *     type="string"
+     *   ), 
+     *   @SWG\Parameter(
+     *     name="id_user",
+     *     in="formData",
+     *     description="ID User ...",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="status_mosque_favorite",
+     *     in="formData",
+     *     description="Status Mosque Favorite (Default=1 / Favorite) [0 = Not Favorite  ||  1 = Favorite]",
      *     required=false,
      *     type="integer"
      *   ),
@@ -735,14 +937,14 @@ class MosqueController extends Controller
      *   @SWG\Parameter(
      *     name="skip",
      *     in="formData",
-     *     description="Skip Berapa Data (Default=0)",
+     *     description="Skip how many Data (Default=0)",
      *     required=false,
      *     type="integer"
      *   ),
      *   @SWG\Parameter(
      *     name="take",
      *     in="formData",
-     *     description="Take Berapa Data (Default=100)",
+     *     description="Take how many Data (Default=100)",
      *     required=false,
      *     type="integer"
      *   ),
@@ -763,12 +965,16 @@ class MosqueController extends Controller
         $id_mosque = $request->input('id_mosque');
         $id_borough = $request->input('id_borough');
         $id_district = $request->input('id_district');
+        $slug_mosque = $request->input('slug_mosque');
         $name_mosque = $request->input('name_mosque');
 
         $soft_delete = $request->input('soft_delete') ?? 0;
         $skip = $request->input('skip') ?? 0;
         $take = $request->input('take') ?? 100;
         $order = $request->input('order') ?? "DESC";
+        
+        $id_user = $request->input('id_user');
+        $status_mosque_favorite = $request->input('status_mosque_favorite') ?? 1;
 
         $id_facilities = $request->input('id_facilities');
         $date_salah_times_from = $request->input('date_salah_times_from') ?? Carbon::now()->format('Y-m-d');
@@ -779,14 +985,25 @@ class MosqueController extends Controller
         
         $StartTimeDay = '00:00:01';
         $EndTimeDay = '23:59:59';
+        $expiresAt = Carbon::now()->addDays();  
         
         $mosque = Mosque::query()
         ->when($request->has('id_facilities'), function ($query) use ($id_facilities) {
             $query->leftJoin('mosque_facilities','mosque_facilities.id_mosque','=','mosque.id_mosque');
             $query->leftJoin('facilities','facilities.id_facilities','=','mosque_facilities.id_facilities');
         })
+        ->when($request->has('id_user') && $request->has('status_mosque_favorite'), function ($query) use ($id_user, $status_mosque_favorite) {
+            $query->leftJoin('mosque_favorite','mosque_favorite.id_mosque','=','mosque.id_mosque');
+            $query->leftJoin('users','users.id_user','=','mosque_favorite.id_user');
+            ///////////////////////////////////////
+            $query->where('users.id_user',$id_user);
+            $query->where('mosque_favorite.status_mosque_favorite',$status_mosque_favorite);
+        })
         ->when($request->has('id_mosque'), function ($query) use ($id_mosque) {
             $query->where('mosque.id_mosque',$id_mosque);
+        })
+        ->when($request->has('slug_mosque'), function ($query) use ($slug_mosque) {
+            $query->where('mosque.slug_mosque',$slug_mosque);
         })
         ->when($request->has('id_borough'), function ($query) use ($id_borough) {
             $query->where('mosque.id_borough',$id_borough);
@@ -800,11 +1017,10 @@ class MosqueController extends Controller
         ->when($request->has('id_facilities'), function ($query) use ($id_facilities) {
             $query->whereIn('mosque_facilities.id_facilities',$id_facilities);
         })
-        ->when($request->has('soft_delete'), function ($query) use ($soft_delete) {
-            $query->where('mosque.soft_delete',$soft_delete);
-        })
+        ->where('mosque.soft_delete',$soft_delete)
         ->skip($skip)
         ->take($take)
+        ->with('AvgRating')
         ->orderByRaw('mosque.id_mosque '.$order)
         ->distinct('mosque.id_mosque')
         ->get([
@@ -812,6 +1028,7 @@ class MosqueController extends Controller
             'mosque.id_mosque_google_place',
             'mosque.id_borough',
             'mosque.id_district',
+            'mosque.slug_mosque',
             'mosque.name_mosque',
             'mosque.address',
             'mosque.latitude',
@@ -831,36 +1048,48 @@ class MosqueController extends Controller
                 ->first();
             $salah_times = MosqueSalahTime::where('id_mosque', $d->id_mosque)
                 ->whereBetween('date_salah_times', [$date_salah_times_from, $date_salah_times_to])
+                ->where('soft_delete', 0)
                 ->get();
-            $jummah_times = MosqueJummahTime::where('id_mosque', $d->id_mosque)
-                ->whereYear('mosque_jummah_times.date_jummah_times', '=', $year)
-                ->whereMonth('mosque_jummah_times.date_jummah_times', '=', $mth)
+            $jummah_times = MosqueSpecialSalahTime::where('id_mosque', $d->id_mosque)
+                ->where('mosque_special_salah_times.category_special_salah', 3) //category special salah = 3 / jummah
+                ->whereYear('mosque_special_salah_times.date_special_salah_times', '=', $year)
+                ->whereMonth('mosque_special_salah_times.date_special_salah_times', '=', $mth)
+                ->where('soft_delete', 0)
                 ->get();
-            $facilities = MosqueFacilities::with('Facilities')
+            $facilities = MosqueFacilities::join('facilities','facilities.id_facilities','=','mosque_facilities.id_facilities')
                 ->where('id_mosque', $d->id_mosque)
+                ->where('mosque_facilities.soft_delete', 0)
                 ->get();
+            foreach ($facilities as $key => $sim) {
+                $imageReference = app('firebase.storage')->getBucket()->object($sim->icon_facilities);  
+                if($imageReference->exists()){
+                    $image = $imageReference->signedUrl($expiresAt);
+                    $facilities[$key]->icon_facilities_url_firebase = $image;
+                }else{
+                    $facilities[$key]->icon_facilities_url_firebase = null;
+                }
+            }
+
             $images = MosqueImage::where('id_mosque', $d->id_mosque)
+                ->where('soft_delete', 0)
+                ->take(5)
                 ->get();
-                
-            if(count($images) !== 0){
-                foreach($images as $index => $smi){
-                    $expiresAt = Carbon::now()->addDays();  
-                    $imageReference = app('firebase.storage')->getBucket()->object($smi->mosque_image_url);  
-                    if($imageReference->exists()){
-                        $image = $imageReference->signedUrl($expiresAt);
-                        $images[$index]->mosque_image_url_firebase = $image;
-                    }else{
-                        $images[$index]->mosque_image_url_firebase = null;
-                    }
+            foreach ($images as $key => $sim) {
+                $imageReference = app('firebase.storage')->getBucket()->object($sim->mosque_image_url);  
+                if($imageReference->exists()){
+                    $image = $imageReference->signedUrl($expiresAt);
+                    $images[$key]->mosque_image_url_firebase = $image;
+                }else{
+                    $images[$key]->mosque_image_url_firebase = null;
                 }
             }
     
-            $mosque[$index]->borough = $borough;
-            $mosque[$index]->district = $district;
-            $mosque[$index]->salah_times = $salah_times;
-            $mosque[$index]->jummah_times = $jummah_times;
-            $mosque[$index]->facilities = $facilities;
-            $mosque[$index]->images = $images;
+            $mosque[$index]->borough = $borough ?? null;
+            $mosque[$index]->district = $district  ?? null;
+            $mosque[$index]->salah_times = $salah_times ?? null;
+            $mosque[$index]->jummah_times = $jummah_times ?? null;
+            $mosque[$index]->facilities = $facilities ?? null;
+            $mosque[$index]->images = $images ?? null;
         }
 
 

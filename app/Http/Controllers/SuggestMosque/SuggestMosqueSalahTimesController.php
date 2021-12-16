@@ -4,6 +4,7 @@ namespace App\Http\Controllers\SuggestMosque;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 use App\Model\SuggestMosque\SuggestMosqueSalahTimes;
 use App\Model\SuggestMosque\SuggestMosque;
@@ -122,7 +123,7 @@ class SuggestMosqueSalahTimesController extends Controller
      *  @SWG\Parameter(
      *     name="date_salah_times",
      *     in="formData",
-     *     description="date_salah_times (YYYY-mm-dd ,ex : 2021-11-15) [default : now] (Kosongi jika tidak ingin merubah data)...",
+     *     description="date_salah_times (YYYY-mm-dd ,ex : 2021-11-15) (Kosongi jika tidak ingin merubah data)...",
      *     required=false,
      *     type="string"
      *   ), 
@@ -520,6 +521,7 @@ class SuggestMosqueSalahTimesController extends Controller
             'suggest_mosque_salah_times.date_salah_times',
             'suggest_mosque_salah_times.type_salah_times',
             'suggest_mosque_salah_times.time_salah_times',
+            'suggest_mosque_salah_times.salah_times_approve_status',
             'suggest_mosque_salah_times.soft_delete',
             'suggest_mosque_salah_times.created_at as created_at',
             'suggest_mosque_salah_times.updated_at as updated_at'

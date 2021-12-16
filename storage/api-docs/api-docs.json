@@ -11,8 +11,8 @@
                 "tags": [
                     "About Us"
                 ],
-                "summary": "Mengedit data About Us response",
-                "description": "Mengedit data About Us response",
+                "summary": "Updating data About Us response",
+                "description": "Updating data About Us response",
                 "operationId": "updateAboutUs",
                 "parameters": [
                     {
@@ -48,8 +48,8 @@
                 "tags": [
                     "About Us"
                 ],
-                "summary": "Mengedit data About Us response",
-                "description": "Mengedit data About Us response",
+                "summary": "Returning / Show data About Us response",
+                "description": "Returning / Show data About Us response",
                 "operationId": "showAboutUs",
                 "responses": {
                     "200": {
@@ -69,8 +69,8 @@
                 "tags": [
                     "Admin"
                 ],
-                "summary": "Menambah data admin response",
-                "description": "Menambah data admin response",
+                "summary": "Store New data admin response",
+                "description": "Store New data admin response",
                 "operationId": "storeAdmin",
                 "parameters": [
                     {
@@ -120,8 +120,8 @@
                 "tags": [
                     "Admin"
                 ],
-                "summary": "Mengedit data admin response",
-                "description": "Mengedit data admin response",
+                "summary": "Updating data admin response",
+                "description": "Updating data admin response\r\n           <br>#Leave it <strong>blank</strong> if you don't want to change the data",
                 "operationId": "updateAdmin",
                 "parameters": [
                     {
@@ -134,28 +134,28 @@
                     {
                         "name": "username",
                         "in": "formData",
-                        "description": "Username (Kosongi jika tidak ingin merubah data)...",
+                        "description": "Username ...",
                         "required": false,
                         "type": "string"
                     },
                     {
                         "name": "password",
                         "in": "formData",
-                        "description": "Password (Kosongi jika tidak ingin merubah data)...",
+                        "description": "Password ...",
                         "required": false,
                         "type": "string"
                     },
                     {
                         "name": "email",
                         "in": "formData",
-                        "description": "Email (Kosongi jika tidak ingin merubah data)...",
+                        "description": "Email ...",
                         "required": false,
                         "type": "string"
                     },
                     {
                         "name": "role",
                         "in": "formData",
-                        "description": "Role Admin (1 = Superadmin, 2 = Normal Admin) (Kosongi jika tidak ingin merubah data)...",
+                        "description": "Role Admin (1 = Superadmin, 2 = Normal Admin) ...",
                         "required": false,
                         "type": "integer"
                     }
@@ -178,8 +178,8 @@
                 "tags": [
                     "Admin"
                 ],
-                "summary": "Menghapus data admin response",
-                "description": "Menghapus data admin response",
+                "summary": "Deleting data admin response",
+                "description": "Deleting data admin response",
                 "operationId": "deleteAdmin",
                 "parameters": [
                     {
@@ -208,8 +208,8 @@
                 "tags": [
                     "Admin"
                 ],
-                "summary": "Mengembalikan data terhapus data admin response",
-                "description": "Mengembalikan data terhapus data admin response",
+                "summary": "Restoring / Undelete data in deleted section admin response",
+                "description": "Restoring / Undelete data in deleted section admin response",
                 "operationId": "unDeleteAdmin",
                 "parameters": [
                     {
@@ -291,6 +291,27 @@
                 }
             }
         },
+        "/admin/showDeleted": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Show Deleted all data admin response",
+                "description": "Show Deleted all data admin response",
+                "operationId": "showDeletedAdmin",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
         "/admin/showById": {
             "post": {
                 "tags": [
@@ -326,8 +347,8 @@
                 "tags": [
                     "Borough"
                 ],
-                "summary": "Menambah data borough response",
-                "description": "Menambah data borough response",
+                "summary": "Storing new data borough response",
+                "description": "Storing new data borough response",
                 "operationId": "storeBorough",
                 "parameters": [
                     {
@@ -370,8 +391,8 @@
                 "tags": [
                     "Borough"
                 ],
-                "summary": "Mengedit data borough response",
-                "description": "Mengedit data borough response",
+                "summary": "Updating data borough response",
+                "description": "Updating data borough response\r\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
                 "operationId": "updateBorough",
                 "parameters": [
                     {
@@ -384,21 +405,21 @@
                     {
                         "name": "name_borough",
                         "in": "formData",
-                        "description": "Name Borough (Kosongi jika tidak ingin merubah data)...",
+                        "description": "Name Borough ...",
                         "required": false,
                         "type": "string"
                     },
                     {
                         "name": "latitude",
                         "in": "formData",
-                        "description": "Latitude (Kosongi jika tidak ingin merubah data)...",
+                        "description": "Latitude ...",
                         "required": false,
                         "type": "string"
                     },
                     {
                         "name": "longitude",
                         "in": "formData",
-                        "description": "Longitude (Kosongi jika tidak ingin merubah data)...",
+                        "description": "Longitude ...",
                         "required": false,
                         "type": "string"
                     }
@@ -421,8 +442,8 @@
                 "tags": [
                     "Borough"
                 ],
-                "summary": "Menghapus data borough response",
-                "description": "Menghapus data borough response",
+                "summary": "Deleting data borough response",
+                "description": "Deleting data borough response",
                 "operationId": "deleteBorough",
                 "parameters": [
                     {
@@ -451,8 +472,8 @@
                 "tags": [
                     "Borough"
                 ],
-                "summary": "Mengembalikan data terhapus data borough response",
-                "description": "Mengembalikan data terhapus data borough response",
+                "summary": "Restoring data in deleted section borough response",
+                "description": "Restoring data in deleted section borough response",
                 "operationId": "unDeleteBorough",
                 "parameters": [
                     {
@@ -484,6 +505,27 @@
                 "summary": "Show all data borough response",
                 "description": "Show all data borough response",
                 "operationId": "showBorough",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/borough/showDeleted": {
+            "get": {
+                "tags": [
+                    "Borough"
+                ],
+                "summary": "Show Deleted all data borough response",
+                "description": "Show Deleted all data borough response",
+                "operationId": "showDeletedBorough",
                 "responses": {
                     "200": {
                         "description": "successful operation"
@@ -532,8 +574,8 @@
                 "tags": [
                     "Districts"
                 ],
-                "summary": "Menambah data districts response",
-                "description": "Menambah data districts response",
+                "summary": "Storing new data districts response",
+                "description": "Storing new data districts response",
                 "operationId": "storeDistricts",
                 "parameters": [
                     {
@@ -583,8 +625,8 @@
                 "tags": [
                     "Districts"
                 ],
-                "summary": "Mengedit data districts response",
-                "description": "Mengedit data districts response",
+                "summary": "Updating data districts response",
+                "description": "Updating data districts response\r\n           <br>#Leave it <strong>blank</strong> if you don't want to change the data",
                 "operationId": "updateDistricts",
                 "parameters": [
                     {
@@ -597,28 +639,28 @@
                     {
                         "name": "id_borough",
                         "in": "formData",
-                        "description": "ID Borough (Kosongi jika tidak ingin merubah data)...",
+                        "description": "ID Borough ...",
                         "required": false,
                         "type": "integer"
                     },
                     {
                         "name": "name_district",
                         "in": "formData",
-                        "description": "Name District (Kosongi jika tidak ingin merubah data)...",
+                        "description": "Name District ...",
                         "required": false,
                         "type": "string"
                     },
                     {
                         "name": "latitude",
                         "in": "formData",
-                        "description": "Latitude (Kosongi jika tidak ingin merubah data)...",
+                        "description": "Latitude ...",
                         "required": false,
                         "type": "string"
                     },
                     {
                         "name": "longitude",
                         "in": "formData",
-                        "description": "Longitude (Kosongi jika tidak ingin merubah data)...",
+                        "description": "Longitude ...",
                         "required": false,
                         "type": "string"
                     }
@@ -641,8 +683,8 @@
                 "tags": [
                     "Districts"
                 ],
-                "summary": "Menghapus data districts response",
-                "description": "Menghapus data districts response",
+                "summary": "Deleting data districts response",
+                "description": "Deleting data districts response",
                 "operationId": "deleteDistricts",
                 "parameters": [
                     {
@@ -671,8 +713,8 @@
                 "tags": [
                     "Districts"
                 ],
-                "summary": "Mengembalikan data terhapus data districts response",
-                "description": "Mengembalikan data terhapus data districts response",
+                "summary": "Restoring data in deleted section districts response",
+                "description": "Restoring data in deleted section districts response",
                 "operationId": "unDeleteDistricts",
                 "parameters": [
                     {
@@ -782,8 +824,8 @@
                 "tags": [
                     "Donations"
                 ],
-                "summary": "Menambah data donations response",
-                "description": "Menambah data donations response",
+                "summary": "Storing New data donations response",
+                "description": "Storing New data donations response",
                 "operationId": "storeDonations",
                 "parameters": [
                     {
@@ -833,8 +875,8 @@
                 "tags": [
                     "Donations"
                 ],
-                "summary": "Mengedit data donations response",
-                "description": "Mengedit data donations response",
+                "summary": "Updating data donations response",
+                "description": "Updating data donations response\r\n           <br>#Leave it <strong>blank</strong> if you don't want to change the data",
                 "operationId": "updateDonations",
                 "parameters": [
                     {
@@ -847,28 +889,28 @@
                     {
                         "name": "id_user_donation",
                         "in": "formData",
-                        "description": "ID User Donation (Kosongi jika tidak ingin merubah data)...",
+                        "description": "ID User Donation ...",
                         "required": false,
                         "type": "integer"
                     },
                     {
                         "name": "amount_donation",
                         "in": "formData",
-                        "description": "Amount Donation (Kosongi jika tidak ingin merubah data)...",
+                        "description": "Amount Donation ...",
                         "required": false,
                         "type": "integer"
                     },
                     {
                         "name": "date_donation",
                         "in": "formData",
-                        "description": "Date Donation (Kosongi jika tidak ingin merubah data)...",
+                        "description": "Date Donation ...",
                         "required": false,
                         "type": "string"
                     },
                     {
                         "name": "time_donation",
                         "in": "formData",
-                        "description": "Time Donation (Kosongi jika tidak ingin merubah data)...",
+                        "description": "Time Donation ...",
                         "required": false,
                         "type": "string"
                     }
@@ -891,8 +933,8 @@
                 "tags": [
                     "Donations"
                 ],
-                "summary": "Menghapus data donations response",
-                "description": "Menghapus data donations response",
+                "summary": "Deleting data donations response",
+                "description": "Deleting data donations response",
                 "operationId": "deleteDonations",
                 "parameters": [
                     {
@@ -921,8 +963,8 @@
                 "tags": [
                     "Donations"
                 ],
-                "summary": "Mengembalikan data terhapus data donations response",
-                "description": "Mengembalikan data terhapus data donations response",
+                "summary": "Restoring data in deleted sections donations response",
+                "description": "Restoring data in deleted sections donations response",
                 "operationId": "unDeleteDonations",
                 "parameters": [
                     {
@@ -1032,8 +1074,8 @@
                 "tags": [
                     "Facilities"
                 ],
-                "summary": "Menambah data facilities response",
-                "description": "Menambah data facilities response",
+                "summary": "Storing New data facilities response",
+                "description": "Storing New data facilities response",
                 "operationId": "storeFacilities",
                 "parameters": [
                     {
@@ -1069,8 +1111,8 @@
                 "tags": [
                     "Facilities"
                 ],
-                "summary": "Mengedit data facilities response",
-                "description": "Mengedit data facilities response",
+                "summary": "Updating data facilities response",
+                "description": "Updating data facilities response\r\n           <br>#Leave it <strong>blank</strong> if you don't want to change the data",
                 "operationId": "updateFacilities",
                 "parameters": [
                     {
@@ -1083,14 +1125,14 @@
                     {
                         "name": "name_facilities",
                         "in": "formData",
-                        "description": "Name Facilities (Kosongi jika tidak ingin merubah data)...",
+                        "description": "Name Facilities ...",
                         "required": false,
                         "type": "string"
                     },
                     {
                         "name": "icon_facilities",
                         "in": "formData",
-                        "description": "Icon Facilities (base64) (Kosongi jika tidak ingin merubah data)...",
+                        "description": "Icon Facilities (base64) ...",
                         "required": false,
                         "type": "string"
                     }
@@ -1113,8 +1155,8 @@
                 "tags": [
                     "Facilities"
                 ],
-                "summary": "Menghapus data facilities response",
-                "description": "Menghapus data facilities response",
+                "summary": "Deleting data facilities response",
+                "description": "Deleting data facilities response",
                 "operationId": "deleteFacilities",
                 "parameters": [
                     {
@@ -1143,8 +1185,8 @@
                 "tags": [
                     "Facilities"
                 ],
-                "summary": "Mengembalikan data terhapus data facilities response",
-                "description": "Mengembalikan data terhapus data facilities response",
+                "summary": "Restoring data in deleted sections facilities response",
+                "description": "Restoring data in deleted sections facilities response",
                 "operationId": "unDeleteFacilities",
                 "parameters": [
                     {
@@ -1176,6 +1218,27 @@
                 "summary": "Show all data facilities response",
                 "description": "Show all data facilities response",
                 "operationId": "showFacilities",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/facilities/showDeleted": {
+            "get": {
+                "tags": [
+                    "Facilities"
+                ],
+                "summary": "Show Deleted all data facilities response",
+                "description": "Show Deleted all data facilities response",
+                "operationId": "showDeletedFacilities",
                 "responses": {
                     "200": {
                         "description": "successful operation"
@@ -1224,8 +1287,8 @@
                 "tags": [
                     "Mosque"
                 ],
-                "summary": "Menambah data Mosque response",
-                "description": "Menambah data Mosque response",
+                "summary": "Storing new data Mosque response",
+                "description": "Storing new data Mosque response",
                 "operationId": "storeMosque",
                 "parameters": [
                     {
@@ -1246,8 +1309,15 @@
                         "name": "id_district",
                         "in": "formData",
                         "description": "ID District ...",
-                        "required": true,
+                        "required": false,
                         "type": "integer"
+                    },
+                    {
+                        "name": "slug_mosque",
+                        "in": "formData",
+                        "description": "Slug Mosque (Unique) ...",
+                        "required": true,
+                        "type": "string"
                     },
                     {
                         "name": "name_mosque",
@@ -1296,8 +1366,8 @@
                 "tags": [
                     "Mosque"
                 ],
-                "summary": "Mengupdate data Mosque response",
-                "description": "Mengupdate data Mosque response\r\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
+                "summary": "Updating data Mosque response",
+                "description": "Updating data Mosque response\r\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
                 "operationId": "updateMosque",
                 "parameters": [
                     {
@@ -1327,6 +1397,13 @@
                         "description": "ID District ...",
                         "required": false,
                         "type": "integer"
+                    },
+                    {
+                        "name": "slug_mosque",
+                        "in": "formData",
+                        "description": "Slug Mosque (Unique) ...",
+                        "required": false,
+                        "type": "string"
                     },
                     {
                         "name": "name_mosque",
@@ -1375,8 +1452,8 @@
                 "tags": [
                     "Mosque"
                 ],
-                "summary": "Menghapus data Mosque response",
-                "description": "Menghapus data Mosque response",
+                "summary": "Deleting data Mosque response",
+                "description": "Deleting data Mosque response",
                 "operationId": "deleteMosque",
                 "parameters": [
                     {
@@ -1405,8 +1482,8 @@
                 "tags": [
                     "Mosque"
                 ],
-                "summary": "Mengembalikan data Mosque yang terhapus response",
-                "description": "Mengembalikan data Mosque yang terhapus response",
+                "summary": "Undelete / Restore data Mosque yang terhapus response",
+                "description": "Undelete / Restore data Mosque yang terhapus response",
                 "operationId": "undeleteMosque",
                 "parameters": [
                     {
@@ -1481,13 +1558,34 @@
                 }
             }
         },
+        "/mosque/showGroupByBorough": {
+            "get": {
+                "tags": [
+                    "Mosque"
+                ],
+                "summary": "show Group By Borough all data mosque response",
+                "description": "show Group By Borough all data mosque response\r\n           <br>*Salah Times using DATE NOW to save data from many return\r\n           <br>*Jummah Times using DATE YEAR AND MONTH NOW to save data from many return",
+                "operationId": "showGroupByBoroughMosques",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
         "/mosque/showByFilter": {
             "post": {
                 "tags": [
                     "Mosque"
                 ],
                 "summary": "Show all data mosque response",
-                "description": "Show all data mosque response",
+                "description": "Show all data mosque response\r\n           <br>*id_user and status_mosque_favorite must use together to get favorite mosque the user have\r\n           <br>*image limit 5, use show by id to show all image or in Mosque Images Tags ",
                 "operationId": "showByFilterMosques",
                 "parameters": [
                     {
@@ -1508,6 +1606,27 @@
                         "name": "id_district",
                         "in": "formData",
                         "description": "ID District ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "slug_mosque",
+                        "in": "formData",
+                        "description": "Slug Mosque (Unique) ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id_user",
+                        "in": "formData",
+                        "description": "ID User ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "status_mosque_favorite",
+                        "in": "formData",
+                        "description": "Status Mosque Favorite (Default=1 / Favorite) [0 = Not Favorite  ||  1 = Favorite]",
                         "required": false,
                         "type": "integer"
                     },
@@ -1563,14 +1682,14 @@
                     {
                         "name": "skip",
                         "in": "formData",
-                        "description": "Skip Berapa Data (Default=0)",
+                        "description": "Skip how many Data (Default=0)",
                         "required": false,
                         "type": "integer"
                     },
                     {
                         "name": "take",
                         "in": "formData",
-                        "description": "Take Berapa Data (Default=100)",
+                        "description": "Take how many Data (Default=100)",
                         "required": false,
                         "type": "integer"
                     },
@@ -1827,14 +1946,160 @@
                     {
                         "name": "skip",
                         "in": "formData",
-                        "description": "Skip Berapa Data (Default=0)",
+                        "description": "Skip how many Data (Default=0)",
                         "required": false,
                         "type": "integer"
                     },
                     {
                         "name": "take",
                         "in": "formData",
-                        "description": "Take Berapa Data (Default=100)",
+                        "description": "Take how many Data (Default=100)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "order",
+                        "in": "formData",
+                        "description": "ASC / DESC (default DESC)",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-favorite/favorite": {
+            "post": {
+                "tags": [
+                    "Mosque Favorite"
+                ],
+                "summary": "Adding new/ Update data mosque Favorite response",
+                "description": "Adding new/ Update data mosque Favorite response",
+                "operationId": "favoriteMosqueFavorite",
+                "parameters": [
+                    {
+                        "name": "id_user",
+                        "in": "formData",
+                        "description": "ID User ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-favorite/unfavorite": {
+            "post": {
+                "tags": [
+                    "Mosque Favorite"
+                ],
+                "summary": "Remove / Unfavorite data mosque Favorite response",
+                "description": "Remove / Unfavorite data mosque Favorite response",
+                "operationId": "unfavoriteMosqueFavorite",
+                "parameters": [
+                    {
+                        "name": "id_mosque_favorite",
+                        "in": "formData",
+                        "description": "ID Mosque Favorite ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-favorite/showByFilter": {
+            "post": {
+                "tags": [
+                    "Mosque Favorite"
+                ],
+                "summary": "Show all data Mosque Favorite response",
+                "description": "Show all data Mosque Favorite response",
+                "operationId": "showByFilterMosqueFavorite",
+                "parameters": [
+                    {
+                        "name": "id_mosque_favorite",
+                        "in": "formData",
+                        "description": "ID Mosque Favorite ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_user",
+                        "in": "formData",
+                        "description": "ID User ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "status_mosque_favorite",
+                        "in": "formData",
+                        "description": "Status Mosque Favorite (Default=1 / Favorite) [0 = Not Favorite  ||  1 = Favorite]",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "soft_delete",
+                        "in": "formData",
+                        "description": "Soft Delete Data (Default=0 / Not Deleted) [0 = Not Deleted  ||  1 = Deleted / Archived]",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "skip",
+                        "in": "formData",
+                        "description": "Skip how many Data (Default=0)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "take",
+                        "in": "formData",
+                        "description": "Take how many Data (Default=100)",
                         "required": false,
                         "type": "integer"
                     },
@@ -1864,8 +2129,8 @@
                 "tags": [
                     "Mosque Image"
                 ],
-                "summary": "Menambah data mosque image response",
-                "description": "Menambah data mosque image response",
+                "summary": "Storing new data mosque image response",
+                "description": "Storing new data mosque image response",
                 "operationId": "storeMosqueImage",
                 "parameters": [
                     {
@@ -1901,8 +2166,8 @@
                 "tags": [
                     "Mosque Image"
                 ],
-                "summary": "Mengedit data mosque image response",
-                "description": "Mengedit data mosque image response",
+                "summary": "Updating data mosque image response",
+                "description": "Updating data mosque image response\r\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
                 "operationId": "updateMosqueImage",
                 "parameters": [
                     {
@@ -1915,14 +2180,14 @@
                     {
                         "name": "id_mosque",
                         "in": "formData",
-                        "description": "ID Mosque (Kosongi jika tidak ingin merubah data)...",
+                        "description": "ID Mosque ...",
                         "required": false,
                         "type": "integer"
                     },
                     {
                         "name": "mosque_image_url",
                         "in": "formData",
-                        "description": "Mosque Image Url (base64) (Kosongi jika tidak ingin merubah data)...",
+                        "description": "Mosque Image Url (base64) ...",
                         "required": false,
                         "type": "string"
                     }
@@ -1945,8 +2210,8 @@
                 "tags": [
                     "Mosque Image"
                 ],
-                "summary": "Menghapus data mosque image response",
-                "description": "Menghapus data mosque image response",
+                "summary": "Deleting data mosque image response",
+                "description": "Deleting data mosque image response",
                 "operationId": "deleteMosqueImage",
                 "parameters": [
                     {
@@ -1975,8 +2240,8 @@
                 "tags": [
                     "Mosque Image"
                 ],
-                "summary": "Mengembalikan data terhapus data mosque image response",
-                "description": "Mengembalikan data terhapus data mosque image response",
+                "summary": "Restoring data terhapus data mosque image response",
+                "description": "Restoring data terhapus data mosque image response",
                 "operationId": "unDeleteMosqueImage",
                 "parameters": [
                     {
@@ -2077,14 +2342,14 @@
                     {
                         "name": "skip",
                         "in": "formData",
-                        "description": "Skip Berapa Data (Default=0)",
+                        "description": "Skip how many Data (Default=0)",
                         "required": false,
                         "type": "integer"
                     },
                     {
                         "name": "take",
                         "in": "formData",
-                        "description": "Take Berapa Data (Default=100)",
+                        "description": "Take how many Data (Default=100)",
                         "required": false,
                         "type": "integer"
                     },
@@ -2109,14 +2374,14 @@
                 }
             }
         },
-        "/mosque-jummah-times/store": {
+        "/mosque-review/store": {
             "post": {
                 "tags": [
-                    "Mosque Jummah Times"
+                    "Mosque Review"
                 ],
-                "summary": "Storing new data Mosque Jummah Times response",
-                "description": "Storing new data Mosque Jummah Times response",
-                "operationId": "storeMosque",
+                "summary": "Storing new data Mosque Review response",
+                "description": "Storing new data Mosque Review response",
+                "operationId": "storeMosqueReview",
                 "parameters": [
                     {
                         "name": "id_mosque",
@@ -2126,23 +2391,23 @@
                         "type": "integer"
                     },
                     {
-                        "name": "date_jummah_times",
+                        "name": "id_user",
                         "in": "formData",
-                        "description": "date_jummah_times (YYYY-mm-dd ,ex : 2021-11-15) [default : now] ...",
-                        "required": false,
-                        "type": "string"
-                    },
-                    {
-                        "name": "order_jummah_times",
-                        "in": "formData",
-                        "description": "order_jummah_times (1st, 2nd, 3rd, 4th, 5th, etc.) ...",
+                        "description": "ID User ...",
                         "required": true,
-                        "type": "string"
+                        "type": "integer"
                     },
                     {
-                        "name": "time_jummah_times",
+                        "name": "rating",
                         "in": "formData",
-                        "description": "time_jummah_times (hh:ii ,ex : 09:52) ...",
+                        "description": "Rating (1, 2, 3, 4, 5) ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "review",
+                        "in": "formData",
+                        "description": "Review ...",
                         "required": true,
                         "type": "string"
                     }
@@ -2160,19 +2425,19 @@
                 }
             }
         },
-        "/mosque-jummah-times/update": {
+        "/mosque-review/update": {
             "post": {
                 "tags": [
-                    "Mosque Jummah Times"
+                    "Mosque Review"
                 ],
-                "summary": "Updating data Mosque Jummah Times response",
-                "description": "Updating data Mosque Jummah Times response\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
+                "summary": "Updating data Mosque Review response",
+                "description": "Updating data Mosque Review response\r\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
                 "operationId": "updateMosque",
                 "parameters": [
                     {
-                        "name": "id_jummah_times",
+                        "name": "id_mosque_review",
                         "in": "formData",
-                        "description": "ID Jummah Times ...",
+                        "description": "ID Review ...",
                         "required": true,
                         "type": "integer"
                     },
@@ -2184,23 +2449,23 @@
                         "type": "integer"
                     },
                     {
-                        "name": "date_jummah_times",
+                        "name": "id_user",
                         "in": "formData",
-                        "description": "date_jummah_times (YYYY-mm-dd ,ex : 2021-11-15) ...",
+                        "description": "ID User ...",
                         "required": false,
-                        "type": "string"
+                        "type": "integer"
                     },
                     {
-                        "name": "order_jummah_times",
+                        "name": "rating",
                         "in": "formData",
-                        "description": "order_jummah_times (1st, 2nd, 3rd, 4th, 5th, etc.) ...",
+                        "description": "Rating (1, 2, 3, 4, 5) ...",
                         "required": false,
-                        "type": "string"
+                        "type": "integer"
                     },
                     {
-                        "name": "time_jummah_times",
+                        "name": "review",
                         "in": "formData",
-                        "description": "time_jummah_times (hh:ii ,ex : 09:52) ...",
+                        "description": "Review ...",
                         "required": false,
                         "type": "string"
                     }
@@ -2218,19 +2483,19 @@
                 }
             }
         },
-        "/mosque-jummah-times/delete": {
+        "/mosque-review/delete": {
             "post": {
                 "tags": [
-                    "Mosque Jummah Times"
+                    "Mosque Review"
                 ],
-                "summary": "Deleting data Mosque Jummah Times response",
-                "description": "Deleting data Mosque Jummah Times response",
+                "summary": "Deleting data Mosque Review response",
+                "description": "Deleting data Mosque Review response",
                 "operationId": "deleteMosque",
                 "parameters": [
                     {
-                        "name": "id_jummah_times",
+                        "name": "id_mosque_review",
                         "in": "formData",
-                        "description": "ID Jummah Times ...",
+                        "description": "ID Review ...",
                         "required": true,
                         "type": "integer"
                     }
@@ -2248,19 +2513,19 @@
                 }
             }
         },
-        "/mosque-jummah-times/undelete": {
+        "/mosque-review/undelete": {
             "post": {
                 "tags": [
-                    "Mosque Jummah Times"
+                    "Mosque Review"
                 ],
-                "summary": "Restoring / undelete data Mosque Jummah Times response",
-                "description": "Restoring / undelete data Mosque Jummah Times response",
+                "summary": "Restoring / undelete data Mosque Review response",
+                "description": "Restoring / undelete data Mosque Review response",
                 "operationId": "undeleteMosque",
                 "parameters": [
                     {
-                        "name": "id_jummah_times",
+                        "name": "id_mosque_review",
                         "in": "formData",
-                        "description": "ID Jummah Times ...",
+                        "description": "ID Review ...",
                         "required": true,
                         "type": "integer"
                     }
@@ -2278,10 +2543,10 @@
                 }
             }
         },
-        "/mosque-jummah-times/show": {
+        "/mosque-review/show": {
             "get": {
                 "tags": [
-                    "Mosque Jummah Times"
+                    "Mosque Review"
                 ],
                 "summary": "Show all data mosque response",
                 "description": "Show all data mosque response",
@@ -2299,17 +2564,17 @@
                 }
             }
         },
-        "/mosque-jummah-times/showById": {
+        "/mosque-review/showById": {
             "post": {
                 "tags": [
-                    "Mosque Jummah Times"
+                    "Mosque Review"
                 ],
-                "summary": "Show all data mosque Jummah times response",
-                "description": "Show all data mosque Jummah times response",
+                "summary": "Show by id data mosque Review response",
+                "description": "Show by id data mosque Review response",
                 "operationId": "showByIdSalahTimes",
                 "parameters": [
                     {
-                        "name": "id_jummah_times",
+                        "name": "id_mosque_review",
                         "in": "formData",
                         "description": "ID Mosque ...",
                         "required": true,
@@ -2329,19 +2594,19 @@
                 }
             }
         },
-        "/mosque-jummah-times/showByFilter": {
+        "/mosque-review/showByFilter": {
             "post": {
                 "tags": [
-                    "Mosque Jummah Times"
+                    "Mosque Review"
                 ],
-                "summary": "Show all data mosque Jummah times response",
-                "description": "Show all data mosque Jummah times response",
+                "summary": "Show by filter data mosque Review response",
+                "description": "Show by filter data mosque Review response",
                 "operationId": "showByFilterSalahTimes",
                 "parameters": [
                     {
-                        "name": "id_jummah_times",
+                        "name": "id_mosque_review",
                         "in": "formData",
-                        "description": "ID Jummah Times ...",
+                        "description": "ID Review ...",
                         "required": false,
                         "type": "integer"
                     },
@@ -2353,23 +2618,16 @@
                         "type": "integer"
                     },
                     {
-                        "name": "date_jummah_times",
+                        "name": "id_user",
                         "in": "formData",
-                        "description": "date_jummah_times (YYYY-mm-dd ,ex : 2021-11-15) ...",
-                        "required": false,
-                        "type": "string"
-                    },
-                    {
-                        "name": "where_year",
-                        "in": "formData",
-                        "description": "where_year [default = this year] ...",
+                        "description": "ID User ...",
                         "required": false,
                         "type": "integer"
                     },
                     {
-                        "name": "where_month",
+                        "name": "rating",
                         "in": "formData",
-                        "description": "where_month (month : 1 - 12) [default = this month] ...",
+                        "description": "Rating (1, 2, 3, 4, 5) ...",
                         "required": false,
                         "type": "integer"
                     },
@@ -2383,14 +2641,14 @@
                     {
                         "name": "skip",
                         "in": "formData",
-                        "description": "Skip Berapa Data (Default=0)",
+                        "description": "Skip how many Data (Default=0)",
                         "required": false,
                         "type": "integer"
                     },
                     {
                         "name": "take",
                         "in": "formData",
-                        "description": "Take Berapa Data (Default=100)",
+                        "description": "Take how many Data (Default=100)",
                         "required": false,
                         "type": "integer"
                     },
@@ -2492,7 +2750,7 @@
                     {
                         "name": "date_salah_times",
                         "in": "formData",
-                        "description": "date_salah_times (YYYY-mm-dd ,ex : 2021-11-15) [default : now] ...",
+                        "description": "date_salah_times (YYYY-mm-dd ,ex : 2021-11-15) ...",
                         "required": false,
                         "type": "string"
                     },
@@ -2610,8 +2868,8 @@
                 "tags": [
                     "Mosque Salah Times"
                 ],
-                "summary": "Show all data mosque salah times response",
-                "description": "Show all data mosque salah times response",
+                "summary": "Show by id data mosque salah times response",
+                "description": "Show by id data mosque salah times response",
                 "operationId": "showByIdSalahTimes",
                 "parameters": [
                     {
@@ -2640,8 +2898,8 @@
                 "tags": [
                     "Mosque Salah Times"
                 ],
-                "summary": "Show all data mosque salah times response",
-                "description": "Show all data mosque salah times response",
+                "summary": "Show by filter data mosque salah times response",
+                "description": "Show by filter data mosque salah times response",
                 "operationId": "showByFilterSalahTimes",
                 "parameters": [
                     {
@@ -2669,6 +2927,363 @@
                         "name": "type_salah_times",
                         "in": "formData",
                         "description": "type_salah_times (1 = Fajr || 2 = Zuhr || 3 = Asr || 4 = Maghrib || 5 = Isha) ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "soft_delete",
+                        "in": "formData",
+                        "description": "Soft Delete Data (Default=0 / Not Deleted) [0 = Not Deleted  ||  1 = Deleted / Archived]",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "skip",
+                        "in": "formData",
+                        "description": "Skip how many Data (Default=0)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "take",
+                        "in": "formData",
+                        "description": "Take how many Data (Default=100)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "order",
+                        "in": "formData",
+                        "description": "ASC / DESC (default DESC)",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-salah-times/import": {
+            "post": {
+                "tags": [
+                    "Mosque Salah Times"
+                ],
+                "summary": "Import new data Mosque Salah Times response",
+                "description": "Import new data Mosque Salah Times <br>\r\n            <p>*File Excel Mosque Salah/Prayer Times extension must be .xlsx or .xls</p>",
+                "operationId": "importMosqueSalahTimes",
+                "parameters": [
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "file (File Excel Mosque Salah/Prayer Times .xlsx or .xls) ...",
+                        "required": true,
+                        "type": "file"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-specialsalah-times/store": {
+            "post": {
+                "tags": [
+                    "Mosque Special Salah Times"
+                ],
+                "summary": "Storing new data Mosque Special Salah Times response",
+                "description": "Storing new data Mosque Special Salah Times response",
+                "operationId": "storeMosque",
+                "parameters": [
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "category_special_salah",
+                        "in": "formData",
+                        "description": "category_special_salah ( 1 = Eid-ul Fitri || 2 = Eid-ul Adha || 3 = Jummah ) ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "date_special_salah_times",
+                        "in": "formData",
+                        "description": "date_special_salah_times (YYYY-mm-dd ,ex : 2021-11-15) [default : now] ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "order_special_salah_times",
+                        "in": "formData",
+                        "description": "order_special_salah_times (1st, 2nd, 3rd, 4th, 5th, etc.) ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "time_special_salah_times",
+                        "in": "formData",
+                        "description": "time_special_salah_times (hh:ii ,ex : 09:52) ...",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-specialsalah-times/update": {
+            "post": {
+                "tags": [
+                    "Mosque Special Salah Times"
+                ],
+                "summary": "Updating data Mosque Special Salah Times response",
+                "description": "Updating data Mosque Special Salah Times response\r\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
+                "operationId": "updateMosque",
+                "parameters": [
+                    {
+                        "name": "id_special_salah_times",
+                        "in": "formData",
+                        "description": "ID Special Salah Times ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "category_special_salah",
+                        "in": "formData",
+                        "description": "category_special_salah ( 1 = Eid-ul Fitri || 2 = Eid-ul Adha || 3 = Jummah ) ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "date_special_salah_times",
+                        "in": "formData",
+                        "description": "date_special_salah_times (YYYY-mm-dd ,ex : 2021-11-15) ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "order_special_salah_times",
+                        "in": "formData",
+                        "description": "order_special_salah_times (1st, 2nd, 3rd, 4th, 5th, etc.) ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "time_special_salah_times",
+                        "in": "formData",
+                        "description": "time_special_salah_times (hh:ii ,ex : 09:52) ...",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-specialsalah-times/delete": {
+            "post": {
+                "tags": [
+                    "Mosque Special Salah Times"
+                ],
+                "summary": "Deleting data Mosque Special Salah Times response",
+                "description": "Deleting data Mosque Special Salah Times response",
+                "operationId": "deleteMosque",
+                "parameters": [
+                    {
+                        "name": "id_special_salah_times",
+                        "in": "formData",
+                        "description": "ID Special Salah Times ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-specialsalah-times/undelete": {
+            "post": {
+                "tags": [
+                    "Mosque Special Salah Times"
+                ],
+                "summary": "Restoring / undelete data Mosque Special Salah Times response",
+                "description": "Restoring / undelete data Mosque Special Salah Times response",
+                "operationId": "undeleteMosque",
+                "parameters": [
+                    {
+                        "name": "id_special_salah_times",
+                        "in": "formData",
+                        "description": "ID Special Salah Times ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-specialsalah-times/show": {
+            "get": {
+                "tags": [
+                    "Mosque Special Salah Times"
+                ],
+                "summary": "Show all data mosque response",
+                "description": "Show all data mosque response",
+                "operationId": "showMosques",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-specialsalah-times/showById": {
+            "post": {
+                "tags": [
+                    "Mosque Special Salah Times"
+                ],
+                "summary": "Show by id data mosque Special Salah times response",
+                "description": "Show by id data mosque Special Salah times response",
+                "operationId": "showByIdSalahTimes",
+                "parameters": [
+                    {
+                        "name": "id_special_salah_times",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-specialsalah-times/showByFilter": {
+            "post": {
+                "tags": [
+                    "Mosque Special Salah Times"
+                ],
+                "summary": "Show by filter data mosque Special Salah times response",
+                "description": "Show by filter data mosque Special Salah times response",
+                "operationId": "showByFilterSalahTimes",
+                "parameters": [
+                    {
+                        "name": "id_special_salah_times",
+                        "in": "formData",
+                        "description": "ID Special Salah Times ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "category_special_salah",
+                        "in": "formData",
+                        "description": "category_special_salah ( 1 = Eid-ul Fitri || 2 = Eid-ul Adha || 3 = Jummah ) ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "date_special_salah_times",
+                        "in": "formData",
+                        "description": "date_special_salah_times (YYYY-mm-dd ,ex : 2021-11-15) ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "where_year",
+                        "in": "formData",
+                        "description": "where_year [default = this year (gregorian / masehi year)] ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "where_month",
+                        "in": "formData",
+                        "description": "where_month (month : 1 - 12) [default = this month (gregorian / masehi month)] ...",
                         "required": false,
                         "type": "integer"
                     },
@@ -2714,6 +3329,700 @@
                 }
             }
         },
+        "/mosque-specialsalah-times/importJummah": {
+            "post": {
+                "tags": [
+                    "Mosque Special Salah Times"
+                ],
+                "summary": "Import Salah Jummah data in Mosque Spesial Salah Times response",
+                "description": "Import Salah Jummah data in Mosque Spesial Salah Times <br>\r\n            <p>*File Excel Mosque Salah Jummah Times extension must be .xlsx or .xls</p>",
+                "operationId": "importJummahMosqueSpesialSalahTimes",
+                "parameters": [
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "file (File Excel Mosque Salah Jummah Times .xlsx or .xls) ...",
+                        "required": true,
+                        "type": "file"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-specialsalah-times/importEidulFitri": {
+            "post": {
+                "tags": [
+                    "Mosque Special Salah Times"
+                ],
+                "summary": "Import Salah Eid-ul Fitri data in Mosque Spesial Salah Times response",
+                "description": "Import Salah Eid-ul Fitri data in Mosque Spesial Salah Times <br>\r\n            <p>*File Excel Mosque Salah Eid-ul Fitri Times extension must be .xlsx or .xls</p>",
+                "operationId": "importEidulFitriMosqueSpesialSalahTimes",
+                "parameters": [
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "file (File Excel Mosque Salah Eid-ul Fitri Times .xlsx or .xls) ...",
+                        "required": true,
+                        "type": "file"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-specialsalah-times/importEidulAdha": {
+            "post": {
+                "tags": [
+                    "Mosque Special Salah Times"
+                ],
+                "summary": "Import Salah Eid-ul Adha data in Mosque Spesial Salah Times response",
+                "description": "Import Salah Eid-ul Adha data in Mosque Spesial Salah Times <br>\r\n            <p>*File Excel Mosque Salah Eid-ul Adha Times extension must be .xlsx or .xls</p>",
+                "operationId": "importEidulAdhaMosqueSpesialSalahTimes",
+                "parameters": [
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "file (File Excel Mosque Salah Eid-ul Adha Times .xlsx or .xls) ...",
+                        "required": true,
+                        "type": "file"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/ramadhan-prayer/date": {
+            "post": {
+                "tags": [
+                    "Ramadhan Prayer"
+                ],
+                "summary": "Show ramadhan prayer by date response",
+                "description": "Show ramadhan prayer by date response",
+                "operationId": "dateRamadhanPrayer",
+                "parameters": [
+                    {
+                        "name": "date",
+                        "in": "formData",
+                        "description": "Date (nb: 31-12-2021 -> DD-MM-YYYY) [default: now]...",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/ramadhan-salah-times/store": {
+            "post": {
+                "tags": [
+                    "Ramadhan Salah Times"
+                ],
+                "summary": "Storing new data Ramadhan Salah Times response",
+                "description": "Storing new data Ramadhan Salah Times response",
+                "operationId": "storeRamadhanSalahTimes",
+                "parameters": [
+                    {
+                        "name": "date_ramadhan_salah_times",
+                        "in": "formData",
+                        "description": "date_ramadhan_salah_times (YYYY-mm-dd ,ex : 2021-11-15) [default : now] ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "type_ramadhan_salah_times",
+                        "in": "formData",
+                        "description": "type_ramadhan_salah_times (1 = Suhur || 2 = Zuhr || 3 = Asr || 4 = Iftar || 5 = Isha) ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "time_ramadhan_salah_times",
+                        "in": "formData",
+                        "description": "time_ramadhan_salah_times (hh:ii ,ex : 09:52) ...",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/ramadhan-salah-times/update": {
+            "post": {
+                "tags": [
+                    "Ramadhan Salah Times"
+                ],
+                "summary": "Updating data Ramadhan Salah Times response",
+                "description": "Updating data Ramadhan Salah Times response\r\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
+                "operationId": "updateRamadhanSalahTimes",
+                "parameters": [
+                    {
+                        "name": "id_ramadhan_salah_times",
+                        "in": "formData",
+                        "description": "ID Ramadhan Salah Times ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "date_ramadhan_salah_times",
+                        "in": "formData",
+                        "description": "date_ramadhan_salah_times (YYYY-mm-dd ,ex : 2021-11-15) ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "type_ramadhan_salah_times",
+                        "in": "formData",
+                        "description": "type_ramadhan_salah_times (1 = Suhur || 2 = Zuhr || 3 = Asr || 4 = Iftar || 5 = Isha) ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "time_ramadhan_salah_times",
+                        "in": "formData",
+                        "description": "time_ramadhan_salah_times (hh:ii ,ex : 09:52) ...",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/ramadhan-salah-times/delete": {
+            "post": {
+                "tags": [
+                    "Ramadhan Salah Times"
+                ],
+                "summary": "Deleting data Ramadhan Salah Times response",
+                "description": "Deleting data Ramadhan Salah Times response",
+                "operationId": "deleteRamadhanSalahTimes",
+                "parameters": [
+                    {
+                        "name": "id_ramadhan_salah_times",
+                        "in": "formData",
+                        "description": "ID Ramadhan Salah Times ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/ramadhan-salah-times/undelete": {
+            "post": {
+                "tags": [
+                    "Ramadhan Salah Times"
+                ],
+                "summary": "Restoring / undelete data Ramadhan Salah Times response",
+                "description": "Restoring / undelete data Ramadhan Salah Times response",
+                "operationId": "undeleteRamadhanSalahTimes",
+                "parameters": [
+                    {
+                        "name": "id_ramadhan_salah_times",
+                        "in": "formData",
+                        "description": "ID Ramadhan Salah Times ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/ramadhan-salah-times/show": {
+            "get": {
+                "tags": [
+                    "Ramadhan Salah Times"
+                ],
+                "summary": "Show all data Ramadhan Salah Times response",
+                "description": "Show all data Ramadhan Salah Times response",
+                "operationId": "showRamadhanSalahTimes",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/ramadhan-salah-times/showById": {
+            "post": {
+                "tags": [
+                    "Ramadhan Salah Times"
+                ],
+                "summary": "Show by id data Ramadhan salah times response",
+                "description": "Show by id data Ramadhan salah times response",
+                "operationId": "showByIdRamadhanSalahTimes",
+                "parameters": [
+                    {
+                        "name": "id_ramadhan_salah_times",
+                        "in": "formData",
+                        "description": "ID Ramadhan Salah Times ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/ramadhan-salah-times/showByFilter": {
+            "post": {
+                "tags": [
+                    "Ramadhan Salah Times"
+                ],
+                "summary": "Show by filter data Ramadhan salah times response",
+                "description": "Show by filter data Ramadhan salah times response",
+                "operationId": "showByFilterSalahTimes",
+                "parameters": [
+                    {
+                        "name": "id_ramadhan_salah_times",
+                        "in": "formData",
+                        "description": "ID Salah Times ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "date_ramadhan_salah_times",
+                        "in": "formData",
+                        "description": "date_ramadhan_salah_times (YYYY-mm-dd ,ex : 2021-11-15) ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "year_ramadhan_salah_times",
+                        "in": "formData",
+                        "description": "Year (YYYY ,ex : 2021) ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "type_ramadhan_salah_times",
+                        "in": "formData",
+                        "description": "type_ramadhan_salah_times (1 = Suhur || 2 = Zuhr || 3 = Asr || 4 = Iftar || 5 = Isha) ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "soft_delete",
+                        "in": "formData",
+                        "description": "Soft Delete Data (Default=0 / Not Deleted) [0 = Not Deleted  ||  1 = Deleted / Archived]",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "skip",
+                        "in": "formData",
+                        "description": "Skip how many Data (Default=0)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "take",
+                        "in": "formData",
+                        "description": "Take how many Data (Default=100)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "order",
+                        "in": "formData",
+                        "description": "ASC / DESC (default DESC)",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/ramadhan-salah-times/import": {
+            "post": {
+                "tags": [
+                    "Ramadhan Salah Times"
+                ],
+                "summary": "Import new data Ramadhan Salah Times response",
+                "description": "Import new data Ramadhan Salah Times <br>\r\n            <p>*File Excel Ramadhan Salah/Prayer Times extension must be .xlsx or .xls</p>",
+                "operationId": "importRamadhanSalahTimes",
+                "parameters": [
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "file (File Excel Ramadhan Salah/Prayer Times .xlsx or .xls) ...",
+                        "required": true,
+                        "type": "file"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/name/approve": {
+            "post": {
+                "tags": [
+                    "Approve Suggest Mosque"
+                ],
+                "summary": "Approve name mosque suggest mosque response",
+                "description": "Approve name mosque suggest mosque response",
+                "operationId": "approveNameSuggestMosque",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque ",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_admin",
+                        "in": "formData",
+                        "description": "ID Admin ",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/address/approve": {
+            "post": {
+                "tags": [
+                    "Approve Suggest Mosque"
+                ],
+                "summary": "Approve address mosque suggest mosque response",
+                "description": "Approve address mosque suggest mosque response",
+                "operationId": "approveAddressSuggestMosque",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque ",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_admin",
+                        "in": "formData",
+                        "description": "ID Admin ",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/latitude/approve": {
+            "post": {
+                "tags": [
+                    "Approve Suggest Mosque"
+                ],
+                "summary": "Approve latitude mosque suggest mosque response",
+                "description": "Approve latitude mosque suggest mosque response",
+                "operationId": "approveLatitudeSuggestMosque",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque ",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_admin",
+                        "in": "formData",
+                        "description": "ID Admin ",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/longitude/approve": {
+            "post": {
+                "tags": [
+                    "Approve Suggest Mosque"
+                ],
+                "summary": "Approve longitude mosque suggest mosque response",
+                "description": "Approve longitude mosque suggest mosque response",
+                "operationId": "approveLongitudeSuggestMosque",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque ",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_admin",
+                        "in": "formData",
+                        "description": "ID Admin ",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/facilities/approve": {
+            "post": {
+                "tags": [
+                    "Approve Suggest Mosque"
+                ],
+                "summary": "Approve facilities mosque suggest mosque response",
+                "description": "Approve facilities mosque suggest mosque response",
+                "operationId": "approveFacilitiesSuggestMosque",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque ",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_admin",
+                        "in": "formData",
+                        "description": "ID Admin ",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/images/approve": {
+            "post": {
+                "tags": [
+                    "Approve Suggest Mosque"
+                ],
+                "summary": "Approve images mosque suggest mosque response",
+                "description": "Approve images mosque suggest mosque response",
+                "operationId": "approveImagesSuggestMosque",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque ",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_admin",
+                        "in": "formData",
+                        "description": "ID Admin ",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/salah-times/approve": {
+            "post": {
+                "tags": [
+                    "Approve Suggest Mosque"
+                ],
+                "summary": "Approve salah times mosque suggest mosque response",
+                "description": "Approve salah times mosque suggest mosque response",
+                "operationId": "approveSalahTimesSuggestMosque",
+                "parameters": [
+                    {
+                        "name": "id_suggest_salah_times",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque Salah Times ",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_admin",
+                        "in": "formData",
+                        "description": "ID Admin ",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
         "/suggest-mosque/store": {
             "post": {
                 "tags": [
@@ -2736,20 +4045,6 @@
                         "description": "ID Mosque ...",
                         "required": true,
                         "type": "string"
-                    },
-                    {
-                        "name": "id_borough",
-                        "in": "formData",
-                        "description": "ID Borough ...",
-                        "required": true,
-                        "type": "integer"
-                    },
-                    {
-                        "name": "id_district",
-                        "in": "formData",
-                        "description": "ID District ...",
-                        "required": true,
-                        "type": "integer"
                     },
                     {
                         "name": "name_mosque",
@@ -2822,20 +4117,6 @@
                         "description": "ID Mosque (Kosongi jika tidak ingin merubah data)...",
                         "required": false,
                         "type": "string"
-                    },
-                    {
-                        "name": "id_borough",
-                        "in": "formData",
-                        "description": "ID Borough (Kosongi jika tidak ingin merubah data)...",
-                        "required": false,
-                        "type": "integer"
-                    },
-                    {
-                        "name": "id_district",
-                        "in": "formData",
-                        "description": "ID District (Kosongi jika tidak ingin merubah data)...",
-                        "required": false,
-                        "type": "integer"
                     },
                     {
                         "name": "name_mosque",
@@ -3021,20 +4302,6 @@
                         "type": "integer"
                     },
                     {
-                        "name": "id_borough",
-                        "in": "formData",
-                        "description": "ID Borough ...",
-                        "required": false,
-                        "type": "integer"
-                    },
-                    {
-                        "name": "id_district",
-                        "in": "formData",
-                        "description": "ID District ...",
-                        "required": false,
-                        "type": "integer"
-                    },
-                    {
                         "name": "name_mosque",
                         "in": "formData",
                         "description": "Name Mosque (%like) ...",
@@ -3089,6 +4356,302 @@
                         "description": "ASC / DESC (default DESC)",
                         "required": false,
                         "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/log": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque"
+                ],
+                "summary": "Show log suggest mosque response",
+                "description": "Show log suggest mosque response",
+                "operationId": "logSuggestMosque",
+                "parameters": [
+                    {
+                        "name": "action",
+                        "in": "formData",
+                        "description": "Action Suggest Mosque (0: Not yet declined / approved, 1: Approved, 2: Declined) ",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_admin",
+                        "in": "formData",
+                        "description": "ID Admin",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/name/decline": {
+            "post": {
+                "tags": [
+                    "Decline Suggest Mosque"
+                ],
+                "summary": "Decline name mosque suggest mosque response",
+                "description": "Decline name mosque suggest mosque response",
+                "operationId": "declineNameSuggestMosque",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque ",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_admin",
+                        "in": "formData",
+                        "description": "ID Admin ",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/address/decline": {
+            "post": {
+                "tags": [
+                    "Decline Suggest Mosque"
+                ],
+                "summary": "Decline address mosque suggest mosque response",
+                "description": "Decline address mosque suggest mosque response",
+                "operationId": "declineAddressSuggestMosque",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque ",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_admin",
+                        "in": "formData",
+                        "description": "ID Admin ",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/latitude/decline": {
+            "post": {
+                "tags": [
+                    "Decline Suggest Mosque"
+                ],
+                "summary": "Decline latitude mosque suggest mosque response",
+                "description": "Decline latitude mosque suggest mosque response",
+                "operationId": "declineLatitudeSuggestMosque",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque ",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_admin",
+                        "in": "formData",
+                        "description": "ID Admin ",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/longitude/decline": {
+            "post": {
+                "tags": [
+                    "Decline Suggest Mosque"
+                ],
+                "summary": "Decline longitude mosque suggest mosque response",
+                "description": "Decline longitude mosque suggest mosque response",
+                "operationId": "declineLongitudeSuggestMosque",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque ",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_admin",
+                        "in": "formData",
+                        "description": "ID Admin ",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/facilities/decline": {
+            "post": {
+                "tags": [
+                    "Decline Suggest Mosque"
+                ],
+                "summary": "Decline facilities mosque suggest mosque response",
+                "description": "Decline facilities mosque suggest mosque response",
+                "operationId": "declineFacilitiesSuggestMosque",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque ",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_admin",
+                        "in": "formData",
+                        "description": "ID Admin ",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/images/decline": {
+            "post": {
+                "tags": [
+                    "Decline Suggest Mosque"
+                ],
+                "summary": "Decline images mosque suggest mosque response",
+                "description": "Decline images mosque suggest mosque response",
+                "operationId": "declineImagesSuggestMosque",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque ",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_admin",
+                        "in": "formData",
+                        "description": "ID Admin ",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/salah-times/decline": {
+            "post": {
+                "tags": [
+                    "Decline Suggest Mosque"
+                ],
+                "summary": "Decline salah times mosque suggest mosque response",
+                "description": "Decline salah times mosque suggest mosque response",
+                "operationId": "declineSalahTimesSuggestMosque",
+                "parameters": [
+                    {
+                        "name": "id_suggest_salah_times",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque Salah Times ",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_admin",
+                        "in": "formData",
+                        "description": "ID Admin ",
+                        "required": true,
+                        "type": "integer"
                     }
                 ],
                 "responses": {
@@ -3688,7 +5251,7 @@
                     {
                         "name": "date_salah_times",
                         "in": "formData",
-                        "description": "date_salah_times (YYYY-mm-dd ,ex : 2021-11-15) [default : now] (Kosongi jika tidak ingin merubah data)...",
+                        "description": "date_salah_times (YYYY-mm-dd ,ex : 2021-11-15) (Kosongi jika tidak ingin merubah data)...",
                         "required": false,
                         "type": "string"
                     },
@@ -3858,6 +5421,319 @@
                         "name": "type_salah_times",
                         "in": "formData",
                         "description": "type_salah_times (1 = Fajr || 2 = Zuhr || 3 = Asr || 4 = Maghrib || 5 = Isha) ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "soft_delete",
+                        "in": "formData",
+                        "description": "Soft Delete Data (Default=0 / Not Deleted) [0 = Not Deleted  ||  1 = Deleted / Archived]",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "skip",
+                        "in": "formData",
+                        "description": "Skip Berapa Data (Default=0)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "take",
+                        "in": "formData",
+                        "description": "Take Berapa Data (Default=100)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "order",
+                        "in": "formData",
+                        "description": "ASC / DESC (default DESC)",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/special-salah-times/store": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque Special Salah Times"
+                ],
+                "summary": "Menambah data suggest mosque special salah times response",
+                "description": "Menambah data suggest mosque special salah times response",
+                "operationId": "storeSuggestMosqueSpecialSalahTimes",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "category_special_salah",
+                        "in": "formData",
+                        "description": "category_special_salah (1: Eid-ul Fitri, 2: Eid-ul Adha, 3: Jummah) ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "date_special_salah_times",
+                        "in": "formData",
+                        "description": "date_special_salah_times (YYYY-mm-dd ,ex : 2021-11-15) [default : now] ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "order_special_salah_times",
+                        "in": "formData",
+                        "description": "order_special_salah_times (1st, 2nd, 3rd, 4th, 5th, etc.) ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "time_special_salah_times",
+                        "in": "formData",
+                        "description": "time_special_salah_times (hh:ii ,ex : 09:52) ...",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/special-salah-times/update": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque Special Salah Times"
+                ],
+                "summary": "Mengedit data suggest mosque special salah times response",
+                "description": "Mengedit data suggest mosque special salah times response",
+                "operationId": "updateSuggestMosqueSpecialSalahTimes",
+                "parameters": [
+                    {
+                        "name": "id_special_salah_times",
+                        "in": "formData",
+                        "description": "ID Special Salah Times ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_suggest_mosque",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "category_special_salah",
+                        "in": "formData",
+                        "description": "category_special_salah (1: Eid-ul Fitri, 2: Eid-ul Adha, 3: Jummah) ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "date_special_salah_times",
+                        "in": "formData",
+                        "description": "date_special_salah_times (YYYY-mm-dd ,ex : 2021-11-15) [default : now] (Kosongi jika tidak ingin merubah data)...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "order_special_salah_times",
+                        "in": "formData",
+                        "description": "order_special_salah_times (1st, 2nd, 3rd, 4th, 5th, etc.) (Kosongi jika tidak ingin merubah data)...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "time_special_salah_times",
+                        "in": "formData",
+                        "description": "time_special_salah_times (hh:ii ,ex : 09:52) (Kosongi jika tidak ingin merubah data)...",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/special-salah-times/delete": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque Special Salah Times"
+                ],
+                "summary": "Menghapus data suggest mosque response",
+                "description": "Menghapus data suggest mosque response",
+                "operationId": "deleteSuggestMosqueSpecialSalahTimes",
+                "parameters": [
+                    {
+                        "name": "id_special_salah_times",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque Special Salah Times ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/special-salah-times/unDelete": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque Special Salah Times"
+                ],
+                "summary": "Mengembalikan data terhapus data suggest mosque response",
+                "description": "Mengembalikan data terhapus data suggest mosque response",
+                "operationId": "unDeleteSuggestMosqueSpecialSalahTimes",
+                "parameters": [
+                    {
+                        "name": "id_special_salah_times",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque Special Salah Times ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/special-salah-times/show": {
+            "get": {
+                "tags": [
+                    "Suggest Mosque Special Salah Times"
+                ],
+                "summary": "Show all data suggest mosque response",
+                "description": "Show all data suggest mosque response",
+                "operationId": "showSuggestMosqueSpecialSalahTimes",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/special-salah-times/showById": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque Special Salah Times"
+                ],
+                "summary": "Show data suggest mosque by ID suggest mosque response",
+                "description": "Show data suggest mosque by ID suggest mosque response",
+                "operationId": "showByIdSuggestMosqueSpecialSalahTimes",
+                "parameters": [
+                    {
+                        "name": "id_special_salah_times",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque Special Salah Times ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/suggest-mosque/special-salah-times/showByFilter": {
+            "post": {
+                "tags": [
+                    "Suggest Mosque Special Salah Times"
+                ],
+                "summary": "Show data by filter suggest mosque special salah times response",
+                "description": "Show data by filter suggest mosque special salah times response",
+                "operationId": "showByFilterSuggestMosqueSpecialSalahTimes",
+                "parameters": [
+                    {
+                        "name": "id_suggest_mosque",
+                        "in": "formData",
+                        "description": "ID Suggest Mosque ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "date_special_salah_times",
+                        "in": "formData",
+                        "description": "date_special_salah_times (YYYY-mm-dd ,ex : 2021-11-15) ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "where_year",
+                        "in": "formData",
+                        "description": "where_year [default = this year] ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "where_month",
+                        "in": "formData",
+                        "description": "where_month (month : 1 - 12) [default = this month] ...",
                         "required": false,
                         "type": "integer"
                     },
@@ -4133,6 +6009,27 @@
                 "summary": "Show all data users response",
                 "description": "Show all data users response",
                 "operationId": "showUsers",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/users/showDeleted": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Show all deleted data users response",
+                "description": "Show all deleted data users response",
+                "operationId": "showDeteledUsers",
                 "responses": {
                     "200": {
                         "description": "successful operation"

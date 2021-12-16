@@ -8,25 +8,17 @@ class SuggestMosque extends Model
 {
     protected $table = 'suggest_mosque';
     protected $fillable = [
-        'id_user','status_suggest_mosque','id_mosque','id_borough','id_district','name_mosque',
-        'address','latitude','longitude'
+        'id_user','id_mosque','name_mosque','name_mosque_approve_status','address',
+        'address_approve_status','latitude','latitude_approve_status','longitude','longitude_approve_status'
     ];
 
     protected $primaryKey = 'id_suggest_mosque';
 
     public function User(){
-        return $this->belongsTo('App\Users','id_user','id_user');
+        return $this->belongsTo('App\Model\Users','id_user','id_user');
     }
 
     public function Mosque(){
-        return $this->belongsTo('App\Mosque','id_mosque','id_mosque');
-    }
-
-    public function Borough(){
-        return $this->belongsTo('App\Borough','id_borough','id_borough');
-    }
-
-    public function District(){
-        return $this->belongsTo('App\Districts','id_district','id_district');
+        return $this->belongsTo('App\Model\Mosque\Mosque','id_mosque','id_mosque');
     }
 }

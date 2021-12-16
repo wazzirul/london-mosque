@@ -481,6 +481,7 @@ class SuggestMosqueFacilitiesController extends Controller
             'suggest_mosque_facilities.id_suggest_mosque_facilities',
             'suggest_mosque_facilities.id_suggest_mosque',
             'suggest_mosque_facilities.id_facilities',
+            'suggest_mosque_facilities.mosque_facilities_approve_status',
             'suggest_mosque_facilities.soft_delete',
             'suggest_mosque_facilities.created_at as created_at',
             'suggest_mosque_facilities.updated_at as updated_at'

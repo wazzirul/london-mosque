@@ -9,7 +9,7 @@ class MosqueImage extends Model
     //
     protected $table = 'mosque_image';
     protected $fillable = [
-        'id_mosque','mosque_image_url'
+        'id_mosque','public_id','mosque_image_url'
     ];
 
     protected $primaryKey = 'id_mosque_image';
