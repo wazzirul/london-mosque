@@ -569,6 +569,7 @@ class SuggestMosqueApproveController extends Controller
         foreach ($suggestImage as $key => $value) {
             $newMosqueImage = new MosqueImage();
             $newMosqueImage->id_mosque = $id_mosque;
+            $newMosqueImage->public_id = $value->public_id;
             $newMosqueImage->mosque_image_url = $value->mosque_image_url;
             $newMosqueImage->save();
         }

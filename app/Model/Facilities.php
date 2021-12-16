@@ -8,7 +8,7 @@ class Facilities extends Model
 {
     protected $table = 'facilities';
     protected $fillable = [
-        'name_facilities','icon_facilities'
+        'name_facilities','public_id','icon_facilities'
     ];
 
     protected $primaryKey = 'id_facilities';
