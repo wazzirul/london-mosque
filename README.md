@@ -11,7 +11,8 @@
 L5_SWAGGER_GENERATE_ALWAYS = true
 SWAGGER_VERSION = 2.0
 8. php artisan l5-swagger:generate // generate api docs swagger for first time 
-9. php artisan serve // run the server
+9. php artisan vendor:publish --provider="CloudinaryLabs\CloudinaryLaravel\CloudinaryServiceProvider" --tag="cloudinary-laravel-config"
+10. php artisan serve // run the server
 
 # Notes
 - dont do composer update
