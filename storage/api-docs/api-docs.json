@@ -3425,7 +3425,7 @@
                     "Quran"
                 ],
                 "summary": "Returning / Show data Quran Show Al Kahf response",
-                "description": "Returning / Show data Quran Show Al Kahf response",
+                "description": "Returning / Show data Quran Show Al Kahf response<br>\n     *     Verse = Verse Arabic Ayah Quran<br>\n     *     Transliteration = Transliteration From Verse Arabic <br>\n     *     Translate = Translate From Verse Arabic to English",
                 "operationId": "showQuranAlKahf",
                 "parameters": [
                     {

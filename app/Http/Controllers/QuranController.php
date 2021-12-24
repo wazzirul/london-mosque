@@ -25,7 +25,10 @@ class QuranController extends Controller
      *   path="/quran/showSurah",
      *     tags={"Quran"},
      *     summary="Returning / Show data Quran Show Al Kahf response",
-     *     description="Returning / Show data Quran Show Al Kahf response",
+     *     description="Returning / Show data Quran Show Al Kahf response<br>
+     *     Verse = Verse Arabic Ayah Quran<br>
+     *     Transliteration = Transliteration From Verse Arabic <br>
+     *     Translate = Translate From Verse Arabic to English",
      *     operationId="showQuranAlKahf",
      * 
      *   @SWG\Parameter(
@@ -55,8 +58,13 @@ class QuranController extends Controller
         
         $responseTranslate = $client->request('GET', 'https://api.alquran.cloud/v1/surah/'.$number_surah.'/en.asad');
         $bodyTranslate = json_decode($responseTranslate->getBody()->getContents());
+
+        $responseTransliteration = $client->request('GET', 'https://api.alquran.cloud/v1/surah/'.$number_surah.'/en.transliteration');
+        $bodyTransliteration = json_decode($responseTransliteration->getBody()->getContents());
+
         $data = new StdClass();
         $data->Verse = $bodyVerse->data;
+        $data->Transliteration = $bodyTransliteration->data;
         $data->Translate = $bodyTranslate->data;
         
         if($data === null){
