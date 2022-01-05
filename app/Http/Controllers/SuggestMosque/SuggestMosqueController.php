@@ -496,26 +496,6 @@ class SuggestMosqueController extends Controller
         $suggestImage = SuggestMosqueImage::where('id_suggest_mosque', $suggestMosque->id_suggest_mosque)
             ->get();
 
-        $expiresAt = Carbon::now()->addDays();  
-        foreach ($suggestFacilities as $key => $sfa) {
-            $imageReference = app('firebase.storage')->getBucket()->object($sfa->facilities->icon_facilities);  
-            if($imageReference->exists()){
-                $icon = $imageReference->signedUrl($expiresAt);
-                $suggestFacilities[$key]['facilities']->icon_facilities_firebase = $icon;
-            }else{
-                $suggestFacilities[$key]['facilities']->icon_facilities_firebase = null;
-            }
-        }
-        foreach ($suggestImage as $key => $sim) {
-            $imageReference = app('firebase.storage')->getBucket()->object($sim->mosque_image_url);  
-            if($imageReference->exists()){
-                $image = $imageReference->signedUrl($expiresAt);
-                $suggestImage[$key]->mosque_image_url_firebase = $image;
-            }else{
-                $suggestImage[$key]->mosque_image_url_firebase = null;
-            }
-        }
-
         $suggestMosque['suggest_mosque_facilities'] = $suggestFacilities;
         $suggestMosque['suggest_mosque_salah_times'] = $suggestSalahTimes;
         $suggestMosque['suggest_mosque_special_salah_times'] = $suggestSpecialSalahTimes;
