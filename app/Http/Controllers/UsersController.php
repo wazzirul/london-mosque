@@ -628,7 +628,7 @@ class UsersController extends Controller
      *     tags={"Users"},
      *     summary="Resend verification code users by Email response",
      *     description="Resend verification code users by Email response",
-     *     operationId="verifAccountUsers",
+     *     operationId="resendVerifAccountUsers",
      * 
      *   @SWG\Parameter(
      *     name="email",
