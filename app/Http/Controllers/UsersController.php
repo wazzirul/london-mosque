@@ -90,7 +90,7 @@ class UsersController extends Controller
             <p>'.env("APP_URL").'api/users/verif-account?u='.$email.'&c='.$code_verification.'</p>
             </body>
         ';
-        $mail->send();
+        $mail_result = $mail->send();
 
         UsersVerification::create([
             'id_user' => $data->id_user,
@@ -101,6 +101,7 @@ class UsersController extends Controller
             $res['status_code'] = 200;
             $res['success'] = true;
             $res['data'] = $data;
+            $res['mail_result'] = $mail_result;
 
             return response($res, 200);
         }
