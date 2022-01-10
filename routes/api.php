@@ -24,6 +24,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 ///////////////////////////////////////////////////////////////////////////////////////////
 Route::post('admin/login', 'AdminController@login');
 Route::post('users/login', 'UsersController@login');
+Route::post('users/store', 'UsersController@store');
+Route::post('users/resend-verif-account', 'UsersController@resendVerifAccount');
+Route::get('users/verif-account', 'UsersController@verifAccount');
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 // End Of Endpoints Without Using JWT Token
@@ -51,12 +54,9 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     ///////////////////////////////////////////////////////////////////////////////////////////
     // USERS
     ///////////////////////////////////////////////////////////////////////////////////////////
-    Route::post('users/store', 'UsersController@store');
     Route::post('users/update', 'UsersController@update');
     Route::post('users/delete', 'UsersController@delete');
     Route::post('users/unDelete', 'UsersController@unDelete');
-    Route::post('users/resend-verif-account', 'UsersController@resendVerifAccount');
-    Route::get('users/verif-account', 'UsersController@verifAccount');
     Route::post('users/logout', 'UsersController@logout');
     Route::post('users/showById', 'UsersController@showById');
     Route::get('users/show', 'UsersController@show');
