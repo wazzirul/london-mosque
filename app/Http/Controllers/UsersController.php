@@ -71,26 +71,32 @@ class UsersController extends Controller
 
         $code_verification = Str::random(25);
 
-        $mail = new PHPMailer;
-        $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com';
-        $mail->Port = 587;
-        $mail->Username = 'londonmosquemailer@gmail.com'; // Email Yang Digunakan untuk Mengirim ----------------------- SETTING EMAIL TERLEBIH DULU
-        $mail->Password = '/T(9!HG9D5h\@%z'; // Password Email Yang Digunakan Untuk Mengirim ----- SETTING EMAIL TERLEBIH DULU
-        $mail->SMTPSecure = 'tls';
-        $mail->SMTPAuth = true;
-        $mail->isHTML(true);
-        $mail->addAddress($email); // Email Yang Penerima Pesan.. Contoh = JagadTour@gmail.com
-        $mail->setFrom('londonmosquemailer@gmail.com', 'London Mosque Mailer'); // Email Yang Mengirim Pesan .. Contoh = JagadTour2@gmail.com
-        $mail->Subject = 'Pengirim : London Mosque Mailer';
-        $mail->Body = '  
-            <body>
-            <h1>Click link below to verif your account</h1>
-            <p>--------------------------------------------------------------</p>
-            <p>'.env("APP_URL").'api/users/verif-account?u='.$email.'&c='.$code_verification.'</p>
-            </body>
-        ';
-        $mail_result = $mail->send();
+        $mail = new PHPMailer(true);
+        try {
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->Port = 587;
+            $mail->Username = 'londonmosquemailer@gmail.com'; // Email Yang Digunakan untuk Mengirim ----------------------- SETTING EMAIL TERLEBIH DULU
+            $mail->Password = 'londonmailerpass'; // Password Email Yang Digunakan Untuk Mengirim ----- SETTING EMAIL TERLEBIH DULU
+            $mail->SMTPSecure = 'tls';
+            $mail->SMTPAuth = true;
+            $mail->isHTML(true);
+            $mail->addAddress($email); // Email Yang Penerima Pesan.. Contoh = JagadTour@gmail.com
+            $mail->setFrom('londonmosquemailer@gmail.com', 'London Mosque Mailer'); // Email Yang Mengirim Pesan .. Contoh = JagadTour2@gmail.com
+            $mail->Subject = 'Pengirim : London Mosque Mailer';
+            $mail->Body = '  
+                <body>
+                <h1>Click link below to verif your account</h1>
+                <p>--------------------------------------------------------------</p>
+                <p>'.env("APP_URL").'api/users/verif-account?u='.$email.'&c='.$code_verification.'</p>
+                </body>
+            ';
+            $mail->send();
+        } catch (\Throwable $th) {
+            //throw $th;
+            // $mail_trace = $th;
+        }
+        
 
         UsersVerification::create([
             'id_user' => $data->id_user,
@@ -101,7 +107,6 @@ class UsersController extends Controller
             $res['status_code'] = 200;
             $res['success'] = true;
             $res['data'] = $data;
-            $res['mail_result'] = $mail_result;
 
             return response($res, 200);
         }
@@ -687,7 +692,7 @@ class UsersController extends Controller
                 $mail->Host = 'smtp.gmail.com';
                 $mail->Port = 587;
                 $mail->Username = 'londonmosquemailer@gmail.com'; // Email Yang Digunakan untuk Mengirim ----------------------- SETTING EMAIL TERLEBIH DULU
-                $mail->Password = '/T(9!HG9D5h\@%z'; // Password Email Yang Digunakan Untuk Mengirim ----- SETTING EMAIL TERLEBIH DULU
+                $mail->Password = 'londonmailerpass'; // Password Email Yang Digunakan Untuk Mengirim ----- SETTING EMAIL TERLEBIH DULU
                 $mail->SMTPSecure = 'tls';
                 $mail->SMTPAuth = true;
                 $mail->isHTML(true);
@@ -723,7 +728,7 @@ class UsersController extends Controller
             $mail->Host = 'smtp.gmail.com';
             $mail->Port = 587;
             $mail->Username = 'londonmosquemailer@gmail.com'; // Email Yang Digunakan untuk Mengirim ----------------------- SETTING EMAIL TERLEBIH DULU
-            $mail->Password = '/T(9!HG9D5h\@%z'; // Password Email Yang Digunakan Untuk Mengirim ----- SETTING EMAIL TERLEBIH DULU
+            $mail->Password = 'londonmailerpass'; // Password Email Yang Digunakan Untuk Mengirim ----- SETTING EMAIL TERLEBIH DULU
             $mail->SMTPSecure = 'tls';
             $mail->SMTPAuth = true;
             $mail->isHTML(true);
@@ -839,7 +844,6 @@ class UsersController extends Controller
                 $res['status_code'] = 200;
                 $res['success'] = true;
                 $res['detail'] = "Verification account success.";
-                $res['data'] = $user;
             }else{
                 $res['status_code'] = 406;
                 $res['success'] = false;
