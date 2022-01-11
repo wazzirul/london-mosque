@@ -284,6 +284,7 @@ class MosqueFavoriteController extends Controller
         ->when($request->has('id_user'), function ($query) use ($id_user) {
             $query->where('mosque_favorite.id_user',$id_user);
         })
+        ->leftJoin('mosque_image', 'mosque_image.id_mosque', '=', 'mosque_favorite.id_mosque')
         ->where('mosque_favorite.soft_delete',$soft_delete) 
         ->where('mosque_favorite.status_mosque_favorite',$status_mosque_favorite)
         ->skip($skip)
@@ -295,6 +296,7 @@ class MosqueFavoriteController extends Controller
             'mosque_favorite.id_mosque',
             'mosque_favorite.id_user',
             'mosque_favorite.status_mosque_favorite',
+            'mosque_image.mosque_image_url',
             'mosque_favorite.soft_delete',
             'mosque_favorite.created_at',
             'mosque_favorite.updated_at'
