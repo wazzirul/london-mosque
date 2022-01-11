@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('mosque/showGroupByBorough', 'Mosque\MosqueController@showGroupByBorough');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
@@ -28,6 +27,7 @@ Route::post('users/login', 'UsersController@login');
 Route::post('users/store', 'UsersController@store');
 Route::post('users/resend-verif-account', 'UsersController@resendVerifAccount');
 Route::get('users/verif-account', 'UsersController@verifAccount');
+Route::get('mosque/showGroupByBorough', 'Mosque\MosqueController@showGroupByBorough');
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 // End Of Endpoints Without Using JWT Token
