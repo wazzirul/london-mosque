@@ -1714,6 +1714,71 @@
                 }
             }
         },
+        "/mosque/nearestMosque": {
+            "post": {
+                "tags": [
+                    "Mosque"
+                ],
+                "summary": "Show Nearest data mosque from latitude and longitude response",
+                "description": "Show Nearest data mosque from latitude and longitude response\r\n           <br>*Salah Times using DATE NOW to save data from many return\r\n           <br>*Jummah Times using DATE YEAR AND MONTH NOW to save data from many return",
+                "operationId": "nearestMosqueMosques",
+                "parameters": [
+                    {
+                        "name": "latitude",
+                        "in": "formData",
+                        "description": "Latitude ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "longitude",
+                        "in": "formData",
+                        "description": "Longitude ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "soft_delete",
+                        "in": "formData",
+                        "description": "Soft Delete Data (Default=0 / Not Deleted) [0 = Not Deleted  ||  1 = Deleted / Archived]",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "skip",
+                        "in": "formData",
+                        "description": "Skip how many Data (Default=0)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "take",
+                        "in": "formData",
+                        "description": "Take how many Data (Default=100)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "order",
+                        "in": "formData",
+                        "description": "ASC / DESC (default DESC)",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
         "/mosque-facilities/store": {
             "post": {
                 "tags": [
@@ -3066,7 +3131,7 @@
                     "Mosque Special Salah Times"
                 ],
                 "summary": "Updating data Mosque Special Salah Times response",
-                "description": "Updating data Mosque Special Salah Times response\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
+                "description": "Updating data Mosque Special Salah Times response\r\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
                 "operationId": "updateMosque",
                 "parameters": [
                     {
@@ -3335,7 +3400,7 @@
                     "Mosque Special Salah Times"
                 ],
                 "summary": "Import Salah Jummah data in Mosque Spesial Salah Times response",
-                "description": "Import Salah Jummah data in Mosque Spesial Salah Times <br>\n            <p>*File Excel Mosque Salah Jummah Times extension must be .xlsx or .xls</p>",
+                "description": "Import Salah Jummah data in Mosque Spesial Salah Times <br>\r\n            <p>*File Excel Mosque Salah Jummah Times extension must be .xlsx or .xls</p>",
                 "operationId": "importJummahMosqueSpesialSalahTimes",
                 "parameters": [
                     {
@@ -3365,7 +3430,7 @@
                     "Mosque Special Salah Times"
                 ],
                 "summary": "Import Salah Eid-ul Fitri data in Mosque Spesial Salah Times response",
-                "description": "Import Salah Eid-ul Fitri data in Mosque Spesial Salah Times <br>\n            <p>*File Excel Mosque Salah Eid-ul Fitri Times extension must be .xlsx or .xls</p>",
+                "description": "Import Salah Eid-ul Fitri data in Mosque Spesial Salah Times <br>\r\n            <p>*File Excel Mosque Salah Eid-ul Fitri Times extension must be .xlsx or .xls</p>",
                 "operationId": "importEidulFitriMosqueSpesialSalahTimes",
                 "parameters": [
                     {
@@ -3395,7 +3460,7 @@
                     "Mosque Special Salah Times"
                 ],
                 "summary": "Import Salah Eid-ul Adha data in Mosque Spesial Salah Times response",
-                "description": "Import Salah Eid-ul Adha data in Mosque Spesial Salah Times <br>\n            <p>*File Excel Mosque Salah Eid-ul Adha Times extension must be .xlsx or .xls</p>",
+                "description": "Import Salah Eid-ul Adha data in Mosque Spesial Salah Times <br>\r\n            <p>*File Excel Mosque Salah Eid-ul Adha Times extension must be .xlsx or .xls</p>",
                 "operationId": "importEidulAdhaMosqueSpesialSalahTimes",
                 "parameters": [
                     {
@@ -3425,7 +3490,7 @@
                     "Quran"
                 ],
                 "summary": "Returning / Show data Quran Show Al Kahf response",
-                "description": "Returning / Show data Quran Show Al Kahf response<br>\n     *     Verse = Verse Arabic Ayah Quran<br>\n     *     Transliteration = Transliteration From Verse Arabic <br>\n     *     Translate = Translate From Verse Arabic to English",
+                "description": "Returning / Show data Quran Show Al Kahf response<br>\r\n     *     Verse = Verse Arabic Ayah Quran<br>\r\n     *     Transliteration = Transliteration From Verse Arabic <br>\r\n     *     Translate = Translate From Verse Arabic to English",
                 "operationId": "showQuranAlKahf",
                 "parameters": [
                     {
@@ -3529,7 +3594,7 @@
                     "Ramadhan Salah Times"
                 ],
                 "summary": "Updating data Ramadhan Salah Times response",
-                "description": "Updating data Ramadhan Salah Times response\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
+                "description": "Updating data Ramadhan Salah Times response\r\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
                 "operationId": "updateRamadhanSalahTimes",
                 "parameters": [
                     {
@@ -3770,7 +3835,7 @@
                     "Ramadhan Salah Times"
                 ],
                 "summary": "Import new data Ramadhan Salah Times response",
-                "description": "Import new data Ramadhan Salah Times <br>\n            <p>*File Excel Ramadhan Salah/Prayer Times extension must be .xlsx or .xls</p>",
+                "description": "Import new data Ramadhan Salah Times <br>\r\n            <p>*File Excel Ramadhan Salah/Prayer Times extension must be .xlsx or .xls</p>",
                 "operationId": "importRamadhanSalahTimes",
                 "parameters": [
                     {
@@ -6110,7 +6175,7 @@
                 ],
                 "summary": "Resend verification code users by Email response",
                 "description": "Resend verification code users by Email response",
-                "operationId": "verifAccountUsers",
+                "operationId": "resendVerifAccountUsers",
                 "parameters": [
                     {
                         "name": "email",

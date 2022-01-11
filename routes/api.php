@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::get('mosque/showGroupByBorough', 'Mosque\MosqueController@showGroupByBorough');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
@@ -223,9 +224,9 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post('mosque/delete', 'Mosque\MosqueController@delete');
     Route::post('mosque/undelete', 'Mosque\MosqueController@undelete');
     Route::post('mosque/showById', 'Mosque\MosqueController@showById');
-    Route::get('mosque/showGroupByBorough', 'Mosque\MosqueController@showGroupByBorough');
     Route::post('mosque/showByFilter', 'Mosque\MosqueController@showByFilter');
     Route::get('mosque/show', 'Mosque\MosqueController@show');
+    Route::POST('mosque/nearestMosque', 'Mosque\MosqueController@nearestMosque');
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////

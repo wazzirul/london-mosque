@@ -1030,4 +1030,188 @@ class MosqueController extends Controller
             return response($res, 200);
         }
     }
+
+
+
+    
+    
+
+
+    
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // SHOW By ID
+    //////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @SWG\Post(
+     *   path="/mosque/nearestMosque",
+     *     tags={"Mosque"},
+     *     summary="Show Nearest data mosque from latitude and longitude response",
+     *     description="Show Nearest data mosque from latitude and longitude response
+           <br>*Salah Times using DATE NOW to save data from many return
+           <br>*Jummah Times using DATE YEAR AND MONTH NOW to save data from many return",
+     *     operationId="nearestMosqueMosques",
+     * 
+     *   @SWG\Parameter(
+     *     name="latitude",
+     *     in="formData",
+     *     description="Latitude ...",
+     *     required=true,
+     *     type="string"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="longitude",
+     *     in="formData",
+     *     description="Longitude ...",
+     *     required=true,
+     *     type="string"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="soft_delete",
+     *     in="formData",
+     *     description="Soft Delete Data (Default=0 / Not Deleted) [0 = Not Deleted  ||  1 = Deleted / Archived]",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="skip",
+     *     in="formData",
+     *     description="Skip how many Data (Default=0)",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="take",
+     *     in="formData",
+     *     description="Take how many Data (Default=100)",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="order",
+     *     in="formData",
+     *     description="ASC / DESC (default DESC)",
+     *     required=false,
+     *     type="string"
+     *   ),
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function nearestMosque(Request $request){ 
+        
+        $this->validate($request,[
+            'latitude'=>'required',
+            'longitude'=>'required',
+        ]);  
+
+        $latitude = $request->input('latitude');
+        $longitude = $request->input('longitude');
+        
+        $soft_delete = $request->input('soft_delete') ?? 0;
+        $skip = $request->input('skip') ?? 0;
+        $take = $request->input('take') ?? 100;
+        $order = $request->input('order') ?? "DESC";
+
+        $date_salah_times_from = Carbon::now()->format('Y-m-d');
+        $date_salah_times_to = Carbon::now()->format('Y-m-d');
+        
+        $year = Carbon::today()->format('Y');
+        $mth = Carbon::today()->format('m');
+        
+        $StartTimeDay = '00:00:01';
+        $EndTimeDay = '23:59:59';
+        
+        ////////////////
+        //////////
+        //Function To Calculate Distance
+        function distance($lat1, $lon1, $lat2, $lon2, $unit) {
+            if (($lat1 == $lat2) && ($lon1 == $lon2)) {
+              return 0;
+            }
+            else {
+              $theta = $lon1 - $lon2;
+              $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+              $dist = acos($dist);
+              $dist = rad2deg($dist);
+              $miles = $dist * 60 * 1.1515;
+              $unit = strtoupper($unit);
+          
+              if ($unit == "K") {
+                return ($miles * 1.609344);
+              } else if ($unit == "N") {
+                return ($miles * 0.8684);
+              } else {
+                return $miles;
+              }
+            }
+          }
+
+        $dayNow = Carbon::now()->format('Y-m-d');
+        $thisHour = Carbon::now()->format('H:i:s');
+        $oneHourAgo = Carbon::now()->subHours(1)->format('H:i:s');
+
+        $mosque = Mosque::query()
+        ->where('mosque.soft_delete',$soft_delete)
+        ->skip($skip)
+        ->take($take)
+        ->with('AvgRating')
+        ->orderByRaw('mosque.id_mosque '.$order)
+        ->distinct('mosque.id_mosque')
+        ->get([
+            'mosque.id_mosque',
+            'mosque.id_mosque_google_place',
+            'mosque.id_borough',
+            'mosque.id_district',
+            'mosque.slug_mosque',
+            'mosque.name_mosque',
+            'mosque.address',
+            'mosque.latitude',
+            'mosque.longitude',
+            'mosque.soft_delete',
+            'mosque.created_at as created_at',
+            'mosque.updated_at as updated_at'
+        ]);
+
+        foreach($mosque as $index => $d){
+            $borough = Borough::where('id_borough', $d->id_borough)
+                ->where('soft_delete', 0)
+                ->first();
+            $district = Districts::where('id_district', $d->id_district)
+                ->where('soft_delete', 0)
+                ->first();
+            $facilities = MosqueFacilities::join('facilities','facilities.id_facilities','=','mosque_facilities.id_facilities')
+                ->where('id_mosque', $d->id_mosque)
+                ->where('mosque_facilities.soft_delete', 0)
+                ->get();
+            $images = MosqueImage::where('id_mosque', $d->id_mosque)
+                ->where('soft_delete', 0)
+                ->take(2)
+                ->get();
+            $distance = distance($latitude, $longitude, $d->latitude, $d->longitude, "K");
+    
+            $mosque[$index]->distance = $distance ?? null;
+            $mosque[$index]->borough = $borough ?? null;
+            $mosque[$index]->district = $district  ?? null;
+            $mosque[$index]->facilities = $facilities ?? null;
+            $mosque[$index]->images = $images ?? null;
+        }
+
+        if(count($mosque) !== 0){
+            $res['status_code'] = 200;
+            $res['success'] = true;
+            $res['message'] = 'Success return Mosque data';
+            $res['data'] = $mosque;
+
+            return response($res, 200);
+        }else{
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['data'] = $mosque;
+
+            return response($res, 200);
+        }
+    }
+
 }
