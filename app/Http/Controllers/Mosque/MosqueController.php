@@ -1106,8 +1106,8 @@ class MosqueController extends Controller
             'longitude'=>'required',
         ]);  
 
-        $latitude = $request->input('latitude');
-        $longitude = $request->input('longitude');
+        $latitude = floatval(substr($request->input('latitude'), 0, 8));
+        $longitude = floatval(substr($request->input('longitude'), 0, 8));
         
         $soft_delete = $request->input('soft_delete') ?? 0;
         $skip = $request->input('skip') ?? 0;
