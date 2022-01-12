@@ -563,6 +563,13 @@ class MosqueSpecialSalahTimesController extends Controller
      *     required=false,
      *     type="integer"
      *   ),
+     *   @SWG\Parameter(
+     *     name="id_borough",
+     *     in="formData",
+     *     description="ID Borough ...",
+     *     required=false,
+     *     type="integer"
+     *   ),
      *  @SWG\Parameter(
      *     name="category_special_salah",
      *     in="formData",
@@ -627,6 +634,7 @@ class MosqueSpecialSalahTimesController extends Controller
     public function showByFilter(Request $request){ 
         
         $id_special_salah_times = $request->input('id_special_salah_times');
+        $id_borough = $request->input('id_borough');
         $id_mosque = $request->input('id_mosque');
         $category_special_salah = $request->input('category_special_salah');
         $date_special_salah_times = $request->input('date_special_salah_times');
@@ -663,6 +671,10 @@ class MosqueSpecialSalahTimesController extends Controller
         })
         ->when($request->has('where_month'), function ($query) use ($mth) {
             $query->whereMonth('mosque_special_salah_times.date_special_salah_times', '=', $mth);
+        })
+        ->when($request->has('id_borough'), function ($query) use ($id_borough) {
+            $query->leftJoin('mosque','mosque.id_mosque','=','mosque_special_salah_times.id_mosque');
+            $query->where('mosque.id_borough',$id_borough);
         })
         ->where('mosque_special_salah_times.soft_delete',$soft_delete)
         // ->whereYear('mosque_special_salah_times.date_special_salah_times', '=', $year)
