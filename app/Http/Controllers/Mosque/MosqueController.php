@@ -1106,8 +1106,10 @@ class MosqueController extends Controller
             'longitude'=>'required',
         ]);  
 
-        $latitude = floatval(substr($request->input('latitude'), 0, 8));
-        $longitude = floatval(substr($request->input('longitude'), 0, 8));
+        $latitude = (float)$request->input('latitude');
+        $longitude = (float)$request->input('longitude');
+        $lat = number_format($latitude,4);
+        $long = number_format($longitude,4);
         
         $soft_delete = $request->input('soft_delete') ?? 0;
         $skip = $request->input('skip') ?? 0;
@@ -1126,7 +1128,7 @@ class MosqueController extends Controller
         ////////////////
         //////////
         //Function To Calculate Distance
-        function distance($lat1, $lon1, $lat2, $lon2, $unit) {
+        function distance($lat1, $lon1, $lat2, $lon2) {
             if (($lat1 == $lat2) && ($lon1 == $lon2)) {
               return 0;
             }
@@ -1136,15 +1138,9 @@ class MosqueController extends Controller
               $dist = acos($dist);
               $dist = rad2deg($dist);
               $miles = $dist * 60 * 1.1515;
-              $unit = strtoupper($unit);
-          
-              if ($unit == "K") {
-                return ($miles * 1.609344);
-              } else if ($unit == "N") {
-                return ($miles * 0.8684);
-              } else {
-                return $miles;
-              }
+              $miles = $miles * 1.609344;
+              $miles = number_format($miles,2, '.', '');
+              return $miles; // Kilometer
             }
           }
 
@@ -1189,7 +1185,7 @@ class MosqueController extends Controller
                 ->where('soft_delete', 0)
                 ->take(2)
                 ->get();
-            $distance = distance($latitude, $longitude, $d->latitude, $d->longitude, "K");
+            $distance = distance($lat, $long, (float)$d->latitude, (float)$d->longitude);
     
             $mosque[$index]->distance = $distance ?? null;
             $mosque[$index]->borough = $borough ?? null;
