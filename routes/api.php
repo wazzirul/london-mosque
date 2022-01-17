@@ -23,11 +23,31 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // Endpoints Without Using JWT Token
 ///////////////////////////////////////////////////////////////////////////////////////////
 Route::post('admin/login', 'AdminController@login');
+
 Route::post('users/login', 'UsersController@login');
 Route::post('users/store', 'UsersController@store');
 Route::post('users/resend-verif-account', 'UsersController@resendVerifAccount');
 Route::get('users/verif-account', 'UsersController@verifAccount');
+
+Route::post('mosque/showById', 'Mosque\MosqueController@showById');
+Route::post('mosque/showByFilter', 'Mosque\MosqueController@showByFilter');
+Route::get('mosque/show', 'Mosque\MosqueController@show');
+Route::POST('mosque/nearestMosque', 'Mosque\MosqueController@nearestMosque');
 Route::get('mosque/showGroupByBorough', 'Mosque\MosqueController@showGroupByBorough');
+
+Route::post('borough/showById', 'BoroughController@showById');
+Route::get('borough/show', 'BoroughController@show');
+
+Route::post('donations/showById', 'DonationsController@showById');
+Route::post('donations/showByIdUsersDonation', 'DonationsController@showByIdUsersDonation');
+Route::get('donations/show', 'DonationsController@show');
+
+Route::get('AboutUs/show', 'AboutUsController@show');
+
+Route::post('ramadhan-prayer/date', 'RamadhanPrayerController@date');
+
+Route::post('quran/showSurah', 'QuranController@showSurah');
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 // End Of Endpoints Without Using JWT Token
@@ -95,8 +115,6 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post('borough/update', 'BoroughController@update');
     Route::post('borough/delete', 'BoroughController@delete');
     Route::post('borough/unDelete', 'BoroughController@unDelete');
-    Route::post('borough/showById', 'BoroughController@showById');
-    Route::get('borough/show', 'BoroughController@show');
     Route::get('borough/showDeleted', 'BoroughController@showDeleted');
 
 
@@ -119,9 +137,6 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post('donations/update', 'DonationsController@update');
     Route::post('donations/delete', 'DonationsController@delete');
     Route::post('donations/unDelete', 'DonationsController@unDelete');
-    Route::post('donations/showById', 'DonationsController@showById');
-    Route::post('donations/showByIdUsersDonation', 'DonationsController@showByIdUsersDonation');
-    Route::get('donations/show', 'DonationsController@show');
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////
@@ -213,7 +228,6 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     // About Us About Us About Us
     ///////////////////////////////////////////////////////////////////////////////////////////
     Route::post('AboutUs/update', 'AboutUsController@update');
-    Route::get('AboutUs/show', 'AboutUsController@show');
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////
@@ -223,10 +237,6 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post('mosque/update', 'Mosque\MosqueController@update');
     Route::post('mosque/delete', 'Mosque\MosqueController@delete');
     Route::post('mosque/undelete', 'Mosque\MosqueController@undelete');
-    Route::post('mosque/showById', 'Mosque\MosqueController@showById');
-    Route::post('mosque/showByFilter', 'Mosque\MosqueController@showByFilter');
-    Route::get('mosque/show', 'Mosque\MosqueController@show');
-    Route::POST('mosque/nearestMosque', 'Mosque\MosqueController@nearestMosque');
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////
@@ -311,15 +321,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post('mosque-review/undelete', 'Mosque\MosqueReviewController@undelete');
     Route::post('mosque-review/showById', 'Mosque\MosqueReviewController@showById');
     Route::post('mosque-review/showByFilter', 'Mosque\MosqueReviewController@showByFilter');
-    Route::get('mosque-review/show', 'Mosque\MosqueReviewController@show');
-
-
-    ///////////////////////////////////////////////////////////////////////////////////////////
-    // RAMADHAN PRAYER
-    ///////////////////////////////////////////////////////////////////////////////////////////
-    Route::post('ramadhan-prayer/date', 'RamadhanPrayerController@date');
-
-    
+    Route::get('mosque-review/show', 'Mosque\MosqueReviewController@show');    
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////
@@ -333,14 +335,6 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::get('ramadhan-salah-times/show', 'RamadhanSalahTimesController@show');
     Route::post('ramadhan-salah-times/showById', 'RamadhanSalahTimesController@showById');
     Route::post('ramadhan-salah-times/showByFilter', 'RamadhanSalahTimesController@showByFilter');
-
-
-    
-
-    ///////////////////////////////////////////////////////////////////////////////////////////
-    // Quran
-    ///////////////////////////////////////////////////////////////////////////////////////////
-    Route::post('quran/showSurah', 'QuranController@showSurah');
 
 });
 ///////////////////////////////////////////////////////////////////////////////////////////
