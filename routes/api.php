@@ -35,6 +35,22 @@ Route::get('mosque/show', 'Mosque\MosqueController@show');
 Route::POST('mosque/nearestMosque', 'Mosque\MosqueController@nearestMosque');
 Route::get('mosque/showGroupByBorough', 'Mosque\MosqueController@showGroupByBorough');
 
+Route::post('mosque-specialsalah-times/showById', 'Mosque\MosqueSpecialSalahTimesController@showById');
+Route::post('mosque-specialsalah-times/showByFilter', 'Mosque\MosqueSpecialSalahTimesController@showByFilter');
+Route::get('mosque-specialsalah-times/show', 'Mosque\MosqueSpecialSalahTimesController@show');
+
+Route::post('mosque-salah-times/showById', 'Mosque\MosqueSalahTimesController@showById');
+Route::post('mosque-salah-times/showByFilter', 'Mosque\MosqueSalahTimesController@showByFilter');
+Route::get('mosque-salah-times/show', 'Mosque\MosqueSalahTimesController@show');
+
+Route::post('mosque-facilities/showById', 'Mosque\MosqueFacilitiesController@showById');
+Route::post('mosque-facilities/showByFilter', 'Mosque\MosqueFacilitiesController@showByFilter');
+Route::get('mosque-facilities/show', 'Mosque\MosqueFacilitiesController@show');
+
+Route::post('mosque-image/showById', 'Mosque\MosqueImageController@showById');
+Route::post('mosque-image/showByFilter', 'Mosque\MosqueImageController@showByFilter');
+Route::get('mosque-image/show', 'Mosque\MosqueImageController@show');
+
 Route::post('borough/showById', 'BoroughController@showById');
 Route::get('borough/show', 'BoroughController@show');
 
@@ -247,21 +263,6 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post('mosque-salah-times/update', 'Mosque\MosqueSalahTimesController@update');
     Route::post('mosque-salah-times/delete', 'Mosque\MosqueSalahTimesController@delete');
     Route::post('mosque-salah-times/undelete', 'Mosque\MosqueSalahTimesController@undelete');
-    Route::post('mosque-salah-times/showById', 'Mosque\MosqueSalahTimesController@showById');
-    Route::post('mosque-salah-times/showByFilter', 'Mosque\MosqueSalahTimesController@showByFilter');
-    Route::get('mosque-salah-times/show', 'Mosque\MosqueSalahTimesController@show');
-
-
-    ///////////////////////////////////////////////////////////////////////////////////////////
-    // Mosque Facilities
-    ///////////////////////////////////////////////////////////////////////////////////////////
-    Route::post('mosque-facilities/store', 'Mosque\MosqueFacilitiesController@store');
-    Route::post('mosque-facilities/update', 'Mosque\MosqueFacilitiesController@update');
-    Route::post('mosque-facilities/delete', 'Mosque\MosqueFacilitiesController@delete');
-    Route::post('mosque-facilities/undelete', 'Mosque\MosqueFacilitiesController@undelete');
-    Route::post('mosque-facilities/showById', 'Mosque\MosqueFacilitiesController@showById');
-    Route::post('mosque-facilities/showByFilter', 'Mosque\MosqueFacilitiesController@showByFilter');
-    Route::get('mosque-facilities/show', 'Mosque\MosqueFacilitiesController@show');
 
 
 
@@ -272,9 +273,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post('mosque-facilities/update', 'Mosque\MosqueFacilitiesController@update');
     Route::post('mosque-facilities/delete', 'Mosque\MosqueFacilitiesController@delete');
     Route::post('mosque-facilities/undelete', 'Mosque\MosqueFacilitiesController@undelete');
-    Route::post('mosque-facilities/showById', 'Mosque\MosqueFacilitiesController@showById');
-    Route::post('mosque-facilities/showByFilter', 'Mosque\MosqueFacilitiesController@showByFilter');
-    Route::get('mosque-facilities/show', 'Mosque\MosqueFacilitiesController@show');
+
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////
@@ -287,9 +286,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post('mosque-specialsalah-times/update', 'Mosque\MosqueSpecialSalahTimesController@update');
     Route::post('mosque-specialsalah-times/delete', 'Mosque\MosqueSpecialSalahTimesController@delete');
     Route::post('mosque-specialsalah-times/undelete', 'Mosque\MosqueSpecialSalahTimesController@undelete');
-    Route::post('mosque-specialsalah-times/showById', 'Mosque\MosqueSpecialSalahTimesController@showById');
-    Route::post('mosque-specialsalah-times/showByFilter', 'Mosque\MosqueSpecialSalahTimesController@showByFilter');
-    Route::get('mosque-specialsalah-times/show', 'Mosque\MosqueSpecialSalahTimesController@show');
+    
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////
@@ -299,9 +296,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post('mosque-image/update', 'Mosque\MosqueImageController@update');
     Route::post('mosque-image/delete', 'Mosque\MosqueImageController@delete');
     Route::post('mosque-image/undelete', 'Mosque\MosqueImageController@undelete');
-    Route::post('mosque-image/showById', 'Mosque\MosqueImageController@showById');
-    Route::post('mosque-image/showByFilter', 'Mosque\MosqueImageController@showByFilter');
-    Route::get('mosque-image/show', 'Mosque\MosqueImageController@show');
+
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////
