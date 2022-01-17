@@ -569,6 +569,58 @@
                 }
             }
         },
+        "/contact-us/ContactMail": {
+            "post": {
+                "tags": [
+                    "Contact Us"
+                ],
+                "summary": "Contact Us Email response",
+                "description": "Contact Us Email response",
+                "operationId": "ContactMailContactUs",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "Full Name ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "description": "Email Address ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "message",
+                        "in": "formData",
+                        "description": "Message ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "send",
+                        "in": "formData",
+                        "description": "(BUTTON SEND) ...",
+                        "required": true,
+                        "type": "string",
+                        "default": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
         "/districts/store": {
             "post": {
                 "tags": [
