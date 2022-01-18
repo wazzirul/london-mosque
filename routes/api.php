@@ -66,6 +66,9 @@ Route::post('quran/showSurah', 'QuranController@showSurah');
 
 Route::post('contact-us/ContactMail', 'ContactUsController@ContactMail');
 
+Route::get('utility/GetEidFitriDate', 'UtilityController@GetEidFitriDate');
+Route::get('utility/GetEidAdhaDate', 'UtilityController@GetEidAdhaDate');
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 // End Of Endpoints Without Using JWT Token
 ///////////////////////////////////////////////////////////////////////////////////////////

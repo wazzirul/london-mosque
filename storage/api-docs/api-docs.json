@@ -6655,6 +6655,48 @@
                     }
                 }
             }
+        },
+        "/utility/GetEidFitriDate": {
+            "get": {
+                "tags": [
+                    "Utility"
+                ],
+                "summary": "Get Eid-ul Fitri Date response",
+                "description": "Get Eid-ul Fitri Date response",
+                "operationId": "GetEidFitriDateUtility",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/utility/GetEidAdhaDate": {
+            "get": {
+                "tags": [
+                    "Utility"
+                ],
+                "summary": "Get Eid-ul Adha Date response",
+                "description": "Get Eid-ul Adha Date response",
+                "operationId": "GetEidAdhaDateUtility",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
         }
     },
     "definitions": {}
