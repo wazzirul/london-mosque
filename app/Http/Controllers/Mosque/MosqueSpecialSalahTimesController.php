@@ -765,7 +765,7 @@ class MosqueSpecialSalahTimesController extends Controller
             ],
             [
                 'file'          => 'required',
-                'extension'      => 'required|in:xlsx,xls',
+                'extension'      => 'required|in:xlsx,xls,csv',
             ]
           );
           if ($validator->fails()){
@@ -827,7 +827,7 @@ class MosqueSpecialSalahTimesController extends Controller
             ],
             [
                 'file'          => 'required',
-                'extension'      => 'required|in:xlsx,xls',
+                'extension'      => 'required|in:xlsx,xls,csv',
             ]
           );
           if ($validator->fails()){
@@ -889,7 +889,7 @@ class MosqueSpecialSalahTimesController extends Controller
             ],
             [
                 'file'          => 'required',
-                'extension'      => 'required|in:xlsx,xls',
+                'extension'      => 'required|in:xlsx,xls,csv',
             ]
           );
           if ($validator->fails()){

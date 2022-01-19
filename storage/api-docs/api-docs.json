@@ -3099,9 +3099,16 @@
                 "operationId": "importMosqueSalahTimes",
                 "parameters": [
                     {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
                         "name": "file",
                         "in": "formData",
-                        "description": "file (File Excel Mosque Salah/Prayer Times .xlsx or .xls) ...",
+                        "description": "file (File Excel Mosque Salah/Prayer Times .xlsx or .xls or .csv) ...",
                         "required": true,
                         "type": "file"
                     }

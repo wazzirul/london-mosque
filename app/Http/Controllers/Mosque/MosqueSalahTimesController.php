@@ -672,9 +672,16 @@ class MosqueSalahTimesController extends Controller
      *     operationId="importMosqueSalahTimes",
      * 
      *  @SWG\Parameter(
+     *     name="id_mosque",
+     *     in="formData",
+     *     description="ID Mosque ...",
+     *     required=true,
+     *     type="integer"
+     *   ), 
+     *  @SWG\Parameter(
      *     name="file",
      *     in="formData",
-     *     description="file (File Excel Mosque Salah/Prayer Times .xlsx or .xls) ...",
+     *     description="file (File Excel Mosque Salah/Prayer Times .xlsx or .xls or .csv) ...",
      *     required=true,
      *     type="file"
      *   ), 
@@ -686,24 +693,29 @@ class MosqueSalahTimesController extends Controller
      */
     public function import(Request $request){
         $file = $request->file('file');
+        $id_mosque = $request->input('id_mosque');
         $validator = Validator::make(
             [
+                'id_mosque'=> $id_mosque,
                 'file'      => $file,
                 'extension' => strtolower($file->getClientOriginalExtension()),
             ],
             [
+                'id_mosque'     => 'required|numeric|min:1',
                 'file'          => 'required',
-                'extension'      => 'required|in:xlsx,xls',
+                'extension'     => 'required|in:xlsx,xls,csv',
             ]
           );
           if ($validator->fails()){
             $res['status_code'] = 406;
             $res['success'] = false;
-            $res['message'] = 'Failed, File Not Uploaded or File Extension Not .xlsx / .xls';
+            $res['message'] = 'Failed, File Not Uploaded or File Extension Not (.xlsx / .xls / .csv) ';
             return response($res, 200);
           }
 
-        $import = new MosqueSalahTimesImport();
+        $data = $id_mosque; 
+
+        $import = new MosqueSalahTimesImport($data);
         Excel::import($import, $file);
 
         $res['status_code'] = 200;
