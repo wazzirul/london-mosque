@@ -79,28 +79,28 @@ class UsersDonationController extends Controller
      *     name="card_name",
      *     in="formData",
      *     description="Card Name ...",
-     *     required=true,
+     *     required=false,
      *     type="string"
      *   ),
      *  @SWG\Parameter(
      *     name="cvc",
      *     in="formData",
      *     description="CVC ...",
-     *     required=true,
+     *     required=false,
      *     type="string"
      *   ),
      *  @SWG\Parameter(
      *     name="cardholder_name",
      *     in="formData",
      *     description="Cardholer Name ...",
-     *     required=true,
+     *     required=false,
      *     type="string"
      *   ),
      *  @SWG\Parameter(
      *     name="exp",
      *     in="formData",
      *     description="Expired Date ...",
-     *     required=true,
+     *     required=false,
      *     type="string"
      *   ),
      * 
@@ -120,10 +120,6 @@ class UsersDonationController extends Controller
             'last_name'=>'required',
             'email_address'=>'required|email',
             'mobile_number'=>'required',
-            'card_name'=>'required',
-            'cvc'=>'required',
-            'cardholder_name'=>'required',
-            'exp'=>'required',
         ]);  
 
         $id_user = $request->input('id_user');
@@ -143,10 +139,10 @@ class UsersDonationController extends Controller
         $last_name = $request->input('last_name');
         $email_address = $request->input('email_address');
         $mobile_number = $request->input('mobile_number');
-        $card_name = $request->input('card_name');
-        $cvc = $request->input('cvc');
-        $cardholder_name = $request->input('cardholder_name');
-        $exp = $request->input('exp');
+        $card_name = $request->input('card_name') ?? null;
+        $cvc = $request->input('cvc') ?? null;
+        $cardholder_name = $request->input('cardholder_name') ?? null;
+        $exp = $request->input('exp') ?? null;
 
         $data = UsersDonation::create([
             'id_user' => $id_user,
