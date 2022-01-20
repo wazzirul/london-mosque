@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Model\UsersDonation;
 use App\Model\Donations;
+use Carbon\Carbon;
 
 class DonationsController extends Controller
 {
@@ -37,15 +38,15 @@ class DonationsController extends Controller
      *  @SWG\Parameter(
      *     name="date_donation",
      *     in="formData",
-     *     description="Date Donation ...",
-     *     required=true,
+     *     description="Date Donation (YYYY-MM-DD) (Default: now) ...",
+     *     required=false,
      *     type="string"
      *   ),
      *  @SWG\Parameter(
      *     name="time_donation",
      *     in="formData",
-     *     description="Time Donation ...",
-     *     required=true,
+     *     description="Time Donation (Default: now)...",
+     *     required=false,
      *     type="string"
      *   ),
      * 
@@ -58,8 +59,6 @@ class DonationsController extends Controller
         $this->validate($request,[
             'id_user_donation'=>'required|numeric',
             'amount_donation'=>'required|numeric',
-            'date_donation'=>'required',
-            'time_donation'=>'required',
         ]);  
 
         $id_user_donation = $request->input('id_user_donation');
@@ -73,8 +72,8 @@ class DonationsController extends Controller
         }
 
         $amount_donation = $request->input('amount_donation');
-        $date_donation = $request->input('date_donation');
-        $time_donation = $request->input('time_donation');
+        $date_donation = $request->input('date_donation') ?? Carbon::now()->toDateString();
+        $time_donation = $request->input('time_donation') ?? Carbon::now()->toTimeString();
 
         $data = Donations::create([
             'id_user_donation' => $id_user_donation,

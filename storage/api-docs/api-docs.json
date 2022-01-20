@@ -897,15 +897,15 @@
                     {
                         "name": "date_donation",
                         "in": "formData",
-                        "description": "Date Donation ...",
-                        "required": true,
+                        "description": "Date Donation (YYYY-MM-DD) (Default: now) ...",
+                        "required": false,
                         "type": "string"
                     },
                     {
                         "name": "time_donation",
                         "in": "formData",
-                        "description": "Time Donation ...",
-                        "required": true,
+                        "description": "Time Donation (Default: now)...",
+                        "required": false,
                         "type": "string"
                     }
                 ],
@@ -6370,28 +6370,28 @@
                         "name": "card_name",
                         "in": "formData",
                         "description": "Card Name ...",
-                        "required": true,
+                        "required": false,
                         "type": "string"
                     },
                     {
                         "name": "cvc",
                         "in": "formData",
                         "description": "CVC ...",
-                        "required": true,
+                        "required": false,
                         "type": "string"
                     },
                     {
                         "name": "cardholder_name",
                         "in": "formData",
                         "description": "Cardholer Name ...",
-                        "required": true,
+                        "required": false,
                         "type": "string"
                     },
                     {
                         "name": "exp",
                         "in": "formData",
                         "description": "Expired Date ...",
-                        "required": true,
+                        "required": false,
                         "type": "string"
                     }
                 ],
