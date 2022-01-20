@@ -51,6 +51,10 @@ Route::post('mosque-image/showById', 'Mosque\MosqueImageController@showById');
 Route::post('mosque-image/showByFilter', 'Mosque\MosqueImageController@showByFilter');
 Route::get('mosque-image/show', 'Mosque\MosqueImageController@show');
 
+Route::post('mosque-review/showById', 'Mosque\MosqueReviewController@showById');
+Route::post('mosque-review/showByFilter', 'Mosque\MosqueReviewController@showByFilter');
+Route::get('mosque-review/show', 'Mosque\MosqueReviewController@show');    
+
 Route::post('borough/showById', 'BoroughController@showById');
 Route::get('borough/show', 'BoroughController@show');
 
@@ -68,6 +72,7 @@ Route::post('contact-us/ContactMail', 'ContactUsController@ContactMail');
 
 Route::get('utility/GetEidFitriDate', 'UtilityController@GetEidFitriDate');
 Route::get('utility/GetEidAdhaDate', 'UtilityController@GetEidAdhaDate');
+Route::get('utility/GetRamadhanDate', 'UtilityController@GetRamadhanDate');
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 // End Of Endpoints Without Using JWT Token
@@ -318,10 +323,6 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post('mosque-review/update', 'Mosque\MosqueReviewController@update');
     Route::post('mosque-review/delete', 'Mosque\MosqueReviewController@delete');
     Route::post('mosque-review/undelete', 'Mosque\MosqueReviewController@undelete');
-    Route::post('mosque-review/showById', 'Mosque\MosqueReviewController@showById');
-    Route::post('mosque-review/showByFilter', 'Mosque\MosqueReviewController@showByFilter');
-    Route::get('mosque-review/show', 'Mosque\MosqueReviewController@show');    
-
 
     ///////////////////////////////////////////////////////////////////////////////////////////
     // Ramadhan Salah Times

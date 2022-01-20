@@ -604,12 +604,12 @@ class RamadhanSalahTimesController extends Controller
           if ($validator->fails()){
             $res['status_code'] = 406;
             $res['success'] = false;
-            $res['message'] = 'Failed, File Not Uploaded or File Extension Not .xlsx / .xls';
+            $res['message'] = 'Failed, File Not Uploaded or File Extension Not (.xlsx / .xls / .csv) ';
             return response($res, 200);
           }
 
-        
-        $import = new RamadhanSalahTimesImport();
+        $data = null; 
+        $import = new RamadhanSalahTimesImport($data);
         Excel::import($import, $file);
 
         $res['status_code'] = 200;

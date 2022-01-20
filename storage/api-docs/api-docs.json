@@ -6704,6 +6704,27 @@
                     }
                 }
             }
+        },
+        "/utility/GetRamadhanDate": {
+            "get": {
+                "tags": [
+                    "Utility"
+                ],
+                "summary": "Get Ramadhan Date response",
+                "description": "Get Ramadhan Date response",
+                "operationId": "GetRamadhanDateUtility",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
         }
     },
     "definitions": {}
