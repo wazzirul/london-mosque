@@ -313,6 +313,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     ///////////////////////////////////////////////////////////////////////////////////////////
     Route::post('mosque-favorite/favorite', 'Mosque\MosqueFavoriteController@favorite');
     Route::post('mosque-favorite/unfavorite', 'Mosque\MosqueFavoriteController@unfavorite');
+    Route::post('mosque-favorite/unfavoritebyusermosque', 'Mosque\MosqueFavoriteController@unfavoritebyusermosque');
     Route::post('mosque-favorite/showByFilter', 'Mosque\MosqueFavoriteController@showByFilter');
 
 

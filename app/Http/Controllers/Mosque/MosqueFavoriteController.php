@@ -182,6 +182,73 @@ class MosqueFavoriteController extends Controller
     }
 
 
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // UNfavorite
+    //////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @SWG\Post(
+     *   path="/mosque-favorite/unfavoritebyusermosque",
+     *     tags={"Mosque Favorite"},
+     *     summary="Remove / Unfavorite data mosque Favorite response",
+     *     description="Remove / Unfavorite data mosque Favorite response",
+     *     operationId="unfavoriteMosqueByUserMosqueFavorite",
+     * 
+     *   @SWG\Parameter(
+     *     name="id_user",
+     *     in="formData",
+     *     description="ID User ...",
+     *     required=true,
+     *     type="integer"
+     *   ),
+     *  @SWG\Parameter(
+     *     name="id_mosque",
+     *     in="formData",
+     *     description="ID Mosque ...",
+     *     required=true,
+     *     type="integer"
+     *   ),
+     * 
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function unfavoritebyusermosque(Request $request){
+        $this->validate($request,[
+            'id_mosque'=>'required|numeric',
+            'id_user'=>'required|numeric',
+        ]);  
+
+        $id_user = $request->input('id_user');
+        $id_mosque = $request->input('id_mosque');
+
+        $MosqueFavorite = MosqueFavorite::where('id_mosque', $id_mosque)
+            ->where('id_user', $id_user)
+            ->first();
+
+        if($MosqueFavorite === null){
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['detail'] = "Data Mosque Favorite not found.";
+
+            return response($res, 200);
+        }
+
+        $MosqueFavorite->status_mosque_favorite = 0;
+
+        $data = $MosqueFavorite->save();
+
+        if($data){
+            $res['status_code'] = 200;
+            $res['success'] = true;
+            $res['data'] = $MosqueFavorite;
+
+            return response($res, 200);
+        }
+    }
+
+
     
 
 

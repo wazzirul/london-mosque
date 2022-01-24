@@ -2162,6 +2162,43 @@
                 }
             }
         },
+        "/mosque-favorite/unfavoritebyusermosque": {
+            "post": {
+                "tags": [
+                    "Mosque Favorite"
+                ],
+                "summary": "Remove / Unfavorite data mosque Favorite response",
+                "description": "Remove / Unfavorite data mosque Favorite response",
+                "operationId": "unfavoriteMosqueByUserMosqueFavorite",
+                "parameters": [
+                    {
+                        "name": "id_user",
+                        "in": "formData",
+                        "description": "ID User ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
         "/mosque-favorite/showByFilter": {
             "post": {
                 "tags": [
