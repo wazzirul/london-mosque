@@ -285,7 +285,7 @@ class SalahBeginningTimesController extends Controller
      *     tags={"Salah Beginning Times"},
      *     summary="Show by filter data Salah Beginning Times response",
      *     description="Show by filter data Salah Beginning Times response",
-     *     operationId="showByFilterSalahTimes",
+     *     operationId="showByFilterSalahBeginningTimes",
      * 
      *   @SWG\Parameter(
      *     name="id_salah_beginning_times",
@@ -406,5 +406,65 @@ class SalahBeginningTimesController extends Controller
 
             return response($res, 200);
         }
+    }
+
+
+
+
+    
+    ////
+    //
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Import
+    //////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @SWG\Post(
+     *   path="/salah-beginning-times/import",
+     *     tags={"Salah Beginning Times"},
+     *     summary="Import new data Salah Beginning Times response",
+     *     description="Import new data Salah Beginning Times <br>
+            <p>*File Excel Salah Beginning Times extension must be .xlsx or .xls</p>",
+     *     operationId="importSalahBeginningTimes",
+     * 
+     *  @SWG\Parameter(
+     *     name="file",
+     *     in="formData",
+     *     description="file (File Excel Salah Beginning Times .xlsx or .xls) ...",
+     *     required=true,
+     *     type="file"
+     *   ), 
+     * 
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function import(Request $request){
+        $file = $request->file('file');
+        $validator = Validator::make(
+            [
+                'file'      => $file,
+                'extension' => strtolower($file->getClientOriginalExtension()),
+            ],
+            [
+                'file'          => 'required',
+                'extension'      => 'required|in:xlsx,xls,csv',
+            ]
+          );
+          if ($validator->fails()){
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['message'] = 'Failed, File Not Uploaded or File Extension Not (.xlsx / .xls / .csv) ';
+            return response($res, 200);
+          }
+
+        $data = null; 
+        $import = new SalahBeginningTimesImport($data);
+        Excel::import($import, $file);
+
+        $res['status_code'] = 200;
+        $res['success'] = true;
+        $res['message'] = 'Success Importing Salah Beginning Times data';
+        return response($res, 200);
     }
 }

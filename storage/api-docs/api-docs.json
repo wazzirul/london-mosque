@@ -4138,7 +4138,7 @@
                 ],
                 "summary": "Show by filter data Salah Beginning Times response",
                 "description": "Show by filter data Salah Beginning Times response",
-                "operationId": "showByFilterSalahTimes",
+                "operationId": "showByFilterSalahBeginningTimes",
                 "parameters": [
                     {
                         "name": "id_salah_beginning_times",
@@ -4195,6 +4195,36 @@
                         "description": "ASC / DESC (default DESC)",
                         "required": false,
                         "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/salah-beginning-times/import": {
+            "post": {
+                "tags": [
+                    "Salah Beginning Times"
+                ],
+                "summary": "Import new data Salah Beginning Times response",
+                "description": "Import new data Salah Beginning Times <br>\r\n            <p>*File Excel Salah Beginning Times extension must be .xlsx or .xls</p>",
+                "operationId": "importSalahBeginningTimes",
+                "parameters": [
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "file (File Excel Salah Beginning Times .xlsx or .xls) ...",
+                        "required": true,
+                        "type": "file"
                     }
                 ],
                 "responses": {
