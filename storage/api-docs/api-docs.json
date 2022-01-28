@@ -3587,6 +3587,43 @@
                 }
             }
         },
+        "/qibla/direction": {
+            "post": {
+                "tags": [
+                    "Qibla"
+                ],
+                "summary": "Show direction from latitude and latitude response",
+                "description": "Show direction from latitude and latitude response",
+                "operationId": "qiblaDirection",
+                "parameters": [
+                    {
+                        "name": "latitude",
+                        "in": "formData",
+                        "description": "Latitude ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "longitude",
+                        "in": "formData",
+                        "description": "Longitude ...",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
         "/quran/showSurah": {
             "post": {
                 "tags": [

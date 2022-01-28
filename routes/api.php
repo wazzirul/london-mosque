@@ -74,6 +74,9 @@ Route::get('utility/GetEidFitriDate', 'UtilityController@GetEidFitriDate');
 Route::get('utility/GetEidAdhaDate', 'UtilityController@GetEidAdhaDate');
 Route::get('utility/GetRamadhanDate', 'UtilityController@GetRamadhanDate');
 
+Route::post('qibla/direction', 'QiblaController@direction');
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 // End Of Endpoints Without Using JWT Token
 ///////////////////////////////////////////////////////////////////////////////////////////
