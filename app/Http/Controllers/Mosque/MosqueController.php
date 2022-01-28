@@ -716,7 +716,7 @@ class MosqueController extends Controller
     public function showGroupByBorough(){ 
         ini_set('max_execution_time', '500');
 
-        $borough = Borough::get();
+        $borough = Borough::where('soft_delete', 0)->get();
 
         $now = Carbon::now()->format('Y-m-d');
         $year = Carbon::today()->format('Y');
