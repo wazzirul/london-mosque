@@ -3962,6 +3962,217 @@
                 }
             }
         },
+        "/salah-beginning-times/storeUpdate": {
+            "post": {
+                "tags": [
+                    "Salah Beginning Times"
+                ],
+                "summary": "Storing new data / Update data Salah Beginning Times response",
+                "description": "Storing new data / Update data Salah Beginning Times response",
+                "operationId": "storeUpdateSalahBeginningTimes",
+                "parameters": [
+                    {
+                        "name": "date_salah_beginning_times",
+                        "in": "formData",
+                        "description": "date_salah_beginning_times (YYYY-mm-dd ,ex : 2021-11-15) [default : now] ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "type_salah_beginning_times",
+                        "in": "formData",
+                        "description": "type_salah_beginning_times (1 = Fajr / Suhur || 2 = Sunrise || 3 = Zuhr || 4 = Asr 1st || 5 = Asr 2nd || 6 = Maghrib || 7 = Isha ) ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "time_salah_beginning_times",
+                        "in": "formData",
+                        "description": "time_salah_beginning_times (hh:ii ,ex : 09:52) ...",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/salah-beginning-times/deleteUndelete": {
+            "post": {
+                "tags": [
+                    "Salah Beginning Times"
+                ],
+                "summary": "Deleting data Salah Beginning Times response",
+                "description": "Deleting data Salah Beginning Times response",
+                "operationId": "deleteUndeleteSalahBeginningTimes",
+                "parameters": [
+                    {
+                        "name": "id_salah_beginning_times",
+                        "in": "formData",
+                        "description": "ID Salah Beginning Times ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "delete",
+                        "in": "formData",
+                        "description": "Delete (1 = Delete Data || 0 = Undelete Data) [Default : 1 / Delete] ...",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/salah-beginning-times/show": {
+            "get": {
+                "tags": [
+                    "Salah Beginning Times"
+                ],
+                "summary": "Show all data Salah Beginning Times (data not deleted / soft_delete = 0) response",
+                "description": "Show all data Salah Beginning Times (data not deleted / soft_delete = 0) response",
+                "operationId": "showSalahBeginningTimes",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/salah-beginning-times/showById": {
+            "post": {
+                "tags": [
+                    "Salah Beginning Times"
+                ],
+                "summary": "Show by id data Salah Beginning Times response",
+                "description": "Show by id data Salah Beginning Times response",
+                "operationId": "showByIdSalahBeginningTimes",
+                "parameters": [
+                    {
+                        "name": "id_salah_beginning_times",
+                        "in": "formData",
+                        "description": "ID Salah Beginning Times ...",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/salah-beginning-times/showByFilter": {
+            "post": {
+                "tags": [
+                    "Salah Beginning Times"
+                ],
+                "summary": "Show by filter data Salah Beginning Times response",
+                "description": "Show by filter data Salah Beginning Times response",
+                "operationId": "showByFilterSalahTimes",
+                "parameters": [
+                    {
+                        "name": "id_salah_beginning_times",
+                        "in": "formData",
+                        "description": "ID Salah Times ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "date_salah_beginning_times",
+                        "in": "formData",
+                        "description": "date_salah_beginning_times (YYYY-mm-dd ,ex : 2021-11-15) ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "year_salah_beginning_times",
+                        "in": "formData",
+                        "description": "Year (YYYY ,ex : 2021) ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "type_salah_beginning_times",
+                        "in": "formData",
+                        "description": "type_salah_beginning_times (1 = Fajr / Suhur || 2 = Sunrise || 3 = Zuhr || 4 = Asr 1st || 5 = Asr 2nd || 6 = Maghrib || 7 = Isha ) ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "soft_delete",
+                        "in": "formData",
+                        "description": "Soft Delete Data (Default=0 / Not Deleted) [0 = Not Deleted  ||  1 = Deleted / Archived]",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "skip",
+                        "in": "formData",
+                        "description": "Skip how many Data (Default=0)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "take",
+                        "in": "formData",
+                        "description": "Take how many Data (Default=100)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "order",
+                        "in": "formData",
+                        "description": "ASC / DESC (default DESC)",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
         "/suggest-mosque/name/approve": {
             "post": {
                 "tags": [

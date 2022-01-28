@@ -66,6 +66,14 @@ Route::get('AboutUs/show', 'AboutUsController@show');
 
 Route::post('ramadhan-prayer/date', 'RamadhanPrayerController@date');
 
+Route::get('ramadhan-salah-times/show', 'RamadhanSalahTimesController@show');
+Route::post('ramadhan-salah-times/showById', 'RamadhanSalahTimesController@showById');
+Route::post('ramadhan-salah-times/showByFilter', 'RamadhanSalahTimesController@showByFilter');
+
+Route::get('salah-beginning-times/show', 'SalahBeginningTimesController@show');
+Route::post('salah-beginning-times/showById', 'SalahBeginningTimesController@showById');
+Route::post('salah-beginning-times/showByFilter', 'SalahBeginningTimesController@showByFilter');
+
 Route::post('quran/showSurah', 'QuranController@showSurah');
 
 Route::post('contact-us/ContactMail', 'ContactUsController@ContactMail');
@@ -333,9 +341,13 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post('ramadhan-salah-times/update', 'RamadhanSalahTimesController@update');
     Route::post('ramadhan-salah-times/delete', 'RamadhanSalahTimesController@delete');
     Route::post('ramadhan-salah-times/undelete', 'RamadhanSalahTimesController@undelete');
-    Route::get('ramadhan-salah-times/show', 'RamadhanSalahTimesController@show');
-    Route::post('ramadhan-salah-times/showById', 'RamadhanSalahTimesController@showById');
-    Route::post('ramadhan-salah-times/showByFilter', 'RamadhanSalahTimesController@showByFilter');
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    // Salah Beginning Times
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    Route::post('salah-beginning-times/import', 'SalahBeginningTimesController@import');
+    Route::post('salah-beginning-times/storeUpdate', 'SalahBeginningTimesController@storeUpdate');
+    Route::post('salah-beginning-times/deleteUndelete', 'SalahBeginningTimesController@deleteUndelete');
 
 });
 ///////////////////////////////////////////////////////////////////////////////////////////

@@ -83,7 +83,7 @@ class UsersController extends Controller
             $mail->isHTML(true);
             $mail->addAddress($email); // Email Yang Penerima Pesan.. Contoh = JagadTour@gmail.com
             $mail->setFrom('londonmosquemailer@gmail.com', 'London Mosque Mailer'); // Email Yang Mengirim Pesan .. Contoh = JagadTour2@gmail.com
-            $mail->Subject = 'Pengirim : London Mosque Mailer';
+            $mail->Subject = 'Sender : London Mosque Mailer';
             $mail->Body = '  
                 <body>
                 <h1>Click link below to verif your account</h1>
@@ -698,7 +698,7 @@ class UsersController extends Controller
                 $mail->isHTML(true);
                 $mail->addAddress($email); // Email Yang Penerima Pesan.. Contoh = JagadTour@gmail.com
                 $mail->setFrom('londonmosquemailer@gmail.com', 'London Mosque Mailer'); // Email Yang Mengirim Pesan .. Contoh = JagadTour2@gmail.com
-                $mail->Subject = 'Pengirim : London Mosque Mailer';
+                $mail->Subject = 'Sender : London Mosque Mailer';
                 $mail->Body = '  
                     <body>
                     <h1>Click link below to verif your account</h1>
@@ -734,7 +734,7 @@ class UsersController extends Controller
             $mail->isHTML(true);
             $mail->addAddress($email); // Email Yang Penerima Pesan.. Contoh = JagadTour@gmail.com
             $mail->setFrom('londonmosquemailer@gmail.com', 'London Mosque Mailer'); // Email Yang Mengirim Pesan .. Contoh = JagadTour2@gmail.com
-            $mail->Subject = 'Pengirim : London Mosque Mailer';
+            $mail->Subject = 'Sender : London Mosque Mailer';
             $mail->Body = '  
                 <body>
                 <h1>Click link below to verif your account</h1>

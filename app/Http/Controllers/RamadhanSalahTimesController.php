@@ -397,7 +397,7 @@ class RamadhanSalahTimesController extends Controller
         if($data === null){
             $res['status_code'] = 406;
             $res['success'] = false;
-            $res['detail'] = "Data Mosque for that ID not found.";
+            $res['detail'] = "Data Ramadhan Salah Times for that ID not found.";
 
             return response($res, 200);
         }
@@ -544,7 +544,7 @@ class RamadhanSalahTimesController extends Controller
         if(!$data->isEmpty()){
             $res['status_code'] = 200;
             $res['success'] = true;
-            $res['message'] = 'Success return Mosque data';
+            $res['message'] = 'Success return Ramadhan Salah Times data';
             $res['data'] = $data;
 
             return response($res, 200);
