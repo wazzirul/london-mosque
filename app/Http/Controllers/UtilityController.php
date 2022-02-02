@@ -249,7 +249,7 @@ class UtilityController extends Controller
         $date = $request->input('date') ?? Carbon::now()->format('Y-m-d');
         $now = date('d-m-Y', strtotime($date));;
 
-        $currentTime = '12:50:00' ?? Carbon::now()->format('H:i:s');
+        $currentTime = Carbon::now()->format('H:i:s');
         // $now = '10-08-2021';
         $response = $client->request('GET', 'http://api.aladhan.com/v1/gToH?date='.$now);
         $body = json_decode($response->getBody()->getContents());
