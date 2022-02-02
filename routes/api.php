@@ -30,6 +30,7 @@ Route::post('users/resend-verif-account', 'UsersController@resendVerifAccount');
 Route::get('users/verif-account', 'UsersController@verifAccount');
 
 Route::post('mosque/showById', 'Mosque\MosqueController@showById');
+Route::get('mosque/showAllAdminPage', 'Mosque\MosqueController@showAllAdminPage');
 Route::post('mosque/showByFilter', 'Mosque\MosqueController@showByFilter');
 Route::get('mosque/show', 'Mosque\MosqueController@show');
 Route::POST('mosque/nearestMosque', 'Mosque\MosqueController@nearestMosque');

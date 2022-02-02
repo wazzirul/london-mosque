@@ -317,6 +317,7 @@ class BoroughController extends Controller
             $res['status_code'] = 200;
             $res['success'] = true;
             $res['detail'] = "Success Returning Borough Data.";
+            $res['totaldata'] = $borough->count();
             $res['data'] = $borough;
 
             return response($res, 200);
@@ -355,6 +356,7 @@ class BoroughController extends Controller
             $res['status_code'] = 200;
             $res['success'] = true;
             $res['detail'] = "Success Returning Borough Data.";
+            $res['totaldata'] = $borough->count();
             $res['data'] = $borough;
 
             return response($res, 200);
@@ -425,6 +427,7 @@ class BoroughController extends Controller
         $res['status_code'] = 200;
         $res['success'] = true;
         $res['detail'] = "Success Returning Borough Data.";
+        $res['totaldata'] = $borough->count();
         $res['data'] = $borough;
 
         return response($res, 200);

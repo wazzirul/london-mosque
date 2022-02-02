@@ -1580,6 +1580,27 @@
                 }
             }
         },
+        "/mosque/showAllAdminPage": {
+            "get": {
+                "tags": [
+                    "Mosque"
+                ],
+                "summary": "show all data mosque with main purpose for Admin Page response",
+                "description": "show all data mosque with main purpose for Admin Page response",
+                "operationId": "showAllAdminPageMosques",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
         "/mosque/showById": {
             "post": {
                 "tags": [

@@ -516,6 +516,7 @@ class UsersController extends Controller
         if(count($user) !== 0){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['totaldata'] = $user->count();
             $res['data'] = $user;
 
             return response($res, 200);
@@ -554,6 +555,7 @@ class UsersController extends Controller
         if(count($user) !== 0){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['totaldata'] = $user->count();
             $res['data'] = $user;
 
             return response($res, 200);
@@ -617,6 +619,7 @@ class UsersController extends Controller
 
         $res['status_code'] = 200;
         $res['success'] = true;
+        $res['totaldata'] = $user->count();
         $res['data'] = $user;
 
         return response($res, 200);

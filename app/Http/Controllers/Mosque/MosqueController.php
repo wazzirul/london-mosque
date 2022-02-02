@@ -573,6 +573,60 @@ class MosqueController extends Controller
         if(count($mosque) !== 0){
             $res['status_code'] = 200;
             $res['success'] = true;
+            $res['totaldata'] = $mosque->count();
+            $res['data'] = $mosque;
+            $res['message'] = 'Success return Mosque data';
+
+            return response($res, 200);
+        }else{
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['data'] = $mosque;
+
+            return response($res, 200);
+        }
+    }
+
+
+
+
+    /**
+     * @SWG\Get(
+     *   path="/mosque/showAllAdminPage",
+     *     tags={"Mosque"},
+     *     summary="show all data mosque with main purpose for Admin Page response",
+     *     description="show all data mosque with main purpose for Admin Page response",
+     *     operationId="showAllAdminPageMosques",
+     * 
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function showAllAdminPage(){ 
+        ini_set('max_execution_time', '500');
+
+        $mosque = Mosque::leftjoin('borough','borough.id_borough','=','mosque.id_borough')
+            ->where('mosque.soft_delete', 0)
+            ->where('borough.soft_delete', 0)
+            ->orderBy('id_mosque', 'ASC')
+            ->get([
+                'mosque.id_mosque',
+                'mosque.id_borough',
+                'mosque.name_mosque',
+                'mosque.slug_mosque',
+                'mosque.address',
+                'borough.name_borough',
+                'mosque.latitude',
+                'mosque.longitude',
+                'mosque.created_at',
+                'mosque.updated_at',
+            ]);
+
+        if(count($mosque) !== 0){
+            $res['status_code'] = 200;
+            $res['success'] = true;
+            $res['totaldata'] = $mosque->count();
             $res['data'] = $mosque;
             $res['message'] = 'Success return Mosque data';
 
@@ -680,6 +734,7 @@ class MosqueController extends Controller
             $res['status_code'] = 200;
             $res['success'] = true;
             $res['message'] = 'Success return Mosque data';
+            $res['totaldata'] = $mosque->count();
             $res['data'] = $mosque;
 
             return response($res, 200);
@@ -752,6 +807,7 @@ class MosqueController extends Controller
                     $mosque[$index]->facilities = $facilities ?? null;
                     $mosque[$index]->images = $images ?? null;
                 }
+                $res['data']['Borough'][$borough->name_borough]['TotalDataMosque'] = $mosque->count();
                 $res['data']['Borough'][$borough->name_borough]['DataMosque'] = $mosque;
 
             }
@@ -1019,6 +1075,7 @@ class MosqueController extends Controller
             $res['status_code'] = 200;
             $res['success'] = true;
             $res['message'] = 'Success return Mosque data';
+            $res['totaldata'] = $mosque->count();
             $res['data'] = $mosque;
 
             return response($res, 200);
