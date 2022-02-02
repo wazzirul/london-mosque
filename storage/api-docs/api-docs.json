@@ -7040,6 +7040,36 @@
                     }
                 }
             }
+        },
+        "/utility/GetNowHijriDateAndNextPrayerTime": {
+            "post": {
+                "tags": [
+                    "Utility"
+                ],
+                "summary": "Get Current Gregorian and Hijri Date, Current Time, and time left next Pray  response",
+                "description": "Get Current Gregorian and Hijri Date, Current Time, and time left next Pray  response",
+                "operationId": "GetNowHijriDateAndNextPrayerTimeUtility",
+                "parameters": [
+                    {
+                        "name": "date",
+                        "in": "formData",
+                        "description": "date (YYYY-mm-dd ,ex : 2022-02-25)[Default : Date Now] ...",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
         }
     },
     "definitions": {}

@@ -81,6 +81,7 @@ Route::post('contact-us/ContactMail', 'ContactUsController@ContactMail');
 Route::get('utility/GetEidFitriDate', 'UtilityController@GetEidFitriDate');
 Route::get('utility/GetEidAdhaDate', 'UtilityController@GetEidAdhaDate');
 Route::get('utility/GetRamadhanDate', 'UtilityController@GetRamadhanDate');
+Route::post('utility/GetNowHijriDateAndNextPrayerTime', 'UtilityController@GetNowHijriDateAndNextPrayerTime');
 
 Route::post('qibla/direction', 'QiblaController@direction');
 
