@@ -249,7 +249,7 @@ class UtilityController extends Controller
         $date = $request->input('date') ?? Carbon::now()->format('Y-m-d');
         $now = date('d-m-Y', strtotime($date));;
 
-        $currentTime = Carbon::now()->format('H:i:s');
+        $currentTime = '12:50:00' ?? Carbon::now()->format('H:i:s');
         // $now = '10-08-2021';
         $response = $client->request('GET', 'http://api.aladhan.com/v1/gToH?date='.$now);
         $body = json_decode($response->getBody()->getContents());
@@ -279,13 +279,14 @@ class UtilityController extends Controller
                 //
                 // 12-hour time to 24-hour time 
                 $timeSalahBeginningTimes = $dataSalahBeginningTimesObject->time_salah_beginning_times;
+                
                 if($dataSalahBeginningTimesObject->type_salah_beginning_times <= 2){
                     $time_in_24_hour_format  = date("H:i:s", strtotime($timeSalahBeginningTimes." AM"));
                 //////////////////////////////////////////////////////////////////////////////////////////    
                 }else if($dataSalahBeginningTimesObject->type_salah_beginning_times == 3){
                     $timeExplode = explode(':', $timeSalahBeginningTimes);
                     $HourExplode = $timeExplode[0];
-                    if($HourExplode < 12){
+                    if($HourExplode > 02 ){
                         $time_in_24_hour_format  = date("H:i:s", strtotime($timeSalahBeginningTimes." AM"));
                     }else{
                         $time_in_24_hour_format  = date("H:i:s", strtotime($timeSalahBeginningTimes." PM"));
