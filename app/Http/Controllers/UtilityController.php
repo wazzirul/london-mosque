@@ -246,8 +246,8 @@ class UtilityController extends Controller
         $client = new Client();
         // FETCH API Tanggalan Hijriah
         //Variable Date Now And Time now
-        $now = Carbon::now()->format('d-m-Y');
         $date = $request->input('date') ?? Carbon::now()->format('Y-m-d');
+        $now = date('d-m-Y', strtotime($date));;
 
         $currentTime = Carbon::now()->format('H:i:s');
         // $now = '10-08-2021';
