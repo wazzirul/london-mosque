@@ -438,6 +438,7 @@ class AdminController extends Controller
             $res['status_code'] = 200;
             $res['success'] = true;
             $res['detail'] = "Success Return Admin Data.";
+            $res['totaldata'] = $admin->count();
             $res['data'] = $admin;
 
             return response($res, 200);
@@ -477,6 +478,7 @@ class AdminController extends Controller
             $res['status_code'] = 200;
             $res['success'] = true;
             $res['detail'] = "Success Return Admin Data.";
+            $res['totaldata'] = $admin->count();
             $res['data'] = $admin;
 
             return response($res, 200);
@@ -541,8 +543,141 @@ class AdminController extends Controller
         $res['status_code'] = 200;
         $res['success'] = true;
         $res['detail'] = "Success Return Admin Data.";
+        $res['totaldata'] = $admin->count();
         $res['data'] = $admin;
 
         return response($res, 200);
+    }
+
+
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // SHOW BY Filter
+    //////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @SWG\Post(
+     *   path="/admin/showByFilter",
+     *     tags={"Admin"},
+     *     summary="Show data admin by Filter admin response",
+     *     description="Show data admin by Filter admin response",
+     *     operationId="showByFilterAdmin",
+     * 
+     *   @SWG\Parameter(
+     *     name="id_admin",
+     *     in="formData",
+     *     description="ID Admin ...",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="username",
+     *     in="formData",
+     *     description="Username ...",
+     *     required=false,
+     *     type="string"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="email",
+     *     in="formData",
+     *     description="Email ...",
+     *     required=false,
+     *     type="string"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="role",
+     *     in="formData",
+     *     description="Role ...",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="soft_delete",
+     *     in="formData",
+     *     description="Soft Delete Data (Default=0 / Not Deleted) [0 = Not Deleted  ||  1 = Deleted / Archived]",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="skip",
+     *     in="formData",
+     *     description="Skip how many Data (Default=0)",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="take",
+     *     in="formData",
+     *     description="Take how many Data (Default=100)",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="order",
+     *     in="formData",
+     *     description="ASC / DESC (default DESC)",
+     *     required=false,
+     *     type="string"
+     *   ),
+     * 
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function showByFilter(Request $request){
+        $id_admin = $request->input('id_admin');
+        $username = $request->input('username');
+        $email = $request->input('email');
+        $role = $request->input('role');
+
+        $soft_delete = $request->input('soft_delete') ?? 0;
+        $skip = $request->input('skip') ?? 0;
+        $take = $request->input('take') ?? 100;
+        $order = $request->input('order') ?? "DESC";
+
+        $admin = Admin::query()
+        ->when($request->has('id_admin'), function ($query) use ($id_admin) {
+            $query->where('admin.id_admin',$id_admin);
+        })
+        ->when($request->has('username'), function ($query) use ($username) {
+            $query->where('admin.username','like','%'.$username.'%');
+        })
+        ->when($request->has('email'), function ($query) use ($email) {
+            $query->where('admin.email','like','%'.$email.'%');
+        })
+        ->when($request->has('role'), function ($query) use ($role) {
+            $query->where('admin.role',$role);
+        })
+        ->where('admin.soft_delete',$soft_delete)
+        ->skip($skip)
+        ->take($take)
+        ->orderByRaw('admin.id_admin '.$order)
+        ->distinct('admin.id_admin')
+        ->get([
+            'admin.id_admin',
+            'admin.email',
+            'admin.username',
+            'admin.role',
+            'admin.soft_delete',
+            'admin.created_at as created_at',
+            'admin.updated_at as updated_at'
+        ]);
+
+        
+        if(count($admin) !== 0){
+            $res['status_code'] = 200;
+            $res['success'] = true;
+            $res['message'] = 'Success return Admins data';
+            $res['totaldata'] = $admin->count();
+            $res['data'] = $admin;
+
+            return response($res, 200);
+        }else{
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['data'] = $admin;
+
+            return response($res, 200);
+        }
     }
 }

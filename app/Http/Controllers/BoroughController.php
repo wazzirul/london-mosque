@@ -432,4 +432,122 @@ class BoroughController extends Controller
 
         return response($res, 200);
     }
+
+
+
+    
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // SHOW BY Filter
+    //////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @SWG\Post(
+     *   path="/borough/showByFilter",
+     *     tags={"Borough"},
+     *     summary="Show data borough by filter borough response",
+     *     description="Show data borough by filter borough response",
+     *     operationId="showByFilterBorough",
+     * 
+     *   @SWG\Parameter(
+     *     name="id_borough",
+     *     in="formData",
+     *     description="ID Borough ...",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="name_borough",
+     *     in="formData",
+     *     description="Name Borough ...",
+     *     required=false,
+     *     type="string"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="soft_delete",
+     *     in="formData",
+     *     description="Soft Delete Data (Default=0 / Not Deleted) [0 = Not Deleted  ||  1 = Deleted / Archived]",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="skip",
+     *     in="formData",
+     *     description="Skip how many Data (Default=0)",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="take",
+     *     in="formData",
+     *     description="Take how many Data (Default=100)",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="order",
+     *     in="formData",
+     *     description="ASC / DESC (default DESC)",
+     *     required=false,
+     *     type="string"
+     *   ),
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function showByFilter(Request $request){
+        $id_borough = $request->input('id_borough');
+        $name_borough = $request->input('name_borough');
+
+        $soft_delete = $request->input('soft_delete') ?? 0;
+        $skip = $request->input('skip') ?? 0;
+        $take = $request->input('take') ?? 100;
+        $order = $request->input('order') ?? "DESC";
+
+        $borough = Borough::query()
+        ->when($request->has('id_borough'), function ($query) use ($id_borough) {
+            $query->where('borough.id_borough',$id_borough);
+        })
+        ->when($request->has('name_borough'), function ($query) use ($name_borough) {
+            $query->where('borough.name_borough','like','%'.$name_borough.'%');
+        })
+        ->where('borough.soft_delete',$soft_delete)
+        ->skip($skip)
+        ->take($take)
+        ->orderByRaw('borough.id_borough '.$order)
+        ->distinct('borough.id_borough')
+        ->get([
+            'borough.id_borough',
+            'borough.name_borough',
+            'borough.latitude',
+            'borough.longitude',
+            'borough.soft_delete',
+            'borough.created_at as created_at',
+            'borough.updated_at as updated_at'
+        ]);
+
+        foreach($borough as $index => $d){
+            
+            $districts = Districts::where('id_borough', $d->id_borough)
+            ->where('soft_delete', 0)
+            ->get();
+    
+            $borough[$index]->districts = $districts  ?? null;
+        }
+        if(count($borough) !== 0){
+            $res['status_code'] = 200;
+            $res['success'] = true;
+            $res['message'] = 'Success return Borough data';
+            $res['totaldata'] = $borough->count();
+            $res['data'] = $borough;
+
+            return response($res, 200);
+        }else{
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['data'] = $borough;
+
+            return response($res, 200);
+        }
+    }
 }

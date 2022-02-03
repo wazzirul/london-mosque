@@ -627,6 +627,152 @@ class UsersController extends Controller
 
 
 
+    //////////////////////////////////////////////////////////////////////////////////////
+    // SHOW BY Filter
+    //////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @SWG\Post(
+     *   path="/users/showByFilter",
+     *     tags={"Users"},
+     *     summary="Show data users by Filter users response",
+     *     description="Show data users by Filter users response",
+     *     operationId="showByFilterUsers",
+     * 
+     *   @SWG\Parameter(
+     *     name="id_user",
+     *     in="formData",
+     *     description="ID User ...",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="username",
+     *     in="formData",
+     *     description="Username ...",
+     *     required=false,
+     *     type="string"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="email",
+     *     in="formData",
+     *     description="Email ...",
+     *     required=false,
+     *     type="string"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="status",
+     *     in="formData",
+     *     description="Status ...",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="status_verif",
+     *     in="formData",
+     *     description="Status Verif ...",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="soft_delete",
+     *     in="formData",
+     *     description="Soft Delete Data (Default=0 / Not Deleted) [0 = Not Deleted  ||  1 = Deleted / Archived]",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="skip",
+     *     in="formData",
+     *     description="Skip how many Data (Default=0)",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="take",
+     *     in="formData",
+     *     description="Take how many Data (Default=100)",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="order",
+     *     in="formData",
+     *     description="ASC / DESC (default DESC)",
+     *     required=false,
+     *     type="string"
+     *   ),
+     * 
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function showByFilter(Request $request){
+
+        $id_user = $request->input('id_user');
+        $username = $request->input('username');
+        $email = $request->input('email');
+
+        $status = $request->input('status');
+        $status_verif = $request->input('status_verif');
+
+        $soft_delete = $request->input('soft_delete') ?? 0;
+        $skip = $request->input('skip') ?? 0;
+        $take = $request->input('take') ?? 100;
+        $order = $request->input('order') ?? "DESC";
+
+        $user = Users::query()
+        ->when($request->has('id_user'), function ($query) use ($id_user) {
+            $query->where('users.id_user',$id_user);
+        })
+        ->when($request->has('username'), function ($query) use ($username) {
+            $query->where('users.username','like','%'.$username.'%');
+        })
+        ->when($request->has('email'), function ($query) use ($email) {
+            $query->where('users.email','like','%'.$email.'%');
+        })
+        ->when($request->has('status'), function ($query) use ($status) {
+            $query->where('users.status',$status);
+        })
+        ->when($request->has('status_verif'), function ($query) use ($status_verif) {
+            $query->where('users.status_verif',$status_verif);
+        })
+        ->where('users.soft_delete',$soft_delete)
+        ->skip($skip)
+        ->take($take)
+        ->orderByRaw('users.id_user '.$order)
+        ->distinct('users.id_user')
+        ->get([
+            'users.id_user',
+            'users.email',
+            'users.username',
+            'users.status',
+            'users.status_verif',
+            'users.soft_delete',
+            'users.created_at as created_at',
+            'users.updated_at as updated_at'
+        ]);
+
+        
+        if(count($user) !== 0){
+            $res['status_code'] = 200;
+            $res['success'] = true;
+            $res['message'] = 'Success return Users data';
+            $res['totaldata'] = $user->count();
+            $res['data'] = $user;
+
+            return response($res, 200);
+        }else{
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['data'] = $user;
+
+            return response($res, 200);
+        }
+    }
+
+
+
 
     //////////////////////////////////////////////////////////////////////////////////////
     // RESEND VERIFICATION CODE

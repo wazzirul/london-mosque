@@ -342,6 +342,85 @@
                 }
             }
         },
+        "/admin/showByFilter": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Show data admin by Filter admin response",
+                "description": "Show data admin by Filter admin response",
+                "operationId": "showByFilterAdmin",
+                "parameters": [
+                    {
+                        "name": "id_admin",
+                        "in": "formData",
+                        "description": "ID Admin ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "username",
+                        "in": "formData",
+                        "description": "Username ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "description": "Email ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "role",
+                        "in": "formData",
+                        "description": "Role ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "soft_delete",
+                        "in": "formData",
+                        "description": "Soft Delete Data (Default=0 / Not Deleted) [0 = Not Deleted  ||  1 = Deleted / Archived]",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "skip",
+                        "in": "formData",
+                        "description": "Skip how many Data (Default=0)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "take",
+                        "in": "formData",
+                        "description": "Take how many Data (Default=100)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "order",
+                        "in": "formData",
+                        "description": "ASC / DESC (default DESC)",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
         "/borough/store": {
             "post": {
                 "tags": [
@@ -554,6 +633,71 @@
                         "description": "ID Borough ...",
                         "required": true,
                         "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/borough/showByFilter": {
+            "post": {
+                "tags": [
+                    "Borough"
+                ],
+                "summary": "Show data borough by filter borough response",
+                "description": "Show data borough by filter borough response",
+                "operationId": "showByFilterBorough",
+                "parameters": [
+                    {
+                        "name": "id_borough",
+                        "in": "formData",
+                        "description": "ID Borough ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "name_borough",
+                        "in": "formData",
+                        "description": "Name Borough ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "soft_delete",
+                        "in": "formData",
+                        "description": "Soft Delete Data (Default=0 / Not Deleted) [0 = Not Deleted  ||  1 = Deleted / Archived]",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "skip",
+                        "in": "formData",
+                        "description": "Skip how many Data (Default=0)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "take",
+                        "in": "formData",
+                        "description": "Take how many Data (Default=100)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "order",
+                        "in": "formData",
+                        "description": "ASC / DESC (default DESC)",
+                        "required": false,
+                        "type": "string"
                     }
                 ],
                 "responses": {
@@ -1319,6 +1463,71 @@
                         "description": "ID Facilities ...",
                         "required": true,
                         "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/facilities/showByFilter": {
+            "post": {
+                "tags": [
+                    "Facilities"
+                ],
+                "summary": "Show data facilities by Filter facilities response",
+                "description": "Show data facilities by Filter facilities response",
+                "operationId": "showByFilterFacilities",
+                "parameters": [
+                    {
+                        "name": "id_facilities",
+                        "in": "formData",
+                        "description": "ID Facilities ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "name_facilities",
+                        "in": "formData",
+                        "description": "Name Facilities ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "soft_delete",
+                        "in": "formData",
+                        "description": "Soft Delete Data (Default=0 / Not Deleted) [0 = Not Deleted  ||  1 = Deleted / Archived]",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "skip",
+                        "in": "formData",
+                        "description": "Skip how many Data (Default=0)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "take",
+                        "in": "formData",
+                        "description": "Take how many Data (Default=100)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "order",
+                        "in": "formData",
+                        "description": "ASC / DESC (default DESC)",
+                        "required": false,
+                        "type": "string"
                     }
                 ],
                 "responses": {
@@ -6555,6 +6764,92 @@
                         "description": "ID User ...",
                         "required": true,
                         "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/users/showByFilter": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Show data users by Filter users response",
+                "description": "Show data users by Filter users response",
+                "operationId": "showByFilterUsers",
+                "parameters": [
+                    {
+                        "name": "id_user",
+                        "in": "formData",
+                        "description": "ID User ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "username",
+                        "in": "formData",
+                        "description": "Username ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "description": "Email ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "status",
+                        "in": "formData",
+                        "description": "Status ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "status_verif",
+                        "in": "formData",
+                        "description": "Status Verif ...",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "soft_delete",
+                        "in": "formData",
+                        "description": "Soft Delete Data (Default=0 / Not Deleted) [0 = Not Deleted  ||  1 = Deleted / Archived]",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "skip",
+                        "in": "formData",
+                        "description": "Skip how many Data (Default=0)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "take",
+                        "in": "formData",
+                        "description": "Take how many Data (Default=100)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "order",
+                        "in": "formData",
+                        "description": "ASC / DESC (default DESC)",
+                        "required": false,
+                        "type": "string"
                     }
                 ],
                 "responses": {

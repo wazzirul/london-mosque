@@ -317,6 +317,7 @@ class FacilitiesController extends Controller
             $res['status_code'] = 200;
             $res['success'] = true;
             $res['detail'] = "Success Returning Facilities Data.";
+            $res['totaldata'] = $facility->count();
             $res['data'] = $facility;
 
             return response($res, 200);
@@ -355,6 +356,7 @@ class FacilitiesController extends Controller
             $res['status_code'] = 200;
             $res['success'] = true;
             $res['detail'] = "Success Returning Facilities Data.";
+            $res['totaldata'] = $facility->count();
             $res['data'] = $facility;
 
             return response($res, 200);
@@ -419,8 +421,120 @@ class FacilitiesController extends Controller
         $res['status_code'] = 200;
         $res['success'] = true;
         $res['detail'] = "Success Returning Facilities Data.";
+        $res['totaldata'] = $facility->count();
         $res['data'] = $facility;
 
         return response($res, 200);
+    }
+    
+
+
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // SHOW BY Filter
+    //////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @SWG\Post(
+     *   path="/facilities/showByFilter",
+     *     tags={"Facilities"},
+     *     summary="Show data facilities by Filter facilities response",
+     *     description="Show data facilities by Filter facilities response",
+     *     operationId="showByFilterFacilities",
+     * 
+     *   @SWG\Parameter(
+     *     name="id_facilities",
+     *     in="formData",
+     *     description="ID Facilities ...",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="name_facilities",
+     *     in="formData",
+     *     description="Name Facilities ...",
+     *     required=false,
+     *     type="string"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="soft_delete",
+     *     in="formData",
+     *     description="Soft Delete Data (Default=0 / Not Deleted) [0 = Not Deleted  ||  1 = Deleted / Archived]",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="skip",
+     *     in="formData",
+     *     description="Skip how many Data (Default=0)",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="take",
+     *     in="formData",
+     *     description="Take how many Data (Default=100)",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="order",
+     *     in="formData",
+     *     description="ASC / DESC (default DESC)",
+     *     required=false,
+     *     type="string"
+     *   ),
+     * 
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function showByFilter(Request $request){
+        $id_facilities = $request->input('id_facilities');
+        $name_facilities = $request->input('name_facilities');
+
+        $soft_delete = $request->input('soft_delete') ?? 0;
+        $skip = $request->input('skip') ?? 0;
+        $take = $request->input('take') ?? 100;
+        $order = $request->input('order') ?? "DESC";
+
+        $facility = Facilities::query()
+        ->when($request->has('id_facilities'), function ($query) use ($id_facilities) {
+            $query->where('facilities.id_facilities',$id_facilities);
+        })
+        ->when($request->has('name_facilities'), function ($query) use ($name_facilities) {
+            $query->where('facilities.name_facilities','like','%'.$name_facilities.'%');
+        })
+        ->where('facilities.soft_delete',$soft_delete)
+        ->skip($skip)
+        ->take($take)
+        ->orderByRaw('facilities.id_facilities '.$order)
+        ->distinct('facilities.id_facilities')
+        ->get([
+            'facilities.id_facilities',
+            'facilities.name_facilities',
+            'facilities.public_id',
+            'facilities.icon_facilities',
+            'facilities.soft_delete',
+            'facilities.created_at as created_at',
+            'facilities.updated_at as updated_at'
+        ]);
+
+        
+        if(count($facility) !== 0){
+            $res['status_code'] = 200;
+            $res['success'] = true;
+            $res['message'] = 'Success return Facilities data';
+            $res['totaldata'] = $facility->count();
+            $res['data'] = $facility;
+
+            return response($res, 200);
+        }else{
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['data'] = $facility;
+
+            return response($res, 200);
+        }
     }
 }

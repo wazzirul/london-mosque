@@ -56,8 +56,14 @@ Route::post('mosque-review/showById', 'Mosque\MosqueReviewController@showById');
 Route::post('mosque-review/showByFilter', 'Mosque\MosqueReviewController@showByFilter');
 Route::get('mosque-review/show', 'Mosque\MosqueReviewController@show');    
 
+Route::post('borough/showByFilter', 'BoroughController@showByFilter');
 Route::post('borough/showById', 'BoroughController@showById');
 Route::get('borough/show', 'BoroughController@show');
+
+Route::post('facilities/showById', 'FacilitiesController@showById');
+Route::post('facilities/showByFilter', 'FacilitiesController@showByFilter');
+Route::get('facilities/show', 'FacilitiesController@show');
+Route::get('facilities/showDeleted', 'FacilitiesController@showDeleted');
 
 Route::post('donations/showById', 'DonationsController@showById');
 Route::post('donations/showByIdUsersDonation', 'DonationsController@showByIdUsersDonation');
@@ -106,6 +112,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post('admin/delete', 'AdminController@delete');
     Route::post('admin/unDelete', 'AdminController@unDelete');
     Route::post('admin/showById', 'AdminController@showById');
+    Route::post('admin/showByFilter', 'AdminController@showByFilter');
     Route::get('admin/show', 'AdminController@show');
     Route::get('admin/showDeleted', 'AdminController@showDeleted');
 
@@ -118,6 +125,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post('users/unDelete', 'UsersController@unDelete');
     Route::post('users/logout', 'UsersController@logout');
     Route::post('users/showById', 'UsersController@showById');
+    Route::post('users/showByFilter', 'UsersController@showByFilter');
     Route::get('users/show', 'UsersController@show');
     Route::get('users/showDeleted', 'UsersController@showDeleted');
 
@@ -141,9 +149,6 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post('facilities/update', 'FacilitiesController@update');
     Route::post('facilities/delete', 'FacilitiesController@delete');
     Route::post('facilities/unDelete', 'FacilitiesController@unDelete');
-    Route::post('facilities/showById', 'FacilitiesController@showById');
-    Route::get('facilities/show', 'FacilitiesController@show');
-    Route::get('facilities/showDeleted', 'FacilitiesController@showDeleted');
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////
