@@ -42,6 +42,7 @@ Route::get('mosque-specialsalah-times/show', 'Mosque\MosqueSpecialSalahTimesCont
 
 Route::post('mosque-salah-times/showById', 'Mosque\MosqueSalahTimesController@showById');
 Route::post('mosque-salah-times/showByFilter', 'Mosque\MosqueSalahTimesController@showByFilter');
+Route::post('mosque-salah-times/ShowCSV', 'Mosque\MosqueSalahTimesController@ShowCSV');
 Route::get('mosque-salah-times/show', 'Mosque\MosqueSalahTimesController@show');
 
 Route::post('mosque-facilities/showById', 'Mosque\MosqueFacilitiesController@showById');
@@ -78,6 +79,7 @@ Route::post('ramadhan-salah-times/showById', 'RamadhanSalahTimesController@showB
 Route::post('ramadhan-salah-times/showByFilter', 'RamadhanSalahTimesController@showByFilter');
 
 Route::get('salah-beginning-times/show', 'SalahBeginningTimesController@show');
+Route::post('salah-beginning-times/ShowCSV', 'SalahBeginningTimesController@ShowCSV');
 Route::post('salah-beginning-times/showById', 'SalahBeginningTimesController@showById');
 Route::post('salah-beginning-times/showByFilter', 'SalahBeginningTimesController@showByFilter');
 
@@ -356,6 +358,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     // Salah Beginning Times
     ///////////////////////////////////////////////////////////////////////////////////////////
     Route::post('salah-beginning-times/import', 'SalahBeginningTimesController@import');
+    Route::post('salah-beginning-times/importMultiple', 'SalahBeginningTimesController@importMultiple');
     Route::post('salah-beginning-times/storeUpdate', 'SalahBeginningTimesController@storeUpdate');
     Route::post('salah-beginning-times/deleteUndelete', 'SalahBeginningTimesController@deleteUndelete');
 

@@ -1920,6 +1920,13 @@
                         "type": "string"
                     },
                     {
+                        "name": "address",
+                        "in": "formData",
+                        "description": "Address Mosque (%like) ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
                         "name": "date_salah_times_from",
                         "in": "formData",
                         "description": "Date Salah Times From (YYYY-mm-dd ,ex : 2021-11-15) ...",
@@ -3259,7 +3266,7 @@
                     {
                         "name": "id_salah_times",
                         "in": "formData",
-                        "description": "ID Mosque ...",
+                        "description": "ID Salah Times ...",
                         "required": true,
                         "type": "integer"
                     }
@@ -3341,6 +3348,50 @@
                         "description": "ASC / DESC (default DESC)",
                         "required": false,
                         "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-salah-times/ShowCSV": {
+            "post": {
+                "tags": [
+                    "Mosque Salah Times"
+                ],
+                "summary": "Show data Mosque Salah Times in CSV FILE response",
+                "description": "Show data Mosque Salah Times in CSV FILE response",
+                "operationId": "ShowCSVMosqueSalahTimes",
+                "parameters": [
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "year",
+                        "in": "formData",
+                        "description": "Year [Default = this year]",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "month",
+                        "in": "formData",
+                        "description": "Month (13 = All Month)[Default = this month]",
+                        "required": false,
+                        "type": "integer"
                     }
                 ],
                 "responses": {
@@ -4440,6 +4491,43 @@
                 }
             }
         },
+        "/salah-beginning-times/ShowCSV": {
+            "post": {
+                "tags": [
+                    "Salah Beginning Times"
+                ],
+                "summary": "Show data Salah Beginning Times in CSV FILE response",
+                "description": "Show data Salah Beginning Times in CSV FILE response",
+                "operationId": "ShowCSVSalahBeginningTimes",
+                "parameters": [
+                    {
+                        "name": "year",
+                        "in": "formData",
+                        "description": "Year [Default = this year]",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "month",
+                        "in": "formData",
+                        "description": "Month (13 = All Month)[Default = this month]",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
         "/salah-beginning-times/import": {
             "post": {
                 "tags": [
@@ -4453,6 +4541,43 @@
                         "name": "file",
                         "in": "formData",
                         "description": "file (File Excel Salah Beginning Times .xlsx or .xls) ...",
+                        "required": true,
+                        "type": "file"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/salah-beginning-times/importMultiple": {
+            "post": {
+                "tags": [
+                    "Salah Beginning Times"
+                ],
+                "summary": "Import Multiple new data Salah Beginning Times response",
+                "description": "Import Multiple new data Salah Beginning Times <br>\r\n            <p>*File Excel Salah Beginning Times extension must be .xlsx or .xls</p>",
+                "operationId": "importMultipleSalahBeginningTimes",
+                "parameters": [
+                    {
+                        "name": "file[0]",
+                        "in": "formData",
+                        "description": "file (File Excel Salah Beginning Times .xlsx or .xls) ...",
+                        "required": true,
+                        "type": "file"
+                    },
+                    {
+                        "name": "file[1]",
+                        "in": "formData",
+                        "description": "file (File Excel Salah Beginning Times .xlsx or .xls or .csv) ...",
                         "required": true,
                         "type": "file"
                     }

@@ -890,6 +890,13 @@ class MosqueController extends Controller
      *     type="string"
      *   ),
      *   @SWG\Parameter(
+     *     name="address",
+     *     in="formData",
+     *     description="Address Mosque (%like) ...",
+     *     required=false,
+     *     type="string"
+     *   ),
+     *   @SWG\Parameter(
      *     name="date_salah_times_from",
      *     in="formData",
      *     description="Date Salah Times From (YYYY-mm-dd ,ex : 2021-11-15) ...",
@@ -964,6 +971,7 @@ class MosqueController extends Controller
         $id_district = $request->input('id_district');
         $slug_mosque = $request->input('slug_mosque');
         $name_mosque = $request->input('name_mosque');
+        $address = $request->input('address');
 
         $soft_delete = $request->input('soft_delete') ?? 0;
         $skip = $request->input('skip') ?? 0;
@@ -1009,6 +1017,9 @@ class MosqueController extends Controller
         })
         ->when($request->has('name_mosque'), function ($query) use ($name_mosque) {
             $query->where('mosque.name_mosque','like','%'.$name_mosque.'%');
+        })
+        ->when($request->has('address'), function ($query) use ($address) {
+            $query->where('mosque.address','like','%'.$address.'%');
         })
         ->when($request->has('id_facilities'), function ($query) use ($id_facilities) {
             $query->whereIn('mosque_facilities.id_facilities',$id_facilities);
@@ -1185,7 +1196,7 @@ class MosqueController extends Controller
         ////////////////
         //////////
         //Function To Calculate Distance
-        function distance($lat1, $lon1, $lat2, $lon2) {
+        function distance($lat1, $lon1, $lat2, $lon2, $unit) {
             if (($lat1 == $lat2) && ($lon1 == $lon2)) {
               return 0;
             }
@@ -1195,9 +1206,18 @@ class MosqueController extends Controller
               $dist = acos($dist);
               $dist = rad2deg($dist);
               $miles = $dist * 60 * 1.1515;
-              $miles = $miles * 1.609344;
-              $miles = number_format($miles,2, '.', '');
-              return $miles; // Kilometer
+              $unit = strtoupper($unit);
+              
+              if ($unit == "K") {
+              $miles = ($miles * 1.609344);
+              return number_format($miles,2, '.', '');
+              } else if ($unit == "N") {
+              $miles = ($miles * 0.8684);
+              return number_format($miles,2, '.', '');
+              } else {
+              $miles = $miles;
+              return number_format($miles,2, '.', '');
+              }
             }
           }
 
@@ -1242,7 +1262,7 @@ class MosqueController extends Controller
                 ->where('soft_delete', 0)
                 ->take(2)
                 ->get();
-            $distance = distance($lat, $long, (float)$d->latitude, (float)$d->longitude);
+            $distance = distance($lat, $long, (float)$d->latitude, (float)$d->longitude, "M");
     
             $mosque[$index]->distance = $distance ?? null;
             $mosque[$index]->borough = $borough ?? null;

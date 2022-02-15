@@ -408,6 +408,99 @@ class SalahBeginningTimesController extends Controller
         }
     }
 
+    
+    //////////////////////////////////////////////////////////////////////////////////////
+    // SHOW
+    //////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @SWG\Post(
+     *   path="/salah-beginning-times/ShowCSV",
+     *     tags={"Salah Beginning Times"},
+     *     summary="Show data Salah Beginning Times in CSV FILE response",
+     *     description="Show data Salah Beginning Times in CSV FILE response",
+     *     operationId="ShowCSVSalahBeginningTimes",
+     * 
+     *   @SWG\Parameter(
+     *     name="year",
+     *     in="formData",
+     *     description="Year [Default = this year]",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="month",
+     *     in="formData",
+     *     description="Month (13 = All Month)[Default = this month]",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function ShowCSV(Request $request){ 
+        ini_set('auto_detect_line_endings', TRUE);/// (PHP's detection of line endings) write at the top.
+
+        $year = $request->input('year') ??Carbon::now()->format('Y');
+        $month = $request->input('month') ?? Carbon::now()->format('m');
+
+        // $CSVfile = 'assets/salah beginning times/Feb-2022.csv';
+
+                
+        if($month == 1){
+            $month= ['Jan'];
+        }else if($month == 2){
+            $month = ['Feb'];
+        }else if($month == 3){
+            $month = ['Mar'];
+        }else if($month == 4){
+            $month = ['Apr'];
+        }else if($month == 5){
+            $month = ['May'];
+        }else if($month == 6){
+            $month = ['Jun'];
+        }else if($month == 7){
+            $month = ['Jul'];
+        }else if($month == 8){
+            $month = ['Aug'];
+        }else if($month == 9){
+            $month = ['Sep'];
+        }else if($month == 10){
+            $month = ['Oct'];
+        }else if($month == 11){
+            $month = ['Nov'];
+        }else if($month == 12){
+            $month = ['Dec'];
+        }else if($month == 13){
+            $month = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        }
+
+        $res['year'] = $year;
+        $res['month'] = $month;
+
+        $csv = array();
+        foreach($month as $m){
+        $CSVfile = 'assets/Salah Beginning Times/'.$m.'-'.$year.'.csv';
+            ////VALIDATION FILE CSV EXISTS OR NOT 
+            if(!file_exists($CSVfile)){
+                $csv[] = Null;
+                continue;
+            }
+            
+            $csvrows = array_map('str_getcsv', file($CSVfile));
+            $csvheader = array_shift($csvrows);
+            foreach ($csvrows as $row) {
+            $csv[$row[1]] = array_combine($csvheader, $row);
+            }
+        }
+
+        $res['status_code'] = 200;
+        $res['success'] = true;
+        $res['data'] = $csv;
+        return response($res, 200);
+    }
+
 
 
 
@@ -461,6 +554,66 @@ class SalahBeginningTimesController extends Controller
         $data = null; 
         $import = new SalahBeginningTimesImport($data);
         Excel::import($import, $file);
+
+        $res['status_code'] = 200;
+        $res['success'] = true;
+        $res['message'] = 'Success Importing Salah Beginning Times data';
+        return response($res, 200);
+    }
+
+
+
+
+
+
+
+    /**
+     * @SWG\Post(
+     *   path="/salah-beginning-times/importMultiple",
+     *     tags={"Salah Beginning Times"},
+     *     summary="Import Multiple new data Salah Beginning Times response",
+     *     description="Import Multiple new data Salah Beginning Times <br>
+            <p>*File Excel Salah Beginning Times extension must be .xlsx or .xls</p>",
+     *     operationId="importMultipleSalahBeginningTimes",
+     * 
+     *  @SWG\Parameter(
+     *     name="file[0]",
+     *     in="formData",
+     *     description="file (File Excel Salah Beginning Times .xlsx or .xls) ...",
+     *     required=true,
+     *     type="file"
+     *   ), 
+     *  @SWG\Parameter(
+     *     name="file[1]",
+     *     in="formData",
+     *     description="file (File Excel Salah Beginning Times .xlsx or .xls or .csv) ...",
+     *     required=true,
+     *     type="file"
+     *   ), 
+     * 
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function importMultiple(Request $request){
+        
+        $this->validate($request,[
+            'file'=>'required',
+        ]);  
+        $file = $request->input('file');
+        foreach($request->file as $file){
+            $mimes = $file->getClientOriginalExtension();
+            if(!in_array($mimes, array('xlsx', 'xls', 'csv', 'Xslx', 'Xls', 'Csv'))) {
+                $res['message'] = "Failed";
+                $res['detail'] = "File Pendukung TIDAK Berekstensi / Mimes (xlsx/xls/csv)";
+                return response($res, 422);
+            }          
+
+            $data = null; 
+            $import = new SalahBeginningTimesImport($data);
+            Excel::import($import, $file);
+        }
 
         $res['status_code'] = 200;
         $res['success'] = true;

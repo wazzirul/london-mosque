@@ -449,7 +449,7 @@ class MosqueSalahTimesController extends Controller
      *   @SWG\Parameter(
      *     name="id_salah_times",
      *     in="formData",
-     *     description="ID Mosque ...",
+     *     description="ID Salah Times ...",
      *     required=true,
      *     type="integer"
      *   ),
@@ -651,6 +651,126 @@ class MosqueSalahTimesController extends Controller
 
             return response($res, 200);
         }
+    }
+
+    
+
+    
+    //////////////////////////////////////////////////////////////////////////////////////
+    // SHOW
+    //////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @SWG\Post(
+     *   path="/mosque-salah-times/ShowCSV",
+     *     tags={"Mosque Salah Times"},
+     *     summary="Show data Mosque Salah Times in CSV FILE response",
+     *     description="Show data Mosque Salah Times in CSV FILE response",
+     *     operationId="ShowCSVMosqueSalahTimes",
+     * 
+     *   @SWG\Parameter(
+     *     name="id_mosque",
+     *     in="formData",
+     *     description="ID Mosque ...",
+     *     required=true,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="year",
+     *     in="formData",
+     *     description="Year [Default = this year]",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="month",
+     *     in="formData",
+     *     description="Month (13 = All Month)[Default = this month]",
+     *     required=false,
+     *     type="integer"
+     *   ),
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function ShowCSV(Request $request){ 
+        ini_set('auto_detect_line_endings', TRUE);/// (PHP's detection of line endings) write at the top.
+
+        $this->validate($request,[
+            'id_mosque'=>'required|numeric',
+        ]);  
+
+
+        $id_mosque = $request->input('id_mosque');
+        $year = $request->input('year') ??Carbon::now()->format('Y');
+        $month = $request->input('month') ?? Carbon::now()->format('m');
+             
+        $data = Mosque::where('id_mosque', $id_mosque)
+        ->first();
+        if($data === null){
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['detail'] = "Data Mosque for that ID not found.";
+
+            return response($res, 200);
+        }
+
+        if($month == 1){
+            $month= ['Jan'];
+        }else if($month == 2){
+            $month = ['Feb'];
+        }else if($month == 3){
+            $month = ['Mar'];
+        }else if($month == 4){
+            $month = ['Apr'];
+        }else if($month == 5){
+            $month = ['May'];
+        }else if($month == 6){
+            $month = ['Jun'];
+        }else if($month == 7){
+            $month = ['Jul'];
+        }else if($month == 8){
+            $month = ['Aug'];
+        }else if($month == 9){
+            $month = ['Sep'];
+        }else if($month == 10){
+            $month = ['Oct'];
+        }else if($month == 11){
+            $month = ['Nov'];
+        }else if($month == 12){
+            $month = ['Dec'];
+        }else if($month == 13){
+            $month = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        }
+
+        $res['year'] = $year;
+        $res['month'] = $month;
+        $res['mosque'] = $data;
+        $res['Rule'][0] = "Rules need to Follow so that there are no errors in data collection";
+        $res['Rule'][1] = "1. Folder Mosque MUST have the same name as Mosque Name in Database";
+        $res['Rule'][2] = "2. CSV Data MUST be seperated by Comma ,";
+        $res['Rule'][3] = "3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file";
+
+        $csv = array();
+        foreach($month as $m){
+        $CSVfile = 'assets/Salah Times/'.$data->name_mosque.'/'.$m.'-'.$year.'.csv';
+            ////VALIDATION FILE CSV EXISTS OR NOT 
+            if(!file_exists($CSVfile)){
+                $csv[] = Null;
+                continue;
+            }
+            
+            $csvrows = array_map('str_getcsv', file($CSVfile));
+            $csvheader = array_shift($csvrows);
+            foreach ($csvrows as $row) {
+            $csv[$row[1]] = array_combine($csvheader, $row);
+            }
+        }
+
+        $res['status_code'] = 200;
+        $res['success'] = true;
+        $res['data'] = $csv;
+        return response($res, 200);
     }
 
 
