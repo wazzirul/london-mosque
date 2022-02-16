@@ -288,6 +288,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     // Mosque Salah Times
     ///////////////////////////////////////////////////////////////////////////////////////////
     Route::post('mosque-salah-times/import', 'Mosque\MosqueSalahTimesController@import');
+    Route::post('mosque-salah-times/importMultiple', 'Mosque\MosqueSalahTimesController@importMultiple');
     Route::post('mosque-salah-times/store', 'Mosque\MosqueSalahTimesController@store');
     Route::post('mosque-salah-times/update', 'Mosque\MosqueSalahTimesController@update');
     Route::post('mosque-salah-times/delete', 'Mosque\MosqueSalahTimesController@delete');

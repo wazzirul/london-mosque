@@ -788,7 +788,9 @@ class MosqueSalahTimesController extends Controller
      *     tags={"Mosque Salah Times"},
      *     summary="Import new data Mosque Salah Times response",
      *     description="Import new data Mosque Salah Times <br>
-            <p>*File Excel Mosque Salah/Prayer Times extension must be .xlsx or .xls</p>",
+            <p>1. File Excel Mosque Salah/Prayer Times extension must be .xlsx or .xls or .csv</p>
+            <p>2. CSV Data MUST be seperated by Comma ,</p>
+            <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
      *     operationId="importMosqueSalahTimes",
      * 
      *  @SWG\Parameter(
@@ -837,6 +839,107 @@ class MosqueSalahTimesController extends Controller
 
         $import = new MosqueSalahTimesImport($data);
         Excel::import($import, $file);
+
+        $res['status_code'] = 200;
+        $res['success'] = true;
+        $res['message'] = 'Success Importing Mosque Salah Times data';
+        return response($res, 200);
+    }
+
+
+    
+
+
+
+
+    
+    ////
+    //
+    //////////////////////////////////////////////////////////////////////////////////////
+    // import Multiple
+    //////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @SWG\Post(
+     *   path="/mosque-salah-times/importMultiple",
+     *     tags={"Mosque Salah Times"},
+     *     summary="import Multiple data Mosque Salah Times response",
+     *     description="import Multiple data Mosque Salah Times <br>
+            <p>1. File Excel Mosque Salah/Prayer Times extension must be .xlsx or .xls or .csv</p>
+            <p>2. CSV Data MUST be seperated by Comma ,</p>
+            <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
+     *     operationId="importMultipleMosqueSalahTimes",
+     * 
+     *  @SWG\Parameter(
+     *     name="id_mosque",
+     *     in="formData",
+     *     description="ID Mosque ...",
+     *     required=true,
+     *     type="integer"
+     *   ), 
+     *  @SWG\Parameter(
+     *     name="file[0]",
+     *     in="formData",
+     *     description="file (File Excel Mosque Salah/Prayer Times .xlsx or .xls or .csv) ...",
+     *     required=true,
+     *     type="file"
+     *   ), 
+     *  @SWG\Parameter(
+     *     name="file[1]",
+     *     in="formData",
+     *     description="file (File Excel Mosque Salah/Prayer Times .xlsx or .xls or .csv) ...",
+     *     required=false,
+     *     type="file"
+     *   ), 
+     *  @SWG\Parameter(
+     *     name="file[2]",
+     *     in="formData",
+     *     description="file (File Excel Mosque Salah/Prayer Times .xlsx or .xls or .csv) ...",
+     *     required=false,
+     *     type="file"
+     *   ), 
+     * 
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function importMultiple(Request $request){
+        $this->validate($request,[
+            'id_mosque'=>'required|numeric',
+            'file'=>'required',
+        ]);  
+
+        $id_mosque = $request->input('id_mosque');
+        $file = $request->input('file');
+
+        $mosque = Mosque::find($id_mosque);
+        if($mosque === null){
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['detail'] = "Data Mosque for that ID not found.";
+
+            return response($res, 200);
+        }else if($mosque->soft_delete === 1){
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['detail'] = "Mosque was deleted. Please contact customer service.";
+
+            return response($res, 200);
+        }
+
+        
+        foreach($request->file as $file){
+            $mimes = $file->getClientOriginalExtension();
+            if(!in_array($mimes, array('xlsx', 'xls', 'csv', 'Xslx', 'Xls', 'Csv'))) {
+                $res['message'] = "Failed";
+                $res['detail'] = "Files Mosque Salah Times Extension Must Be (xlsx/xls/csv)";
+                return response($res, 422);
+            }          
+
+            $data = $id_mosque; 
+            $import = new MosqueSalahTimesImport($data);
+            Excel::import($import, $file);
+        }
 
         $res['status_code'] = 200;
         $res['success'] = true;

@@ -478,6 +478,10 @@ class SalahBeginningTimesController extends Controller
 
         $res['year'] = $year;
         $res['month'] = $month;
+        $res['Rule'][0] = "Rules need to Follow so that there are no errors in data collection";
+        $res['Rule'][1] = "1. Folder Mosque MUST have the same name as Mosque Name in Database";
+        $res['Rule'][2] = "2. CSV Data MUST be seperated by Comma ,";
+        $res['Rule'][3] = "3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file";
 
         $csv = array();
         foreach($month as $m){
@@ -516,7 +520,9 @@ class SalahBeginningTimesController extends Controller
      *     tags={"Salah Beginning Times"},
      *     summary="Import new data Salah Beginning Times response",
      *     description="Import new data Salah Beginning Times <br>
-            <p>*File Excel Salah Beginning Times extension must be .xlsx or .xls</p>",
+        <p>1. File Excel Salah Beginning Times extension must be .xlsx or .xls or .csv</p>
+        <p>2. CSV Data MUST be seperated by Comma ,</p>
+        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
      *     operationId="importSalahBeginningTimes",
      * 
      *  @SWG\Parameter(
@@ -573,7 +579,9 @@ class SalahBeginningTimesController extends Controller
      *     tags={"Salah Beginning Times"},
      *     summary="Import Multiple new data Salah Beginning Times response",
      *     description="Import Multiple new data Salah Beginning Times <br>
-            <p>*File Excel Salah Beginning Times extension must be .xlsx or .xls</p>",
+        <p>1. File Excel Salah Beginning Times extension must be .xlsx or .xls or .csv</p>
+        <p>2. CSV Data MUST be seperated by Comma ,</p>
+        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
      *     operationId="importMultipleSalahBeginningTimes",
      * 
      *  @SWG\Parameter(
@@ -606,7 +614,7 @@ class SalahBeginningTimesController extends Controller
             $mimes = $file->getClientOriginalExtension();
             if(!in_array($mimes, array('xlsx', 'xls', 'csv', 'Xslx', 'Xls', 'Csv'))) {
                 $res['message'] = "Failed";
-                $res['detail'] = "File Pendukung TIDAK Berekstensi / Mimes (xlsx/xls/csv)";
+                $res['detail'] = "Files Salah Beginning Times Extension Must Be (xlsx/xls/csv)";
                 return response($res, 422);
             }          
 

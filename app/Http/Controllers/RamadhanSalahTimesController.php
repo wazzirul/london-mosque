@@ -573,7 +573,9 @@ class RamadhanSalahTimesController extends Controller
      *     tags={"Ramadhan Salah Times"},
      *     summary="Import new data Ramadhan Salah Times response",
      *     description="Import new data Ramadhan Salah Times <br>
-            <p>*File Excel Ramadhan Salah/Prayer Times extension must be .xlsx or .xls</p>",
+        <p>1. File Excel Ramadhan Salah Times extension must be .xlsx or .xls or .csv</p>
+        <p>2. CSV Data MUST be seperated by Comma ,</p>
+        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
      *     operationId="importRamadhanSalahTimes",
      * 
      *  @SWG\Parameter(

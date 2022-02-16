@@ -740,7 +740,9 @@ class MosqueSpecialSalahTimesController extends Controller
      *     tags={"Mosque Special Salah Times"},
      *     summary="Import Salah Jummah data in Mosque Spesial Salah Times response",
      *     description="Import Salah Jummah data in Mosque Spesial Salah Times <br>
-            <p>*File Excel Mosque Salah Jummah Times extension must be .xlsx or .xls</p>",
+        <p>1. File Excel Salah Jummah data extension must be .xlsx or .xls or .csv</p>
+        <p>2. CSV Data MUST be seperated by Comma ,</p>
+        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
      *     operationId="importJummahMosqueSpesialSalahTimes",
      * 
      *  @SWG\Parameter(
@@ -802,7 +804,9 @@ class MosqueSpecialSalahTimesController extends Controller
      *     tags={"Mosque Special Salah Times"},
      *     summary="Import Salah Eid-ul Fitri data in Mosque Spesial Salah Times response",
      *     description="Import Salah Eid-ul Fitri data in Mosque Spesial Salah Times <br>
-            <p>*File Excel Mosque Salah Eid-ul Fitri Times extension must be .xlsx or .xls</p>",
+        <p>1. File Excel Salah Eid-ul Fitri data extension must be .xlsx or .xls or .csv</p>
+        <p>2. CSV Data MUST be seperated by Comma ,</p>
+        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
      *     operationId="importEidulFitriMosqueSpesialSalahTimes",
      * 
      *  @SWG\Parameter(
@@ -864,7 +868,9 @@ class MosqueSpecialSalahTimesController extends Controller
      *     tags={"Mosque Special Salah Times"},
      *     summary="Import Salah Eid-ul Adha data in Mosque Spesial Salah Times response",
      *     description="Import Salah Eid-ul Adha data in Mosque Spesial Salah Times <br>
-            <p>*File Excel Mosque Salah Eid-ul Adha Times extension must be .xlsx or .xls</p>",
+        <p>1. File Excel Salah Eid-ul Adha data extension must be .xlsx or .xls or .csv</p>
+        <p>2. CSV Data MUST be seperated by Comma ,</p>
+        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
      *     operationId="importEidulAdhaMosqueSpesialSalahTimes",
      * 
      *  @SWG\Parameter(

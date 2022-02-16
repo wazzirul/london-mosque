@@ -3413,7 +3413,7 @@
                     "Mosque Salah Times"
                 ],
                 "summary": "Import new data Mosque Salah Times response",
-                "description": "Import new data Mosque Salah Times <br>\r\n            <p>*File Excel Mosque Salah/Prayer Times extension must be .xlsx or .xls</p>",
+                "description": "Import new data Mosque Salah Times <br>\r\n            <p>1. File Excel Mosque Salah/Prayer Times extension must be .xlsx or .xls or .csv</p>\r\n            <p>2. CSV Data MUST be seperated by Comma ,</p>\r\n            <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
                 "operationId": "importMosqueSalahTimes",
                 "parameters": [
                     {
@@ -3428,6 +3428,57 @@
                         "in": "formData",
                         "description": "file (File Excel Mosque Salah/Prayer Times .xlsx or .xls or .csv) ...",
                         "required": true,
+                        "type": "file"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-salah-times/importMultiple": {
+            "post": {
+                "tags": [
+                    "Mosque Salah Times"
+                ],
+                "summary": "import Multiple data Mosque Salah Times response",
+                "description": "import Multiple data Mosque Salah Times <br>\r\n            <p>1. File Excel Mosque Salah/Prayer Times extension must be .xlsx or .xls or .csv</p>\r\n            <p>2. CSV Data MUST be seperated by Comma ,</p>\r\n            <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
+                "operationId": "importMultipleMosqueSalahTimes",
+                "parameters": [
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "file[0]",
+                        "in": "formData",
+                        "description": "file (File Excel Mosque Salah/Prayer Times .xlsx or .xls or .csv) ...",
+                        "required": true,
+                        "type": "file"
+                    },
+                    {
+                        "name": "file[1]",
+                        "in": "formData",
+                        "description": "file (File Excel Mosque Salah/Prayer Times .xlsx or .xls or .csv) ...",
+                        "required": false,
+                        "type": "file"
+                    },
+                    {
+                        "name": "file[2]",
+                        "in": "formData",
+                        "description": "file (File Excel Mosque Salah/Prayer Times .xlsx or .xls or .csv) ...",
+                        "required": false,
                         "type": "file"
                     }
                 ],
@@ -3784,7 +3835,7 @@
                     "Mosque Special Salah Times"
                 ],
                 "summary": "Import Salah Jummah data in Mosque Spesial Salah Times response",
-                "description": "Import Salah Jummah data in Mosque Spesial Salah Times <br>\r\n            <p>*File Excel Mosque Salah Jummah Times extension must be .xlsx or .xls</p>",
+                "description": "Import Salah Jummah data in Mosque Spesial Salah Times <br>\r\n        <p>1. File Excel Salah Jummah data extension must be .xlsx or .xls or .csv</p>\r\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\r\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
                 "operationId": "importJummahMosqueSpesialSalahTimes",
                 "parameters": [
                     {
@@ -3814,7 +3865,7 @@
                     "Mosque Special Salah Times"
                 ],
                 "summary": "Import Salah Eid-ul Fitri data in Mosque Spesial Salah Times response",
-                "description": "Import Salah Eid-ul Fitri data in Mosque Spesial Salah Times <br>\r\n            <p>*File Excel Mosque Salah Eid-ul Fitri Times extension must be .xlsx or .xls</p>",
+                "description": "Import Salah Eid-ul Fitri data in Mosque Spesial Salah Times <br>\r\n        <p>1. File Excel Salah Eid-ul Fitri data extension must be .xlsx or .xls or .csv</p>\r\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\r\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
                 "operationId": "importEidulFitriMosqueSpesialSalahTimes",
                 "parameters": [
                     {
@@ -3844,7 +3895,7 @@
                     "Mosque Special Salah Times"
                 ],
                 "summary": "Import Salah Eid-ul Adha data in Mosque Spesial Salah Times response",
-                "description": "Import Salah Eid-ul Adha data in Mosque Spesial Salah Times <br>\r\n            <p>*File Excel Mosque Salah Eid-ul Adha Times extension must be .xlsx or .xls</p>",
+                "description": "Import Salah Eid-ul Adha data in Mosque Spesial Salah Times <br>\r\n        <p>1. File Excel Salah Eid-ul Adha data extension must be .xlsx or .xls or .csv</p>\r\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\r\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
                 "operationId": "importEidulAdhaMosqueSpesialSalahTimes",
                 "parameters": [
                     {
@@ -4256,7 +4307,7 @@
                     "Ramadhan Salah Times"
                 ],
                 "summary": "Import new data Ramadhan Salah Times response",
-                "description": "Import new data Ramadhan Salah Times <br>\r\n            <p>*File Excel Ramadhan Salah/Prayer Times extension must be .xlsx or .xls</p>",
+                "description": "Import new data Ramadhan Salah Times <br>\r\n        <p>1. File Excel Ramadhan Salah Times extension must be .xlsx or .xls or .csv</p>\r\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\r\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
                 "operationId": "importRamadhanSalahTimes",
                 "parameters": [
                     {
@@ -4534,7 +4585,7 @@
                     "Salah Beginning Times"
                 ],
                 "summary": "Import new data Salah Beginning Times response",
-                "description": "Import new data Salah Beginning Times <br>\r\n            <p>*File Excel Salah Beginning Times extension must be .xlsx or .xls</p>",
+                "description": "Import new data Salah Beginning Times <br>\r\n        <p>1. File Excel Salah Beginning Times extension must be .xlsx or .xls or .csv</p>\r\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\r\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
                 "operationId": "importSalahBeginningTimes",
                 "parameters": [
                     {
@@ -4564,7 +4615,7 @@
                     "Salah Beginning Times"
                 ],
                 "summary": "Import Multiple new data Salah Beginning Times response",
-                "description": "Import Multiple new data Salah Beginning Times <br>\r\n            <p>*File Excel Salah Beginning Times extension must be .xlsx or .xls</p>",
+                "description": "Import Multiple new data Salah Beginning Times <br>\r\n        <p>1. File Excel Salah Beginning Times extension must be .xlsx or .xls or .csv</p>\r\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\r\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
                 "operationId": "importMultipleSalahBeginningTimes",
                 "parameters": [
                     {
