@@ -3839,6 +3839,13 @@
                 "operationId": "importJummahMosqueSpesialSalahTimes",
                 "parameters": [
                     {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
                         "name": "file",
                         "in": "formData",
                         "description": "file (File Excel Mosque Salah Jummah Times .xlsx or .xls) ...",
@@ -3869,6 +3876,13 @@
                 "operationId": "importEidulFitriMosqueSpesialSalahTimes",
                 "parameters": [
                     {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
                         "name": "file",
                         "in": "formData",
                         "description": "file (File Excel Mosque Salah Eid-ul Fitri Times .xlsx or .xls) ...",
@@ -3898,6 +3912,13 @@
                 "description": "Import Salah Eid-ul Adha data in Mosque Spesial Salah Times <br>\r\n        <p>1. File Excel Salah Eid-ul Adha data extension must be .xlsx or .xls or .csv</p>\r\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\r\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
                 "operationId": "importEidulAdhaMosqueSpesialSalahTimes",
                 "parameters": [
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": true,
+                        "type": "integer"
+                    },
                     {
                         "name": "file",
                         "in": "formData",
