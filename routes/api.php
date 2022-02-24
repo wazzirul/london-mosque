@@ -310,8 +310,11 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     // Mosque Special Salah Times
     ///////////////////////////////////////////////////////////////////////////////////////////
     Route::post('mosque-specialsalah-times/importEidulFitri', 'Mosque\MosqueSpecialSalahTimesController@importEidulFitri');
+    Route::post('mosque-specialsalah-times/importEidulFitriMultiple', 'Mosque\MosqueSpecialSalahTimesController@importEidulFitriMultiple');
     Route::post('mosque-specialsalah-times/importEidulAdha', 'Mosque\MosqueSpecialSalahTimesController@importEidulAdha');
+    Route::post('mosque-specialsalah-times/importEidulAdhaMultiple', 'Mosque\MosqueSpecialSalahTimesController@importEidulAdhaMultiple');
     Route::post('mosque-specialsalah-times/importJummah', 'Mosque\MosqueSpecialSalahTimesController@importJummah');
+    Route::post('mosque-specialsalah-times/importJummahMultiple', 'Mosque\MosqueSpecialSalahTimesController@importJummahMultiple');
     Route::post('mosque-specialsalah-times/store', 'Mosque\MosqueSpecialSalahTimesController@store');
     Route::post('mosque-specialsalah-times/update', 'Mosque\MosqueSpecialSalahTimesController@update');
     Route::post('mosque-specialsalah-times/delete', 'Mosque\MosqueSpecialSalahTimesController@delete');
@@ -350,6 +353,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     // Ramadhan Salah Times
     ///////////////////////////////////////////////////////////////////////////////////////////
     Route::post('ramadhan-salah-times/import', 'RamadhanSalahTimesController@import');
+    Route::post('ramadhan-salah-times/importMultiple', 'RamadhanSalahTimesController@importMultiple');
     Route::post('ramadhan-salah-times/store', 'RamadhanSalahTimesController@store');
     Route::post('ramadhan-salah-times/update', 'RamadhanSalahTimesController@update');
     Route::post('ramadhan-salah-times/delete', 'RamadhanSalahTimesController@delete');

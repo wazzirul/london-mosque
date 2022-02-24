@@ -3866,6 +3866,57 @@
                 }
             }
         },
+        "/mosque-specialsalah-times/importJummahMultiple": {
+            "post": {
+                "tags": [
+                    "Mosque Special Salah Times"
+                ],
+                "summary": "Import Salah Jummah data in Mosque Spesial Salah Times response",
+                "description": "Import Salah Jummah data in Mosque Spesial Salah Times <br>\r\n        <p>1. File Excel Salah Jummah data extension must be .xlsx or .xls or .csv</p>\r\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\r\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
+                "operationId": "importJummahMultipleMosqueSpesialSalahTimes",
+                "parameters": [
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "file[0]",
+                        "in": "formData",
+                        "description": "file (File Excel Mosque Salah Jummah .xlsx or .xls or .csv) ...",
+                        "required": true,
+                        "type": "file"
+                    },
+                    {
+                        "name": "file[1]",
+                        "in": "formData",
+                        "description": "file (File Excel Mosque Salah Jummah .xlsx or .xls or .csv) ...",
+                        "required": false,
+                        "type": "file"
+                    },
+                    {
+                        "name": "file[2]",
+                        "in": "formData",
+                        "description": "file (File Excel Mosque Salah Jummah .xlsx or .xls or .csv) ...",
+                        "required": false,
+                        "type": "file"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
         "/mosque-specialsalah-times/importEidulFitri": {
             "post": {
                 "tags": [
@@ -3903,6 +3954,57 @@
                 }
             }
         },
+        "/mosque-specialsalah-times/importEidulFitriMultiple": {
+            "post": {
+                "tags": [
+                    "Mosque Special Salah Times"
+                ],
+                "summary": "Import Salah Eid-ul Fitri Multiple data in Mosque Spesial Salah Times response",
+                "description": "Import Salah Eid-ul Fitri Multiple data in Mosque Spesial Salah Times <br>\r\n        <p>1. File Excel Salah Eid-ul Fitri data extension must be .xlsx or .xls or .csv</p>\r\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\r\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
+                "operationId": "importEidulFitriMultipleMosqueSpesialSalahTimes",
+                "parameters": [
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "file[0]",
+                        "in": "formData",
+                        "description": "file (File Excel Mosque Salah Eid-ul Fitri .xlsx or .xls or .csv) ...",
+                        "required": true,
+                        "type": "file"
+                    },
+                    {
+                        "name": "file[1]",
+                        "in": "formData",
+                        "description": "file (File Excel Mosque Salah Eid-ul Fitri .xlsx or .xls or .csv) ...",
+                        "required": false,
+                        "type": "file"
+                    },
+                    {
+                        "name": "file[2]",
+                        "in": "formData",
+                        "description": "file (File Excel Mosque Salah Eid-ul Fitri .xlsx or .xls or .csv) ...",
+                        "required": false,
+                        "type": "file"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
         "/mosque-specialsalah-times/importEidulAdha": {
             "post": {
                 "tags": [
@@ -3924,6 +4026,57 @@
                         "in": "formData",
                         "description": "file (File Excel Mosque Salah Eid-ul Adha Times .xlsx or .xls) ...",
                         "required": true,
+                        "type": "file"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque-specialsalah-times/importEidulAdhaMultiple": {
+            "post": {
+                "tags": [
+                    "Mosque Special Salah Times"
+                ],
+                "summary": "Import Salah Eid-ul Adha data in Mosque Spesial Salah Times response",
+                "description": "Import Salah Eid-ul Adha data in Mosque Spesial Salah Times <br>\r\n        <p>1. File Excel Salah Eid-ul Adha data extension must be .xlsx or .xls or .csv</p>\r\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\r\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
+                "operationId": "importEidulAdhaMultipleMosqueSpesialSalahTimes",
+                "parameters": [
+                    {
+                        "name": "id_mosque",
+                        "in": "formData",
+                        "description": "ID Mosque ...",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "file[0]",
+                        "in": "formData",
+                        "description": "file (File Excel Mosque Salah Eid-ul Adha .xlsx or .xls or .csv) ...",
+                        "required": true,
+                        "type": "file"
+                    },
+                    {
+                        "name": "file[1]",
+                        "in": "formData",
+                        "description": "file (File Excel Mosque Salah Eid-ul Adha .xlsx or .xls or .csv) ...",
+                        "required": false,
+                        "type": "file"
+                    },
+                    {
+                        "name": "file[2]",
+                        "in": "formData",
+                        "description": "file (File Excel Mosque Salah Eid-ul Adha .xlsx or .xls or .csv) ...",
+                        "required": false,
                         "type": "file"
                     }
                 ],
@@ -4352,6 +4505,50 @@
                 }
             }
         },
+        "/ramadhan-salah-times/importMultiple": {
+            "post": {
+                "tags": [
+                    "Ramadhan Salah Times"
+                ],
+                "summary": "import Multiple new data Ramadhan Salah Times response",
+                "description": "import Multiple new data Ramadhan Salah Times <br>\r\n        <p>1. File Excel Ramadhan Salah Times extension must be .xlsx or .xls or .csv</p>\r\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\r\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
+                "operationId": "importMultipleRamadhanSalahTimes",
+                "parameters": [
+                    {
+                        "name": "file[0]",
+                        "in": "formData",
+                        "description": "file (File Excel Ramadhan Salah Times .xlsx or .xls or .csv) ...",
+                        "required": true,
+                        "type": "file"
+                    },
+                    {
+                        "name": "file[1]",
+                        "in": "formData",
+                        "description": "file (File Excel Ramadhan Salah Times .xlsx or .xls or .csv) ...",
+                        "required": false,
+                        "type": "file"
+                    },
+                    {
+                        "name": "file[2]",
+                        "in": "formData",
+                        "description": "file (File Excel Ramadhan Salah Times .xlsx or .xls or .csv) ...",
+                        "required": false,
+                        "type": "file"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
         "/salah-beginning-times/storeUpdate": {
             "post": {
                 "tags": [
@@ -4650,7 +4847,14 @@
                         "name": "file[1]",
                         "in": "formData",
                         "description": "file (File Excel Salah Beginning Times .xlsx or .xls or .csv) ...",
-                        "required": true,
+                        "required": false,
+                        "type": "file"
+                    },
+                    {
+                        "name": "file[2]",
+                        "in": "formData",
+                        "description": "file (File Excel Salah Beginning Times .xlsx or .xls or .csv) ...",
+                        "required": false,
                         "type": "file"
                     }
                 ],

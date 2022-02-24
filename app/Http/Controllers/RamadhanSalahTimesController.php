@@ -619,4 +619,80 @@ class RamadhanSalahTimesController extends Controller
         $res['message'] = 'Success Importing Ramadhan Salah Times data';
         return response($res, 200);
     }
+
+
+    
+
+
+
+
+    
+    ////
+    //
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Import
+    //////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @SWG\Post(
+     *   path="/ramadhan-salah-times/importMultiple",
+     *     tags={"Ramadhan Salah Times"},
+     *     summary="import Multiple new data Ramadhan Salah Times response",
+     *     description="import Multiple new data Ramadhan Salah Times <br>
+        <p>1. File Excel Ramadhan Salah Times extension must be .xlsx or .xls or .csv</p>
+        <p>2. CSV Data MUST be seperated by Comma ,</p>
+        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
+     *     operationId="importMultipleRamadhanSalahTimes",
+     * 
+     *  @SWG\Parameter(
+     *     name="file[0]",
+     *     in="formData",
+     *     description="file (File Excel Ramadhan Salah Times .xlsx or .xls or .csv) ...",
+     *     required=true,
+     *     type="file"
+     *   ), 
+     *  @SWG\Parameter(
+     *     name="file[1]",
+     *     in="formData",
+     *     description="file (File Excel Ramadhan Salah Times .xlsx or .xls or .csv) ...",
+     *     required=false,
+     *     type="file"
+     *   ), 
+     *  @SWG\Parameter(
+     *     name="file[2]",
+     *     in="formData",
+     *     description="file (File Excel Ramadhan Salah Times .xlsx or .xls or .csv) ...",
+     *     required=false,
+     *     type="file"
+     *   ), 
+     * 
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function importMultiple(Request $request){
+        $this->validate($request,[
+            'file'=>'required',
+        ]);  
+
+        $file = $request->input('file');
+        
+        foreach($request->file as $file){
+            $mimes = $file->getClientOriginalExtension();
+            if(!in_array($mimes, array('xlsx', 'xls', 'csv', 'Xslx', 'Xls', 'Csv'))) {
+                $res['message'] = "Failed";
+                $res['detail'] = "Files Ramadhan Salah Times Extension Must Be (xlsx/xls/csv)";
+                return response($res, 422);
+            }          
+
+            $data = null; 
+            $import = new RamadhanSalahTimesImport($data);
+            Excel::import($import, $file);
+        }
+
+        $res['status_code'] = 200;
+        $res['success'] = true;
+        $res['message'] = 'Success Importing Ramadhan Salah Times data';
+        return response($res, 200);
+    }
 }

@@ -8,8 +8,9 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 use Maatwebsite\Excel\Concerns\WithConditionalSheets;
+use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
 
-class SalahBeginningTimesImport implements ToModel, WithStartRow
+class SalahBeginningTimesImport implements ToModel, WithStartRow, WithCustomCsvSettings
 {
     /**
     * @param array $row
@@ -23,6 +24,13 @@ class SalahBeginningTimesImport implements ToModel, WithStartRow
         $this->data = $data; 
     }
 
+    public function getCsvSettings(): array
+    {
+        return [
+            'delimiter' => ","
+        ];
+    }
+
     public function startRow(): int
     {
         return 2;
@@ -32,37 +40,46 @@ class SalahBeginningTimesImport implements ToModel, WithStartRow
         // dd($row['date_salah_times']);
         // Retrieve by name, or instantiate with the name, delayed, and arrival_time attributes...
         
-        $dateexplode = explode('-', $row[1]);
-        $year = '20'.$dateexplode[2];
-        $month = $dateexplode[1];
-        if($month == 'Jan'){
-            $month = '01';
-        }else if($month == 'Feb'){
-            $month = '02';
-        }else if($month == 'Mar'){
-            $month = '03';
-        }else if($month == 'Apr'){
-            $month = '04';
-        }else if($month == 'May'){
-            $month = '05';
-        }else if($month == 'Jun'){
-            $month = '06';
-        }else if($month == 'Jul'){
-            $month = '07';
-        }else if($month == 'Aug'){
-            $month = '08';
-        }else if($month == 'Sep'){
-            $month = '09';
-        }else if($month == 'Oct'){
-            $month = '10';
-        }else if($month == 'Nov'){
-            $month = '11';
-        }else if($month == 'Dec'){
-            $month = '12';
-        }
-        $day = $dateexplode[0];
-        $date = $year.'-'.$month.'-'.$day;
+        // $dateexplode = explode('-', $row[1]);
+        // $year = '20'.$dateexplode[2];
+        // $month = $dateexplode[1];
+        // if($month == 'Jan'){
+        //     $month = '01';
+        // }else if($month == 'Feb'){
+        //     $month = '02';
+        // }else if($month == 'Mar'){
+        //     $month = '03';
+        // }else if($month == 'Apr'){
+        //     $month = '04';
+        // }else if($month == 'May'){
+        //     $month = '05';
+        // }else if($month == 'Jun'){
+        //     $month = '06';
+        // }else if($month == 'Jul'){
+        //     $month = '07';
+        // }else if($month == 'Aug'){
+        //     $month = '08';
+        // }else if($month == 'Sep'){
+        //     $month = '09';
+        // }else if($month == 'Oct'){
+        //     $month = '10';
+        // }else if($month == 'Nov'){
+        //     $month = '11';
+        // }else if($month == 'Dec'){
+        //     $month = '12';
+        // }
+        // $day = $dateexplode[0];
+        // $date = $year.'-'.$month.'-'.$day;
         // $date = $row[1];
+
+        
+        // Creating new date format from that timestamp
+        if (strpos($row[1], '/') !== false) {
+            $timestamp = strtotime(str_replace('/', '-', $row[1]));
+        }else{
+            $timestamp = strtotime(strval($row[1]));
+        }
+        $date = date("Y-m-d", $timestamp);
 
         if($date !== null){            
             if($row[2] !== null){ // fajr / subuh
