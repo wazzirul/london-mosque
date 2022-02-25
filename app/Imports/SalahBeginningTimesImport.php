@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Imports;
+use Carbon\Carbon;
 
 use App\Model\SalahBeginningTimes;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -10,7 +11,7 @@ use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 use Maatwebsite\Excel\Concerns\WithConditionalSheets;
 use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
 
-class SalahBeginningTimesImport implements ToModel, WithStartRow, WithCustomCsvSettings
+class SalahBeginningTimesImport implements ToModel, WithStartRow
 {
     /**
     * @param array $row
@@ -22,13 +23,6 @@ class SalahBeginningTimesImport implements ToModel, WithStartRow, WithCustomCsvS
     public function __construct($data)
     {
         $this->data = $data; 
-    }
-
-    public function getCsvSettings(): array
-    {
-        return [
-            'delimiter' => ","
-        ];
     }
 
     public function startRow(): int
@@ -88,7 +82,12 @@ class SalahBeginningTimesImport implements ToModel, WithStartRow, WithCustomCsvS
 
                 $data->date_salah_beginning_times = $date;
                 $data->type_salah_beginning_times = 1;
-                $data->time_salah_beginning_times = $row[2];
+                if(is_numeric($row[2])){
+                    $times2 = Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[2]));
+                }else{
+                    $times2 = $row[2];
+                } 
+                $data->time_salah_beginning_times = $times2;
                 $data->save();
             }
             if($row[7] !== null){ // sunrise
@@ -97,7 +96,12 @@ class SalahBeginningTimesImport implements ToModel, WithStartRow, WithCustomCsvS
 
                 $data->date_salah_beginning_times = $date;
                 $data->type_salah_beginning_times = 2;
-                $data->time_salah_beginning_times = $row[7];
+                if(is_numeric($row[7])){
+                    $times7 = Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[7]));
+                }else{
+                    $times7 = $row[7];
+                } 
+                $data->time_salah_beginning_times = $times7;
                 $data->save();
             }
             if($row[3] !== null){ // Zuhr / Duhur
@@ -106,7 +110,12 @@ class SalahBeginningTimesImport implements ToModel, WithStartRow, WithCustomCsvS
 
                 $data->date_salah_beginning_times = $date;
                 $data->type_salah_beginning_times = 3;
-                $data->time_salah_beginning_times = $row[3];
+                if(is_numeric($row[3])){
+                    $times3 = Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[3]));
+                }else{
+                    $times3 = $row[3];
+                } 
+                $data->time_salah_beginning_times = $times3;
                 $data->save();
             }
             if($row[4] !== null){ // ashar 1st
@@ -115,7 +124,12 @@ class SalahBeginningTimesImport implements ToModel, WithStartRow, WithCustomCsvS
                 
                 $data->date_salah_beginning_times = $date;
                 $data->type_salah_beginning_times = 4;
-                $data->time_salah_beginning_times = $row[4];
+                if(is_numeric($row[4])){
+                    $times4 = Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[4]));
+                }else{
+                    $times4 = $row[4];
+                } 
+                $data->time_salah_beginning_times = $times4;
                 $data->save();
             }
             if($row[8] !== null){  // ashar 2nd
@@ -124,7 +138,12 @@ class SalahBeginningTimesImport implements ToModel, WithStartRow, WithCustomCsvS
                 
                 $data->date_salah_beginning_times = $date;
                 $data->type_salah_beginning_times = 5;
-                $data->time_salah_beginning_times = $row[8];
+                if(is_numeric($row[8])){
+                    $times8 = Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[8]));
+                }else{
+                    $times8 = $row[8];
+                } 
+                $data->time_salah_beginning_times = $times8;
                 $data->save();
             }
             if($row[5] !== null){  // Maghrib
@@ -133,7 +152,12 @@ class SalahBeginningTimesImport implements ToModel, WithStartRow, WithCustomCsvS
                 
                 $data->date_salah_beginning_times = $date;
                 $data->type_salah_beginning_times = 6;
-                $data->time_salah_beginning_times = $row[5];
+                if(is_numeric($row[5])){
+                    $times5 = Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[5]));
+                }else{
+                    $times5 = $row[5];
+                } 
+                $data->time_salah_beginning_times = $times5;
                 $data->save();
             }
             if($row[6] !== null){  // isha
@@ -142,7 +166,12 @@ class SalahBeginningTimesImport implements ToModel, WithStartRow, WithCustomCsvS
                 
                 $data->date_salah_beginning_times = $date;
                 $data->type_salah_beginning_times = 7;
-                $data->time_salah_beginning_times = $row[6];
+                if(is_numeric($row[6])){
+                    $times6 = Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[6]));
+                }else{
+                    $times6 = $row[6];
+                } 
+                $data->time_salah_beginning_times = $times6;
                 $data->save();
             }
         }

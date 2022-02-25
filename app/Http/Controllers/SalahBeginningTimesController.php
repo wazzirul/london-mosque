@@ -539,27 +539,63 @@ class SalahBeginningTimesController extends Controller
      * )
      */
     public function import(Request $request){
-        $file = $request->file('file');
-        $validator = Validator::make(
-            [
-                'file'      => $file,
-                'extension' => strtolower($file->getClientOriginalExtension()),
-            ],
-            [
-                'file'          => 'required',
-                'extension'      => 'required|in:xlsx,xls,csv',
-            ]
-          );
-          if ($validator->fails()){
-            $res['status_code'] = 406;
-            $res['success'] = false;
-            $res['message'] = 'Failed, File Not Uploaded or File Extension Not (.xlsx / .xls / .csv) ';
-            return response($res, 200);
-          }
+        
+        $this->validate($request,[
+            'file'=>'required',
+        ]);  
+        $file = $request->file;
 
+        $mimes = $file->getClientOriginalExtension();
+        if(!in_array($mimes, array('xlsx', 'xls', 'csv', 'Xslx', 'Xls', 'Csv'))) {
+            $res['message'] = "Failed";
+            $res['detail'] = "Files Salah Beginning Times Extension Must Be (xlsx/xls/csv)";
+            return response($res, 422);
+        }          
+        
+        ////////////////////////////////////////////////
+        ///////////////////////////////////////////////
+        ///Check Delimiter Separator IF Using CSV
+        if(in_array($mimes, array('csv','Csv','CSV'))){
+            $delimiters = [",", ";", "\t"];
+            $checkLines = 3;
+            $default =",";
+
+            $fileObject = new \SplFileObject($file);
+            $results = [];
+            $counter = 0;
+            while ($fileObject->valid() && $counter <= $checkLines) {
+                $line = $fileObject->fgets();
+                foreach ($delimiters as $delimiter) {
+                    $fields = explode($delimiter, $line);
+                    $totalFields = count($fields);
+                    if ($totalFields > 1) {
+                        if (!empty($results[$delimiter])) {
+                            $results[$delimiter] += $totalFields;
+                        } else {
+                            $results[$delimiter] = $totalFields;
+                        }
+                    }
+                }
+                $counter++;
+            }
+            if (!empty($results)) {
+                $results = array_keys($results, max($results));
+
+                // return $results[0];
+                if($results[0] !== ","){
+                    $res['status_code'] = 406;
+                    $res['success'] = false;
+                    $res['detail'] = "Error, File CSV Must Use Comma (,) Delimiter Separator.";
+
+                    return response($res, 200);
+                }
+            }
+        }
+        
         $data = null; 
         $import = new SalahBeginningTimesImport($data);
         Excel::import($import, $file);
+        
 
         $res['status_code'] = 200;
         $res['success'] = true;
@@ -616,7 +652,7 @@ class SalahBeginningTimesController extends Controller
         $this->validate($request,[
             'file'=>'required',
         ]);  
-        $file = $request->input('file');
+        $file = $request->file;
         foreach($request->file as $file){
             $mimes = $file->getClientOriginalExtension();
             if(!in_array($mimes, array('xlsx', 'xls', 'csv', 'Xslx', 'Xls', 'Csv'))) {
@@ -624,42 +660,44 @@ class SalahBeginningTimesController extends Controller
                 $res['detail'] = "Files Salah Beginning Times Extension Must Be (xlsx/xls/csv)";
                 return response($res, 422);
             }          
-             
+            
             ////////////////////////////////////////////////
             ///////////////////////////////////////////////
-            ///Check Delimiter Separator
-            $delimiters =[",", ";", "\t"];
-            $checkLines = 3;
-            $default =",";
-
-            $fileObject = new \SplFileObject($file);
-            $results = [];
-            $counter = 0;
-            while ($fileObject->valid() && $counter <= $checkLines) {
-                $line = $fileObject->fgets();
-                foreach ($delimiters as $delimiter) {
-                    $fields = explode($delimiter, $line);
-                    $totalFields = count($fields);
-                    if ($totalFields > 1) {
-                        if (!empty($results[$delimiter])) {
-                            $results[$delimiter] += $totalFields;
-                        } else {
-                            $results[$delimiter] = $totalFields;
+            ///Check Delimiter Separator IF Using CSV
+            if(in_array($mimes, array('csv','Csv','CSV'))){
+                $delimiters = [",", ";", "\t"];
+                $checkLines = 3;
+                $default =",";
+    
+                $fileObject = new \SplFileObject($file);
+                $results = [];
+                $counter = 0;
+                while ($fileObject->valid() && $counter <= $checkLines) {
+                    $line = $fileObject->fgets();
+                    foreach ($delimiters as $delimiter) {
+                        $fields = explode($delimiter, $line);
+                        $totalFields = count($fields);
+                        if ($totalFields > 1) {
+                            if (!empty($results[$delimiter])) {
+                                $results[$delimiter] += $totalFields;
+                            } else {
+                                $results[$delimiter] = $totalFields;
+                            }
                         }
                     }
+                    $counter++;
                 }
-                $counter++;
-            }
-            if (!empty($results)) {
-                $results = array_keys($results, max($results));
-
-                // return $results[0];
-                if($results[0] !== ","){
-                    $res['status_code'] = 406;
-                    $res['success'] = false;
-                    $res['detail'] = "Error, File CSV Must Use Comma (,) Delimiter Separator.";
-
-                    return response($res, 200);
+                if (!empty($results)) {
+                    $results = array_keys($results, max($results));
+    
+                    // return $results[0];
+                    if($results[0] !== ","){
+                        $res['status_code'] = 406;
+                        $res['success'] = false;
+                        $res['detail'] = "Error, File CSV Must Use Comma (,) Delimiter Separator.";
+    
+                        return response($res, 200);
+                    }
                 }
             }
 
