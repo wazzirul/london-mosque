@@ -959,23 +959,14 @@ class UsersController extends Controller
             ->first();
 
         if($user === null){
-            $res['status_code'] = 406;
-            $res['success'] = false;
-            $res['detail'] = "Data User for that Email not found.";
+            return "<h2>Data User for that Email not found.</h2>";
 
-            return response($res, 200);
         }else if($user->status_verif === 1){
-            $res['status_code'] = 406;
-            $res['success'] = false;
-            $res['detail'] = "User was verified.";
+            return "<h2>User was verified.</h2>";
 
-            return response($res, 200);
         }else if($user->soft_delete === 1){
-            $res['status_code'] = 406;
-            $res['success'] = false;
-            $res['detail'] = "User was deleted. Please contact customer service.";
+            return "<h2>User was deleted. Please contact customer service.</h2>";
 
-            return response($res, 200);
         }
 
         $verify = UsersVerification::where('id_user', $user->id_user)
@@ -989,22 +980,15 @@ class UsersController extends Controller
 
                 $verify->soft_delete = 1;
                 $verify->save();
+                return "<h2>Verification Success. Go to login page to go to London Mosque user dashboard.</h2>";
 
-                $res['status_code'] = 200;
-                $res['success'] = true;
-                $res['detail'] = "Verification account success.";
             }else{
-                $res['status_code'] = 406;
-                $res['success'] = false;
-                $res['detail'] = "Wrong code verification.";
+                return "<h2>Wrong code verification.</h2>";
+
             }
         }else{
-            $res['status_code'] = 406;
-            $res['success'] = false;
-            $res['detail'] = "Code verification was expired.";
-        }
+            return "<h2>Code verification was expired.</h2>";
 
-        return response($res, 200);
+        }
     }
-    
 }

@@ -48,6 +48,10 @@ class LoginDocsController extends Controller
                 $auth_token->expired = $expired;
                 $auth_token->save();
 
+                AuthenticationToken::where('user_auth', 'api')
+                    ->where('expired', '<=', $expired->copy()->subDays(3))
+                    ->forceDelete();
+
                 session()->put('login',TRUE);
                 Session::put('auth_token', $str_token);
                 
