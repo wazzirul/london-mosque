@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use Carbon\Carbon;
 use App\Model\Mosque\Mosque;
 use App\Model\Mosque\MosqueSpecialSalahTime;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -31,7 +32,7 @@ class MosqueSpecialSalahEidulFitriTimesImport implements ToModel, WithStartRow
     {
         // dd($row['date_special_salah_times']);
         // Retrieve by name, or instantiate with the name, delayed, and arrival_time attributes...
-
+        
         if($this->data !== null){
             $dataMosque = Mosque::find($this->data);
 
@@ -67,15 +68,21 @@ class MosqueSpecialSalahEidulFitriTimesImport implements ToModel, WithStartRow
             // $date = $year.'-'.$month.'-'.$day;
             // $date = $row[1];
             
-            
             // Creating new date format from that timestamp
-            if (strpos($row[1], '/') !== false) {
-                $timestamp = strtotime(str_replace('/', '-', $row[1]));
-            }else{
-                $timestamp = strtotime(strval($row[1]));
-            }
-            $date = date("Y-m-d", $timestamp);
             
+            if(is_numeric($row[1])){
+                $timestamp = Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[1]))->format('Y-m-d');
+                $date = $timestamp;
+            }else{
+                if (strpos($row[1], '/') !== false) {
+                    $timestamp = strtotime(str_replace('/', '-', $row[1]));
+                    $date = date("Y-m-d", $timestamp);
+                }else{
+                    $timestamp = strtotime(strval($row[1]));
+                    $date = date("Y-m-d", $timestamp);
+                }
+            } 
+
             if($date !== null){            
                 if($row[2] !== null){ // 1st
                     $data = MosqueSpecialSalahTime::firstOrNew(['id_mosque' => $dataMosque->id_mosque,
@@ -86,7 +93,13 @@ class MosqueSpecialSalahEidulFitriTimesImport implements ToModel, WithStartRow
                     $data->date_special_salah_times = $date;
                     $data->category_special_salah = 1;
                     $data->order_special_salah_times = '1st';
-                    $data->time_special_salah_times = $row[2];
+                    
+                    if(is_numeric($row[2])){
+                        $times2 = Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[2]));
+                    }else{
+                        $times2 = $row[2];
+                    } 
+                    $data->time_special_salah_times = $times2;
                     $data->save();
                 }
                 if($row[3] !== null){ // 2nd
@@ -98,7 +111,13 @@ class MosqueSpecialSalahEidulFitriTimesImport implements ToModel, WithStartRow
                     $data->date_special_salah_times = $date;
                     $data->category_special_salah = 1;
                     $data->order_special_salah_times = '2nd';
-                    $data->time_special_salah_times = $row[3];
+                    
+                    if(is_numeric($row[3])){
+                        $times3 = Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[3]));
+                    }else{
+                        $times3 = $row[3];
+                    } 
+                    $data->time_special_salah_times = $times3;
                     $data->save();
                 }
                 if($row[4] !== null){ // 3rd
@@ -110,7 +129,13 @@ class MosqueSpecialSalahEidulFitriTimesImport implements ToModel, WithStartRow
                     $data->date_special_salah_times = $date;
                     $data->category_special_salah = 1;
                     $data->order_special_salah_times = '3rd';
-                    $data->time_special_salah_times = $row[4];
+                    
+                    if(is_numeric($row[4])){
+                        $times4 = Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[4]));
+                    }else{
+                        $times4 = $row[4];
+                    } 
+                    $data->time_special_salah_times = $times4;
                     $data->save();
                 }
                 if($row[5] !== null){ // 4th
@@ -122,7 +147,13 @@ class MosqueSpecialSalahEidulFitriTimesImport implements ToModel, WithStartRow
                     $data->date_special_salah_times = $date;
                     $data->category_special_salah = 1;
                     $data->order_special_salah_times = '4th';
-                    $data->time_special_salah_times = $row[5];
+                    
+                    if(is_numeric($row[5])){
+                        $times5 = Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[5]));
+                    }else{
+                        $times5 = $row[5];
+                    } 
+                    $data->time_special_salah_times = $times5;
                     $data->save();
                 }
             }

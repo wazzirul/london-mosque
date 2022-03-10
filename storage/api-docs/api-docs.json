@@ -713,6 +713,80 @@
                 }
             }
         },
+        "/borough/import": {
+            "post": {
+                "tags": [
+                    "Borough"
+                ],
+                "summary": "Import new data Borough response",
+                "description": "Import new data Borough <br>\r\n        <p>1. File Excel Borough extension must be .xlsx or .xls or .csv</p>\r\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\r\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
+                "operationId": "importBorough",
+                "parameters": [
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "file (File Excel Borough .xlsx or .xls) ...",
+                        "required": true,
+                        "type": "file"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/borough/importMultiple": {
+            "post": {
+                "tags": [
+                    "Borough"
+                ],
+                "summary": "Import Multiple new data Borough response",
+                "description": "Import Multiple new data Borough <br>\r\n        <p>1. File Excel Borough extension must be .xlsx or .xls or .csv</p>\r\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\r\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
+                "operationId": "importMultipleBorough",
+                "parameters": [
+                    {
+                        "name": "file[0]",
+                        "in": "formData",
+                        "description": "file (File Excel Borough .xlsx or .xls) ...",
+                        "required": true,
+                        "type": "file"
+                    },
+                    {
+                        "name": "file[1]",
+                        "in": "formData",
+                        "description": "file (File Excel Borough .xlsx or .xls or .csv) ...",
+                        "required": false,
+                        "type": "file"
+                    },
+                    {
+                        "name": "file[2]",
+                        "in": "formData",
+                        "description": "file (File Excel Borough .xlsx or .xls or .csv) ...",
+                        "required": false,
+                        "type": "file"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
         "/contact-us/ContactMail": {
             "post": {
                 "tags": [
@@ -2053,6 +2127,80 @@
                         "description": "ASC / DESC (default DESC)",
                         "required": false,
                         "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque/import": {
+            "post": {
+                "tags": [
+                    "Mosque"
+                ],
+                "summary": "Import new data Mosque response",
+                "description": "Import new data Mosque <br>\r\n        <p>1. File Excel Mosque extension must be .xlsx or .xls or .csv</p>\r\n        <p>2. Data Borough Must Be In Database ,</p>\r\n        <p>3. CSV Data MUST be seperated by Comma ,</p>\r\n        <p>4. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
+                "operationId": "importMosque",
+                "parameters": [
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "file (File Excel Mosque .xlsx or .xls) ...",
+                        "required": true,
+                        "type": "file"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/mosque/importMultiple": {
+            "post": {
+                "tags": [
+                    "Mosque"
+                ],
+                "summary": "Import Multiple new data Mosque response",
+                "description": "Import Multiple new data Mosque <br>\r\n        <p>1. File Excel Mosque extension must be .xlsx or .xls or .csv</p>\r\n        <p>2. Data Borough Must Be In Database ,</p>\r\n        <p>3. CSV Data MUST be seperated by Comma ,</p>\r\n        <p>4. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
+                "operationId": "importMultipleMosque",
+                "parameters": [
+                    {
+                        "name": "file[0]",
+                        "in": "formData",
+                        "description": "file (File Excel Mosque .xlsx or .xls) ...",
+                        "required": true,
+                        "type": "file"
+                    },
+                    {
+                        "name": "file[1]",
+                        "in": "formData",
+                        "description": "file (File Excel Mosque .xlsx or .xls or .csv) ...",
+                        "required": false,
+                        "type": "file"
+                    },
+                    {
+                        "name": "file[2]",
+                        "in": "formData",
+                        "description": "file (File Excel Mosque .xlsx or .xls or .csv) ...",
+                        "required": false,
+                        "type": "file"
                     }
                 ],
                 "responses": {

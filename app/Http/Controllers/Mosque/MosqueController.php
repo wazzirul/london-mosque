@@ -23,6 +23,9 @@ use Illuminate\Support\Facades\DB;
 use StdClass;
 use Illuminate\Support\Facades\Hash;
 
+use App\Imports\MosqueImport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class MosqueController extends Controller
 {
     //
@@ -1287,4 +1290,217 @@ class MosqueController extends Controller
         }
     }
 
+    
+
+
+
+    
+    
+    ////
+    //
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Import
+    //////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @SWG\Post(
+     *   path="/mosque/import",
+     *     tags={"Mosque"},
+     *     summary="Import new data Mosque response",
+     *     description="Import new data Mosque <br>
+        <p>1. File Excel Mosque extension must be .xlsx or .xls or .csv</p>
+        <p>2. Data Borough Must Be In Database ,</p>
+        <p>3. CSV Data MUST be seperated by Comma ,</p>
+        <p>4. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
+     *     operationId="importMosque",
+     * 
+     *  @SWG\Parameter(
+     *     name="file",
+     *     in="formData",
+     *     description="file (File Excel Mosque .xlsx or .xls) ...",
+     *     required=true,
+     *     type="file"
+     *   ), 
+     * 
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function import(Request $request){
+        
+        $this->validate($request,[
+            'file'=>'required',
+        ]);  
+        $file = $request->file;
+
+        $mimes = $file->getClientOriginalExtension();
+        if(!in_array($mimes, array('xlsx', 'xls', 'csv', 'Xslx', 'Xls', 'Csv'))) {
+            $res['message'] = "Failed";
+            $res['detail'] = "Files Mosque Extension Must Be (xlsx/xls/csv)";
+            return response($res, 422);
+        }          
+        
+        ////////////////////////////////////////////////
+        ///////////////////////////////////////////////
+        ///Check Delimiter Separator IF Using CSV
+        if(in_array($mimes, array('csv','Csv','CSV'))){
+            $delimiters = [",", ";", "\t"];
+            $checkLines = 3;
+            $default =",";
+
+            $fileObject = new \SplFileObject($file);
+            $results = [];
+            $counter = 0;
+            while ($fileObject->valid() && $counter <= $checkLines) {
+                $line = $fileObject->fgets();
+                foreach ($delimiters as $delimiter) {
+                    $fields = explode($delimiter, $line);
+                    $totalFields = count($fields);
+                    if ($totalFields > 1) {
+                        if (!empty($results[$delimiter])) {
+                            $results[$delimiter] += $totalFields;
+                        } else {
+                            $results[$delimiter] = $totalFields;
+                        }
+                    }
+                }
+                $counter++;
+            }
+            if (!empty($results)) {
+                $results = array_keys($results, max($results));
+
+                // return $results[0];
+                if($results[0] !== ","){
+                    $res['status_code'] = 406;
+                    $res['success'] = false;
+                    $res['detail'] = "Error, File CSV Must Use Comma (,) Delimiter Separator.";
+
+                    return response($res, 200);
+                }
+            }
+        }
+        ///END OF Check Delimiter Separator IF Using CSV
+        ////////////////////////////////////////////////
+        ///////////////////////////////////////////////
+        
+        $data = null; 
+        $import = new MosqueImport($data);
+        Excel::import($import, $file);
+        
+
+        $res['status_code'] = 200;
+        $res['success'] = true;
+        $res['message'] = 'Success Importing Mosque data';
+        return response($res, 200);
+    }
+
+
+
+
+
+
+
+    /**
+     * @SWG\Post(
+     *   path="/mosque/importMultiple",
+     *     tags={"Mosque"},
+     *     summary="Import Multiple new data Mosque response",
+     *     description="Import Multiple new data Mosque <br>
+        <p>1. File Excel Mosque extension must be .xlsx or .xls or .csv</p>
+        <p>2. Data Borough Must Be In Database ,</p>
+        <p>3. CSV Data MUST be seperated by Comma ,</p>
+        <p>4. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
+     *     operationId="importMultipleMosque",
+     * 
+     *  @SWG\Parameter(
+     *     name="file[0]",
+     *     in="formData",
+     *     description="file (File Excel Mosque .xlsx or .xls) ...",
+     *     required=true,
+     *     type="file"
+     *   ), 
+     *  @SWG\Parameter(
+     *     name="file[1]",
+     *     in="formData",
+     *     description="file (File Excel Mosque .xlsx or .xls or .csv) ...",
+     *     required=false,
+     *     type="file"
+     *   ), 
+     *  @SWG\Parameter(
+     *     name="file[2]",
+     *     in="formData",
+     *     description="file (File Excel Mosque .xlsx or .xls or .csv) ...",
+     *     required=false,
+     *     type="file"
+     *   ), 
+     * 
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function importMultiple(Request $request){
+        
+        $this->validate($request,[
+            'file'=>'required',
+        ]);  
+        $file = $request->file;
+        foreach($request->file as $file){
+            $mimes = $file->getClientOriginalExtension();
+            if(!in_array($mimes, array('xlsx', 'xls', 'csv', 'Xslx', 'Xls', 'Csv'))) {
+                $res['message'] = "Failed";
+                $res['detail'] = "Files Mosque Extension Must Be (xlsx/xls/csv)";
+                return response($res, 422);
+            }          
+            
+            ////////////////////////////////////////////////
+            ///////////////////////////////////////////////
+            ///Check Delimiter Separator IF Using CSV
+            if(in_array($mimes, array('csv','Csv','CSV'))){
+                $delimiters = [",", ";", "\t"];
+                $checkLines = 3;
+                $default =",";
+    
+                $fileObject = new \SplFileObject($file);
+                $results = [];
+                $counter = 0;
+                while ($fileObject->valid() && $counter <= $checkLines) {
+                    $line = $fileObject->fgets();
+                    foreach ($delimiters as $delimiter) {
+                        $fields = explode($delimiter, $line);
+                        $totalFields = count($fields);
+                        if ($totalFields > 1) {
+                            if (!empty($results[$delimiter])) {
+                                $results[$delimiter] += $totalFields;
+                            } else {
+                                $results[$delimiter] = $totalFields;
+                            }
+                        }
+                    }
+                    $counter++;
+                }
+                if (!empty($results)) {
+                    $results = array_keys($results, max($results));
+    
+                    // return $results[0];
+                    if($results[0] !== ","){
+                        $res['status_code'] = 406;
+                        $res['success'] = false;
+                        $res['detail'] = "Error, File CSV Must Use Comma (,) Delimiter Separator.";
+    
+                        return response($res, 200);
+                    }
+                }
+            }
+
+            $data = null; 
+            $import = new MosqueImport($data);
+            Excel::import($import, $file);
+        }
+
+        $res['status_code'] = 200;
+        $res['success'] = true;
+        $res['message'] = 'Success Importing Mosque data';
+        return response($res, 200);
+    }
 }

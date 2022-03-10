@@ -68,11 +68,15 @@ class SalahBeginningTimesImport implements ToModel, WithStartRow
 
         
         // Creating new date format from that timestamp
-        if (strpos($row[1], '/') !== false) {
-            $timestamp = strtotime(str_replace('/', '-', $row[1]));
+        if(is_numeric($row[1])){
+            $timestamp = Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[1]));
         }else{
-            $timestamp = strtotime(strval($row[1]));
-        }
+            if (strpos($row[1], '/') !== false) {
+                $timestamp = strtotime(str_replace('/', '-', $row[1]));
+            }else{
+                $timestamp = strtotime(strval($row[1]));
+            }
+        } 
         $date = date("Y-m-d", $timestamp);
 
         if($date !== null){            

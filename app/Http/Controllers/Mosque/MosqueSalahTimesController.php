@@ -814,26 +814,62 @@ class MosqueSalahTimesController extends Controller
      * )
      */
     public function import(Request $request){
-        $file = $request->file('file');
+        $this->validate($request,[
+            'id_mosque'=>'required|numeric|min:1',
+            'file'=>'required',
+        ]);  
+        $file = $request->file;
         $id_mosque = $request->input('id_mosque');
-        $validator = Validator::make(
-            [
-                'id_mosque'=> $id_mosque,
-                'file'      => $file,
-                'extension' => strtolower($file->getClientOriginalExtension()),
-            ],
-            [
-                'id_mosque'     => 'required|numeric|min:1',
-                'file'          => 'required',
-                'extension'     => 'required|in:xlsx,xls,csv',
-            ]
-          );
-          if ($validator->fails()){
-            $res['status_code'] = 406;
-            $res['success'] = false;
-            $res['message'] = 'Failed, File Not Uploaded or File Extension Not (.xlsx / .xls / .csv) ';
-            return response($res, 200);
-          }
+
+        $mimes = $file->getClientOriginalExtension();
+        if(!in_array($mimes, array('xlsx', 'xls', 'csv', 'Xslx', 'Xls', 'Csv'))) {
+            $res['message'] = "Failed";
+            $res['detail'] = "Files Salah Beginning Times Extension Must Be (xlsx/xls/csv)";
+            return response($res, 422);
+        }        
+        
+        ////////////////////////////////////////////////
+        ///////////////////////////////////////////////
+        ///Check Delimiter Separator IF Using CSV
+        if(in_array($mimes, array('csv','Csv','CSV'))){
+            $delimiters = [",", ";", "\t"];
+            $checkLines = 3;
+            $default =",";
+
+            $fileObject = new \SplFileObject($file);
+            $results = [];
+            $counter = 0;
+            while ($fileObject->valid() && $counter <= $checkLines) {
+                $line = $fileObject->fgets();
+                foreach ($delimiters as $delimiter) {
+                    $fields = explode($delimiter, $line);
+                    $totalFields = count($fields);
+                    if ($totalFields > 1) {
+                        if (!empty($results[$delimiter])) {
+                            $results[$delimiter] += $totalFields;
+                        } else {
+                            $results[$delimiter] = $totalFields;
+                        }
+                    }
+                }
+                $counter++;
+            }
+            if (!empty($results)) {
+                $results = array_keys($results, max($results));
+
+                // return $results[0];
+                if($results[0] !== ","){
+                    $res['status_code'] = 406;
+                    $res['success'] = false;
+                    $res['detail'] = "Error, File CSV Must Use Comma (,) Delimiter Separator.";
+
+                    return response($res, 200);
+                }
+            }
+        }
+        ///END OF Check Delimiter Separator IF Using CSV
+        ////////////////////////////////////////////////
+        ///////////////////////////////////////////////
 
         $data = $id_mosque; 
 
@@ -911,8 +947,8 @@ class MosqueSalahTimesController extends Controller
 
         $id_mosque = $request->input('id_mosque');
         $file = $request->input('file');
-
         $mosque = Mosque::find($id_mosque);
+        
         if($mosque === null){
             $res['status_code'] = 406;
             $res['success'] = false;
@@ -927,14 +963,53 @@ class MosqueSalahTimesController extends Controller
             return response($res, 200);
         }
 
-        
         foreach($request->file as $file){
             $mimes = $file->getClientOriginalExtension();
             if(!in_array($mimes, array('xlsx', 'xls', 'csv', 'Xslx', 'Xls', 'Csv'))) {
                 $res['message'] = "Failed";
-                $res['detail'] = "Files Mosque Salah Times Extension Must Be (xlsx/xls/csv)";
+                $res['detail'] = "Files Salah Beginning Times Extension Must Be (xlsx/xls/csv)";
                 return response($res, 422);
             }          
+            
+            ////////////////////////////////////////////////
+            ///////////////////////////////////////////////
+            ///Check Delimiter Separator IF Using CSV
+            if(in_array($mimes, array('csv','Csv','CSV'))){
+                $delimiters = [",", ";", "\t"];
+                $checkLines = 3;
+                $default =",";
+    
+                $fileObject = new \SplFileObject($file);
+                $results = [];
+                $counter = 0;
+                while ($fileObject->valid() && $counter <= $checkLines) {
+                    $line = $fileObject->fgets();
+                    foreach ($delimiters as $delimiter) {
+                        $fields = explode($delimiter, $line);
+                        $totalFields = count($fields);
+                        if ($totalFields > 1) {
+                            if (!empty($results[$delimiter])) {
+                                $results[$delimiter] += $totalFields;
+                            } else {
+                                $results[$delimiter] = $totalFields;
+                            }
+                        }
+                    }
+                    $counter++;
+                }
+                if (!empty($results)) {
+                    $results = array_keys($results, max($results));
+    
+                    // return $results[0];
+                    if($results[0] !== ","){
+                        $res['status_code'] = 406;
+                        $res['success'] = false;
+                        $res['detail'] = "Error, File CSV Must Use Comma (,) Delimiter Separator.";
+    
+                        return response($res, 200);
+                    }
+                }
+            }
 
             $data = $id_mosque; 
             $import = new MosqueSalahTimesImport($data);

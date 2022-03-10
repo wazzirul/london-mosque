@@ -766,26 +766,78 @@ class MosqueSpecialSalahTimesController extends Controller
      * )
      */
     public function importJummah(Request $request){
-        $file = $request->file('file');
+        $this->validate($request,[
+            'id_mosque'=>'required|numeric|min:1',
+            'file'=>'required',
+        ]);  
+        $file = $request->file;
         $id_mosque = $request->input('id_mosque');
-        $validator = Validator::make(
-            [
-                'id_mosque'=> $id_mosque,
-                'file'      => $file,
-                'extension' => strtolower($file->getClientOriginalExtension()),
-            ],
-            [
-                'id_mosque'     => 'required|numeric|min:1',
-                'file'          => 'required',
-                'extension'      => 'required|in:xlsx,xls,csv',
-            ]
-          );
-          if ($validator->fails()){
+        
+        $mosque = Mosque::find($id_mosque);
+        
+        if($mosque === null){
             $res['status_code'] = 406;
             $res['success'] = false;
-            $res['message'] = 'Failed, File Not Uploaded or File Extension Not (.xlsx / .xls / .csv) ';
+            $res['detail'] = "Data Mosque for that ID not found.";
+
             return response($res, 200);
-          }
+        }else if($mosque->soft_delete === 1){
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['detail'] = "Mosque was deleted. Please contact customer service.";
+
+            return response($res, 200);
+        }
+
+        $mimes = $file->getClientOriginalExtension();
+        if(!in_array($mimes, array('xlsx', 'xls', 'csv', 'Xslx', 'Xls', 'Csv'))) {
+            $res['message'] = "Failed";
+            $res['detail'] = "Files Salah Beginning Times Extension Must Be (xlsx/xls/csv)";
+            return response($res, 422);
+        }        
+        
+        ////////////////////////////////////////////////
+        ///////////////////////////////////////////////
+        ///Check Delimiter Separator IF Using CSV
+        if(in_array($mimes, array('csv','Csv','CSV'))){
+            $delimiters = [",", ";", "\t"];
+            $checkLines = 3;
+            $default =",";
+
+            $fileObject = new \SplFileObject($file);
+            $results = [];
+            $counter = 0;
+            while ($fileObject->valid() && $counter <= $checkLines) {
+                $line = $fileObject->fgets();
+                foreach ($delimiters as $delimiter) {
+                    $fields = explode($delimiter, $line);
+                    $totalFields = count($fields);
+                    if ($totalFields > 1) {
+                        if (!empty($results[$delimiter])) {
+                            $results[$delimiter] += $totalFields;
+                        } else {
+                            $results[$delimiter] = $totalFields;
+                        }
+                    }
+                }
+                $counter++;
+            }
+            if (!empty($results)) {
+                $results = array_keys($results, max($results));
+
+                // return $results[0];
+                if($results[0] !== ","){
+                    $res['status_code'] = 406;
+                    $res['success'] = false;
+                    $res['detail'] = "Error, File CSV Must Use Comma (,) Delimiter Separator.";
+
+                    return response($res, 200);
+                }
+            }
+        }
+        ///END OF Check Delimiter Separator IF Using CSV
+        ////////////////////////////////////////////////
+        ///////////////////////////////////////////////
 
         $data = $id_mosque; 
         $import = new MosqueSpecialSalahJummahTimesImport($data);
@@ -882,9 +934,49 @@ class MosqueSpecialSalahTimesController extends Controller
             $mimes = $file->getClientOriginalExtension();
             if(!in_array($mimes, array('xlsx', 'xls', 'csv', 'Xslx', 'Xls', 'Csv'))) {
                 $res['message'] = "Failed";
-                $res['detail'] = "Files Mosque Salah Jummah Times Extension Must Be (xlsx/xls/csv)";
+                $res['detail'] = "Files Salah Beginning Times Extension Must Be (xlsx/xls/csv)";
                 return response($res, 422);
             }          
+            
+            ////////////////////////////////////////////////
+            ///////////////////////////////////////////////
+            ///Check Delimiter Separator IF Using CSV
+            if(in_array($mimes, array('csv','Csv','CSV'))){
+                $delimiters = [",", ";", "\t"];
+                $checkLines = 3;
+                $default =",";
+    
+                $fileObject = new \SplFileObject($file);
+                $results = [];
+                $counter = 0;
+                while ($fileObject->valid() && $counter <= $checkLines) {
+                    $line = $fileObject->fgets();
+                    foreach ($delimiters as $delimiter) {
+                        $fields = explode($delimiter, $line);
+                        $totalFields = count($fields);
+                        if ($totalFields > 1) {
+                            if (!empty($results[$delimiter])) {
+                                $results[$delimiter] += $totalFields;
+                            } else {
+                                $results[$delimiter] = $totalFields;
+                            }
+                        }
+                    }
+                    $counter++;
+                }
+                if (!empty($results)) {
+                    $results = array_keys($results, max($results));
+    
+                    // return $results[0];
+                    if($results[0] !== ","){
+                        $res['status_code'] = 406;
+                        $res['success'] = false;
+                        $res['detail'] = "Error, File CSV Must Use Comma (,) Delimiter Separator.";
+    
+                        return response($res, 200);
+                    }
+                }
+            }
 
             $data = $id_mosque; 
             $import = new MosqueSpecialSalahJummahTimesImport($data);
@@ -941,26 +1033,78 @@ class MosqueSpecialSalahTimesController extends Controller
      * )
      */
     public function importEidulFitri(Request $request){
-        $file = $request->file('file');
+        $this->validate($request,[
+            'id_mosque'=>'required|numeric|min:1',
+            'file'=>'required',
+        ]);  
+        $file = $request->file;
         $id_mosque = $request->input('id_mosque');
-        $validator = Validator::make(
-            [
-                'id_mosque'=> $id_mosque,
-                'file'      => $file,
-                'extension' => strtolower($file->getClientOriginalExtension()),
-            ],
-            [
-                'id_mosque'     => 'required|numeric|min:1',
-                'file'          => 'required',
-                'extension'      => 'required|in:xlsx,xls,csv',
-            ]
-          );
-          if ($validator->fails()){
+        
+        $mosque = Mosque::find($id_mosque);
+        
+        if($mosque === null){
             $res['status_code'] = 406;
             $res['success'] = false;
-            $res['message'] = 'Failed, File Not Uploaded or File Extension Not (.xlsx / .xls / .csv) ';
+            $res['detail'] = "Data Mosque for that ID not found.";
+
             return response($res, 200);
-          }
+        }else if($mosque->soft_delete === 1){
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['detail'] = "Mosque was deleted. Please contact customer service.";
+
+            return response($res, 200);
+        }
+
+        $mimes = $file->getClientOriginalExtension();
+        if(!in_array($mimes, array('xlsx', 'xls', 'csv', 'Xslx', 'Xls', 'Csv'))) {
+            $res['message'] = "Failed";
+            $res['detail'] = "Files Salah Beginning Times Extension Must Be (xlsx/xls/csv)";
+            return response($res, 422);
+        }        
+        
+        ////////////////////////////////////////////////
+        ///////////////////////////////////////////////
+        ///Check Delimiter Separator IF Using CSV
+        if(in_array($mimes, array('csv','Csv','CSV'))){
+            $delimiters = [",", ";", "\t"];
+            $checkLines = 3;
+            $default =",";
+
+            $fileObject = new \SplFileObject($file);
+            $results = [];
+            $counter = 0;
+            while ($fileObject->valid() && $counter <= $checkLines) {
+                $line = $fileObject->fgets();
+                foreach ($delimiters as $delimiter) {
+                    $fields = explode($delimiter, $line);
+                    $totalFields = count($fields);
+                    if ($totalFields > 1) {
+                        if (!empty($results[$delimiter])) {
+                            $results[$delimiter] += $totalFields;
+                        } else {
+                            $results[$delimiter] = $totalFields;
+                        }
+                    }
+                }
+                $counter++;
+            }
+            if (!empty($results)) {
+                $results = array_keys($results, max($results));
+
+                // return $results[0];
+                if($results[0] !== ","){
+                    $res['status_code'] = 406;
+                    $res['success'] = false;
+                    $res['detail'] = "Error, File CSV Must Use Comma (,) Delimiter Separator.";
+
+                    return response($res, 200);
+                }
+            }
+        }
+        ///END OF Check Delimiter Separator IF Using CSV
+        ////////////////////////////////////////////////
+        ///////////////////////////////////////////////
 
         $data = $id_mosque; 
         $import = new MosqueSpecialSalahEidulFitriTimesImport($data);
@@ -1041,8 +1185,6 @@ class MosqueSpecialSalahTimesController extends Controller
 
         $id_mosque = $request->input('id_mosque');
         $file = $request->input('file');
-        
-        
 
         $mosque = Mosque::find($id_mosque);
         if($mosque === null){
@@ -1059,14 +1201,53 @@ class MosqueSpecialSalahTimesController extends Controller
             return response($res, 200);
         }
 
-        
         foreach($request->file as $file){
             $mimes = $file->getClientOriginalExtension();
             if(!in_array($mimes, array('xlsx', 'xls', 'csv', 'Xslx', 'Xls', 'Csv'))) {
                 $res['message'] = "Failed";
-                $res['detail'] = "Files Mosque Salah Eid-ul Fitri Times Extension Must Be (xlsx/xls/csv)";
+                $res['detail'] = "Files Salah Beginning Times Extension Must Be (xlsx/xls/csv)";
                 return response($res, 422);
             }          
+            
+            ////////////////////////////////////////////////
+            ///////////////////////////////////////////////
+            ///Check Delimiter Separator IF Using CSV
+            if(in_array($mimes, array('csv','Csv','CSV'))){
+                $delimiters = [",", ";", "\t"];
+                $checkLines = 3;
+                $default =",";
+    
+                $fileObject = new \SplFileObject($file);
+                $results = [];
+                $counter = 0;
+                while ($fileObject->valid() && $counter <= $checkLines) {
+                    $line = $fileObject->fgets();
+                    foreach ($delimiters as $delimiter) {
+                        $fields = explode($delimiter, $line);
+                        $totalFields = count($fields);
+                        if ($totalFields > 1) {
+                            if (!empty($results[$delimiter])) {
+                                $results[$delimiter] += $totalFields;
+                            } else {
+                                $results[$delimiter] = $totalFields;
+                            }
+                        }
+                    }
+                    $counter++;
+                }
+                if (!empty($results)) {
+                    $results = array_keys($results, max($results));
+    
+                    // return $results[0];
+                    if($results[0] !== ","){
+                        $res['status_code'] = 406;
+                        $res['success'] = false;
+                        $res['detail'] = "Error, File CSV Must Use Comma (,) Delimiter Separator.";
+    
+                        return response($res, 200);
+                    }
+                }
+            }
 
             $data = $id_mosque; 
             $import = new MosqueSpecialSalahEidulFitriTimesImport($data);
@@ -1123,26 +1304,78 @@ class MosqueSpecialSalahTimesController extends Controller
      * )
      */
     public function importEidulAdha(Request $request){
-        $file = $request->file('file');
+        $this->validate($request,[
+            'id_mosque'=>'required|numeric|min:1',
+            'file'=>'required',
+        ]);  
+        $file = $request->file;
         $id_mosque = $request->input('id_mosque');
-        $validator = Validator::make(
-            [
-                'id_mosque'=> $id_mosque,
-                'file'      => $file,
-                'extension' => strtolower($file->getClientOriginalExtension()),
-            ],
-            [
-                'id_mosque'     => 'required|numeric|min:1',
-                'file'          => 'required',
-                'extension'      => 'required|in:xlsx,xls,csv',
-            ]
-          );
-          if ($validator->fails()){
+        
+        $mosque = Mosque::find($id_mosque);
+        
+        if($mosque === null){
             $res['status_code'] = 406;
             $res['success'] = false;
-            $res['message'] = 'Failed, File Not Uploaded or File Extension Not (.xlsx / .xls / .csv) ';
+            $res['detail'] = "Data Mosque for that ID not found.";
+
             return response($res, 200);
-          }
+        }else if($mosque->soft_delete === 1){
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['detail'] = "Mosque was deleted. Please contact customer service.";
+
+            return response($res, 200);
+        }
+
+        $mimes = $file->getClientOriginalExtension();
+        if(!in_array($mimes, array('xlsx', 'xls', 'csv', 'Xslx', 'Xls', 'Csv'))) {
+            $res['message'] = "Failed";
+            $res['detail'] = "Files Salah Beginning Times Extension Must Be (xlsx/xls/csv)";
+            return response($res, 422);
+        }        
+        
+        ////////////////////////////////////////////////
+        ///////////////////////////////////////////////
+        ///Check Delimiter Separator IF Using CSV
+        if(in_array($mimes, array('csv','Csv','CSV'))){
+            $delimiters = [",", ";", "\t"];
+            $checkLines = 3;
+            $default =",";
+
+            $fileObject = new \SplFileObject($file);
+            $results = [];
+            $counter = 0;
+            while ($fileObject->valid() && $counter <= $checkLines) {
+                $line = $fileObject->fgets();
+                foreach ($delimiters as $delimiter) {
+                    $fields = explode($delimiter, $line);
+                    $totalFields = count($fields);
+                    if ($totalFields > 1) {
+                        if (!empty($results[$delimiter])) {
+                            $results[$delimiter] += $totalFields;
+                        } else {
+                            $results[$delimiter] = $totalFields;
+                        }
+                    }
+                }
+                $counter++;
+            }
+            if (!empty($results)) {
+                $results = array_keys($results, max($results));
+
+                // return $results[0];
+                if($results[0] !== ","){
+                    $res['status_code'] = 406;
+                    $res['success'] = false;
+                    $res['detail'] = "Error, File CSV Must Use Comma (,) Delimiter Separator.";
+
+                    return response($res, 200);
+                }
+            }
+        }
+        ///END OF Check Delimiter Separator IF Using CSV
+        ////////////////////////////////////////////////
+        ///////////////////////////////////////////////
 
         $data = $id_mosque; 
         $import = new MosqueSpecialSalahEidulAdhaTimesImport($data);
@@ -1219,8 +1452,6 @@ class MosqueSpecialSalahTimesController extends Controller
 
         $id_mosque = $request->input('id_mosque');
         $file = $request->input('file');
-        
-        
 
         $mosque = Mosque::find($id_mosque);
         if($mosque === null){
@@ -1237,20 +1468,59 @@ class MosqueSpecialSalahTimesController extends Controller
             return response($res, 200);
         }
 
-        
         foreach($request->file as $file){
             $mimes = $file->getClientOriginalExtension();
             if(!in_array($mimes, array('xlsx', 'xls', 'csv', 'Xslx', 'Xls', 'Csv'))) {
                 $res['message'] = "Failed";
-                $res['detail'] = "Files Mosque Salah Eid-ul Adha Times Extension Must Be (xlsx/xls/csv)";
+                $res['detail'] = "Files Salah Beginning Times Extension Must Be (xlsx/xls/csv)";
                 return response($res, 422);
             }          
+            
+            ////////////////////////////////////////////////
+            ///////////////////////////////////////////////
+            ///Check Delimiter Separator IF Using CSV
+            if(in_array($mimes, array('csv','Csv','CSV'))){
+                $delimiters = [",", ";", "\t"];
+                $checkLines = 3;
+                $default =",";
+    
+                $fileObject = new \SplFileObject($file);
+                $results = [];
+                $counter = 0;
+                while ($fileObject->valid() && $counter <= $checkLines) {
+                    $line = $fileObject->fgets();
+                    foreach ($delimiters as $delimiter) {
+                        $fields = explode($delimiter, $line);
+                        $totalFields = count($fields);
+                        if ($totalFields > 1) {
+                            if (!empty($results[$delimiter])) {
+                                $results[$delimiter] += $totalFields;
+                            } else {
+                                $results[$delimiter] = $totalFields;
+                            }
+                        }
+                    }
+                    $counter++;
+                }
+                if (!empty($results)) {
+                    $results = array_keys($results, max($results));
+    
+                    // return $results[0];
+                    if($results[0] !== ","){
+                        $res['status_code'] = 406;
+                        $res['success'] = false;
+                        $res['detail'] = "Error, File CSV Must Use Comma (,) Delimiter Separator.";
+    
+                        return response($res, 200);
+                    }
+                }
+            }
 
             $data = $id_mosque; 
             $import = new MosqueSpecialSalahEidulAdhaTimesImport($data);
             Excel::import($import, $file);
         }
-
+        
         $res['status_code'] = 200;
         $res['success'] = true;
         $res['message'] = 'Success Importing Mosque Salah Eid-ul Adha Times data';

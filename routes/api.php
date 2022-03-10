@@ -33,8 +33,9 @@ Route::post('mosque/showById', 'Mosque\MosqueController@showById');
 Route::get('mosque/showAllAdminPage', 'Mosque\MosqueController@showAllAdminPage');
 Route::post('mosque/showByFilter', 'Mosque\MosqueController@showByFilter');
 Route::get('mosque/show', 'Mosque\MosqueController@show');
-Route::POST('mosque/nearestMosque', 'Mosque\MosqueController@nearestMosque');
+Route::post('mosque/nearestMosque', 'Mosque\MosqueController@nearestMosque');
 Route::get('mosque/showGroupByBorough', 'Mosque\MosqueController@showGroupByBorough');
+
 
 Route::post('mosque-specialsalah-times/showById', 'Mosque\MosqueSpecialSalahTimesController@showById');
 Route::post('mosque-specialsalah-times/showByFilter', 'Mosque\MosqueSpecialSalahTimesController@showByFilter');
@@ -161,7 +162,8 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post('borough/delete', 'BoroughController@delete');
     Route::post('borough/unDelete', 'BoroughController@unDelete');
     Route::get('borough/showDeleted', 'BoroughController@showDeleted');
-
+    Route::post('borough/import', 'BoroughController@import');
+    Route::post('borough/importMultiple', 'BoroughController@importMultiple');
 
     ///////////////////////////////////////////////////////////////////////////////////////////
     // DISTRICTS
@@ -274,7 +276,6 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     ///////////////////////////////////////////////////////////////////////////////////////////
     Route::post('AboutUs/update', 'AboutUsController@update');
 
-
     ///////////////////////////////////////////////////////////////////////////////////////////
     // Mosque
     ///////////////////////////////////////////////////////////////////////////////////////////
@@ -282,8 +283,9 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post('mosque/update', 'Mosque\MosqueController@update');
     Route::post('mosque/delete', 'Mosque\MosqueController@delete');
     Route::post('mosque/undelete', 'Mosque\MosqueController@undelete');
-
-
+    Route::post('mosque/import', 'Mosque\MosqueController@import');
+    Route::post('mosque/importMultiple', 'Mosque\MosqueController@importMultiple');
+    
     ///////////////////////////////////////////////////////////////////////////////////////////
     // Mosque Salah Times
     ///////////////////////////////////////////////////////////////////////////////////////////
