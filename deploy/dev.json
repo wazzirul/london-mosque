@@ -1,14 +1,14 @@
 {
-	"ssh": {
-		"hostname": "45.77.247.110",
-		"username": "root"
+    "ssh": {
+        "hostname": "45.77.247.110",
+        "username": "root"
     },
     "permissions": {
-        "user": "nginx",
-        "group": "nginx"
+        "user": "www-data",
+        "group": "www-data"
     },
-	"deploy_directory": "/var/www/london-mosques-api/",
+    "deploy_directory": "/var/www/london-mosques-api/",
     "deploy_temp_directory": "/tmp/london-mosques-api/",
     "temp_directory": "/tmp/",
-	"env_config": "/var/local/environments/london-mosques-api/.env"
+    "env_config": "/var/local/environments/london-mosques-api/.env"
 }
