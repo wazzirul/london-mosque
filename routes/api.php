@@ -60,6 +60,7 @@ Route::get('mosque-review/show', 'Mosque\MosqueReviewController@show');
 
 Route::post('borough/showByFilter', 'BoroughController@showByFilter');
 Route::post('borough/showById', 'BoroughController@showById');
+Route::post('borough/showBySlug', 'BoroughController@showBySlug');
 Route::get('borough/show', 'BoroughController@show');
 
 Route::post('facilities/showById', 'FacilitiesController@showById');

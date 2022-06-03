@@ -121,7 +121,7 @@
                     "Admin"
                 ],
                 "summary": "Updating data admin response",
-                "description": "Updating data admin response\r\n           <br>#Leave it <strong>blank</strong> if you don't want to change the data",
+                "description": "Updating data admin response\n           <br>#Leave it <strong>blank</strong> if you don't want to change the data",
                 "operationId": "updateAdmin",
                 "parameters": [
                     {
@@ -438,6 +438,13 @@
                         "type": "string"
                     },
                     {
+                        "name": "slug",
+                        "in": "formData",
+                        "description": "Slug Borough ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
                         "name": "latitude",
                         "in": "formData",
                         "description": "Latitude ...",
@@ -471,7 +478,7 @@
                     "Borough"
                 ],
                 "summary": "Updating data borough response",
-                "description": "Updating data borough response\r\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
+                "description": "Updating data borough response\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
                 "operationId": "updateBorough",
                 "parameters": [
                     {
@@ -485,6 +492,13 @@
                         "name": "name_borough",
                         "in": "formData",
                         "description": "Name Borough ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "slug",
+                        "in": "formData",
+                        "description": "Slug Borough ...",
                         "required": false,
                         "type": "string"
                     },
@@ -648,6 +662,36 @@
                 }
             }
         },
+        "/borough/showBySlug": {
+            "post": {
+                "tags": [
+                    "Borough"
+                ],
+                "summary": "Show data borough by Slug borough response",
+                "description": "Show data borough by Slug borough response",
+                "operationId": "showBySlugBorough",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "formData",
+                        "description": "Slug Borough ...",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
         "/borough/showByFilter": {
             "post": {
                 "tags": [
@@ -668,6 +712,13 @@
                         "name": "name_borough",
                         "in": "formData",
                         "description": "Name Borough ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "slug",
+                        "in": "formData",
+                        "description": "Slug Borough ...",
                         "required": false,
                         "type": "string"
                     },
@@ -896,7 +947,7 @@
                     "Districts"
                 ],
                 "summary": "Updating data districts response",
-                "description": "Updating data districts response\r\n           <br>#Leave it <strong>blank</strong> if you don't want to change the data",
+                "description": "Updating data districts response\n           <br>#Leave it <strong>blank</strong> if you don't want to change the data",
                 "operationId": "updateDistricts",
                 "parameters": [
                     {
@@ -1146,7 +1197,7 @@
                     "Donations"
                 ],
                 "summary": "Updating data donations response",
-                "description": "Updating data donations response\r\n           <br>#Leave it <strong>blank</strong> if you don't want to change the data",
+                "description": "Updating data donations response\n           <br>#Leave it <strong>blank</strong> if you don't want to change the data",
                 "operationId": "updateDonations",
                 "parameters": [
                     {
@@ -1382,7 +1433,7 @@
                     "Facilities"
                 ],
                 "summary": "Updating data facilities response",
-                "description": "Updating data facilities response\r\n           <br>#Leave it <strong>blank</strong> if you don't want to change the data",
+                "description": "Updating data facilities response\n           <br>#Leave it <strong>blank</strong> if you don't want to change the data",
                 "operationId": "updateFacilities",
                 "parameters": [
                     {
@@ -1702,7 +1753,7 @@
                     "Mosque"
                 ],
                 "summary": "Updating data Mosque response",
-                "description": "Updating data Mosque response\r\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
+                "description": "Updating data Mosque response\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
                 "operationId": "updateMosque",
                 "parameters": [
                     {
@@ -1848,7 +1899,7 @@
                     "Mosque"
                 ],
                 "summary": "Show all data mosque response",
-                "description": "Show all data mosque response\r\n           <br>*Salah Times using DATE NOW to save data from many return\r\n           <br>*Jummah Times using DATE YEAR AND MONTH NOW to save data from many return",
+                "description": "Show all data mosque response\n           <br>*Salah Times using DATE NOW to save data from many return\n           <br>*Jummah Times using DATE YEAR AND MONTH NOW to save data from many return",
                 "operationId": "showMosques",
                 "responses": {
                     "200": {
@@ -1890,7 +1941,7 @@
                     "Mosque"
                 ],
                 "summary": "Show all data mosque response",
-                "description": "Show all data mosque response\r\n           <br>*Salah Times using DATE NOW to save data from many return\r\n           <br>*Jummah Times using DATE YEAR AND MONTH NOW to save data from many return",
+                "description": "Show all data mosque response\n           <br>*Salah Times using DATE NOW to save data from many return\n           <br>*Jummah Times using DATE YEAR AND MONTH NOW to save data from many return",
                 "operationId": "showByIdMosques",
                 "parameters": [
                     {
@@ -1920,7 +1971,7 @@
                     "Mosque"
                 ],
                 "summary": "show Group By Borough all data mosque response",
-                "description": "show Group By Borough all data mosque response\r\n           <br>*Salah Times using DATE NOW to save data from many return\r\n           <br>*Jummah Times using DATE YEAR AND MONTH NOW to save data from many return",
+                "description": "show Group By Borough all data mosque response\n           <br>*Salah Times using DATE NOW to save data from many return\n           <br>*Jummah Times using DATE YEAR AND MONTH NOW to save data from many return",
                 "operationId": "showGroupByBoroughMosques",
                 "responses": {
                     "200": {
@@ -1941,7 +1992,7 @@
                     "Mosque"
                 ],
                 "summary": "Show all data mosque response",
-                "description": "Show all data mosque response\r\n           <br>*id_user and status_mosque_favorite must use together to get favorite mosque the user have\r\n           <br>*image limit 5, use show by id to show all image or in Mosque Images Tags ",
+                "description": "Show all data mosque response\n           <br>*id_user and status_mosque_favorite must use together to get favorite mosque the user have\n           <br>*image limit 5, use show by id to show all image or in Mosque Images Tags ",
                 "operationId": "showByFilterMosques",
                 "parameters": [
                     {
@@ -2083,7 +2134,7 @@
                     "Mosque"
                 ],
                 "summary": "Show Nearest data mosque from latitude and longitude response",
-                "description": "Show Nearest data mosque from latitude and longitude response\r\n           <br>*Salah Times using DATE NOW to save data from many return\r\n           <br>*Jummah Times using DATE YEAR AND MONTH NOW to save data from many return",
+                "description": "Show Nearest data mosque from latitude and longitude response\n           <br>*Salah Times using DATE NOW to save data from many return\n           <br>*Jummah Times using DATE YEAR AND MONTH NOW to save data from many return",
                 "operationId": "nearestMosqueMosques",
                 "parameters": [
                     {
@@ -2259,7 +2310,7 @@
                     "Mosque Facilities"
                 ],
                 "summary": "Updating data Mosque Facilities response",
-                "description": "Updating data Mosque Facilities response\r\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
+                "description": "Updating data Mosque Facilities response\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
                 "operationId": "updateMosque",
                 "parameters": [
                     {
@@ -2706,7 +2757,7 @@
                     "Mosque Image"
                 ],
                 "summary": "Updating data mosque image response",
-                "description": "Updating data mosque image response\r\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
+                "description": "Updating data mosque image response\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
                 "operationId": "updateMosqueImage",
                 "parameters": [
                     {
@@ -2970,7 +3021,7 @@
                     "Mosque Review"
                 ],
                 "summary": "Updating data Mosque Review response",
-                "description": "Updating data Mosque Review response\r\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
+                "description": "Updating data Mosque Review response\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
                 "operationId": "updateMosque",
                 "parameters": [
                     {
@@ -3269,7 +3320,7 @@
                     "Mosque Salah Times"
                 ],
                 "summary": "Updating data Mosque Salah Times response",
-                "description": "Updating data Mosque Salah Times response\r\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
+                "description": "Updating data Mosque Salah Times response\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
                 "operationId": "updateMosque",
                 "parameters": [
                     {
@@ -3561,7 +3612,7 @@
                     "Mosque Salah Times"
                 ],
                 "summary": "Import new data Mosque Salah Times response",
-                "description": "Import new data Mosque Salah Times <br>\r\n            <p>1. File Excel Mosque Salah/Prayer Times extension must be .xlsx or .xls or .csv</p>\r\n            <p>2. CSV Data MUST be seperated by Comma ,</p>\r\n            <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
+                "description": "Import new data Mosque Salah Times <br>\n            <p>1. File Excel Mosque Salah/Prayer Times extension must be .xlsx or .xls or .csv</p>\n            <p>2. CSV Data MUST be seperated by Comma ,</p>\n            <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
                 "operationId": "importMosqueSalahTimes",
                 "parameters": [
                     {
@@ -3598,7 +3649,7 @@
                     "Mosque Salah Times"
                 ],
                 "summary": "import Multiple data Mosque Salah Times response",
-                "description": "import Multiple data Mosque Salah Times <br>\r\n            <p>1. File Excel Mosque Salah/Prayer Times extension must be .xlsx or .xls or .csv</p>\r\n            <p>2. CSV Data MUST be seperated by Comma ,</p>\r\n            <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
+                "description": "import Multiple data Mosque Salah Times <br>\n            <p>1. File Excel Mosque Salah/Prayer Times extension must be .xlsx or .xls or .csv</p>\n            <p>2. CSV Data MUST be seperated by Comma ,</p>\n            <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
                 "operationId": "importMultipleMosqueSalahTimes",
                 "parameters": [
                     {
@@ -3707,7 +3758,7 @@
                     "Mosque Special Salah Times"
                 ],
                 "summary": "Updating data Mosque Special Salah Times response",
-                "description": "Updating data Mosque Special Salah Times response\r\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
+                "description": "Updating data Mosque Special Salah Times response\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
                 "operationId": "updateMosque",
                 "parameters": [
                     {
@@ -3983,7 +4034,7 @@
                     "Mosque Special Salah Times"
                 ],
                 "summary": "Import Salah Jummah data in Mosque Spesial Salah Times response",
-                "description": "Import Salah Jummah data in Mosque Spesial Salah Times <br>\r\n        <p>1. File Excel Salah Jummah data extension must be .xlsx or .xls or .csv</p>\r\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\r\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
+                "description": "Import Salah Jummah data in Mosque Spesial Salah Times <br>\n        <p>1. File Excel Salah Jummah data extension must be .xlsx or .xls or .csv</p>\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
                 "operationId": "importJummahMosqueSpesialSalahTimes",
                 "parameters": [
                     {
@@ -4020,7 +4071,7 @@
                     "Mosque Special Salah Times"
                 ],
                 "summary": "Import Salah Jummah data in Mosque Spesial Salah Times response",
-                "description": "Import Salah Jummah data in Mosque Spesial Salah Times <br>\r\n        <p>1. File Excel Salah Jummah data extension must be .xlsx or .xls or .csv</p>\r\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\r\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
+                "description": "Import Salah Jummah data in Mosque Spesial Salah Times <br>\n        <p>1. File Excel Salah Jummah data extension must be .xlsx or .xls or .csv</p>\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
                 "operationId": "importJummahMultipleMosqueSpesialSalahTimes",
                 "parameters": [
                     {
@@ -4071,7 +4122,7 @@
                     "Mosque Special Salah Times"
                 ],
                 "summary": "Import Salah Eid-ul Fitri data in Mosque Spesial Salah Times response",
-                "description": "Import Salah Eid-ul Fitri data in Mosque Spesial Salah Times <br>\r\n        <p>1. File Excel Salah Eid-ul Fitri data extension must be .xlsx or .xls or .csv</p>\r\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\r\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
+                "description": "Import Salah Eid-ul Fitri data in Mosque Spesial Salah Times <br>\n        <p>1. File Excel Salah Eid-ul Fitri data extension must be .xlsx or .xls or .csv</p>\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
                 "operationId": "importEidulFitriMosqueSpesialSalahTimes",
                 "parameters": [
                     {
@@ -4108,7 +4159,7 @@
                     "Mosque Special Salah Times"
                 ],
                 "summary": "Import Salah Eid-ul Fitri Multiple data in Mosque Spesial Salah Times response",
-                "description": "Import Salah Eid-ul Fitri Multiple data in Mosque Spesial Salah Times <br>\r\n        <p>1. File Excel Salah Eid-ul Fitri data extension must be .xlsx or .xls or .csv</p>\r\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\r\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
+                "description": "Import Salah Eid-ul Fitri Multiple data in Mosque Spesial Salah Times <br>\n        <p>1. File Excel Salah Eid-ul Fitri data extension must be .xlsx or .xls or .csv</p>\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
                 "operationId": "importEidulFitriMultipleMosqueSpesialSalahTimes",
                 "parameters": [
                     {
@@ -4159,7 +4210,7 @@
                     "Mosque Special Salah Times"
                 ],
                 "summary": "Import Salah Eid-ul Adha data in Mosque Spesial Salah Times response",
-                "description": "Import Salah Eid-ul Adha data in Mosque Spesial Salah Times <br>\r\n        <p>1. File Excel Salah Eid-ul Adha data extension must be .xlsx or .xls or .csv</p>\r\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\r\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
+                "description": "Import Salah Eid-ul Adha data in Mosque Spesial Salah Times <br>\n        <p>1. File Excel Salah Eid-ul Adha data extension must be .xlsx or .xls or .csv</p>\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
                 "operationId": "importEidulAdhaMosqueSpesialSalahTimes",
                 "parameters": [
                     {
@@ -4196,7 +4247,7 @@
                     "Mosque Special Salah Times"
                 ],
                 "summary": "Import Salah Eid-ul Adha data in Mosque Spesial Salah Times response",
-                "description": "Import Salah Eid-ul Adha data in Mosque Spesial Salah Times <br>\r\n        <p>1. File Excel Salah Eid-ul Adha data extension must be .xlsx or .xls or .csv</p>\r\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\r\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
+                "description": "Import Salah Eid-ul Adha data in Mosque Spesial Salah Times <br>\n        <p>1. File Excel Salah Eid-ul Adha data extension must be .xlsx or .xls or .csv</p>\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
                 "operationId": "importEidulAdhaMultipleMosqueSpesialSalahTimes",
                 "parameters": [
                     {
@@ -4284,7 +4335,7 @@
                     "Quran"
                 ],
                 "summary": "Returning / Show data Quran Show Al Kahf response",
-                "description": "Returning / Show data Quran Show Al Kahf response<br>\r\n     *     Verse = Verse Arabic Ayah Quran<br>\r\n     *     Transliteration = Transliteration From Verse Arabic <br>\r\n     *     Translate = Translate From Verse Arabic to English",
+                "description": "Returning / Show data Quran Show Al Kahf response<br>\n     *     Verse = Verse Arabic Ayah Quran<br>\n     *     Transliteration = Transliteration From Verse Arabic <br>\n     *     Translate = Translate From Verse Arabic to English",
                 "operationId": "showQuranAlKahf",
                 "parameters": [
                     {
@@ -4388,7 +4439,7 @@
                     "Ramadhan Salah Times"
                 ],
                 "summary": "Updating data Ramadhan Salah Times response",
-                "description": "Updating data Ramadhan Salah Times response\r\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
+                "description": "Updating data Ramadhan Salah Times response\n          <br>#Leave it <strong>blank</strong> if you don't want to change the data",
                 "operationId": "updateRamadhanSalahTimes",
                 "parameters": [
                     {
@@ -4629,7 +4680,7 @@
                     "Ramadhan Salah Times"
                 ],
                 "summary": "Import new data Ramadhan Salah Times response",
-                "description": "Import new data Ramadhan Salah Times <br>\r\n        <p>1. File Excel Ramadhan Salah Times extension must be .xlsx or .xls or .csv</p>\r\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\r\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
+                "description": "Import new data Ramadhan Salah Times <br>\n        <p>1. File Excel Ramadhan Salah Times extension must be .xlsx or .xls or .csv</p>\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
                 "operationId": "importRamadhanSalahTimes",
                 "parameters": [
                     {
@@ -4659,7 +4710,7 @@
                     "Ramadhan Salah Times"
                 ],
                 "summary": "import Multiple new data Ramadhan Salah Times response",
-                "description": "import Multiple new data Ramadhan Salah Times <br>\r\n        <p>1. File Excel Ramadhan Salah Times extension must be .xlsx or .xls or .csv</p>\r\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\r\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
+                "description": "import Multiple new data Ramadhan Salah Times <br>\n        <p>1. File Excel Ramadhan Salah Times extension must be .xlsx or .xls or .csv</p>\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
                 "operationId": "importMultipleRamadhanSalahTimes",
                 "parameters": [
                     {
@@ -4951,7 +5002,7 @@
                     "Salah Beginning Times"
                 ],
                 "summary": "Import new data Salah Beginning Times response",
-                "description": "Import new data Salah Beginning Times <br>\r\n        <p>1. File Excel Salah Beginning Times extension must be .xlsx or .xls or .csv</p>\r\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\r\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
+                "description": "Import new data Salah Beginning Times <br>\n        <p>1. File Excel Salah Beginning Times extension must be .xlsx or .xls or .csv</p>\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
                 "operationId": "importSalahBeginningTimes",
                 "parameters": [
                     {
@@ -4981,7 +5032,7 @@
                     "Salah Beginning Times"
                 ],
                 "summary": "Import Multiple new data Salah Beginning Times response",
-                "description": "Import Multiple new data Salah Beginning Times <br>\r\n        <p>1. File Excel Salah Beginning Times extension must be .xlsx or .xls or .csv</p>\r\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\r\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
+                "description": "Import Multiple new data Salah Beginning Times <br>\n        <p>1. File Excel Salah Beginning Times extension must be .xlsx or .xls or .csv</p>\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
                 "operationId": "importMultipleSalahBeginningTimes",
                 "parameters": [
                     {

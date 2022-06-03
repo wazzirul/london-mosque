@@ -8,7 +8,7 @@ class Borough extends Model
 {
     protected $table = 'borough';
     protected $fillable = [
-        'name_borough','latitude','longitude'
+        'name_borough','slug','latitude','longitude'
     ];
 
     protected $primaryKey = 'id_borough';
