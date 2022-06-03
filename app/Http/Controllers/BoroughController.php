@@ -28,6 +28,13 @@ class BoroughController extends Controller
      *     type="string"
      *   ),  
      *  @SWG\Parameter(
+     *     name="slug",
+     *     in="formData",
+     *     description="Slug Borough ...",
+     *     required=true,
+     *     type="string"
+     *   ),  
+     *  @SWG\Parameter(
      *     name="latitude",
      *     in="formData",
      *     description="Latitude ...",
@@ -50,16 +57,19 @@ class BoroughController extends Controller
     public function store(Request $request){
         $this->validate($request,[
             'name_borough'=>'required',
+            'slug'=>'required',
             'latitude'=>'required',
             'longitude'=>'required',
         ]);  
 
         $name_borough = $request->input('name_borough');
+        $slug = $request->input('slug');
         $latitude = $request->input('latitude');
         $longitude = $request->input('longitude');
 
         $data = Borough::create([
             'name_borough' => $name_borough,
+            'slug' => $slug,
             'latitude' => $latitude,
             'longitude' => $longitude,
         ]);
@@ -101,6 +111,13 @@ class BoroughController extends Controller
      *     required=false,
      *     type="string"
      *   ),
+     *  @SWG\Parameter(
+     *     name="slug",
+     *     in="formData",
+     *     description="Slug Borough ...",
+     *     required=false,
+     *     type="string"
+     *   ),
      *   @SWG\Parameter(
      *     name="latitude",
      *     in="formData",
@@ -124,6 +141,8 @@ class BoroughController extends Controller
     public function update(Request $request){
         $this->validate($request,[
             'id_borough'=>'required',
+            'name_borough'=>'nullable',
+            'slug'=>'nullable',
             'latitude'=>'nullable',
             'longitude'=>'nullable',
         ]);  
@@ -141,11 +160,16 @@ class BoroughController extends Controller
         }
 
         $name_borough = $request->input('name_borough') ?? null;
+        $slug = $request->input('slug') ?? null;
         $latitude = $request->input('latitude') ?? null;
         $longitude = $request->input('longitude') ?? null;
 
         if($name_borough !== null){
             $borough->name_borough = $name_borough;
+        }
+
+        if($slug !== null){
+            $borough->slug = $slug;
         }
 
         if($latitude !== null){
@@ -427,7 +451,68 @@ class BoroughController extends Controller
         $res['status_code'] = 200;
         $res['success'] = true;
         $res['detail'] = "Success Returning Borough Data.";
-        $res['totaldata'] = $borough->count();
+        $res['data'] = $borough;
+
+        return response($res, 200);
+    }
+
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // SHOW BY ID
+    //////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @SWG\Post(
+     *   path="/borough/showBySlug",
+     *     tags={"Borough"},
+     *     summary="Show data borough by Slug borough response",
+     *     description="Show data borough by Slug borough response",
+     *     operationId="showBySlugBorough",
+     * 
+     *   @SWG\Parameter(
+     *     name="slug",
+     *     in="formData",
+     *     description="Slug Borough ...",
+     *     required=true,
+     *     type="string"
+     *   ),
+     * 
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function showBySlug(Request $request){
+        $this->validate($request,[
+            'slug'=>'required',
+        ]);  
+
+        $slug = $request->input('slug');
+        $borough = Borough::where('slug', $slug)
+            ->first();
+
+        if($borough === null){
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['detail'] = "Data Borough for that Slug not found.";
+
+            return response($res, 200);
+        }else if($borough->soft_delete === 1){
+            $res['status_code'] = 406;
+            $res['success'] = false;
+            $res['detail'] = "Borough was deleted. Please contact customer service.";
+
+            return response($res, 200);
+        }
+
+        $districts = Districts::where('id_borough', $borough->id_borough)
+            ->where('soft_delete', 0)
+            ->get();
+
+        $borough->districts = $districts;
+
+        $res['status_code'] = 200;
+        $res['success'] = true;
+        $res['detail'] = "Success Returning Borough Data By Slug.";
         $res['data'] = $borough;
 
         return response($res, 200);
@@ -459,6 +544,13 @@ class BoroughController extends Controller
      *     name="name_borough",
      *     in="formData",
      *     description="Name Borough ...",
+     *     required=false,
+     *     type="string"
+     *   ),
+     *  @SWG\Parameter(
+     *     name="slug",
+     *     in="formData",
+     *     description="Slug Borough ...",
      *     required=false,
      *     type="string"
      *   ),
@@ -498,6 +590,7 @@ class BoroughController extends Controller
     public function showByFilter(Request $request){
         $id_borough = $request->input('id_borough');
         $name_borough = $request->input('name_borough');
+        $slug = $request->input('slug');
 
         $soft_delete = $request->input('soft_delete') ?? 0;
         $skip = $request->input('skip') ?? 0;
@@ -511,6 +604,9 @@ class BoroughController extends Controller
         ->when($request->has('name_borough'), function ($query) use ($name_borough) {
             $query->where('borough.name_borough','like','%'.$name_borough.'%');
         })
+        ->when($request->has('slug'), function ($query) use ($slug) {
+            $query->where('borough.slug','like','%'.$slug.'%');
+        })
         ->where('borough.soft_delete',$soft_delete)
         ->skip($skip)
         ->take($take)
@@ -519,6 +615,7 @@ class BoroughController extends Controller
         ->get([
             'borough.id_borough',
             'borough.name_borough',
+            'borough.slug',
             'borough.latitude',
             'borough.longitude',
             'borough.soft_delete',
