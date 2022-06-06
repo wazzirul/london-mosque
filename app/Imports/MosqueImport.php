@@ -40,6 +40,9 @@ class MosqueImport implements ToModel, WithStartRow
                 $data->address = $row[4];
                 $data->latitude = $row[5];
                 $data->longitude = $row[6];
+                
+                if($row[7] != "") $data->url = $row[7];
+                
                 $data->save();
             }
         }

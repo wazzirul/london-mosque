@@ -83,6 +83,13 @@ class MosqueController extends Controller
      *     type="string"
      *   ),  
      *  @SWG\Parameter(
+     *     name="url",
+     *     in="formData",
+     *     description="URL Mosque ...",
+     *     required=false,
+     *     type="string"
+     *   ),  
+     *  @SWG\Parameter(
      *     name="latitude",
      *     in="formData",
      *     description="Latitude ...",
@@ -110,6 +117,7 @@ class MosqueController extends Controller
             'slug_mosque'=>'required|unique:mosque',
             'name_mosque'=>'required',
             'address'=>'required',
+            'url'=>'nullable',
             'latitude'=>'required',
             'longitude'=>'required',
         ]);  
@@ -120,6 +128,7 @@ class MosqueController extends Controller
         $slug_mosque = $request->input('slug_mosque');
         $name_mosque = $request->input('name_mosque');
         $address = $request->input('address');
+        $url = $request->input('url');
         $latitude = $request->input('latitude');
         $longitude = $request->input('longitude');
 
@@ -164,6 +173,7 @@ class MosqueController extends Controller
             'slug_mosque' => $slug_mosque,
             'name_mosque' => $name_mosque,
             'address' => $address,
+            'url' => $url,
             'latitude' => $latitude,
             'longitude' => $longitude,
         ]);
@@ -245,6 +255,13 @@ class MosqueController extends Controller
      *     description="Address Mosque ...",
      *     required=false,
      *     type="string"
+     *   ),
+     *  @SWG\Parameter(
+     *     name="url",
+     *     in="formData",
+     *     description="URL Mosque ...",
+     *     required=false,
+     *     type="string"
      *   ),  
      *  @SWG\Parameter(
      *     name="latitude",
@@ -282,6 +299,7 @@ class MosqueController extends Controller
         $slug_mosque = $request->input('slug_mosque');
         $name_mosque = $request->input('name_mosque');
         $address = $request->input('address');
+        $url = $request->input('url');
         $latitude = $request->input('latitude');
         $longitude = $request->input('longitude');
 
@@ -359,6 +377,10 @@ class MosqueController extends Controller
 
         if($address !== null){
             $data->address = $address;
+        }
+
+        if($url !== null){
+            $data->url = $url;
         }
 
         if($latitude !== null){
@@ -619,6 +641,7 @@ class MosqueController extends Controller
                 'mosque.name_mosque',
                 'mosque.slug_mosque',
                 'mosque.address',
+                'mosque.url',
                 'borough.name_borough',
                 'mosque.latitude',
                 'mosque.longitude',
@@ -899,6 +922,13 @@ class MosqueController extends Controller
      *     required=false,
      *     type="string"
      *   ),
+     *  @SWG\Parameter(
+     *     name="url",
+     *     in="formData",
+     *     description="URL Mosque (%like) ...",
+     *     required=false,
+     *     type="string"
+     *   ),
      *   @SWG\Parameter(
      *     name="date_salah_times_from",
      *     in="formData",
@@ -975,6 +1005,7 @@ class MosqueController extends Controller
         $slug_mosque = $request->input('slug_mosque');
         $name_mosque = $request->input('name_mosque');
         $address = $request->input('address');
+        $url = $request->input('url');
 
         $soft_delete = $request->input('soft_delete') ?? 0;
         $skip = $request->input('skip') ?? 0;
@@ -1024,6 +1055,9 @@ class MosqueController extends Controller
         ->when($request->has('address'), function ($query) use ($address) {
             $query->where('mosque.address','like','%'.$address.'%');
         })
+        ->when($request->has('url'), function ($query) use ($url) {
+            $query->where('mosque.url','like','%'.$url.'%');
+        })
         ->when($request->has('id_facilities'), function ($query) use ($id_facilities) {
             $query->whereIn('mosque_facilities.id_facilities',$id_facilities);
         })
@@ -1041,6 +1075,7 @@ class MosqueController extends Controller
             'mosque.slug_mosque',
             'mosque.name_mosque',
             'mosque.address',
+            'mosque.url',
             'mosque.latitude',
             'mosque.longitude',
             'mosque.soft_delete',
@@ -1243,6 +1278,7 @@ class MosqueController extends Controller
             'mosque.slug_mosque',
             'mosque.name_mosque',
             'mosque.address',
+            'mosque.url',
             'mosque.latitude',
             'mosque.longitude',
             'mosque.soft_delete',

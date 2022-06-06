@@ -770,7 +770,7 @@
                     "Borough"
                 ],
                 "summary": "Import new data Borough response",
-                "description": "Import new data Borough <br>\r\n        <p>1. File Excel Borough extension must be .xlsx or .xls or .csv</p>\r\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\r\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
+                "description": "Import new data Borough <br>\n        <p>1. File Excel Borough extension must be .xlsx or .xls or .csv</p>\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
                 "operationId": "importBorough",
                 "parameters": [
                     {
@@ -800,7 +800,7 @@
                     "Borough"
                 ],
                 "summary": "Import Multiple new data Borough response",
-                "description": "Import Multiple new data Borough <br>\r\n        <p>1. File Excel Borough extension must be .xlsx or .xls or .csv</p>\r\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\r\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
+                "description": "Import Multiple new data Borough <br>\n        <p>1. File Excel Borough extension must be .xlsx or .xls or .csv</p>\n        <p>2. CSV Data MUST be seperated by Comma ,</p>\n        <p>3. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
                 "operationId": "importMultipleBorough",
                 "parameters": [
                     {
@@ -1720,6 +1720,13 @@
                         "type": "string"
                     },
                     {
+                        "name": "url",
+                        "in": "formData",
+                        "description": "URL Mosque ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
                         "name": "latitude",
                         "in": "formData",
                         "description": "Latitude ...",
@@ -1802,6 +1809,13 @@
                         "name": "address",
                         "in": "formData",
                         "description": "Address Mosque ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "url",
+                        "in": "formData",
+                        "description": "URL Mosque ...",
                         "required": false,
                         "type": "string"
                     },
@@ -2052,6 +2066,13 @@
                         "type": "string"
                     },
                     {
+                        "name": "url",
+                        "in": "formData",
+                        "description": "URL Mosque (%like) ...",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
                         "name": "date_salah_times_from",
                         "in": "formData",
                         "description": "Date Salah Times From (YYYY-mm-dd ,ex : 2021-11-15) ...",
@@ -2199,7 +2220,7 @@
                     "Mosque"
                 ],
                 "summary": "Import new data Mosque response",
-                "description": "Import new data Mosque <br>\r\n        <p>1. File Excel Mosque extension must be .xlsx or .xls or .csv</p>\r\n        <p>2. Data Borough Must Be In Database ,</p>\r\n        <p>3. CSV Data MUST be seperated by Comma ,</p>\r\n        <p>4. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
+                "description": "Import new data Mosque <br>\n        <p>1. File Excel Mosque extension must be .xlsx or .xls or .csv</p>\n        <p>2. Data Borough Must Be In Database ,</p>\n        <p>3. CSV Data MUST be seperated by Comma ,</p>\n        <p>4. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
                 "operationId": "importMosque",
                 "parameters": [
                     {
@@ -2229,7 +2250,7 @@
                     "Mosque"
                 ],
                 "summary": "Import Multiple new data Mosque response",
-                "description": "Import Multiple new data Mosque <br>\r\n        <p>1. File Excel Mosque extension must be .xlsx or .xls or .csv</p>\r\n        <p>2. Data Borough Must Be In Database ,</p>\r\n        <p>3. CSV Data MUST be seperated by Comma ,</p>\r\n        <p>4. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
+                "description": "Import Multiple new data Mosque <br>\n        <p>1. File Excel Mosque extension must be .xlsx or .xls or .csv</p>\n        <p>2. Data Borough Must Be In Database ,</p>\n        <p>3. CSV Data MUST be seperated by Comma ,</p>\n        <p>4. CSV Data Format MUST be same like other, dont make a difference in the ORDER & FORMAT data in each file</p>",
                 "operationId": "importMultipleMosque",
                 "parameters": [
                     {

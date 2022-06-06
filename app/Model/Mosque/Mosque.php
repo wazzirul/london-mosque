@@ -11,7 +11,7 @@ class Mosque extends Model
     protected $table = 'mosque';
     protected $fillable = [
         'id_mosque_google_place','id_borough','id_district','slug_mosque',
-        'name_mosque','address','latitude','longitude'
+        'name_mosque','address','url','latitude','longitude'
     ];
 
     protected $primaryKey = 'id_mosque';
