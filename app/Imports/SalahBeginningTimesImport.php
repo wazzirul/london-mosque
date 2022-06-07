@@ -77,7 +77,8 @@ class SalahBeginningTimesImport implements ToModel, WithStartRow
                 $timestamp = strtotime(strval($row[1]));
             }
         } 
-        $date = date("Y-m-d", $timestamp);
+
+        $date = Carbon::parse($timestamp)->format('Y-m-d');
 
         if($date !== null){            
             if($row[2] !== null){ // fajr / subuh
