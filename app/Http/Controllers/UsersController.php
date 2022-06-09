@@ -77,7 +77,7 @@ class UsersController extends Controller
             $mail->Host = 'smtp.gmail.com';
             $mail->Port = 587;
             $mail->Username = 'londonmosquemailer@gmail.com'; // Email Yang Digunakan untuk Mengirim ----------------------- SETTING EMAIL TERLEBIH DULU
-            $mail->Password = 'londonmailerpass'; // Password Email Yang Digunakan Untuk Mengirim ----- SETTING EMAIL TERLEBIH DULU
+            $mail->Password = 'xzbiglxdktligjxp'; // Password Email Yang Digunakan Untuk Mengirim ----- SETTING EMAIL TERLEBIH DULU
             $mail->SMTPSecure = 'tls';
             $mail->SMTPAuth = true;
             $mail->isHTML(true);
@@ -841,7 +841,7 @@ class UsersController extends Controller
                 $mail->Host = 'smtp.gmail.com';
                 $mail->Port = 587;
                 $mail->Username = 'londonmosquemailer@gmail.com'; // Email Yang Digunakan untuk Mengirim ----------------------- SETTING EMAIL TERLEBIH DULU
-                $mail->Password = 'londonmailerpass'; // Password Email Yang Digunakan Untuk Mengirim ----- SETTING EMAIL TERLEBIH DULU
+                $mail->Password = 'xzbiglxdktligjxp'; // Password Email Yang Digunakan Untuk Mengirim ----- SETTING EMAIL TERLEBIH DULU
                 $mail->SMTPSecure = 'tls';
                 $mail->SMTPAuth = true;
                 $mail->isHTML(true);
@@ -863,6 +863,7 @@ class UsersController extends Controller
                 $res['status_code'] = 200;
                 $res['success'] = true;
                 $res['detail'] = "Resend code verification success.";
+
             }else{
                 $timeToWaiting = 5 - (int)Carbon::now()->diffInMinutes(Carbon::parse($verify->updated_at));
 
@@ -877,7 +878,7 @@ class UsersController extends Controller
             $mail->Host = 'smtp.gmail.com';
             $mail->Port = 587;
             $mail->Username = 'londonmosquemailer@gmail.com'; // Email Yang Digunakan untuk Mengirim ----------------------- SETTING EMAIL TERLEBIH DULU
-            $mail->Password = 'londonmailerpass'; // Password Email Yang Digunakan Untuk Mengirim ----- SETTING EMAIL TERLEBIH DULU
+            $mail->Password = 'xzbiglxdktligjxp'; // Password Email Yang Digunakan Untuk Mengirim ----- SETTING EMAIL TERLEBIH DULU
             $mail->SMTPSecure = 'tls';
             $mail->SMTPAuth = true;
             $mail->isHTML(true);
@@ -911,6 +912,7 @@ class UsersController extends Controller
             $res['status_code'] = 200;
             $res['success'] = true;
             $res['detail'] = "Resend code verification success.";
+            
         }
 
         return response($res, 200);
