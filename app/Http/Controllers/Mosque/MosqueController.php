@@ -1278,6 +1278,7 @@ class MosqueController extends Controller
             'mosque.slug_mosque',
             'mosque.name_mosque',
             'mosque.address',
+            'mosque.postcode',
             'mosque.url',
             'mosque.latitude',
             'mosque.longitude',
