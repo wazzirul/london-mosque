@@ -2288,6 +2288,27 @@
                 }
             }
         },
+        "/mosque/addPostCode": {
+            "post": {
+                "tags": [
+                    "Mosque"
+                ],
+                "summary": "Add Post Code Mosque response",
+                "description": "Add Post Code Mosque",
+                "operationId": "mosqueAddPostCode",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
         "/mosque-facilities/store": {
             "post": {
                 "tags": [

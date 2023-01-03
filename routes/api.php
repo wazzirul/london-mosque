@@ -286,6 +286,8 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post('mosque/undelete', 'Mosque\MosqueController@undelete');
     Route::post('mosque/import', 'Mosque\MosqueController@import');
     Route::post('mosque/importMultiple', 'Mosque\MosqueController@importMultiple');
+    // Dont uncomment
+    Route::post('mosque/addPostCode', 'Mosque\MosqueController@addPostCode');
     
     ///////////////////////////////////////////////////////////////////////////////////////////
     // Mosque Salah Times

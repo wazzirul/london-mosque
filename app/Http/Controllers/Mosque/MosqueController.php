@@ -1539,4 +1539,39 @@ class MosqueController extends Controller
         $res['message'] = 'Success Importing Mosque data';
         return response($res, 200);
     }
+
+
+    /**
+     * @SWG\Post(
+     *   path="/mosque/addPostCode",
+     *     tags={"Mosque"},
+     *     summary="Add Post Code Mosque response",
+     *     description="Add Post Code Mosque",
+     *     operationId="mosqueAddPostCode",
+     * 
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
+    public function addPostCode(Request $request){
+        $mosque = Mosque::all();
+
+        foreach($mosque as $m){
+            $selectedMosque = Mosque::find($m->id_mosque);
+            $address = $m->address;
+            $postcodeSplitted = explode(',', $address);
+            $postcode = $postcodeSplitted[count($postcodeSplitted) - 1];
+            $postcode = str_replace('london','',$postcode); 
+            $postcode = str_replace('London','',$postcode); 
+            $postcode = str_replace(' ','',$postcode); 
+            $selectedMosque->postcode = $postcode;
+            $selectedMosque->save();
+        }
+
+        $res['status_code'] = 200;
+        $res['success'] = true;
+        $res['message'] = 'Success Add Post Code Mosque data';
+        return response($res, 200);
+    }
 }
